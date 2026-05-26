@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using tk2dRuntime.TileMap;
 using UnityEngine;
 using UnityEngine.U2D;
 using UnityEngine.UI;

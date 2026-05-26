@@ -2,7 +2,6 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using tk2dRuntime.TileMap;
 
 [System.Serializable]
 public class CurrencyInfo

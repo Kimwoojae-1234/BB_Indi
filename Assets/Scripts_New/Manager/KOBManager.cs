@@ -22,8 +22,7 @@ public class KOBManager : MonoBehaviour
             Databasemanager = null;
             Myinfomanager = null;
             Localizationmanager = null;
-            Resourcemanager = null;
-            photonManager = null;
+            Resourcemanager = null;            
             uiManager = null;
             popManager = null;
             frontuiManager = null;
@@ -121,22 +120,6 @@ public class KOBManager : MonoBehaviour
             return Resourcemanager;
         }
     }
-
-    private static PhotonManager photonManager;
-    public static PhotonManager Photon
-    {
-        get
-        {
-            if (photonManager == null)
-            {
-                GameObject photonManagerObj = new GameObject("PhotonManager");
-                photonManager = photonManagerObj.AddComponent<PhotonManager>();
-                photonManager.transform.SetParent(Instance.gameObject.transform);
-            }
-            return photonManager;
-        }
-    }
-
 
 
     private static UIManager uiManager;

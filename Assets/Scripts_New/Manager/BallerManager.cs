@@ -4,9 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using static Popup_Promotion;
-using Photon.Pun.Demo.SlotRacer.Utils;
-using Photon.Realtime;
 
 
 public class BallerManager : MonoBehaviour
