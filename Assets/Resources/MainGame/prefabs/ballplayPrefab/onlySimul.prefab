@@ -1,0 +1,403 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &154260
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 451308}
+  - component: {fileID: 11421484}
+  - component: {fileID: 11401878}
+  - component: {fileID: 11485692}
+  m_Layer: 0
+  m_Name: onlySimul
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &451308
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154260}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -949.11304, y: 814.23645, z: -1874.2898}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &11421484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22847d69242d44d46a4ca5a6607a6aa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _initPosX: 0
+  _initZOrder: -2
+  _initPosY: 422
+  pitch: {fileID: 0}
+  pitchPv: {fileID: 0}
+  manager: {fileID: 0}
+  batter: {fileID: 0}
+  bball: {fileID: 0}
+  bvfielder: []
+  zoneUI: {fileID: 0}
+  anim: {fileID: 0}
+  pAnim: {fileID: 0}
+  effectAnim1: {fileID: 0}
+  munjiAnim: {fileID: 0}
+  icon: {fileID: 0}
+  pState: 0
+  lastState: 0
+  fatigueStep: 0
+  selectedBallIndex: 0
+  curBallSpeed: 0
+  bBreakingBallType: 0
+  courseX: 0
+  courseY: 0
+  courseX2: 0
+  courseY2: 0
+  coursePvpX: 0
+  coursePvpY: 0
+  arriveX: 0
+  arriveY: 0
+  preArriveX: 0
+  preArriveY: 0
+  preHenkaX: 0
+  preHenkaY: 0
+  aiMissOffsetX: 0
+  aiMissOffsetY: 0
+  bGetSign: 0
+  bSetPosition: 0
+  bMissControl: 0
+  bPowerPitch: 0
+  bStartPitch: 0
+  strName: 
+  strStat: 
+  condition: 0
+  pitchHand: 0
+  pitchingType: 0
+  pitchingType2: 0
+  bRelease: 0
+  nSign: 0
+  bTipHappen: 0
+  bCheckSwingAsk: 0
+  hitByPitchStep: 0
+  controlValue: 0
+  userControlValue: 0
+  pControl: 0
+  pGuwee: 0
+  pFinalGuwee: 0
+  bWildPitch: 0
+  missType: 0
+  inPitcher: 0
+  outPitcher: 0
+  bInningStart: 0
+  allowRun: 
+  pitchCount: 
+  startInning: 
+  bLongReliefOn: 
+  bChaseOn: 
+  bSetupOn: 
+  bSaveOn: 
+  bEarnedRunFlag: 0
+  bNoMoreEarnRun: 0
+  pinchState: 0
+  conHit: 0
+  conHR: 0
+  conRun: 0
+  catcher: {fileID: 0}
+  bCatcherMoveFlag: 0
+  pvjudge: {fileID: 0}
+  bPitchTimerOn: 0
+  bPvState: 0
+  bNewPitcher: 0
+  fastballCon: 0
+  bLastFastBall: 0
+  readyAnimCount: 0
+--- !u!114 &11401878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b079273ba7e380419a4535550bea0c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 0}
+  zoneUI: {fileID: 0}
+  ballImage: {fileID: 0}
+  anim: {fileID: 0}
+  pAnim: {fileID: 0}
+  effectAnim1: {fileID: 0}
+  batEffectAnim: {fileID: 0}
+  bState: 0
+  bNewBatter: 0
+  bNewBatterInfo: 0
+  bHitted: 0
+  bHitChecked: 0
+  bPreHitCheck: 0
+  bSwing: 0
+  bForcedSwingPrevent: 0
+  bGangTa: 0
+  bBunt: 0
+  bBuntHit: 0
+  buntType: 0
+  buntTypePre: 0
+  buntSuccess: 0
+  bSacFly: 0
+  buntDir: 0
+  buntFielder: 0
+  bTipped: 0
+  aiCheckStep: 0
+  onTimingSwing: 0
+  strName: 
+  sign: 0
+  condition: 0
+  position: 0
+  secondPosition: 0
+  batterHand: 0
+  lastBatterHand: 0
+  battingType: 0
+  timing: 0
+  aiTimingPoint: 0
+  contact: 0
+  aiContactPoint: 0
+  timingAddPoint: 0
+  contactAddPoint: 0
+  buntResult: 0
+  bEye: 0
+  bContact: 0
+  bPower: 0
+  bTando: 0
+  bArrivePointGuess: 0
+  bCheckSwing: 0
+  bCheckSwingActivate: 0
+  bMustCheckSwing: 0
+  bCheckSwinged: 0
+  cursorX: 0
+  cursorY: 0
+  cursorDX: 0
+  cursorDY: 0
+  battingOffsetX: 0
+  battingOffsetY: 0
+  bStrkeSwing: 0
+  bBadballSwingLow: 0
+  bBadballSwingHigh: 0
+  bBadballSwingFar: 0
+  bBadballSwingNear: 0
+  bFarBatting: 0
+  bNearBatting: 0
+  bHighBatting: 0
+  bLowBatting: 0
+  batRealSizeX: 0
+  batRealSizeY: 0
+  batGangtaSize: 0
+  bReleaseCheck: 0
+  bGuessCorrect: 0
+  bStrikeCheck: 0
+  aiHitandRunDecide: 0
+  powerCoef1: 0
+  powerCoef2: 0
+  powerCoef3: 0
+  outBatter: 0
+  curLineupCount: 0
+  bHitGood: 0
+  bHitHomeRun: 0
+  autoModeBatting: 0
+  batterPerfectTime: 0
+  perfectTimingGabRate: 0
+  bPvState: 0
+  _PERFECT_FAST: 0
+  _PERFECT_LATE: 0
+  _PERFECT_TIMING: 0
+  bLoadBatterFlag: 0
+  effectX: 0
+  effectY: 0
+  strID: 
+  bBatterFieldUpdate: 0
+  userHitRate: 0
+  bDecideSwing: 0
+  bReadyAnim: 0
+--- !u!114 &11485692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4d16f2febe40144690e22e48bd3c49a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tempClone: []
+  fieldTransform: {fileID: 0}
+  manager: {fileID: 0}
+  pitcher: {fileID: 0}
+  batter: {fileID: 0}
+  ball: {fileID: 0}
+  run: {fileID: 0}
+  judge: {fileID: 0}
+  fielder: []
+  battingview: {fileID: 0}
+  fieldState: 0
+  firstBound: {fileID: 0}
+  tvChase: {fileID: 0}
+  _FIELD_SIZE_X: 0
+  _FIELD_SIZE_Y: 0
+  baseHomePosY: 0
+  homeX: 0
+  homeY: 0
+  nBenchPosX: 0
+  nBenchPosY: 0
+  nBenchFielderPosX: 0
+  nBenchFielderPosY: 0
+  throwW: 0
+  throwH: 0
+  ballPower: 0
+  firstBallSpeed: 0
+  groundingDstX: 0
+  groundingDstY: 0
+  _ZOOM_SIZE: 1
+  bZoomInState: 0
+  bZoomOutState: 0
+  destZoom: 0
+  zoomSpeed: 0
+  curZoom: 0
+  bFieldZoom: 0
+  bThrowZoom: 0
+  bFieldPerspectiveZoom: 0
+  flyCatchFielder: 0
+  groundCatchFielder: 0
+  nCatchIndex: 0
+  fieldShift: 0
+  nThrowIndex: 0
+  nFirstThrowIndex: 0
+  curThrowIndex: 0
+  nTargetIndex: 0
+  nCarrierIndex: 0
+  nRelayFielderIndex: 0
+  nFirstThrower: 0
+  nRecheckTarget: 0
+  nCheckBaseNum: 0
+  flyCatchAvaiableCount: 0
+  fastRemainTime: 0
+  throwRemainTime: 0
+  doublePlayType: 0
+  getAddScore: 0
+  lastAddScore: 0
+  lastPitcherAddScore: 0
+  getAddErrScore: 0
+  lastPitcherAddErrScore: 0
+  pickOffCount: 0
+  stealBaseTarget: 0
+  bFirstThrow: 0
+  bTossThrow: 0
+  bOnceWildThrow: 0
+  bFieldOut: 0
+  bGrounderAvailble: 0
+  bAssist: 0
+  bPutOut: 0
+  bBaseCoverd: 
+  bOutByFlyball: 0
+  earlygrounder: 0
+  grounder: 0
+  infieldFlyOut: 0
+  shallowFlyOut: 0
+  deepFlyOut: 0
+  bRelaying: 0
+  bThrowing: 0
+  bThrowBallCatched: 0
+  bPitcherException: 0
+  bFieldersChoice: 0
+  bHomeRunGangTa: 0
+  bPitcherKill: 0
+  bGrounderSpecial: 0
+  bFlyballSpecial: 0
+  bSpecialMoveActivte: 0
+  bDelayedCall: 0
+  bStealThrow: 0
+  bOutCalled: 0
+  bHomerunStealTry: 0
+  bFieldStealFlag: 0
+  bFieldPickOffFlag: 0
+  bFieldDelayStealFlag: 0
+  bOutofInfield: 0
+  bCrushDelay: 0
+  bNormalFielding: 0
+  bNoCheckReThrow: 0
+  bBaseCoverAfterLiner: 0
+  bFoulFlyOut: 0
+  bMoreDouble: 0
+  stealSuccess: 0
+  bPickOffOut: 0
+  nErrorFielder: 0
+  errorType: 0
+  bErrorFlag: 0
+  bThrowErrorFlag: 0
+  bInfieldThrowErrorFlag: 0
+  wildPitchCase: 0
+  bCollisionFlag: 0
+  bFielderCrushEffect: 0
+  bBuntFielding: 0
+  bBuntSuccess: 0
+  bSqueezeFieldOut: 0
+  delayedCallTime: 0
+  bBallTail: 0
+  throwFrame: 0
+  b2ndLeadCheck: 0
+  chanceResult: 3
+  runnerHomeRush: 0
+  runnerTurbo: 0
+  runnerDPStop: 0
+  bNoMoreHomeRushFlag: 0
+  bRushCounterHappen: 0
+  bFieldVsSkillOffenseWin: 0
+  bInputWait: 0
+  bRunnerControlPossible: 0
+  bFielderControlPossible: 0
+  bMustSlowMove: 0
+  bFielderTextureInit1: 0
+  bFielderTextureInit2: 0
+  bFielderTextureInit3: 0
+  curBatterFoulNum: 0
+  bFieldViewActive: 0
+  b2DBattingSystem: 0
+  battingviewFieidingType: 0
+  bVsShow: 0
+  vsSkillID: 0
+  vsSkillRank: 0
+  netTarget: 
+  netOneMoreValue: []
+  netBaseSafe: 
+  bFieldSyncCheck: 0
+  fireWorkObj: {fileID: 0}
+  bHomerunCeremony: 0
+  bReturnBattingView: 0
+  returnCheckTime: 0
+  returnCheckTime2: 0
+  bReturnCheck: 0
+  bReturnException: 0
+  returnWaitTime: 1.2
+  bUpdateStealOrPickOff: 0
+  doublePlayCheckCount: 0
+  throwFielder: 0
+  bFieldFirst: 0

@@ -1,0 +1,320 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &100000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 400000}
+  - component: {fileID: 11400000}
+  - component: {fileID: 8217996}
+  m_Layer: 0
+  m_Name: ballplayManager
+  m_TagString: BallPlayManager
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &400000
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10000, y: -10000, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08ce9a7b093e01f44a7f594a4304d1fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BattingViewInitZoom: 1
+  simulator: {fileID: 0}
+  pitcher: {fileID: 0}
+  batter: {fileID: 0}
+  field: {fileID: 0}
+  battingview: {fileID: 0}
+  pitch: {fileID: 0}
+  pitchPv: {fileID: 0}
+  IngameUITrans: {fileID: 0}
+  hitBallType: 0
+  playState: 0
+  bReadyFinish: 0
+  bReadyFinish2: 0
+  bReadyFinish3: 0
+  readyZoom: 0
+  poIndex: 0
+  aoIndex: 0
+  sbfIndex: 0
+  offenseIndex: 0
+  defenseIndex: 0
+  bChangeFlag: 0
+  bChangeFlagBatter: 0
+  bChangeFlagRunner: 0
+  bNoChange: 0
+  bMyChange: 0
+  nHeroModeChangeIndex: 0
+  bTopInning: 0
+  bMyTurn: 0
+  bMyHome: 0
+  bTopInningFinish: 0
+  bPlayBall: 0
+  bGameSet: 0
+  bGoodByeHitCall: 0
+  bStrike: 0
+  bStrikeOut: 0
+  bThreeOutChange: 0
+  bStealStrikeOut: 0
+  bStrikeCheck: 0
+  bBall: 0
+  bBaseOnBalls: 0
+  bSqueeze: 0
+  nInningCount: 0
+  nOutCount: 0
+  nStrikeCount: 0
+  nBallCount: 0
+  outCountIF: 0
+  newStrikeCount: 0
+  newBallCount: 0
+  newOutCount: 0
+  fieldOutCountNum: 0
+  nBatterCount: 0
+  nGameScore: 0000000000000000
+  nHitCount: 0000000000000000
+  nErrorCount: 0000000000000000
+  nFourballCount: 0000000000000000
+  nStrikeOutCount: 0000000000000000
+  nHomerunCount: 0000000000000000
+  nDPCount: 0000000000000000
+  nStealCount: 0000000000000000
+  strBatterResult: 
+  strFieldOutType: 
+  strHitType: 
+  strHitType2: 
+  nCurPitcherPitchNum: 0000000000000000
+  bTurnAroundFlag: 0000
+  nCurScore: 0000000000000000
+  nLastScore: 0
+  winPitcherIndex: 0000000000000000
+  losePitcherIndex: 0000000000000000
+  bSaveGame2: 0
+  nRand1: 0
+  nRand2: 0
+  nRand3: 0
+  nRand4: 0
+  eyeRand: 0
+  nTeamSkillPoint: 0
+  bUpdate: 0
+  bPitcherChangeFlag: 0
+  bBatterChangeFlag: 0
+  bFielderChangeFlag: 0
+  bRunnerChangeFlag: 0
+  bInningChange: 0
+  bPitcherChangeException: 0
+  bPlayBallEvent: 0
+  bBatterForceLoad: 0
+  bCurrentChanceModeState: 0
+  nineTwoRound: 0
+  nineTwoScore: 0
+  nineTwoFinalScore: 0
+  nineTwoFinalRound: 0
+  nineTwoRoundScore: 
+  bNineTwoNextRound: 0
+  bPVPHitInfoCheck: 0
+  nohitType: -100
+  Pvp_bWildPitch: 0
+  Pvp_bStrikeCheck: 0
+  Pvp_bSwing: 0
+  Pvp_bBunt: 0
+  Pvp_bContact: 0
+  Pvp_bBuntContact: 0
+  Pvp_TimingPoint: 0
+  Pvp_ContactPoint: 0
+  Pvp_StealResult: 0
+  Pvp_RandonSeed: 0
+  Pvp_BallPower: 0
+  Pvp_AngleZ: 0
+  Pvp_Angle: 0
+  Pvp_AngleHookSlice: 0
+  Pvp_HookorSlice: 0
+  Pvp_TopSpin: 0
+  Pvp_BuntType: 0
+  Pvp_BuntResult: 0
+  Pvp_BuntFielder: 0
+  Pvp_spcatch: 0
+  Pvp_spthrow: 0
+  Pvp_diving: 0
+  Pvp_hrsteal: 0
+  Pvp_OneMore: 00000000
+  Pvp_moreSkillSense: 00000000000000000000000000000000
+  Pvp_FiendSync: 0
+  Pvp_GroundTimeH:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  Pvp_GroundTimeF:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  Pvp_possibleDis:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  Pvp_distanceToBall:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  Pvp_throwTarget: 000000000000000000000000000000000000000000000000000000000000000000000000
+  Pvp_FiendResultSync: 0
+  Pvp_bOnBase: 000000
+  Pvp_myScore: 0
+  Pvp_otherScore: 0
+  Pvp_outCount: 0
+  Pvp_bThreeOut: 0
+  Pvp_bGoodBye: 0
+  bFielderLoadComp: 0
+  displayEffectType: 0
+  inningTime: 0
+  simulCalled: 0
+  bBattingPreUpdate: 0
+  batterSkillFlag: 0
+  pitcherSkillFlag: 0
+  vsType: 0
+--- !u!82 &8217996
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 316ecdd94cb88134abf7f00164d8e276, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0

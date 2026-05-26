@@ -1,0 +1,1459 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1237406541540738
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4435963404755514}
+  - component: {fileID: 114847118544924614}
+  - component: {fileID: 114598755730673754}
+  m_Layer: 0
+  m_Name: skillEffectDisplayManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4435963404755514
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237406541540738}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -339.01572, y: 628.31396, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114847118544924614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237406541540738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e8c1cebba79fcb46abb408a923fa307, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sun_du_ta_ja:
+    skill: 100031
+    ID: 0
+    step:
+    - step: 0
+      play: 2
+      deleteUI: 1
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        playType: 0
+        focustType: 0
+        duration: 3
+        setValue: 0
+        startValue: 0
+        animation: cutdivine_cha
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+      sideEffect:
+      - waitTime: 2
+        displayType: 11
+        playType: 0
+        focustType: 0
+        duration: 2
+        setValue: 0
+        startValue: 0
+        animation: leading_batter_game
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+    - step: 0
+      play: 1
+      deleteUI: 1
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        playType: 0
+        focustType: 0
+        duration: 3
+        setValue: 0
+        startValue: 0
+        animation: cutdivine_cha
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+      sideEffect:
+      - waitTime: 0
+        displayType: 0
+        playType: 0
+        focustType: 0
+        duration: 0
+        setValue: 0
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+  chu_gyeog_bon_neung:
+    skill: 100041
+    ID: 0
+    step:
+    - step: 0
+      play: 2
+      deleteUI: 1
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        playType: 0
+        focustType: 0
+        duration: 3
+        setValue: 0
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+      sideEffect:
+      - waitTime: 0
+        displayType: 0
+        playType: 0
+        focustType: 0
+        duration: 0
+        setValue: 0
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+    - step: 0
+      play: 1
+      deleteUI: 1
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        playType: 0
+        focustType: 0
+        duration: 3
+        setValue: 0
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+      sideEffect:
+      - waitTime: 0
+        displayType: 0
+        playType: 0
+        focustType: 0
+        duration: 0
+        setValue: 0
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+  bul_kkot_tu_hon:
+    skill: 100051
+    ID: 0
+    step:
+    - step: 0
+      play: 2
+      deleteUI: 1
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        playType: 0
+        focustType: 0
+        duration: 3
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+      sideEffect:
+      - waitTime: 0
+        displayType: 0
+        playType: 0
+        focustType: 0
+        duration: 1
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+    - step: 0
+      play: 1
+      deleteUI: 1
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        playType: 0
+        focustType: 0
+        duration: 3
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+      sideEffect:
+      - waitTime: 0
+        displayType: 0
+        playType: 0
+        focustType: 0
+        duration: 1
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+  kang_sim_jang:
+    skill: 100061
+    ID: 0
+    step:
+    - step: 0
+      play: 2
+      deleteUI: 1
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        playType: 0
+        focustType: 0
+        duration: 3
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+      sideEffect:
+      - waitTime: 0
+        displayType: 0
+        playType: 0
+        focustType: 0
+        duration: 1
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+    - step: 0
+      play: 1
+      deleteUI: 1
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        playType: 0
+        focustType: 0
+        duration: 2
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+      sideEffect:
+      - waitTime: 0
+        displayType: 0
+        playType: 0
+        focustType: 0
+        duration: 1
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+  hoe_sim_il_gyeog:
+    skill: 100071
+    ID: 0
+    step:
+    - step: 1
+      play: 2
+      deleteUI: 1
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        playType: 0
+        focustType: 0
+        duration: 2
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+      sideEffect:
+      - waitTime: 0
+        displayType: 0
+        playType: 0
+        focustType: 0
+        duration: 1
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+    - step: 3
+      play: 1
+      deleteUI: 1
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        playType: 0
+        focustType: 0
+        duration: 2
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+      sideEffect:
+      - waitTime: 0
+        displayType: 0
+        playType: 0
+        focustType: 0
+        duration: 0
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+  mea_hog:
+    skill: 100081
+    ID: 0
+    step:
+    - step: 1
+      play: 2
+      deleteUI: 0
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        playType: 2
+        focustType: 0
+        duration: 1
+        setValue: 20
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+      sideEffect:
+      - waitTime: 0
+        displayType: 0
+        playType: 0
+        focustType: 0
+        duration: 1
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+    - step: 3
+      play: 1
+      deleteUI: 0
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        playType: 2
+        focustType: 0
+        duration: 2
+        setValue: 20
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+      sideEffect:
+      - waitTime: 0
+        displayType: 0
+        playType: 0
+        focustType: 0
+        duration: 3
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+  too_soo_wi_ab:
+    skill: 100091
+    ID: 0
+    step:
+    - step: 0
+      play: 2
+      deleteUI: 1
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        playType: 0
+        focustType: 0
+        duration: 3
+        setValue: 0
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+      sideEffect:
+      - waitTime: 0
+        displayType: 0
+        playType: 0
+        focustType: 0
+        duration: 0
+        setValue: 1
+        startValue: 0
+        animation: overpower
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+    - step: 0
+      play: 1
+      deleteUI: 1
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        playType: 0
+        focustType: 0
+        duration: 3
+        setValue: 0
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+      sideEffect:
+      - waitTime: 0
+        displayType: 0
+        playType: 0
+        focustType: 0
+        duration: 0
+        setValue: 1
+        startValue: 0
+        animation: overpower
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+  chrisma:
+    skill: 100111
+    ID: 0
+    step:
+    - step: 0
+      play: 2
+      deleteUI: 1
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        playType: 0
+        focustType: 0
+        duration: 3
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+      sideEffect:
+      - waitTime: 0
+        displayType: 0
+        playType: 0
+        focustType: 0
+        duration: 0
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+    - step: 0
+      play: 1
+      deleteUI: 1
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        playType: 0
+        focustType: 0
+        duration: 3
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+      sideEffect:
+      - waitTime: 0
+        displayType: 0
+        playType: 0
+        focustType: 0
+        duration: 0
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 0
+          scaleY: 0
+        alpha: 0
+  mae_noon:
+    skill: 200091
+    ID: 0
+    step:
+    - step: 2
+      play: 1
+      deleteUI: 1
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        playType: 0
+        focustType: 0
+        duration: 3
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+      sideEffect:
+      - waitTime: 0
+        displayType: 17
+        playType: 0
+        focustType: 0
+        duration: 4
+        setValue: 0
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+      - waitTime: 0
+        displayType: 3
+        playType: 0
+        focustType: 0
+        duration: 3
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+      - waitTime: 1
+        displayType: 12
+        playType: 0
+        focustType: 0
+        duration: 3
+        setValue: 1
+        startValue: 0
+        animation: falconeye
+        vector:
+          posX: -25
+          posY: -193
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+      - waitTime: 2.5
+        displayType: 2
+        playType: 1
+        focustType: 0
+        duration: 0.7
+        setValue: 1
+        startValue: 2
+        animation: 
+        vector:
+          posX: -25
+          posY: -193
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+      - waitTime: 0
+        displayType: 0
+        playType: 0
+        focustType: 0
+        duration: 3
+        setValue: 0.4
+        startValue: 0
+        animation: 
+        vector:
+          posX: -25
+          posY: -193
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+    - step: 4
+      play: 2
+      deleteUI: 1
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        playType: 0
+        focustType: 0
+        duration: 3
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+      sideEffect:
+      - waitTime: 0
+        displayType: 0
+        playType: 0
+        focustType: 0
+        duration: 4
+        setValue: 0
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+  ta_ja_ei_ab:
+    skill: 200101
+    ID: 0
+    step:
+    - step: 0
+      play: 1
+      deleteUI: 1
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        playType: 0
+        focustType: 0
+        duration: 1.5
+        setValue: 0
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+      sideEffect:
+      - waitTime: 0
+        displayType: 3
+        playType: 0
+        focustType: 0
+        duration: 3
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+      - waitTime: 0
+        displayType: 2
+        playType: 0
+        focustType: 0
+        duration: 2
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+      - waitTime: 1
+        displayType: 12
+        playType: 0
+        focustType: 0
+        duration: 2.5
+        setValue: 1
+        startValue: 0
+        animation: ta_ja_wi_ab
+        vector:
+          posX: -19
+          posY: -37
+          scaleX: 1.2
+          scaleY: 1.2
+        alpha: 1
+      - waitTime: 0
+        displayType: 0
+        playType: 0
+        focustType: 0
+        duration: 1
+        setValue: 0
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+    - step: 0
+      play: 2
+      deleteUI: 1
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        playType: 0
+        focustType: 0
+        duration: 3
+        setValue: 0
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+      sideEffect:
+      - waitTime: 0
+        displayType: 0
+        playType: 0
+        focustType: 0
+        duration: 3
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+  gang_seup_ta_gu:
+    skill: 200111
+    ID: 0
+    step:
+    - step: 0
+      play: 1
+      deleteUI: 1
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        playType: 0
+        focustType: 0
+        duration: 1
+        setValue: 0
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+      sideEffect:
+      - waitTime: 0
+        displayType: 3
+        playType: 0
+        focustType: 0
+        duration: 2
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+      - waitTime: 0
+        displayType: 2
+        playType: 0
+        focustType: 0
+        duration: 2
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+      - waitTime: 1
+        displayType: 13
+        playType: 0
+        focustType: 0
+        duration: 2
+        setValue: 1
+        startValue: 0
+        animation: comebackers
+        vector:
+          posX: 0.08
+          posY: 0.01
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+      - waitTime: 0
+        displayType: 5
+        playType: 0
+        focustType: 0
+        duration: 0.6
+        setValue: 10.6
+        startValue: 0
+        animation: comebackers
+        vector:
+          posX: 0.08
+          posY: 0.01
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+    - step: 4
+      play: 2
+      deleteUI: 1
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        playType: 0
+        focustType: 0
+        duration: 1
+        setValue: 0
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+      sideEffect:
+      - waitTime: 0
+        displayType: 0
+        playType: 0
+        focustType: 0
+        duration: 2
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+  chance_man:
+    skill: 200121
+    ID: 0
+    step:
+    - step: 0
+      play: 1
+      deleteUI: 1
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        playType: 0
+        focustType: 0
+        duration: 1.5
+        setValue: 0
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+      sideEffect:
+      - waitTime: 0
+        displayType: 3
+        playType: 0
+        focustType: 0
+        duration: 1.5
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+      - waitTime: 0
+        displayType: 2
+        playType: 0
+        focustType: 0
+        duration: 3
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+      - waitTime: 1
+        displayType: 12
+        playType: 0
+        focustType: 0
+        duration: 3
+        setValue: 1
+        startValue: 0
+        animation: lucky
+        vector:
+          posX: -34
+          posY: -2
+          scaleX: 1.2
+          scaleY: 1.2
+        alpha: 1
+    - step: 0
+      play: 2
+      deleteUI: 1
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        playType: 0
+        focustType: 0
+        duration: 3
+        setValue: 0
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+      sideEffect:
+      - waitTime: 0
+        displayType: 0
+        playType: 0
+        focustType: 0
+        duration: 1.5
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+  bunt_sin:
+    skill: 200131
+    ID: 0
+    step:
+    - step: 0
+      play: 1
+      deleteUI: 1
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        playType: 0
+        focustType: 0
+        duration: 1.5
+        setValue: 0
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+      sideEffect:
+      - waitTime: 0
+        displayType: 2
+        playType: 0
+        focustType: 0
+        duration: 3
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+      - waitTime: 0
+        displayType: 3
+        playType: 0
+        focustType: 0
+        duration: 3
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+      - waitTime: 1
+        displayType: 13
+        playType: 0
+        focustType: 0
+        duration: 3
+        setValue: 0
+        startValue: 0
+        animation: godbunt_01
+        vector:
+          posX: 0.13
+          posY: -0.02
+          scaleX: 0.89
+          scaleY: 0.89
+        alpha: 1
+      - waitTime: 0
+        displayType: 12
+        playType: 0
+        focustType: 0
+        duration: 3
+        setValue: 1
+        startValue: 0
+        animation: godbunt_02
+        vector:
+          posX: 33.2
+          posY: -92.7
+          scaleX: 1.2
+          scaleY: 1.2
+        alpha: 1
+  tteun_geum_po:
+    skill: 200141
+    ID: 0
+    step:
+    - step: 0
+      play: 1
+      deleteUI: 1
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        playType: 0
+        focustType: 0
+        duration: 3
+        setValue: 0
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+      sideEffect:
+      - waitTime: 0
+        displayType: 3
+        playType: 0
+        focustType: 0
+        duration: 2
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+      - waitTime: 0
+        displayType: 2
+        playType: 0
+        focustType: 0
+        duration: 2
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+      - waitTime: 1
+        displayType: 12
+        playType: 0
+        focustType: 0
+        duration: 2
+        setValue: 1
+        startValue: 0
+        animation: tteun_geum_po
+        vector:
+          posX: -6
+          posY: -33
+          scaleX: 1.27
+          scaleY: 1.27
+        alpha: 1
+      - waitTime: 0
+        displayType: 5
+        playType: 0
+        focustType: 0
+        duration: 0.6
+        setValue: 15
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+      - waitTime: 0
+        displayType: 13
+        playType: 0
+        focustType: 0
+        duration: 2.5
+        setValue: 0
+        startValue: 0
+        animation: bat_ef_01
+        vector:
+          posX: 0.09
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+    - step: 4
+      play: 2
+      deleteUI: 1
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        playType: 0
+        focustType: 0
+        duration: 3
+        setValue: 0
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+      sideEffect:
+      - waitTime: 0
+        displayType: 0
+        playType: 0
+        focustType: 0
+        duration: 2
+        setValue: 1
+        startValue: 0
+        animation: 
+        vector:
+          posX: 0
+          posY: 0
+          scaleX: 1
+          scaleY: 1
+        alpha: 1
+--- !u!114 &114598755730673754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237406541540738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52acf1fb7a5dc67449dc54c6d67d8d6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Je5_NeaYasu:
+    step:
+    - step: 1
+      deleteUI: 0
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        focusPoint: 0
+        duration: 1
+        setValue: 1
+        animation: 
+        alpha: 0
+      sideEffect:
+      - waitTime: 0
+        displayType: 8
+        focusPoint: 0
+        duration: 0.5
+        setValue: 1.2
+        animation: 
+        alpha: 0
+  GyeonJeWang:
+    step:
+    - step: 2
+      deleteUI: 0
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        focusPoint: 0
+        duration: 1
+        setValue: 1
+        animation: 
+        alpha: 0
+      sideEffect:
+      - waitTime: 0
+        displayType: 0
+        focusPoint: 0
+        duration: 1
+        setValue: 1
+        animation: 
+        alpha: 0
+  CheolByeogSubi:
+    step:
+    - step: 1
+      deleteUI: 0
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        focusPoint: 0
+        duration: 1
+        setValue: 1
+        animation: 
+        alpha: 0
+      sideEffect:
+      - waitTime: 0
+        displayType: 0
+        focusPoint: 0
+        duration: 1
+        setValue: 1
+        animation: 
+        alpha: 0
+  TeuggeubSongGu:
+    step:
+    - step: 2
+      deleteUI: 0
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        focusPoint: 1
+        duration: 2
+        setValue: 1
+        animation: 
+        alpha: 0
+      sideEffect:
+      - waitTime: 0.1
+        displayType: 0
+        focusPoint: 0
+        duration: 1
+        setValue: 1
+        animation: 
+        alpha: 0
+  SoeGeumulSubi:
+    step:
+    - step: 4
+      deleteUI: 0
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        focusPoint: 0
+        duration: 1
+        setValue: 1
+        animation: 
+        alpha: 0
+      sideEffect:
+      - waitTime: 0
+        displayType: 8
+        focusPoint: 1
+        duration: 1
+        setValue: 2
+        animation: 
+        alpha: 0
+  LaserSongGu:
+    step:
+    - step: 2
+      deleteUI: 0
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        focusPoint: 0
+        duration: 1
+        setValue: 1
+        animation: 
+        alpha: 0
+      sideEffect:
+      - waitTime: 0
+        displayType: 8
+        focusPoint: 0
+        duration: 1
+        setValue: 2.5
+        animation: 
+        alpha: 0
+      - waitTime: 0
+        displayType: 6
+        focusPoint: 0
+        duration: 1
+        setValue: 1
+        animation: 
+        alpha: 0
+  SubihyeongPosu:
+    step:
+    - step: 3
+      deleteUI: 0
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        focusPoint: 0
+        duration: 1
+        setValue: 1
+        animation: 
+        alpha: 0
+      sideEffect:
+      - waitTime: 0
+        displayType: 0
+        focusPoint: 0
+        duration: 1
+        setValue: 1
+        animation: 
+        alpha: 0
+  JiljuBonneung:
+    step:
+    - step: 5
+      deleteUI: 0
+      mainEffect:
+        waitTime: 0.2
+        displayType: 1
+        focusPoint: 2
+        duration: 1
+        setValue: 1
+        animation: 
+        alpha: 0
+      sideEffect:
+      - waitTime: 0
+        displayType: 0
+        focusPoint: 0
+        duration: 1
+        setValue: 1
+        animation: 
+        alpha: 0
+  JuluSense:
+    step:
+    - step: 5
+      deleteUI: 0
+      mainEffect:
+        waitTime: 0
+        displayType: 1
+        focusPoint: 0
+        duration: 1
+        setValue: 1
+        animation: 
+        alpha: 0
+      sideEffect:
+      - waitTime: 0
+        displayType: 0
+        focusPoint: 0
+        duration: 1
+        setValue: 1
+        animation: 
+        alpha: 0

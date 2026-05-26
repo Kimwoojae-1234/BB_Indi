@@ -1,0 +1,126 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &100000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400000}
+  - 114: {fileID: 11400000}
+  m_Layer: 0
+  m_Name: playManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &400000
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -528.344971, y: -526.596436, z: -1810.2207}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08ce9a7b093e01f44a7f594a4304d1fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerChange: {fileID: 8300000, guid: f69ee2e3fc72a444aaa8401d867b2e05, type: 3}
+  pitcher: {fileID: 0}
+  batter: {fileID: 0}
+  field: {fileID: 0}
+  gameUI: {fileID: 0}
+  battingview: {fileID: 0}
+  pitch: {fileID: 0}
+  cameraAngle: 0
+  result: {fileID: 0}
+  playState: 0
+  nFrame: 0
+  bCurrentFastMode: 0
+  bFastBatterCheck: 0
+  lineupCount: 0000000000000000
+  battingCycle: 0000000000000000
+  starterIndex: 0000000000000000
+  pitcherIndex: 0000000000000000
+  nOnlyPlayerIndex: 
+  offenseIndex: 0
+  defenseIndex: 0
+  currentScoreType: 0
+  timeState: 0
+  bChangeFlag: 0
+  bNoChange: 0
+  bMyChange: 0
+  nHeroModeChangeIndex: 0
+  bTopInning: 0
+  bMyTurn: 0
+  bMyHome: 0
+  bTopInningFinish: 0
+  bPlayBall: 0
+  bGameSet: 0
+  bGoodByeHitCall: 0
+  bStrike: 0
+  bStrikeOut: 0
+  bThreeOutChange: 0
+  bStealStrikeOut: 0
+  bStrikeCheck: 0
+  bBall: 0
+  bBaseOnBalls: 0
+  bSqueeze: 0
+  nMeatjilStep: 0
+  nInningCount: 0
+  nOutCount: 0
+  nStrikeCount: 0
+  nBallCount: 0
+  newStrikeCount: 0
+  newBallCount: 0
+  newOutCount: 0
+  nGameScore: 
+  nLastGameScore: 
+  nHitCount: 
+  nErrorCount: 
+  nFourballCount: 
+  nLastScore: 0
+  nConHit: 0
+  nDoublePlayCount: 0
+  nConWin: 0
+  bInningView: 0
+  bSaveGame2: 0
+  nRand1: 0
+  nRand2: 0
+  nRand3: 0
+  nRand4: 0
+  eyeRand: 0
+  nTeamSkillPoint: 0
+  bUpdate: 0
+  bUpdateCount: 0
+  bPitcherChangeFlag: 0
+  bBatterChangeFlag: 0
+  bFielderChangeFlag: 0
+  bRunnerChangeFlag: 0
+  bInningSoundInit: 0
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 100000}
+  m_IsPrefabParent: 1
+  m_IsExploded: 1
