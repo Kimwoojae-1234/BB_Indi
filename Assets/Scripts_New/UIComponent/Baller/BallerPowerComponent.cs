@@ -71,7 +71,7 @@ public class BallerPowerComponent : MonoBehaviour
         UpgradeBtn.gameObject.SetActive(true);
         InfoBtn.gameObject.SetActive(false);
         UnlockBtn.gameObject.SetActive(false);
-        UpgradeArrow.gameObject.SetActive(true);
+        //UpgradeArrow.gameObject.SetActive(true);
         SetStateInfo(ballerData, lv, true, false);
 
         int needGold = KOBManager.Backend.Chart.UpgradeData.UpgradeGold(lv + 1, ballerData.rarity);
@@ -84,7 +84,7 @@ public class BallerPowerComponent : MonoBehaviour
         InfoBtn.gameObject.SetActive(true);
         UpgradeBtn.gameObject.SetActive(false);        
         UnlockBtn.gameObject.SetActive(false);
-        UpgradeArrow.gameObject.SetActive(false);
+        //UpgradeArrow.gameObject.SetActive(false);
         SetStateInfo(ballerData, lv, false, true);
     }
 
@@ -100,7 +100,7 @@ public class BallerPowerComponent : MonoBehaviour
         UnlockBtn.gameObject.SetActive(true);
         InfoBtn.gameObject.SetActive(false);
         UpgradeBtn.gameObject.SetActive(false);
-        UpgradeArrow.gameObject.SetActive(false);
+        //UpgradeArrow.gameObject.SetActive(false);
         SetStateInfo(ballerData, 1, false, true);
     }
 

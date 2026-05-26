@@ -10,7 +10,7 @@ public class ScheduleComponent : MonoBehaviour
 {
     [SerializeField] private ScheduleTeam MyTeam;
     [SerializeField] private ScheduleTeam OppTeam;
-    [SerializeField] private SkeletonGraphic VsAnim;
+    [SerializeField] private GameObject VsAnim;
     [SerializeField] private TextMeshProUGUI DateTxt;
     [SerializeField] private TextMeshProUGUI Result1Txt;
     [SerializeField] private TextMeshProUGUI Result2Txt;
@@ -48,7 +48,8 @@ public class ScheduleComponent : MonoBehaviour
                 isToday = true;
             }
 
-            SpineUtil.ReplayAnimation(VsAnim);
+            //SpineUtil.ReplayAnimation(VsAnim);
+            VsAnim.gameObject.SetActive(true);
             DateTxt.text = "Today Match";
             DateTxt.color = Color.white;
 

@@ -248,7 +248,7 @@ public class UI_Loading : MonoBehaviour
 
         
         AsyncOperation async = null;
-        if (KOBManager.Tuto.IsTuroialComplete(TutorialManager.TutoStep.FirstTuto) == false) //튜토리얼 진입
+        /*if (KOBManager.Tuto.IsTuroialComplete(TutorialManager.TutoStep.FirstTuto) == false) //튜토리얼 진입
         {
             ShowDataName("Entering Tutorial");
             //신로딩
@@ -260,7 +260,7 @@ public class UI_Loading : MonoBehaviour
             //신로딩
             async = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("NicknameScene");
         }
-        else
+        else*/
         {
             ShowDataName("Entering the Main Lobby");
             //신로딩

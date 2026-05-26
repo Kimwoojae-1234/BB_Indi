@@ -47,47 +47,7 @@ public class SkillEffectDirection : MonoBehaviour
 
     public void SetIcon(Spine.Unity.SkeletonAnimation skeletonAnimation, string iconName)
     {
-        bPassive = false;
-        soundOn = true;
-        follower.SkeletonRenderer = skeletonAnimation;
-        Spine.Bone bone = skeletonAnimation.Skeleton.FindBone("ct_head");
-        if (bone != null)
-        {
-            // batter
-            follower.SetBone("ct_head");
-            follower.LateUpdate();
-            adjust = 250.0f;
-        }
-        else
-        {
-            bone = skeletonAnimation.Skeleton.FindBone("ct_head1");
-            if (bone != null)
-            {
-                // pitcher
-                follower.SetBone("ct_head1");
-                follower.LateUpdate();
-                adjust = 100.0f;
-            }
-            else
-            {
-                bone = skeletonAnimation.Skeleton.FindBone("HD");
-                if (bone != null)
-                {
-                    // fielder
-                    follower.SetBone("HD");
-                    follower.LateUpdate();
-                    adjust = 230.0f;
-                    soundOn = false;
-                }
-            }
-        }
-        icon.transform.localPosition = new Vector3(follower.transform.localPosition.x, follower.transform.localPosition.y + adjust, icon.transform.localPosition.z);
-        icon1.material = new Material(icon1.material);
-        icon2.material = new Material(icon2.material);
-        //icon1.material.mainTexture = ui_manager.GetInstance.GetSprite(iconName).texture;
-        //icon2.material.mainTexture = ui_manager.GetInstance.GetSprite(iconName).texture;
-        icon1.material.mainTexture = Resources.Load<Texture>(string.Format("MainGame/skillicon/{0}", iconName));
-        icon2.material.mainTexture = Resources.Load<Texture>(string.Format("MainGame/skillicon/{0}", iconName));
+        
     }
 
     public void SetBallIcon(Spine.Unity.SkeletonAnimation skeletonAnimation, Texture texture)

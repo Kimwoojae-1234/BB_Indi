@@ -263,13 +263,13 @@ public class UI_Ballers : UIWindow
 
     private void InitUpgrade()
     {
-        UpgradeEffect.gameObject.SetActive(false);
+        //UpgradeEffect.gameObject.SetActive(false);
     }
 
     private IEnumerator UpgradeProcess()
     {
-        UpgradeEffect.gameObject.SetActive(true);
-        UpgradeEffect.AnimationState.SetAnimation(0, "etc1", false);
+        //UpgradeEffect.gameObject.SetActive(true);
+        //UpgradeEffect.AnimationState.SetAnimation(0, "etc1", false);
         yield return new WaitForSeconds(1.667f);
 
         //TODO

@@ -69,7 +69,7 @@ public class CardBaller : MonoBehaviour
         //업그레이드
         int CardNeed = UpgradeData.UpgradeCard(info.level + 1, data.rarity);
         int curCard = info.card_number;
-        UpgradeArrow.gameObject.SetActive(curCard >= CardNeed ? true : false);
+        //UpgradeArrow.gameObject.SetActive(curCard >= CardNeed ? true : false);
         UpgradeTxt.text = string.Format("{0}/{1}", curCard, CardNeed);
         UpgradeSlider.value = (float)curCard / (float)CardNeed;
 
