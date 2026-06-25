@@ -14,6 +14,6 @@ namespace WebConnector {
         /// <summary>
         /// 1군 선수카드 숫자
         /// </summary>
-        public const int numOfTeamMajor = 25;
+        public const int numOfTeamMajor = 25; 
     }
 }
