@@ -44,22 +44,12 @@ namespace BaseBall.BallPlay
         private List<tk2dSprite> crowdList = new List<tk2dSprite>();
         private int totalCrowdCount;
 
-        public Transform crowdTransform;
-        public SkeletonAnimation backEffectAnim;
-        public SkeletonAnimation lightEffectAnim;
-        public SkeletonAnimation solarLightEffectAnim;
-
-
-        public tk2dSprite sky1, sky2;//, skyup;     
-   
+        
         //public tk2dSprite field1, field2, building;
         //public SkeletonAnimation balloon1, balloon2;
         public tk2dSprite[] fieldSpr;
-        public tk2dSprite[] buildingSpr;
-        public SkeletonAnimation[] skelObj;
-
-        public GameObject leftLight, rightLight;
-
+        
+        
         private float gameTime;
         private TimeState curTimeState, visulTimeState;
         private bool bTimeChange;
@@ -95,9 +85,7 @@ namespace BaseBall.BallPlay
             groundType = (BackGroundType)(Mode.stadiumType);
 
 #if GIRL_PLAY
-            lightEffectAnim.gameObject.SetActive(false);
-            solarLightEffectAnim.gameObject.SetActive(false);
-
+            
 #else
             if (groundType != BackGroundType.Dome)
             {
@@ -438,13 +426,7 @@ namespace BaseBall.BallPlay
             yield return new WaitForSeconds(5.0f);
             setBackScreen();
 
-            if (groundType == BackGroundType.Dome) 
-            {
-                //돔구장인 경우
-                lightEffectAnim.state.ClearTracks();
-                lightEffectAnim.skeleton.SetToSetupPose();
-                lightEffectAnim.state.SetAnimation(0, "DOME_01", true);
-            }
+            
 
             yield return new WaitForSeconds(5.0f);            
 
@@ -561,413 +543,37 @@ namespace BaseBall.BallPlay
 
         private void updateEvening()
         {
-            curTime += Time.deltaTime;
-            if (curTime >= 0.4f)
-            {
-                //구조물과 관중
-                r1 += dr1;
-                g1 += dg1;
-                b1 += db1;
-                Color curColor1 = new Color(r1, g1, b1);
-                for (int i = 0; i < buildingSpr.Length; i++) buildingSpr[i].color = curColor1;
-                setCrowdColor(curColor1);
-                for (int i = 0; i < skelObj.Length; i++) skelObj[i].skeleton.SetColor(curColor1);
-
-                //필드
-                r2 += dr2;
-                g2 += dg2;
-                b2 += db2;
-                Color curColor2 = new Color(r2, g2, b2);
-                for(int i = 0; i< fieldSpr.Length;i++) fieldSpr[i].color = curColor2;
-
-                //하늘
-                sky1.color = new Color(1, 1, 1, 1 - (alphagab * count));
-
-                Color gradColoar = new Color(1, 1, 1, alphagab * count);
-                if (groundType == BackGroundType.Jamsil)
-                {
-                    lightEffectAnim.skeleton.SetColor(gradColoar);
-                }
-                else
-                {
-                    leftLight.GetComponent<SkeletonAnimation>().skeleton.SetColor(gradColoar);
-                    rightLight.GetComponent<SkeletonAnimation>().skeleton.SetColor(gradColoar);
-                }
-                
-                //태양광
-                if (count == 30)
-                {
-                    FieldCrowdManager.SetActive(true);
-                    FieldCrowdManager.ChangeTime(TimeState.Evening);
-                    FieldCrowdManager.SetActive(false);
-                    //타자 셰이더 교환
-                    //manager.batter.changeShader("Spine/SkeletonGraphic (Premultiply Alpha)");
-
-                    solarLightEffectAnim.state.ClearTracks();
-                    solarLightEffectAnim.skeleton.SetToSetupPose();
-                    if (groundType == BackGroundType.LionsPark)
-                    {
-                        solarLightEffectAnim.state.SetAnimation(0, "SAMSUNG_LIGHT_04", true); //노을
-                    }                    
-                    else
-                    {
-                        if (groundType == BackGroundType.HappyDream)
-                        {
-                            solarX = 0;
-                            solarY = -388;
-                            solarLightEffectAnim.transform.localPosition = new Vector3(100, 100, 100);
-                        }
-                        solarLightEffectAnim.state.SetAnimation(0, "JAMSIL_LIGHT_03", true); //노을
-                    }
-                    solarLightEffectAnim.skeleton.SetColor(new Color(1, 1, 1, 0));
-                    solarLightEffectAnim.transform.localPosition = new Vector3(solarX, solarY, -2.1f);
-
-                }
-
-                if (count < 30)
-                {
-                    solarLightEffectAnim.skeleton.SetColor(new Color(1, 1, 1, 1 - (alphagab * count * 2)));
-                }
-                else if (count > 30)
-                {
-                    solarLightEffectAnim.skeleton.SetColor(new Color(1, 1, 1, (alphagab * (count-30) * 2)));
-                }
-
-
-                if (++count >= 60)
-                {
-                    sky1.gameObject.SetActive(false);
-                    bTimeChange = true;
-                    StartCoroutine(manager.battingview.setSideTimeChange(TimeState.Evening));
-                }
-                curTime = 0;
-            }
+            
         }
 
 
         private void initNight()
         {
-            bTimeChange = false;
-
-            r1 = 0.792f;
-            g1 = 0.741f;
-            b1 = 0.667f;
-            r2 = 1;
-            g2 = 0.902f;
-            b2 = 0.749f;
-
-            //건물
-            dr1 = (0.624f - r1) / (60.0f);
-            dg1 = (0.690f - g1) / (60.0f);
-            db1 = (1.0f - b1) / (60.0f);
-
-            //필드
-            dr2 = (1.0f - r2) / (60.0f);
-            dg2 = (1.0f - g2) / (60.0f);
-            db2 = (1.0f - b2) / (60.0f);
-
-
-            sky1.gameObject.SetActive(true);
-            sky1.color = new Color(1, 1, 1, 0);
-
-            sky2.spriteId = sky1.GetSpriteIdByName("sky1");
-            sky1.spriteId = sky1.GetSpriteIdByName("sky2");
-            //skyup.spriteId = skyup.GetSpriteIdByName("skyup2");
-
-            alphagab = 1.0f / 60.0f;
-
             
-            lightEffectAnim.gameObject.SetActive(true);            
-
-            //라팍
-            //lightEffectAnim.gameObject.SetActive(true); //별
-            if (groundType == BackGroundType.LionsPark)
-            {
-                lightEffectAnim.transform.localPosition = new Vector3(0, -460, 9);
-                lightEffectAnim.skeleton.SetColor(new Color(1, 1, 1, 0));
-            }
-            else if (groundType == BackGroundType.Hanhwa || groundType == BackGroundType.ChamionsField || groundType == BackGroundType.HappyDream)
-            {
-                lightEffectAnim.transform.localPosition = new Vector3(0, -500, 9);
-                lightEffectAnim.skeleton.SetColor(new Color(1, 1, 1, 0));
-            }
-            else
-            {
-                lightEffectAnim.skeleton.SetColor(new Color(1, 1, 1, 1));
-            }
-            
-            curTime = 0;
-            count = 0;
         }
 
 
         private void updateNight()
         {
-            curTime += Time.deltaTime;
-            if (curTime >= 0.4f)
-            {
-                //구조물과 관중
-                r1 += dr1;
-                g1 += dg1;
-                b1 += db1;
-                Color curColor1 = new Color(r1, g1, b1);
-                for (int i = 0; i < buildingSpr.Length; i++) buildingSpr[i].color = curColor1;
-                setCrowdColor(curColor1);
-                for (int i = 0; i < skelObj.Length; i++) skelObj[i].skeleton.SetColor(curColor1);
-
-                //필드
-                r2 += dr2;
-                g2 += dg2;
-                b2 += db2;
-                Color curColor2 = new Color(r2, g2, b2);
-                for (int i = 0; i < fieldSpr.Length; i++) fieldSpr[i].color = curColor2;
-
-                //하늘
-                
-                Color skyColor = new Color(1, 1, 1, alphagab * count);
-                sky1.color = skyColor;
-                if (groundType != BackGroundType.Jamsil)
-                {
-                    lightEffectAnim.skeleton.SetColor(skyColor);
-                }
-
-                if (count == 30)
-                {
-                    FieldCrowdManager.SetActive(true);
-                    FieldCrowdManager.ChangeTime(TimeState.Night);
-                    FieldCrowdManager.SetActive(false);
-                    //타자 셰이더 교환
-                    //manager.batter.changeShader("Spine/Skeleton");
-                    if (groundType == BackGroundType.Jamsil)
-                    {
-                        //잠실처리
-                        solarLightEffectAnim.state.ClearTracks();
-                        solarLightEffectAnim.skeleton.SetToSetupPose();
-                        solarLightEffectAnim.state.SetAnimation(0, "JAMSIL_NIGHT_01", true);
-                        solarLightEffectAnim.transform.localPosition = new Vector3(-50, -550, 2);
-                    }
-                    else
-                    {
-                        //기타 처리
-                        solarLightEffectAnim.gameObject.SetActive(false);
-                        //lightEffectAnim.gameObject.SetActive(true); //별
-                        //lightEffectAnim.transform.localPosition = new Vector3(0, -460, 9);
-                    }
-
-                }
-
-                if (count < 30)
-                {
-                    solarLightEffectAnim.skeleton.SetColor(new Color(1, 1, 1, 1 - (alphagab * count * 2)));
-                }                
-                else if (count > 30)
-                {
-                    solarLightEffectAnim.skeleton.SetColor(new Color(1, 1, 1, (alphagab * (count - 30) * 2)));
-                    if (groundType == BackGroundType.LionsPark)
-                    {
-                        //라팍 특수 처리
-                        buildingSpr[3].color = new Color(0.23f, 0.33f, 0.82f);
-                    }
-                }
-
-                if (++count >= 60)
-                {
-                    sky1.color = new Color(1, 1, 1, 1);
-                    //lightEffectAnim.skeleton.SetColor(new Color(1, 1, 1, 1));
-                    sky2.gameObject.SetActive(false);
-                    bTimeChange = true;
-                    StartCoroutine(manager.battingview.setSideTimeChange(TimeState.Night));
-                }
-                curTime = 0;
-            }
+            
         }
 
 
 
         private void setDayState()
         {
-            curTimeState = TimeState.Day;
-            visulTimeState = TimeState.Day;
-            FieldCrowdManager.ChangeTime(curTimeState);
-
-            //타자 쉐이더
-            //manager.batter.changeShader("Spine/Skeleton");            
-
-            //구조물과 관중
-            Color curColor1 = new Color(1, 1, 1);
-            for (int i = 0; i < buildingSpr.Length; i++) buildingSpr[i].color = curColor1;
-            setCrowdColor(curColor1);
-            for (int i = 0; i < skelObj.Length; i++) skelObj[i].skeleton.SetColor(curColor1);
-
-            //필드
-            Color curColor2 = new Color(1, 1, 1);
-            for (int i = 0; i < fieldSpr.Length; i++) fieldSpr[i].color = curColor2;
-
-            //하늘
-            sky1.gameObject.SetActive(true);
-            sky1.spriteId = sky1.GetSpriteIdByName("sky0");
-            sky1.color = new Color(1, 1, 1, 1);
-            sky2.gameObject.SetActive(false);
-            //skyup.spriteId = skyup.GetSpriteIdByName("skyup0");
             
-            //하늘광
-            solarLightEffectAnim.gameObject.SetActive(true);
-            solarLightEffectAnim.state.ClearTracks();
-            solarLightEffectAnim.skeleton.SetToSetupPose();
-            if (groundType == BackGroundType.LionsPark)
-            {   
-                solarLightEffectAnim.state.SetAnimation(0, "SAMSUNG_LIGHT_01", true);
-                //solarLightEffectAnim.transform.localPosition = new Vector3(solarX, solarY, 8);
-                solarLightEffectAnim.skeleton.SetColor(new Color(1, 1, 1, 0.35f));
-            }
-            else if (groundType == BackGroundType.ChamionsField)
-            {
-                solarLightEffectAnim.state.SetAnimation(0, "KIA_LIGHT_01", true);
-            }
-            else if (groundType == BackGroundType.Hanhwa)
-            {
-                solarLightEffectAnim.state.SetAnimation(0, "HANWHA_LIGHT__01", true);
-            }
-            else if (groundType == BackGroundType.HappyDream)
-            {
-                solarLightEffectAnim.transform.localPosition = new Vector3(-6, 129, -2.1f);
-                solarLightEffectAnim.transform.localScale = new Vector3(188, 195, 1);
-                solarLightEffectAnim.state.SetAnimation(0, "SK_LIGHT_01", true);
-            }
-            else
-            {
-                solarLightEffectAnim.state.SetAnimation(0, "JAMSIL_LIGHT_01", true);
-            }
-
-            //기타
-            lightEffectAnim.gameObject.SetActive(false);
-            leftLight.gameObject.SetActive(false);
-            rightLight.gameObject.SetActive(false);
-
-            if (manager.bMyTurn == true)
-            {
-                StartCoroutine(manager.battingview.setSideTimeChange(TimeState.Day));
-            }
         }
 
         private void setEveningState()
         {
-            curTimeState = TimeState.Evening;
-            visulTimeState = TimeState.Evening;
-            FieldCrowdManager.ChangeTime(curTimeState);
-
-            //타자 쉐이더
-            //manager.batter.changeShader("Spine/SkeletonGraphic (Premultiply Alpha)"); //manager.batter.changeShader("Spine/Bones");
-
-            //구조물과 관중
-            Color curColor1 = new Color(0.792f, 0.741f, 0.667f);
-            for (int i = 0; i < buildingSpr.Length; i++) buildingSpr[i].color = curColor1;
-            setCrowdColor(curColor1);
-            for (int i = 0; i < skelObj.Length; i++) skelObj[i].skeleton.SetColor(curColor1);
-
-            //필드
-            Color curColor2 = new Color(1, 0.902f, 0.749f);
-            for (int i = 0; i < fieldSpr.Length; i++) fieldSpr[i].color = curColor2;
-
-            //하늘
-            sky2.gameObject.SetActive(true);
-            sky2.spriteId = sky1.GetSpriteIdByName("sky1");
-            sky2.color = new Color(1, 1, 1, 1);
-            sky1.gameObject.SetActive(false);
-
-            //하늘광
-            solarLightEffectAnim.gameObject.SetActive(true);
-            solarLightEffectAnim.state.ClearTracks();
-            solarLightEffectAnim.skeleton.SetToSetupPose();
-            if (groundType == BackGroundType.LionsPark)
-            {
-                solarLightEffectAnim.state.SetAnimation(0, "SAMSUNG_LIGHT_04", true); //노을
-            }
-            else
-            {
-                if (groundType == BackGroundType.HappyDream)
-                {
-                    solarX = 0;
-                    solarY = -388;
-                    solarLightEffectAnim.transform.localPosition = new Vector3(100, 100, 100);
-                }
-                solarLightEffectAnim.state.SetAnimation(0, "JAMSIL_LIGHT_03", true);
-            }
-            solarLightEffectAnim.transform.localPosition = new Vector3(solarX, solarY, -2.1f);
-
-            //기타
-            lightEffectAnim.gameObject.SetActive(false);            
-            leftLight.gameObject.SetActive(true);
-            rightLight.gameObject.SetActive(true);
-
-            StartCoroutine(manager.battingview.setSideTimeChange(TimeState.Evening));
-
+            
             
         }
 
         private void setNightState()
         {
-            curTimeState = TimeState.Night;
-            visulTimeState = TimeState.Night;
-            FieldCrowdManager.ChangeTime(curTimeState);
-
-            //타자 쉐이더
-            //manager.batter.changeShader("Spine/Skeleton");
-
-
-            //구조물과 관중
-            Color curColor1 = new Color(0.624f, 0.690f, 1.0f);
-            for (int i = 0; i < buildingSpr.Length; i++) buildingSpr[i].color = curColor1;
-            setCrowdColor(curColor1);
-            for (int i = 0; i < skelObj.Length; i++) skelObj[i].skeleton.SetColor(curColor1);
-
-            //필드
-            Color curColor2 = new Color(1, 1, 1);
-            for (int i = 0; i < fieldSpr.Length; i++) fieldSpr[i].color = curColor2;
-
-            //하늘
-            sky1.gameObject.SetActive(true);
-            sky1.spriteId = sky1.GetSpriteIdByName("sky2");
-            sky1.color = new Color(1, 1, 1, 1);
-            sky2.gameObject.SetActive(false);
-            //skyup.spriteId = skyup.GetSpriteIdByName("skyup2");
-
-            //하늘광            
-            if (groundType == BackGroundType.Jamsil)
-            {
-                solarLightEffectAnim.gameObject.SetActive(true);
-                solarLightEffectAnim.state.ClearTracks();
-                solarLightEffectAnim.skeleton.SetToSetupPose();
-                solarLightEffectAnim.state.SetAnimation(0, "JAMSIL_NIGHT_01", true);
-                solarLightEffectAnim.transform.localPosition = new Vector3(-50, -480, 2);
-                //기타
-                lightEffectAnim.gameObject.SetActive(true);
-                lightEffectAnim.skeleton.SetColor(new Color(1, 1, 1, 1));
-            }
-            else
-            {
-                solarLightEffectAnim.gameObject.SetActive(false);
-                lightEffectAnim.gameObject.SetActive(true);
-                if (groundType == BackGroundType.LionsPark)
-                {
-                    lightEffectAnim.transform.localPosition = new Vector3(0, -460, 9);
-                }
-                else if (groundType == BackGroundType.Hanhwa || groundType == BackGroundType.ChamionsField || groundType == BackGroundType.HappyDream)
-                {
-                    lightEffectAnim.transform.localPosition = new Vector3(0, -500, 9);
-                }
-                if (groundType == BackGroundType.LionsPark)
-                {
-                    //라팍 특수처리                    
-                    buildingSpr[3].color = new Color(0.23f, 0.33f, 0.82f);                    
-                }
-            }
-
-            //라이트 켬
-            leftLight.gameObject.SetActive(true);
-            rightLight.gameObject.SetActive(true);
-
-            StartCoroutine(manager.battingview.setSideTimeChange(TimeState.Night));
+            
 
         }
 

@@ -32,7 +32,8 @@ namespace BaseBall.BallPlay
             team = teamIndex;  
             name.text = player.getName();
 #if _Test_Local
-            logo.spriteName = "logo_" + Random.Range(1, 10);     
+            logo.spriteName = "logo_" + Random.Range(1, 10);
+            logo.SetDimensions(25, 25);
             bPitcher = (player.getCurPos() == CPlayer._PITCHER?true:false);
             int overallNum = Random.Range(80,140);            
 #else

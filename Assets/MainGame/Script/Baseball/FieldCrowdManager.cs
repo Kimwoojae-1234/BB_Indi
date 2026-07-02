@@ -14,13 +14,10 @@ namespace BaseBall.BallPlay
         private CrowdState lastState;
 
 
-        public GameObject light1, light2;
         //public tk2dSprite[] building;
         //public MeshRenderer hinge;
         public tk2dSprite field;
-        public Transform [] crowdTrans;
-        public GameObject fieldBack;
-
+        
         public Transform[] fenceTrans;
 
         //public BoxCollider[] crowdCollider;
@@ -56,42 +53,7 @@ namespace BaseBall.BallPlay
             }
 
 
-            //crowdList.Clear();
-            int crowdPer = Mode.crowdPer;
-            int totalCrowdCount = 0;
-            for (int i = 0; i < 4; i++)
-            {
-                if (Mode.crowdAnimMode == false)
-                {
-                    Destroy(crowdTrans[i].gameObject);
-                }
-                else
-                {
-                    if (crowdTrans[i] != null)
-                    {
-                        foreach (Transform trans in crowdTrans[i])
-                        {                            
-                            if (MyMath.Percent() < crowdPer)
-                            {
-                                //crowdList.Add(c);
-                                trans.gameObject.SetActive(true);
-                                totalCrowdCount++;
-                            }
-                            else
-                            {
-                                Destroy(trans.gameObject);
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (groundType != BackGroundType.Dome)
-            {
-                //돔구장이 아닌경우 라이트 세팅
-                light1.gameObject.SetActive(false);
-                light2.gameObject.SetActive(false);
-            }
+            
 
         }
 
@@ -117,10 +79,7 @@ namespace BaseBall.BallPlay
 
         private void setCrowdActive(bool bActive, int index)
         {
-            if (crowdTrans[index].gameObject.activeSelf != bActive)
-            {
-                crowdTrans[index].gameObject.SetActive(bActive);
-            }
+          
         }
 
         public static void SetCrowdActiveAll(bool bActive)
@@ -217,35 +176,7 @@ namespace BaseBall.BallPlay
 
         private void changeTime(BackGroundManager.TimeState timeState)
         {
-            groundType = (BackGroundType)Mode.stadiumType;
-            if(groundType != BackGroundType.Dome)
-            {
-                if (timeState == BackGroundManager.TimeState.Day)
-                {
-                    setFieldDay();
-                }
-                else if (timeState == BackGroundManager.TimeState.Evening)
-                {
-                    setFieldEvening();
-                }
-                else //if (timeState == BackGroundManager.TimeState.Night)
-                {
-                    setFieldNight();
-                }
-
-                if (groundType == BackGroundType.LionsPark)
-                {
-                    Color timeColor = new Color(1,1,1);
-                    if (timeState == BackGroundManager.TimeState.Evening) timeColor = new Color(0.624f, 0.690f, 1.0f);
-                    else if (timeState == BackGroundManager.TimeState.Night) timeColor = new Color(0.23f, 0.33f, 0.82f);
-                    fieldBack.GetComponent<tk2dSprite>().color = timeColor;
-                }
-                else //if (groundType == BackGroundType.Jamsil || groundType == BackGroundType.ChamionsField ||groundType == BackGroundType.Hanhwa)
-                {                    
-                    int timeIndex = (int)timeState + 1;
-                    fieldBack.GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load("MainGame/Texture/stadiumBack/city_back" + timeIndex, typeof(Sprite));
-                }
-            }
+            
         }
 
 
@@ -258,57 +189,19 @@ namespace BaseBall.BallPlay
 
         private void setFieldEvening()
         {
-            Color fieldColor = new Color(1, 0.902f, 0.749f);
-            field.color = fieldColor;
-
-            /*
-            for (int i = 0; i < totalCrowdCount; i++)
-            {
-                crowdList[i].setColor(buildingColor);
-            }
-
-            for (int i = 0; i < building.Length; i++)
-            {
-                building[i].color = buildingColor;
-            }*/
-
-            light1.gameObject.SetActive(true);
-            light2.gameObject.SetActive(true);
+           
         }
 
         private void setFieldNight()
         {
             
-            Color fieldColor = new Color(1, 1, 1);
-            field.color = fieldColor;
-
-            /*
-            //Color buildingColor = new Color(0.624f, 0.690f, 1.0f);
-            for (int i = 0; i < totalCrowdCount; i++)
-            {
-                crowdList[i].setColor(buildingColor);
-            }
-
-            for (int i = 0; i < building.Length; i++)
-            {
-                building[i].color = buildingColor;
-            }*/
-
-            light1.gameObject.SetActive(true);
-            light2.gameObject.SetActive(true);
         }
 
 
 
         private void setfieldBackPosition(float angleX, float hookSlice)
         {
-            if (Mode.stadiumType != Mode.StadiumType.Dome)
-            {
-                //
-                float gabX = (-angleX * 25) + (-hookSlice * 100);
-                fieldBack.transform.localPosition = new Vector3(1887 + gabX, initY, initZ); 
-
-            }
+            
         }
     }
 }
