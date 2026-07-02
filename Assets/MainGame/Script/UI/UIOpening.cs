@@ -45,8 +45,8 @@ namespace BaseBall.BallPlay
             stadiumLabel.text = Util.getStadiumName(Mode.stadiumType);
 
 #if _Test_Local
-            myLogo.mainTexture = Util.loadBigLogo(1);
-            cpuLogo.mainTexture = Util.loadBigLogo(Random.Range(2,9));
+            myLogo.mainTexture = KOBManager.Resource.LoadLogoTemp(SimulPlayerManager.myTeamIndex);
+            cpuLogo.mainTexture = KOBManager.Resource.LoadLogoTemp(SimulPlayerManager.cpuTeamIndex);
             //myLogo.MakePixelPerfect();
             //cpuLogo.MakePixelPerfect();
 #else

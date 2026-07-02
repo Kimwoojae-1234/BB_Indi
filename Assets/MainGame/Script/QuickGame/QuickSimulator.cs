@@ -241,10 +241,15 @@ namespace BaseBall.BallPlay
             bMyTurn = (bMyHome ? false : true);
             inning = 1;
             bTopInning = true;
-            
+
             //로고세팅
             // DISABLED_MGRS: myLogo.mainTexture = Mgrs.DataLoad.LoadTexture(string.Format("{0}/{1}", "Logo", UI_Helper.ConvertTeamCodeBig((UserData.ETeamCode)(SimulPlayerManager.myTeamIndex))));
             // DISABLED_MGRS: cpuLogo.mainTexture = Mgrs.DataLoad.LoadTexture(string.Format("{0}/{1}", "Logo", UI_Helper.ConvertTeamCodeBig((UserData.ETeamCode)(SimulPlayerManager.cpuTeamIndex)))); 
+
+            myLogo.mainTexture = KOBManager.Resource.LoadLogoTemp(SimulPlayerManager.myTeamIndex);
+            cpuLogo.mainTexture = KOBManager.Resource.LoadLogoTemp(SimulPlayerManager.cpuTeamIndex);
+
+
             inningChange.SetActive(false);
 
             //스코어 보드 초기화

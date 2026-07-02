@@ -902,6 +902,7 @@ namespace BaseBall.BallPlay
 
         private IEnumerator backToLobbyProcess()
         {
+            KOBManager.FrontUI.OpenPopup<FrontUI_IngameLoading>().GotoLobby();
             //신로딩
             AsyncOperation async = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("MainLobby");
             while (!async.isDone)

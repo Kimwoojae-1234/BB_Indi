@@ -247,7 +247,11 @@ namespace BaseBall.BallPlay
                         }
                         else
                         {
-                            setDown();
+                            //setDown();
+
+                            initX = 0;
+                            initY = 0;
+                            bCursorMove = true;
                         }
                     }
                 }
@@ -360,8 +364,8 @@ namespace BaseBall.BallPlay
             initX = (rx - uiX) - 463; // 420;// 410;
             initY = (ry - uiY) + 203; // 168;// 157;
 
-            //////UnityEngine.//Debug.Log("========================InitX = " + initX);
-            //////UnityEngine.//Debug.Log("========================initY = " + initY);
+            Debug.Log("========================InitX = " + initX);
+            Debug.Log("========================initY = " + initY);
             
             bCursorMove = true;
             
@@ -376,6 +380,9 @@ namespace BaseBall.BallPlay
             {
                 float x = cursor.transform.localPosition.x + initX;
                 float y = cursor.transform.localPosition.y + initY;
+
+                //Debug.Log("=================================>>initX = " + initX);
+                //Debug.Log("=================================>>initY = " + initY);
 
                 bCursorInvisible = false;
 
@@ -403,8 +410,8 @@ namespace BaseBall.BallPlay
 
                 if (manager.bMyTurn == true)
                 {
-                    //////UnityEngine.//Debug.Log("=================================>>X = " + x);
-                    //////UnityEngine.//Debug.Log("=================================>>Y = " + y);
+                    //Debug.Log("=================================>>X = " + x);
+                    //Debug.Log("=================================>>Y = " + y);
                     manager.battingview.zoneUI.setBatCursorPos2(x, y, CURSOR_ZONE_MAX_X, CURSOR_ZONE_MAX_Y);
 
                     if (curInvisible != bCursorInvisible)

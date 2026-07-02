@@ -15,38 +15,38 @@ namespace BaseBall.BallPlay
 
 
         private bool bPview;
-        private string[] ballName = new string[25]{
-            "포심패스트볼", 
-            "투심패스트볼",
-            "라이징패스트볼",
+        private string[] ballName = new string[25]
+        {
+            "Fastball",
+            "Two-Seam",
+            "Rising Fastball",
 
-            "커브",
-            "파워커브",
-            "슬로커브",
-            "폭포수커브",
-            "너클커브",
-            
-            "체인지업",
-            "서클체인지업",
-            "벌칸체인지업",
-            "팜볼",
-            "너클볼",
+            "Curveball",
+            "Power Curve",
+            "Slow Curve",
+            "Drop Curve",
+            "Knuckle Curve",
 
-            "슬라이더",
-            "고속슬라이더",
-            "슬러브",
-            "컷패스트볼",
-            "프리스비",
+            "Changeup",
+            "Circle Change",
+            "Vulcan Change",
+            "Palmball",
+            "Knuckleball",
 
-            "포크볼",
-            "싱커",
-            "스플리터",
-            "하드싱커",
+            "Slider",
+            "Hard Slider",
+            "Slurve",
+            "Cut Fastball",
+            "Frisbee",
 
-            "자이로볼",
-            "자이로볼",
-            "자이로볼"
+            "Forkball",
+            "Sinker",
+            "Splitter",
+            "Hard Sinker",
 
+            "Gyroball",
+            "Gyroball",
+            "Gyroball"
         };
 
 
@@ -88,7 +88,7 @@ namespace BaseBall.BallPlay
 
             callSpr.MakePixelPerfect();
             
-            if (type == 0) ballSpeed.text = "[FFEA00]포심패스트볼[-]   " + spd + "km";
+            if (type == 0) ballSpeed.text = "[FFEA00]Fastball[-]   " + spd + "km";
             else ballSpeed.text = "[FFEA00]" + ballName[type - 1] + "[-]   " + spd + "km";
 
             UISprite bg = stateBG.GetComponent<UISprite>();
@@ -100,33 +100,33 @@ namespace BaseBall.BallPlay
             {                
                 if (batter == null)
                 {
-                    swingComment.text = "스윙을 하지 않았습니다";
+                    swingComment.text = "Didn't Swing!";
                 }
                 else
                 {
                     if (batter.bSwing == false) //timing == BattingTiming.NOSWING)
                     {
-                        swingComment.text = "스윙을 하지 않았습니다";
+                        swingComment.text = "Didn't Swing!";
                     }
                     else
                     {
                         if (batter.contact == BattingContact.HUT_SWING)
                         {
-                            swingComment.text = "배트가 공에 닿지 않았습니다.";
+                            swingComment.text = "Missed the Ball!";
                         }
                         else
                         {
                             if (batter.timing < BattingTiming.JUST_EARLY)
                             {
-                                swingComment.text = "스윙이 너무 빨랐습니다.";
+                                swingComment.text = "Too Early!";
                             }
                             else if (batter.timing > BattingTiming.JUST_LATE)
                             {
-                                swingComment.text = "스윙이 너무 늦었습니다.";
+                                swingComment.text = "Too Late!";
                             }
                             else
                             {
-                                swingComment.text = "배트가 공에 닿지 않았습니다.";
+                                swingComment.text = "Missed the Ball!";
                             }
                         }
                     }

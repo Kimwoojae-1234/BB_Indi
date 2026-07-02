@@ -184,8 +184,8 @@ namespace BaseBall.BallPlay
             float ry = pos.Touch.position.y * 720 / sy;
             //initX = rx - uiX;
             //initY = ry - uiY;
-            initX = (rx - uiX);// -463; 
-            initY = (ry - uiY);// +203; 
+            initX = 0;// (rx - uiX);// -463; 
+            initY = 0;//(ry - uiY);// +203; 
             //cursorSpr.transform.localPosition = new Vector3(initX, initY, -0.1f);// pos.transform.position.z - 0.1f);
             //////Debug.Log("===========>> rx = "+rx);
             //////Debug.Log("===========>> ry = " + ry);initX, initY;

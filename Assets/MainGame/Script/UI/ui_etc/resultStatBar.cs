@@ -16,6 +16,7 @@ namespace BaseBall.BallPlay
             bgSpr.gameObject.SetActive(count % 2 == 0 ? true : false);
 #if _Test_Local
             logo.spriteName = "logo_" + teamIndex;
+            logo.SetDimensions(32, 32);
 #else
             Util.SetSpritePixelPerfect(logo, "logo_" + (int)player.getPlayerData().eTeam);//logo.spriteName = "logo_" + (int)player.getPlayerData().eTeam;
 #endif

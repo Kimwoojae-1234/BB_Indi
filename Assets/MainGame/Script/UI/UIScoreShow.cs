@@ -53,8 +53,8 @@ namespace BaseBall.BallPlay
 #else
 
 #if _Test_Local
-            // DISABLED_MGRS: myLogo.mainTexture = Util.loadBigLogo(SimulPlayerManager.myTeamIndex);// Mgrs.DataLoad.LoadTexture(string.Format("{0}/{1}", "Logo", UI_Helper.ConvertTeamCodeBig((UserData.ETeamCode)(SimulPlayerManager.myTeamIndex))));
-            // DISABLED_MGRS: cpuLogo.mainTexture = Util.loadBigLogo(SimulPlayerManager.cpuTeamIndex);// Mgrs.DataLoad.LoadTexture(string.Format("{0}/{1}", "Logo", UI_Helper.ConvertTeamCodeBig((UserData.ETeamCode)(SimulPlayerManager.cpuTeamIndex))));
+            myLogo.mainTexture = KOBManager.Resource.LoadLogoTemp(SimulPlayerManager.myTeamIndex);
+            cpuLogo.mainTexture = KOBManager.Resource.LoadLogoTemp(SimulPlayerManager.cpuTeamIndex);
 #else
             // DISABLED_MGRS: myLogo.mainTexture = Mgrs.DataLoad.LoadTexture(string.Format("{0}/{1}", "Logo", UI_Helper.ConvertTeamCodeBig((UserData.ETeamCode)(SimulPlayerManager.myTeamIndex))));
             // DISABLED_MGRS: cpuLogo.mainTexture = Mgrs.DataLoad.LoadTexture(string.Format("{0}/{1}", "Logo", UI_Helper.ConvertTeamCodeBig((UserData.ETeamCode)(SimulPlayerManager.cpuTeamIndex))));

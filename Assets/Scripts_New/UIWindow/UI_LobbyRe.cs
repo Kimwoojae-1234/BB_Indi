@@ -171,7 +171,7 @@ public class UI_LobbyRe : UIWindow
         {
             //이전에 Rtts했을 경우
             UI_LobbyRe.lastPlay = UI_LobbyRe.LastPlay.None;
-            KOBManager.UI.OpenWindow<UI_RTTS>();
+            KOBManager.UI.OpenWindow<UI_RTTS>().OnClickTab(1);
         }
 
     }
@@ -261,9 +261,9 @@ public class UI_LobbyRe : UIWindow
         else*/
         {
             TopLeft.SetActive(true);
-            TopLeft2.SetActive(true);
-            SideLeft.SetActive(true);
-            BottomLeft.SetActive(true);
+            //TopLeft2.SetActive(true);
+            //SideLeft.SetActive(true);
+            //BottomLeft.SetActive(true);
             SideRight.SetActive(true);
             BottomRight.SetActive(true);
         }

@@ -77,6 +77,8 @@ namespace BaseBall.BallPlay
 
             Util.SetSpritePixelPerfect(logo[0], "logo_" + awayIndex);//logo[0].spriteName = "logo_" + awayIndex;  //
             Util.SetSpritePixelPerfect(logo[1], "logo_" + homeIndex);//logo[1].spriteName = "logo_" + homeIndex;  //
+            logo[0].transform.localScale = new Vector2(0.75f, 0.75f);
+            logo[1].transform.localScale = new Vector2(0.75f, 0.75f);
 
             teamName[0].text = awayTeam;
             teamName[1].text = homeTeam;

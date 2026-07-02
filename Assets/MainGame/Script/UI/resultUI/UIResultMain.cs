@@ -17,6 +17,9 @@ namespace BaseBall.BallPlay
         public GameObject effectObj;
         private GameObject [] upDownObj = new GameObject[2];
 
+        public UITexture myLogo;
+        public UITexture cpuLogo;
+
 
         public void initSeason(BallPlayManager manager)
         {
@@ -28,6 +31,9 @@ namespace BaseBall.BallPlay
             //int[] teamNo = info.schedule[info.myScheNo];
             //int myTeamNo = teamNo[manager.bMyHome ? 0 : 1];
             //int cpuTeamNo = teamNo[manager.bMyHome ? 1 : 0];
+
+            myLogo.mainTexture = KOBManager.Resource.LoadLogoTemp(SimulPlayerManager.myTeamIndex);
+            cpuLogo.mainTexture = KOBManager.Resource.LoadLogoTemp(SimulPlayerManager.cpuTeamIndex);
 
             int[] lastRank = new int[2] { 1, 1};
             int[] curRank = new int[2] { 1, 1 };

@@ -68,10 +68,9 @@ public class UI_RTTS : UIWindow
             }
         }
 
-        for(int i = 0;i< LeftObj.Length;i++)
-        {
-            LeftObj[i].gameObject.SetActive(true);
-        }
+        //for(int i = 0;i< LeftObj.Length;i++) LeftObj[i].gameObject.SetActive(true);
+        LeftObj[1].gameObject.SetActive(false);
+        LeftObj[2].gameObject.SetActive(false);
 
         //새로 생길때만 플래고 온
         isLocalSaveFlag = false;
@@ -118,8 +117,11 @@ public class UI_RTTS : UIWindow
         InitScheduleTab(); //스케쥴 텝으로 초기화
 
 
+        //OnClickTab(1);
+
+
         //나왔다 들어갔다 할때 계속해서 Save안하도록 하는... 
-        if(isLocalSaveFlag ==false)
+        if (isLocalSaveFlag ==false)
         {
             KOBManager.Rtts.RttsLocalSave(); //
             isLocalSaveFlag = true;
@@ -469,6 +471,9 @@ public class UI_RTTS : UIWindow
     {
         RttsTrophy.gameObject.SetActive(false);
         for (int i = 0; i < LeftObj.Length; i++) LeftObj[i].gameObject.SetActive(true);
+
+        LeftObj[1].gameObject.SetActive(false); //지워지워
+        LeftObj[2].gameObject.SetActive(false); //지워지워
     }
 
     public override void ClickBackButton()
@@ -478,6 +483,9 @@ public class UI_RTTS : UIWindow
             State = RttsUIStae.Normal;
             RttsTrophy.GetComponent<RttsTrophyComponent>().Close();
             for (int i = 0; i < LeftObj.Length; i++) LeftObj[i].gameObject.SetActive(true);
+            LeftObj[1].gameObject.SetActive(false); //지워지워
+            LeftObj[2].gameObject.SetActive(false); //지워지워
+
             Invoke("DeActiveRttsTrophy", 0.5f);
         }
         else
