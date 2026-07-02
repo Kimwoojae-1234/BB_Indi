@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Spine.Unity;
 using System.Collections;
-using Spine.Unity;
+using System.Linq;
+using UnityEngine;
 
 namespace BaseBall.BallPlay
 {
@@ -25,7 +26,8 @@ namespace BaseBall.BallPlay
             VsType
         }
 
-        
+        [SerializeField] SkeletonAnimation bgAnim;
+        [SerializeField] PlayerCardInfo[] cardInfo;
 
         //상태
         public SimulState curState;
@@ -197,6 +199,13 @@ namespace BaseBall.BallPlay
 
         public void init(BallPlayManager _manager)
         {
+            string[] _skinName = new string[] { "Morning", "Afternoon", "Night" };
+            bgAnim.Skeleton.SetSkin(_skinName[Background.TimeIndex]);
+
+            logoValue1 = getRandomArray();
+            logoValue2 = getRandomArray();            
+
+
             bPausePopup = false;
 
             lastBatter = null;
@@ -286,6 +295,11 @@ namespace BaseBall.BallPlay
             curBatter = SimulPlayerManager.GetBatter(curIndex);
             curPitcher = SimulPlayerManager.GetPitcher(1 - curIndex);
 
+            int lineup = curLineupCount[curIndex];
+            int idx = curLineupCount[curIndex] + (curIndex * 10);
+            int logo = curIndex == 0 ? logoValue1[lineup] : logoValue2[lineup];
+            cardInfo[curIndex].SetInfo(idx+1, curBatter.getName(), logo);
+            cardInfo[1 - curIndex].SetInfo(curIndex==0?10:20, curPitcher.getName(), curIndex == 0 ? logoValue1[9] : logoValue2[9]);
 
         }
 
@@ -841,7 +855,8 @@ namespace BaseBall.BallPlay
                 curPitcher.bChangeIn = false;
                 pitcherChangeEvent(curIndex);
             }
-            yield return new WaitForSeconds(1.0f);
+            //yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(0.1f);
 
             //도루 연출
             if (battingResultData.stealState != SimulStealState.NONE)
@@ -2747,5 +2762,22 @@ namespace BaseBall.BallPlay
                 }
             }
         }
+
+        static int[] logoValue1 = new int[10];
+        static int[] logoValue2 = new int[10];
+
+        static int[] getRandomArray()
+        {
+            int[] numbers = Enumerable.Range(1, 10).ToArray();
+
+            for (int i = numbers.Length - 1; i > 0; i--)
+            {
+                int j = Random.Range(0, i + 1);
+
+                (numbers[i], numbers[j]) = (numbers[j], numbers[i]);
+            }
+            return numbers;
+        }
+
     }
 }

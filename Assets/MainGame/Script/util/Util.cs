@@ -203,14 +203,14 @@ namespace BaseBall.BallPlay
 
         public static string GetPositionString(int pos)
         {
-            string[] posStr = new string[10] { "투수", "포수", "1루수", "2루수", "3루수", "유격수", "좌익수", "중견수", "우익수", "지명타자" };
+            string[] posStr = new string[10] { "P", "C", "1B", "2B", "3B", "SS", "LF", "CF", "RF", "DH" };
 
             return posStr[pos];
         }
 
         public static string GetPositionString2(int pos)
         {
-            string[] posStr = new string[10] { "투수", "포수", "1루", "2루", "3루", "유격", "좌익", "중견", "우익", "지명" };
+            string[] posStr = new string[10] { "P", "C", "1B", "2B", "3B", "SS", "LF", "CF", "RF", "DH" };
 
             return posStr[pos];
         }
@@ -408,7 +408,7 @@ namespace BaseBall.BallPlay
             if (pos == PitcherPosotion.STARTER) return "선발";
             else if (pos == PitcherPosotion.SAVE) return "마무리";
             else return "중계";*/
-            return "선발";
+            return "SP";
         }
 
 
@@ -416,23 +416,23 @@ namespace BaseBall.BallPlay
         {
             if (player.getStat(Param.ST_PW) == Param.P_ACHIEVE_COMPLETE)
             {
-                return "승리";
+                return "W";
             }
             else if (player.getStat(Param.ST_PL) == Param.P_ACHIEVE_COMPLETE)
             {
-                return "패배";
+                return "L";
             }
             else if (player.getStat(Param.ST_SV) == Param.P_ACHIEVE_COMPLETE)
             {
-                return "세이브";
+                return "S";
             }
             else if (player.getStat(Param.ST_HLD) == Param.P_ACHIEVE_COMPLETE)
             {
-                return "홀드";
+                return "H";
             }
             else if (player.getStat(Param.ST_BS) == Param.P_ACHIEVE_COMPLETE)
             {
-                return "블론";
+                return "BS";
             }
             else
             {

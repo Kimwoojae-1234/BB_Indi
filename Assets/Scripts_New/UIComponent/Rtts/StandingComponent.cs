@@ -32,6 +32,7 @@ public class StandingComponent : MonoBehaviour
             KOBManager.Resource.LoadTeamLogo(logo, teamInfo.Logo);
             TeamTxt.text = teamInfo.Name;
         }
+        logo.transform.localScale = new Vector2(0.4f, 0.4f);
     }
 
 

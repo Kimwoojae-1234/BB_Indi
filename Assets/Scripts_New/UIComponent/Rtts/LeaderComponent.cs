@@ -49,9 +49,8 @@ public class LeaderComponent : MonoBehaviour
         }
         else
         {
-            if(teamIdx == 0) KOBManager.Resource.LoadMyTeamLogo(logo); //내팀
-            else KOBManager.Resource.LoadTeamLogo(logo, teamInfo.Logo);
-            logo.transform.localScale = new Vector3(0.2f, 0.2f);
+            KOBManager.Resource.LoadBallerPortraitTemp(logo, playerIdx);
+            logo.transform.localScale = new Vector3(0.5f, 0.5f);
         }
 
 

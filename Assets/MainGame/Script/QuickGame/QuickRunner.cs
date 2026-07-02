@@ -171,7 +171,7 @@ namespace BaseBall.BallPlay
         {
             if (type == BaseRunningType.StealOut || type == BaseRunningType.StealSafe)
             {
-                baseRunningLabel.text = "도루시도";
+                baseRunningLabel.text = "Steal";
                 baseRunningLabel.gameObject.SetActive(true);
             }
 
@@ -181,23 +181,23 @@ namespace BaseBall.BallPlay
         {
             if (type == BaseRunningType.PickOffOut)
             {
-                baseRunningLabel.text = "견제사";
+                baseRunningLabel.text = "Pick off";
             }
             else if (type == BaseRunningType.PickOffSafe)
             {
-                baseRunningLabel.text = "견제실패";
+                baseRunningLabel.text = "Pick off Fail";
             }
             else if (type == BaseRunningType.StealOut)
             {
-                baseRunningLabel.text = "도루실패";
+                baseRunningLabel.text = "Steal Fail";
             }
             else if (type == BaseRunningType.StealSafe)
             {
-                baseRunningLabel.text = "도루성공";
+                baseRunningLabel.text = "Steal Success";
             }
             else
             {
-                baseRunningLabel.text = "주루사";
+                baseRunningLabel.text = "Out";
             }
             baseRunningLabel.gameObject.SetActive(true);
         }

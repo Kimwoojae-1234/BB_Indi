@@ -28,7 +28,7 @@ namespace BaseBall.BallPlay
 
         //아웃게임 메니저
         private GameObject Managers;
-        const int MAX_GAUGE = 528;
+        const int MAX_GAUGE = 796;
         public UITexture texture;
         public UISprite gauge;//, ball;        
         float lastCounter;

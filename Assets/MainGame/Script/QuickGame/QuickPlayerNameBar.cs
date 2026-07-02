@@ -47,7 +47,7 @@ namespace BaseBall.BallPlay
 
             if (bOffense == true)
             {
-                num.text = (player.getOrder() + 1) + "번";
+                num.text = string.Format("No.{0}", (player.getOrder() + 1));
             }
             else
             {
@@ -69,7 +69,7 @@ namespace BaseBall.BallPlay
         }
 
 
-        private readonly Color focusColor = new Color(0, 0, 0);
+        private readonly Color focusColor =  new Color(1, 1, 1);
         private readonly Color normalColor = new Color(0.729f, 0.729f, 0.729f);
 
 
@@ -94,11 +94,11 @@ namespace BaseBall.BallPlay
         {
             bool bActive = true;
 
-            if (result == SimulResultState.FourBall) resultLabel.text = "포볼";
-            else if (result == SimulResultState.Single || result == SimulResultState.SingleOneError || result == SimulResultState.InfieldSingle || result == SimulResultState.BuntSingle) resultLabel.text = "안타";
-            else if (result == SimulResultState.Double || result == SimulResultState.DoubleOneError) resultLabel.text = "2루타";
-            else if (result == SimulResultState.Triple || result == SimulResultState.TripleOneError) resultLabel.text = "3루타";
-            else if (result == SimulResultState.HomeRun) resultLabel.text = "홈런";
+            if (result == SimulResultState.FourBall) resultLabel.text = "BB";
+            else if (result == SimulResultState.Single || result == SimulResultState.SingleOneError || result == SimulResultState.InfieldSingle || result == SimulResultState.BuntSingle) resultLabel.text = "HIT";
+            else if (result == SimulResultState.Double || result == SimulResultState.DoubleOneError) resultLabel.text = "Double";
+            else if (result == SimulResultState.Triple || result == SimulResultState.TripleOneError) resultLabel.text = "Triple";
+            else if (result == SimulResultState.HomeRun) resultLabel.text = "HR";
             else bActive = false;
 
             if (bActive == false)

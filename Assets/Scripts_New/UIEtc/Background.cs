@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Spine.Unity;
 
 public class Background : MonoBehaviour
 {
@@ -13,8 +14,11 @@ public class Background : MonoBehaviour
 
 
     [SerializeField] private CanvasGroup[] bg;
-    
-    
+
+    [SerializeField] private SkeletonGraphic bgAnim;
+
+
+    public static int TimeIndex = 0;
 
     private PlayMode bgMode = PlayMode.RTTS;
     private PlayMode lastMode = PlayMode.RTTS;
@@ -22,6 +26,11 @@ public class Background : MonoBehaviour
     void Awake()
     {
         KOBManager.UI.InitBackground(this);
+
+        TimeIndex = Random.Range(0, 3);
+        string[] _skinName = new string[] { "Morning", "Afternoon", "Night" };
+        bgAnim.Skeleton.SetSkin(_skinName[TimeIndex]);
+
     }
 
 

@@ -214,6 +214,7 @@ namespace BaseBall.BallPlay
         /// </summary>
         public void SetChangeView(int cameraState)
         {
+            /*
             changeView.gameObject.SetActive(true);
             Camera curCamera = null;
             if (cameraState == BallPlayManager._FIELDVIEW)
@@ -230,7 +231,7 @@ namespace BaseBall.BallPlay
             }
             changeView.color = new Color(1, 1, 1, 1);
             changeView.sprite = Util.MakeCaptureSprite(curCamera);
-            StartCoroutine(changeViewDelay());
+            StartCoroutine(changeViewDelay());*/
         }
 
         private IEnumerator changeViewDelay()

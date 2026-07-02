@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 118336}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -101, y: -243, z: 0}
+  m_LocalPosition: {x: -101, y: -259.9, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -158,7 +158,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3002
+  startingRenderQueue: 3000
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -401,7 +401,7 @@ MonoBehaviour:
   manualHeight: 720
   minimumHeight: 320
   maximumHeight: 1536
-  fitWidth: 0
+  fitWidth: 1
   fitHeight: 1
   adjustByDPI: 0
   shrinkPortraitUI: 0
@@ -442,7 +442,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3002
+  startingRenderQueue: 3003
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -562,13 +562,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 1280
+  mWidth: 1702
   mHeight: 720
   mDepth: 0
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.7777778
+  aspectRatio: 2.363889
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -588,7 +588,7 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
-  mTexture: {fileID: 2800000, guid: adf5e3c04e8b01a428c0f4371ee7c040, type: 3}
+  mTexture: {fileID: 2800000, guid: 387a47b6011fd874aafbacda880266a8, type: 3}
   mMat: {fileID: 0}
   mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
   mBorder: {x: 0, y: 0, z: 0, w: 0}
@@ -619,7 +619,7 @@ Transform:
   m_GameObject: {fileID: 156226}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -264, y: -0, z: 0}
+  m_LocalPosition: {x: -398, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -656,13 +656,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 3
-  mWidth: 16
+  mWidth: 796
   mHeight: 16
   mDepth: 3
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1
+  aspectRatio: 49.75
   mType: 1
   mFillDirection: 4
   mFillAmount: 1
@@ -743,13 +743,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 530
+  mWidth: 800
   mHeight: 20
   mDepth: 2
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 26.5
+  aspectRatio: 40
   mType: 1
   mFillDirection: 4
   mFillAmount: 1
@@ -920,7 +920,7 @@ Transform:
   m_GameObject: {fileID: 181804}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17, y: -243, z: 0}
+  m_LocalPosition: {x: 17, y: -259.8999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -965,9 +965,9 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 25
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: f6cb4217355e1f94583f6697e9adda66, type: 3}
-  mFont: {fileID: 0}
-  mText: "\uACBD\uAE30\uC7A5 \uC785\uC7A5\uC911\uC785\uB2C8\uB2E4."
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 3445212904377001015, guid: 161a17c57c452f24aa0f47185013cbdb, type: 3}
+  mText: Entering Game!
   mFontSize: 22
   mFontStyle: 0
   mAlignment: 0
@@ -1010,7 +1010,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &453558
 Transform:
   m_ObjectHideFlags: 0
@@ -1082,7 +1082,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4578841706892560
 Transform:
   m_ObjectHideFlags: 0
@@ -1092,7 +1092,7 @@ Transform:
   m_GameObject: {fileID: 1205906565126372}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 181, z: 0}
+  m_LocalPosition: {x: 0, y: 131, z: 0}
   m_LocalScale: {x: 1.0008, y: 1.0008, z: 1.0008}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1128,7 +1128,7 @@ MonoBehaviour:
     absolute: 0
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
-  mPivot: 1
+  mPivot: 4
   mWidth: 1000
   mHeight: 100
   mDepth: 9
@@ -1137,9 +1137,9 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 10
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 52a696e415e6d6b4697a3129d2e0a43b, type: 3}
-  mFont: {fileID: 0}
-  mText: "\uCC2C\uC2A4\uB97C \uC0B4\uB824\uB77C!\r"
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 3445212904377001015, guid: 161a17c57c452f24aa0f47185013cbdb, type: 3}
+  mText: "Make Chance!\r"
   mFontSize: 100
   mFontStyle: 0
   mAlignment: 0
@@ -1287,7 +1287,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4711668640438688
 Transform:
   m_ObjectHideFlags: 0
@@ -1373,7 +1373,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4058228062103112
 Transform:
   m_ObjectHideFlags: 0

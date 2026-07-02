@@ -670,7 +670,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 165830, guid: e2515eaa1d627664db4e33b04635a915, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 416716, guid: e2515eaa1d627664db4e33b04635a915, type: 3}
       propertyPath: m_LocalPosition.x
@@ -955,9 +955,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 425530, guid: 38dc3d287db43ab4cbfb5faaa2667d0b, type: 3}
-      propertyPath: m_RootOrder
-      value: 7
+    - target: {fileID: 125530, guid: 38dc3d287db43ab4cbfb5faaa2667d0b, type: 3}
+      propertyPath: m_Name
+      value: IngameUIPrefab
       objectReference: {fileID: 0}
     - target: {fileID: 425530, guid: 38dc3d287db43ab4cbfb5faaa2667d0b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -987,8 +987,16 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1412357772636794, guid: 38dc3d287db43ab4cbfb5faaa2667d0b, type: 3}
-      propertyPath: m_IsActive
+    - target: {fileID: 425530, guid: 38dc3d287db43ab4cbfb5faaa2667d0b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 425530, guid: 38dc3d287db43ab4cbfb5faaa2667d0b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 425530, guid: 38dc3d287db43ab4cbfb5faaa2667d0b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

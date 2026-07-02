@@ -1,8 +1,9 @@
 ﻿//#define _TEST_TYPE
 
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 namespace BaseBall.BallPlay
 {
@@ -111,11 +112,11 @@ namespace BaseBall.BallPlay
             
             if(manager.bMyTurn == true)
             {
-                _text_active.GetComponent<UILabel>().text = "선공입니다\n먼저 공격하세요!";
+                _text_active.GetComponent<UILabel>().text = "You're Batting First!\nScore First!";
             }
             else
             {
-                _text_active.GetComponent<UILabel>().text = "후공입니다\n무실점으로 방어하세요!";
+                _text_active.GetComponent<UILabel>().text = "You're Fielding First!\nKeep Them Scoreless!";
             }
             _text_active.SetActive(true);
 

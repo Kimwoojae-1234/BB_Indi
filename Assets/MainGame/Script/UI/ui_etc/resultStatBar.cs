@@ -31,7 +31,7 @@ namespace BaseBall.BallPlay
                 pos.spriteName = "position_" + (position + 1);
                 //order
                 int numOrder = count + 1;
-                label[0].text = numOrder > 9 ? "교체" : numOrder.ToString();
+                label[0].text = numOrder > 9 ? "Sub" : numOrder.ToString();
                 
                 //ability
 #if _Test_Local
