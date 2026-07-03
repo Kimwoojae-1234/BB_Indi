@@ -21,6 +21,7 @@ public sealed class VideoCharacterPlayer : MonoBehaviour
     [SerializeField] private int fallbackTextureWidth = 1024;
     [SerializeField] private int fallbackTextureHeight = 1024;
     [SerializeField] private Vector2 size = new Vector2(3f, 3f);
+    [SerializeField] private Vector4 edgeCropPixels = new Vector4(0f, 4f, 0f, 0f);
     [SerializeField] private bool fitToVideoAspect = true;
     [SerializeField] private string sortingLayerName = "Default";
     [SerializeField] private int sortingOrder;
@@ -109,6 +110,10 @@ public sealed class VideoCharacterPlayer : MonoBehaviour
         fallbackTextureHeight = Mathf.Max(16, fallbackTextureHeight);
         size.x = Mathf.Max(0.01f, size.x);
         size.y = Mathf.Max(0.01f, size.y);
+        edgeCropPixels.x = Mathf.Max(0f, edgeCropPixels.x);
+        edgeCropPixels.y = Mathf.Max(0f, edgeCropPixels.y);
+        edgeCropPixels.z = Mathf.Max(0f, edgeCropPixels.z);
+        edgeCropPixels.w = Mathf.Max(0f, edgeCropPixels.w);
 
         if (isActiveAndEnabled)
         {
@@ -267,6 +272,29 @@ public sealed class VideoCharacterPlayer : MonoBehaviour
         runtimeMaterial.SetColor("_KeyColor", keyColor);
         runtimeMaterial.SetFloat("_Tolerance", tolerance);
         runtimeMaterial.SetFloat("_Feather", feather);
+        runtimeMaterial.SetVector("_UvRect", GetUvRect());
+    }
+
+    private Vector4 GetUvRect()
+    {
+        float textureWidth = renderTexture != null ? renderTexture.width : fallbackTextureWidth;
+        float textureHeight = renderTexture != null ? renderTexture.height : fallbackTextureHeight;
+        float left = Mathf.Clamp01(edgeCropPixels.x / textureWidth);
+        float right = Mathf.Clamp01(1f - edgeCropPixels.y / textureWidth);
+        float bottom = Mathf.Clamp01(edgeCropPixels.z / textureHeight);
+        float top = Mathf.Clamp01(1f - edgeCropPixels.w / textureHeight);
+
+        if (right <= left)
+        {
+            right = Mathf.Min(1f, left + 0.001f);
+        }
+
+        if (top <= bottom)
+        {
+            top = Mathf.Min(1f, bottom + 0.001f);
+        }
+
+        return new Vector4(left, bottom, right, top);
     }
 
     private void ApplyMesh()

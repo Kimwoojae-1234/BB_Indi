@@ -6,6 +6,7 @@ Shader "BB/Video/ChromaKeyMagenta"
         _KeyColor ("Key Color", Color) = (1, 0, 1, 1)
         _Tolerance ("Tolerance", Range(0.001, 0.5)) = 0.08
         _Feather ("Feather", Range(0, 0.5)) = 0.035
+        _UvRect ("UV Rect", Vector) = (0, 0, 1, 1)
     }
 
     SubShader
@@ -34,6 +35,7 @@ Shader "BB/Video/ChromaKeyMagenta"
             fixed4 _KeyColor;
             float _Tolerance;
             float _Feather;
+            float4 _UvRect;
 
             struct appdata
             {
@@ -51,7 +53,8 @@ Shader "BB/Video/ChromaKeyMagenta"
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                float2 baseUv = TRANSFORM_TEX(v.uv, _MainTex);
+                o.uv = lerp(_UvRect.xy, _UvRect.zw, baseUv);
                 return o;
             }
 

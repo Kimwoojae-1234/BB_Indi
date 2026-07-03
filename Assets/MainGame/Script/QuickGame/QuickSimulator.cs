@@ -286,7 +286,7 @@ namespace BaseBall.BallPlay
             }
             else
             {
-                topUI.SetActive(true);
+                topUI.SetActive(false); //topUI.SetActive(true);
                 chattingUI.gameObject.SetActive(false);
             }
 

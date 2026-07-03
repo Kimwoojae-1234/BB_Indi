@@ -3266,8 +3266,13 @@ namespace BaseBall.BallPlay
 
             
             pGuwee = getGuweeValue(balltype);                                                //최종적으로 선택된 구종의 구위
-            
-             
+
+            //테스트용 난이도
+            if(currentInning < 3) pGuwee += 200;
+            else if (currentInning < 6) pGuwee += 150;
+            else pGuwee += 100;
+
+
             pControl = pGuwee;//
 
             //타자 능력치
