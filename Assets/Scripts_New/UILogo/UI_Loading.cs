@@ -159,11 +159,20 @@ public class UI_Loading : MonoBehaviour
 
                     foreach (var gameData in KOBManager.Backend.GameData.GameDataList)
                     {
+                        var targetGameData = gameData;
+                        JsonData transactionData = index < gameDataJson.Count ? gameDataJson[index++] : null;
 
                         _initializeStep.Enqueue(() => {
-                            ShowDataName(gameData.Key);
-                            // 불러온 데이터를 로컬에서 파싱
-                            gameData.Value.BackendGameDataLoadByTransaction(gameDataJson[index++], NextStep);
+                            ShowDataName(targetGameData.Key);
+                            if (HasTransactionGameData(transactionData))
+                            {
+                                targetGameData.Value.BackendGameDataLoadByTransaction(transactionData, NextStep);
+                            }
+                            else
+                            {
+                                Debug.LogWarning("TransactionRead has no row for " + targetGameData.Value.GetTableName() + ". Fallback to GetMyData/Insert.");
+                                targetGameData.Value.BackendGameDataLoad(NextStep);
+                            }
                         });
                         _maxLoadingCount++;
 
@@ -200,6 +209,18 @@ public class UI_Loading : MonoBehaviour
         });
     }
 
+
+    private bool HasTransactionGameData(JsonData gameDataJson)
+    {
+        try
+        {
+            return gameDataJson != null && gameDataJson.ContainsKey("inDate");
+        }
+        catch
+        {
+            return false;
+        }
+    }
 
     private void ShowDataName(string loadingText)
     {

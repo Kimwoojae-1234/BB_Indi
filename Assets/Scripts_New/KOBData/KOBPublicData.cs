@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
 using BackEnd;
 using LitJson;
 using Newtonsoft.Json;
-using Unity.VisualScripting;
-using static UnityEditor.ShaderData;
-using static UnityEngine.EventSystems.EventTrigger;
 
 [Serializable]
 public class KOBPublicData : BackendData.Base.GameData

@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Text;
 using UnityEngine;
 using BackEnd;
 using LitJson;
@@ -11,7 +13,9 @@ public class LoginManager : MonoBehaviour
 
     public static bool LoginSuccess = false;
     [SerializeField] private string RandomID = string.Empty;
-    private string Password = "Zeratul";
+    private const string Password = "Zeratul";
+    private const string CustomIdPrefsKey = "KOB_BACKEND_CUSTOM_ID_V2";
+    private const string CustomIdPrefix = "KG";
 
 
     private void Awake()
@@ -24,7 +28,7 @@ public class LoginManager : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {        
+    {
         LoginSuccess = false;
         if (KOBManager.Backend.Init() == true)
         {
@@ -32,112 +36,167 @@ public class LoginManager : MonoBehaviour
         }
         else
         {
-
+            Debug.LogError("Backend initialize failed.");
         }
-
-        //서버 세팅 
-        KOBManager.Backend.Setting.InitFromServer();
-
-        //최신차트 버전
-        //KOBManager.Backend.LatestChartVersion();
-
-        //로컬 차트
-        KOBManager.Backend.LoadChartVersion();
-
-
-        /*
-        var broString = Backend.Chart.GetLocalChartData("85999");
-        JsonData chartJson = JsonMapper.ToObject(broString);
-        JsonData chartJson3 = BackendReturnObject.Flatten(chartJson)["rows"];
-
-        BackendReturnObject bro =  BackEnd.Backend.Chart.GetChartContents("85999");
-        JsonData chartJson2 = bro.FlattenRows();*/
-
-        LoginSuccess = true;
     }
-
 
     private void LoginWithTheBackendToken()
     {
-        //백엔드 토큰으로 로그인
+#if UNITY_ANDROID && !UNITY_EDITOR
+        string hash = Backend.Utils.GetGoogleHash();
+        Debug.Log("Google Hash : " + hash);
+#endif
+
         BackendReturnObject bro = Backend.BMember.LoginWithTheBackendToken();
         if (bro.IsSuccess())
         {
             BackendReturnObject bro2 = Backend.BMember.IsAccessTokenAlive();
             if (bro2.IsSuccess())
             {
-                Debug.Log("액세스 토큰이 살아있습니다 : " + bro2);
+                Debug.Log("Access token is alive : " + bro2);
                 BackendReturnObject bro3 = Backend.BMember.RefreshTheBackendToken();
-                Debug.Log("토큰 리프레시 여부 : " + bro3);
+                Debug.Log("Refresh backend token : " + bro3);
             }
+
+            OnLoginSuccess();
         }
         else
         {
-            // 뒤끝 토큰 로그인 실패             
+            Debug.LogWarning("Backend token login failed. Start custom login. " + bro);
             logInProcess();
         }
-        //logInProcess();
     }
 
     private void logInProcess()
     {
-#if UNITY_EDITOR
         customLogIn();
-#else
-#if UNITY_ANDROID
-        googleLogoIn();
-#elif UNITY_IOS
-        appleLogin();
-#else
-        customLogIn();
-#endif
-#endif
     }
 
 
     private void customLogIn()
-    {        
-        if (RandomID == null)
+    {
+        RandomID = GetCustomId();
+        if (string.IsNullOrEmpty(RandomID))
         {
+            Debug.LogError("Custom login id is empty.");
             return;
         }
-        
-        //사인업 시도
-        BackendReturnObject bro = Backend.BMember.CustomSignUp(RandomID, Password);
-        if (bro.IsSuccess())
+
+        if (!TryCustomLoginWithId(RandomID))
         {
-            Debug.Log("새로운 계정 생성");
-            //사인업
-            /*Debug.Log("Sign up Success // bro " + bro.ToString());
-            string _RandomNickName = RandomNickName();
-            Debug.Log("RandomNickName : " + _RandomNickName);
-            BackendReturnObject bro3 = Backend.BMember.CreateNickname(_RandomNickName);
-            if (bro3.IsSuccess())
-            {
-                Debug.Log("랜덤 닉네임 생성 성공 " + bro3.ToString());
-            }
-            else
-            {
-                Debug.Log("랜덤 닉네임 생성 실패 " + bro3.ToString());
-            }*/
-        }
-        else
-        {
-            Debug.Log("이미 있는 계정");
-            //사인업할 필요 없는 경우 로그인 시도
-            Debug.Log("Log in Suceess // bro " + bro.ToString());
-            BackendReturnObject bro2 = Backend.BMember.CustomLogin(RandomID, Password);
-            if (bro2.IsSuccess())
-            {
-                Debug.Log("bro2 " + bro2.ToString());
-            }
-            else
-            {
-                Debug.Log("bro2 " + bro2.ToString());
-            }
+            Debug.LogWarning("Custom login failed with saved id. Regenerate guest id and retry once.");
+            RandomID = CreateAndSaveCustomId(System.Guid.NewGuid().ToString("N"));
+            TryCustomLoginWithId(RandomID);
         }
     }
 
+    private bool TryCustomLoginWithId(string customId)
+    {
+        Debug.Log("Try custom login id : " + customId);
+
+        BackendReturnObject signUpBro = Backend.BMember.CustomSignUp(customId, Password);
+        LogBackendResult("CustomSignUp", signUpBro);
+
+        BackendReturnObject bro = Backend.BMember.CustomLogin(customId, Password);
+        LogBackendResult("CustomLogin", bro);
+        if (bro.IsSuccess())
+        {
+            OnLoginSuccess();
+            return true;
+        }
+
+        return false;
+    }
+
+    private string GetCustomId()
+    {
+#if UNITY_EDITOR
+        if (!string.IsNullOrWhiteSpace(RandomID))
+        {
+            return RandomID.Trim();
+        }
+#endif
+
+        string savedId = PlayerPrefs.GetString(CustomIdPrefsKey, string.Empty);
+        if (IsValidCustomId(savedId))
+        {
+            return savedId;
+        }
+
+        return CreateAndSaveCustomId(SystemInfo.deviceUniqueIdentifier);
+    }
+
+    private string CreateAndSaveCustomId(string seed)
+    {
+        string deviceId = SystemInfo.deviceUniqueIdentifier;
+        string newId = BuildCustomId(string.IsNullOrWhiteSpace(seed) ? deviceId : seed);
+
+        PlayerPrefs.SetString(CustomIdPrefsKey, newId);
+        PlayerPrefs.Save();
+        return newId;
+    }
+
+    private string BuildCustomId(string seed)
+    {
+        string source = string.IsNullOrWhiteSpace(seed) ? System.Guid.NewGuid().ToString("N") : seed;
+        using (SHA256 sha256 = SHA256.Create())
+        {
+            byte[] hash = sha256.ComputeHash(Encoding.UTF8.GetBytes(source));
+            StringBuilder builder = new StringBuilder(CustomIdPrefix, 20);
+            for (int i = 0; i < 9; i++)
+            {
+                builder.Append(hash[i].ToString("x2"));
+            }
+
+            return builder.ToString();
+        }
+    }
+
+    private bool IsValidCustomId(string customId)
+    {
+        if (string.IsNullOrWhiteSpace(customId))
+        {
+            return false;
+        }
+
+        if (customId.Length != 20 || !customId.StartsWith(CustomIdPrefix))
+        {
+            return false;
+        }
+
+        for (int i = CustomIdPrefix.Length; i < customId.Length; i++)
+        {
+            char c = customId[i];
+            if (!((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f')))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private void LogBackendResult(string label, BackendReturnObject bro)
+    {
+        if (bro.IsSuccess())
+        {
+            Debug.Log(label + " success // bro " + bro);
+        }
+        else
+        {
+            Debug.LogWarning(label + " failed // bro " + bro);
+        }
+    }
+
+    private void OnLoginSuccess()
+    {
+        Debug.Log("Backend login success. Start server setting load.");
+        KOBManager.Backend.Setting.InitFromServer();
+        Debug.Log("Server setting load finished. Start chart version load.");
+        KOBManager.Backend.LoadChartVersion();
+        LoginSuccess = true;
+        Debug.Log("LoginSuccess set true.");
+    }
 
     private string RandomNickName()
     {
@@ -149,15 +208,15 @@ public class LoginManager : MonoBehaviour
     public void LogOut()
     {
         BackendReturnObject bro = Backend.BMember.Logout();
-        if(bro.IsSuccess())
+        if (bro.IsSuccess())
         {
-            Debug.Log("로그아웃 성공");
+            Debug.Log("Logout success");
         }
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             LogOut();
         }

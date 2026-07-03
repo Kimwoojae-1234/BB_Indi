@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class UI_Logo : MonoBehaviour
-{    
+{
     [SerializeField] private UI_Loading loading = null;
     [SerializeField] private GameObject[] logo = null;
     [SerializeField] private Image bg = null;
@@ -16,7 +16,7 @@ public class UI_Logo : MonoBehaviour
     private void Awake()
     {
         bg.color = Color.white;
-        logo[0].gameObject.SetActive(true);            
+        logo[0].gameObject.SetActive(true);
     }
 
     public void CloseLogo()
@@ -27,10 +27,11 @@ public class UI_Logo : MonoBehaviour
 
     private void Update()
     {
-        if(bCloseLogo == true)
+        if (bCloseLogo == true)
         {
-            if(LoginManager.LoginSuccess == true)
+            if (LoginManager.LoginSuccess == true)
             {
+                Debug.Log("go to loading page");
                 loading.StartLoading();
                 bCloseLogo = false;
             }

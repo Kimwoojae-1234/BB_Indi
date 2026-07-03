@@ -433,8 +433,8 @@ namespace BaseBall.BallPlay
             Mode.finalInning = 9;
             Mode.maxInning = 12;
 
-            Mode.finalInning = 1; //지워지워
-            Mode.maxInning = 1; //지워지워
+            //Mode.finalInning = 1; //지워지워
+            //Mode.maxInning = 1; //지워지워
 
             Mode.stadiumNum = Mathf.Clamp(TEST_STADIUM_NUM, 1, 6);
             setStadiumStyle(Mode.stadiumNum);
