@@ -55,6 +55,45 @@ public class UIScoreBoard : MonoBehaviour
         
     }
 
+    public void BoardUpdate(RttsGameResult resultInfo)
+    {
+        if (resultInfo == null) return;
+
+        int homeSlot = resultInfo.FirstTeamIsHome ? 0 : 1;
+        int awaySlot = 1 - homeSlot;
+        SetInningScores(awayScore, resultInfo.Stat.InningScore[awaySlot]);
+        SetInningScores(homeScore, resultInfo.Stat.InningScore[homeSlot]);
+
+        SetSummary(awayRBH, resultInfo, awaySlot);
+        SetSummary(homeRBH, resultInfo, homeSlot);
+
+        if (awayTeam != null)
+            awayTeam.text = awaySlot == 0 ? resultInfo.FirstTeamName : resultInfo.SecondTeamName;
+        if (homeTeam != null)
+            homeTeam.text = homeSlot == 0 ? resultInfo.FirstTeamName : resultInfo.SecondTeamName;
+    }
+
+    private static void SetInningScores(TextMeshProUGUI[] labels, int[] scores)
+    {
+        if (labels == null || scores == null) return;
+        int count = Mathf.Min(labels.Length, scores.Length);
+        for (int i = 0; i < count; i++)
+        {
+            if (labels[i] == null) continue;
+            int value = scores[i];
+            labels[i].gameObject.SetActive(value != RttsGameResult.NoPlayInning);
+            labels[i].text = value == RttsGameResult.GameEndInning ? "X" : Mathf.Max(0, value).ToString();
+        }
+    }
+
+    private static void SetSummary(TextMeshProUGUI[] labels, RttsGameResult resultInfo, int teamSlot)
+    {
+        if (labels == null) return;
+        if (labels.Length > 0 && labels[0] != null) labels[0].text = resultInfo.Stat.Score[teamSlot].ToString();
+        if (labels.Length > 1 && labels[1] != null) labels[1].text = resultInfo.Stat.Hit[teamSlot].ToString();
+        if (labels.Length > 2 && labels[2] != null) labels[2].text = resultInfo.Stat.Walk[teamSlot].ToString();
+    }
+
 
     string GetBoardValue(GameObject obj, int value)
     {

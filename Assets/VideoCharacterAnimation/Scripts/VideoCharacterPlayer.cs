@@ -25,6 +25,7 @@ public sealed class VideoCharacterPlayer : MonoBehaviour
     [SerializeField] private bool fitToVideoAspect = true;
     [SerializeField] private string sortingLayerName = "Default";
     [SerializeField] private int sortingOrder;
+    [SerializeField] private Color tintColor = Color.white;
 
     [Header("Chroma Key")]
     [SerializeField] private Color keyColor = Color.magenta;
@@ -44,6 +45,19 @@ public sealed class VideoCharacterPlayer : MonoBehaviour
         {
             EnsureComponents();
             return player;
+        }
+    }
+
+    public Color TintColor
+    {
+        get => tintColor;
+        set
+        {
+            tintColor = value;
+            if (runtimeMaterial != null)
+            {
+                runtimeMaterial.SetColor("_TintColor", tintColor);
+            }
         }
     }
 
@@ -270,6 +284,7 @@ public sealed class VideoCharacterPlayer : MonoBehaviour
         runtimeMaterial.mainTexture = renderTexture;
         runtimeMaterial.SetTexture("_MainTex", renderTexture);
         runtimeMaterial.SetColor("_KeyColor", keyColor);
+        runtimeMaterial.SetColor("_TintColor", tintColor);
         runtimeMaterial.SetFloat("_Tolerance", tolerance);
         runtimeMaterial.SetFloat("_Feather", feather);
         runtimeMaterial.SetVector("_UvRect", GetUvRect());

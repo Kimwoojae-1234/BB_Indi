@@ -17,6 +17,20 @@ namespace BaseBall.BallPlay
             _active.SetActive(bActive);
         }
 
+        public void SkipPresentation()
+        {
+            StopAllCoroutines();
+            _active.SetActive(false);
+            if (homeRunAnim != null) homeRunAnim.gameObject.SetActive(false);
+
+            Animator anim = GetComponent<Animator>();
+            if (anim != null)
+            {
+                anim.speed = 1.0f;
+                anim.enabled = false;
+            }
+        }
+
 
         public void HomeRun(int num)
         {

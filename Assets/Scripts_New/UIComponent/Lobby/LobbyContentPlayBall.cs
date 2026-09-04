@@ -38,6 +38,8 @@ public class LobbyContentPlayBall : LobbyContentButton
     public override void UpdateContent()
     {
         base.UpdateContent();
+        isBtnActive = !KOBManager.Rtts.IsRoundInProgress;
+        if (button != null) button.interactable = isBtnActive;
 
         if (isUpdate == false)
         {
@@ -55,6 +57,7 @@ public class LobbyContentPlayBall : LobbyContentButton
     {
         if (isBtnActive == false) return;
         isBtnActive = false;
+        if (button != null) button.interactable = false;
         base.OnClickButton();
 
         //해당 볼러가 라인업에 있는지 확인 후 진행 한다.
@@ -70,28 +73,18 @@ public class LobbyContentPlayBall : LobbyContentButton
 
     private void PlayGame()
     {
-        /* //이놈은 전체 시뮬
-        KOBManager.Rtts.SimulMyGame(() =>
+        // 로비와 RTTS 화면의 플레이 버튼은 같은 리그 라운드 진입점입니다.
+        // 어느 화면에서 시작했든 결과/보상 종료 후 갱신된 UI_RTTS로 돌아갑니다.
+        KOBManager.Rtts.PlayRound(success =>
         {
-            KOBManager.Rtts.SimulOtherGames(); //--> 진짜 게임에서는 찬스모드 돌린 후 이놈만 호출하면
-        });*/
-
-
-        //SimulGame();// --> 이게 테스트용
-
-
-
-        //그냥 게임         
-        //일반게임 테스트
-        //KOBManager.FrontUI.OpenPopup<FrontUI_IngameLoading>().IngameLoading(Mode.SimulMode.None); //일반게임
-        //찬스모드 테스트 --> 결국에 이거고 이게 끝나면 SimulOtherGames 돌리면 됨
-        //KOBManager.FrontUI.OpenPopup<FrontUI_IngameLoading>().IngameLoading(Mode.SimulMode.Chance); //찬스모드
-          
-
-        //찬스모드--> 정체불명임
-        //KOBManager.Popup.OpenPopup<Popup_GameSimulator>().StartGame(null);
-
-        isBtnActive = true;
+            // 성공 시에는 결과/보상 화면이 끝날 때까지 중복 입력을 막습니다.
+            // 실패한 경우에만 현재 로비에서 다시 시도할 수 있게 버튼을 되살립니다.
+            if (!success)
+            {
+                isBtnActive = true;
+                if (button != null) button.interactable = true;
+            }
+        }, true);
     }
 
 

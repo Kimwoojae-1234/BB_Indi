@@ -29,6 +29,20 @@ public class Background : MonoBehaviour
 
         TimeIndex = Random.Range(0, 3);
         string[] _skinName = new string[] { "Morning", "Afternoon", "Night" };
+
+        if (bgAnim == null)
+        {
+            Debug.LogError("[Background] Background 프리팹의 bgAnim 참조가 없습니다.");
+            return;
+        }
+
+        bgAnim.Initialize(false);
+        if (!bgAnim.IsValid)
+        {
+            Debug.LogError("[Background] SkeletonGraphic 초기화에 실패했습니다. SkeletonData/Atlas/Material 연결을 확인하세요.");
+            return;
+        }
+
         bgAnim.Skeleton.SetSkin(_skinName[TimeIndex]);
 
     }

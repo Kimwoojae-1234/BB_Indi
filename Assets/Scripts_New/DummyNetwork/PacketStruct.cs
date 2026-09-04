@@ -215,6 +215,9 @@ public class TRequestBattleEnd : TRequestBase
     public int[] myRecord { get; set; }
     public int ballerIdx { get; set; }
     public int GetXP { get; set; }
+    public int TrophyRoadPoint { get; set; }
+    public int BallerReputationPoint { get; set; }
+    public int RttsRewardPoint { get; set; }
 }
 
 public class TResultBattleEnd : TResponseBase

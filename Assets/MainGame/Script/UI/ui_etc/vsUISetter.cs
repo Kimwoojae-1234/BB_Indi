@@ -21,6 +21,14 @@ namespace BaseBall.BallPlay
         private bool bMyTurn;
         private int my, cpu;
 
+        public void SkipPresentation()
+        {
+            StopAllCoroutines();
+            if (vsAnim != null) vsAnim.gameObject.SetActive(false);
+            if (explore != null) explore.SetActive(false);
+            if (loseEffect != null) loseEffect.SetActive(false);
+        }
+
         public void init(int _myID, bool _bMyTurn, int offenseID, int offenseRank, int defenseID, int defenseRank, bool bOffenseWin)
         {
             my = _myID;

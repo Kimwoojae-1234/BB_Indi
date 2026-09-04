@@ -45,6 +45,12 @@ public class BallerPowerComponent : MonoBehaviour
 
     public void CollectionSetting(CharacterData ballerData, KOBBaller ballerInfo)
     {
+        if (ballerData == null || ballerInfo == null)
+        {
+            Debug.LogError("[BallerPowerComponent] 캐릭터 업그레이드 정보를 갱신할 수 없습니다.");
+            return;
+        }
+
         SetCard(ballerData);
         BallerLv.text = string.Format("Power <size=65>{0}</size>           <size=40><color=#FFB200>MAX13</size></color>", ballerInfo.level);
         CurIdx = ballerData.char_idx;
@@ -130,6 +136,24 @@ public class BallerPowerComponent : MonoBehaviour
         }
         HitterSkillData skillData = KOBManager.Backend.Chart.HitterSkillData.GetData(char_idx);
 
+        if (levelData == null)
+        {
+            Debug.LogError($"[BallerPowerComponent] HitterLevelData가 없습니다. char_idx={char_idx}, level={level}");
+            return;
+        }
+
+        if (bUp && level < KOBConstant.MAX_LEVEL && nextLevelData == null)
+        {
+            Debug.LogError($"[BallerPowerComponent] 다음 레벨 HitterLevelData가 없습니다. char_idx={char_idx}, level={level + 1}");
+            bUp = false;
+        }
+
+        if (bMax && level < KOBConstant.MAX_LEVEL && maxLevelData == null)
+        {
+            Debug.LogError($"[BallerPowerComponent] 최대 레벨 HitterLevelData가 없습니다. char_idx={char_idx}, level={KOBConstant.MAX_LEVEL}");
+            bMax = false;
+        }
+
         //Hitting
         int hittinigValue = levelData.power + levelData.contact + levelData.vision;
         HittingTxt[0].text = hittinigValue.ToString();
@@ -138,7 +162,8 @@ public class BallerPowerComponent : MonoBehaviour
         PhisicalTxt[0].text = PhysicValue.ToString();
 
         //스킬
-        if (skillData != null && skillData.special_skill > 0)
+        if (skillData != null && skillData.special_skill > 0 &&
+            skillData.special_unlock != null && skillData.special_unlock.Length > 0)
         {
             int skLv = 0;
             SpSkillIcon.gameObject.SetActive(true);
@@ -268,7 +293,14 @@ public class BallerPowerComponent : MonoBehaviour
 
     private void BallerUpgradeAction(int idx)
     {
-        KOBManager.UI.GetUIWindow<UI_Ballers>().BallerUpgradeAction(idx);
+        UI_Ballers ballerWindow = KOBManager.UI.GetUIWindow<UI_Ballers>();
+        if (ballerWindow == null)
+        {
+            Debug.LogError("[BallerPowerComponent] 업그레이드 후 UI_Ballers를 찾을 수 없습니다.");
+            return;
+        }
+
+        ballerWindow.BallerUpgradeAction(idx);
     }
 
 }

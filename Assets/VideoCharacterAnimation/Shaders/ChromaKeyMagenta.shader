@@ -4,6 +4,7 @@ Shader "BB/Video/ChromaKeyMagenta"
     {
         _MainTex ("Video Texture", 2D) = "black" {}
         _KeyColor ("Key Color", Color) = (1, 0, 1, 1)
+        _TintColor ("Tint Color", Color) = (1, 1, 1, 1)
         _Tolerance ("Tolerance", Range(0.001, 0.5)) = 0.08
         _Feather ("Feather", Range(0, 0.5)) = 0.035
         _UvRect ("UV Rect", Vector) = (0, 0, 1, 1)
@@ -33,6 +34,7 @@ Shader "BB/Video/ChromaKeyMagenta"
             sampler2D _MainTex;
             float4 _MainTex_ST;
             fixed4 _KeyColor;
+            fixed4 _TintColor;
             float _Tolerance;
             float _Feather;
             float4 _UvRect;
@@ -63,7 +65,8 @@ Shader "BB/Video/ChromaKeyMagenta"
                 fixed4 col = tex2D(_MainTex, i.uv);
                 float distanceFromKey = distance(col.rgb, _KeyColor.rgb);
                 float alpha = smoothstep(_Tolerance, _Tolerance + _Feather, distanceFromKey);
-                col.a *= alpha;
+                col.rgb *= _TintColor.rgb;
+                col.a *= alpha * _TintColor.a;
                 return col;
             }
             ENDCG

@@ -20,7 +20,7 @@ public class StatComponent : MonoBehaviour
         BG.color = (idx%2 ==0) ? Color.white : new Color(0.57f,0.57f,0.57f);
         No.text = idx.ToString();
         //Name.text = player.getName_EN();
-        //Overall.text = player.getOffenseRating().ToString();//¾Æ¹«°Å³ª
+        //Overall.text = player.getOffenseRating().ToString();//ì•„ë¬´ê±°ë‚˜
         /*Pos.text = Util.GetPositionStringEng(player.getPosition());
         Stat[0].text = player.getRecord(Param.ST_AB).ToString();
         Stat[1].text = player.getRecord(Param.ST_H).ToString();
@@ -29,5 +29,39 @@ public class StatComponent : MonoBehaviour
         Stat[4].text = player.getRecord(Param.ST_SBS).ToString();
         Stat[5].text = player.getRecord(Param.ST_BB).ToString();
         Stat[6].text = player.getRecord(Param.ST_R).ToString();*/
+    }
+
+    public void InitItem(RttsPlayerGameRecord player, int idx)
+    {
+        if (player == null) return;
+        gameObject.SetActive(true);
+        if (BG != null) BG.color = (idx % 2 == 0) ? Color.white : new Color(0.57f, 0.57f, 0.57f);
+        if (No != null) No.text = idx.ToString();
+        if (Name != null) Name.text = player.Name;
+        if (Overall != null) Overall.text = player.Overall.ToString();
+        if (Pos != null) Pos.text = GetPositionName(player.Position);
+
+        SetStat(0, player.Record[RttsPlayerGameRecord.AtBat]);
+        SetStat(1, player.Record[RttsPlayerGameRecord.Hit]);
+        SetStat(2, player.Record[RttsPlayerGameRecord.HomeRun]);
+        SetStat(3, player.Record[RttsPlayerGameRecord.Rbi]);
+        SetStat(4, player.Record[RttsPlayerGameRecord.Steal]);
+        SetStat(5, player.Record[RttsPlayerGameRecord.Walk]);
+        SetStat(6, player.Record[RttsPlayerGameRecord.Run]);
+    }
+
+    private void SetStat(int index, int value)
+    {
+        if (Stat != null && index >= 0 && index < Stat.Length && Stat[index] != null)
+        {
+            Stat[index].text = value.ToString();
+        }
+    }
+
+    private static string GetPositionName(int position)
+    {
+        return System.Enum.IsDefined(typeof(KOBPosition), position)
+            ? ((KOBPosition)position).ToString().ToUpperInvariant()
+            : "-";
     }
 }

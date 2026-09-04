@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 using Spine.Unity;
+using System;
 
 public class Popup_RewardGet : UIPopup
 {
@@ -32,6 +33,8 @@ public class Popup_RewardGet : UIPopup
     [Header("선수언락")]
     [SerializeField] private GameObject Pos;
     private GameObject baller;
+    private Tween unlockScaleTween;
+    private Tween unlockColorTween;
 
     [Header("박스오픈 최종결과")]
     [SerializeField] private Reward_Item_small Clone;
@@ -54,6 +57,7 @@ public class Popup_RewardGet : UIPopup
 
     public override void Close()
     {
+        KillUnlockTweens();
         bActive = false;
         State = RewardGetState.None;
         _rewardInfo = null;
@@ -128,18 +132,36 @@ public class Popup_RewardGet : UIPopup
     private void SetRewardListFinal()
     {
         for (int i = 0; i < Obj.Length; i++) Obj[i].SetActive(false);
-        foreach (Transform child in content.transform) Destroy(child.gameObject);
-        for (int i = 0; i < _multiRewardList.Count; i++)
+
+        foreach (Transform child in content.transform)
         {
-            //GameObject obj = baseballplay.Util.CloneObj(Clone.gameObject, content.transform, Vector3.zero);
-            //obj.GetComponent<Reward_Item_small>().InitItem(_multiRewardList[i]);
+            //Destroy는 프레임 종료 시 처리되므로 먼저 숨겨 레이아웃에 중복 반영되지 않게 합니다.
+            child.gameObject.SetActive(false);
+            Destroy(child.gameObject);
+        }
+
+        if (Clone != null && _multiRewardList != null)
+        {
+            for (int i = 0; i < _multiRewardList.Count; i++)
+            {
+                GameObject rewardObject = KOBManager.Resource.LoadClone(
+                    Clone.gameObject,
+                    Vector3.zero,
+                    Vector3.one,
+                    content.transform);
+                if (rewardObject == null) continue;
+
+                rewardObject.name = string.Format("Reward_Item_small_{0}", i);
+                rewardObject.SetActive(true);
+                rewardObject.GetComponent<Reward_Item_small>()?.InitItem(_multiRewardList[i]);
+            }
         }
         
         Title.gameObject.SetActive(false);
         State = RewardGetState.RewardListFinal;
         Obj[4].gameObject.SetActive(true);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(content);
         LayoutRebuilder.ForceRebuildLayoutImmediate(Obj[4].GetComponent<RectTransform>());
-        Title.gameObject.SetActive(false);
         bActive = true;
     }
 
@@ -289,6 +311,8 @@ public class Popup_RewardGet : UIPopup
 
     private void UnlockCard()
     {
+        KillUnlockTweens();
+
         if(baller != null)
         {
             Destroy(baller.gameObject);
@@ -299,31 +323,98 @@ public class Popup_RewardGet : UIPopup
         Obj[2].gameObject.SetActive(true);
 
         int idx = _rewardInfo.pindex;
-        baller = KOBManager.Resource.LoadGameObject("Ballers", "baller" + idx, Pos.transform);
-        SkeletonGraphic anim = baller.transform.Find("anim").GetComponent<SkeletonGraphic>();
+        string resourcePath = "Ballers/baller" + idx;
+        GameObject ballerPrefab = Resources.Load<GameObject>(resourcePath);
+        if (ballerPrefab == null)
+        {
+            Debug.LogError($"[Popup_RewardGet] 해금 캐릭터 프리팹을 찾을 수 없습니다. Resources/{resourcePath}");
+            canvasGroup.alpha = 1;
+            bActive = true;
+            return;
+        }
+
+        baller = Instantiate(ballerPrefab, Pos.transform, false);
+        baller.transform.localPosition = Vector3.zero;
+        baller.transform.localScale = Vector3.one;
         canvasGroup.alpha = 1;
-        anim.color = new Color(0, 0, 0);
+
+        Action<Color> setRevealColor = CreateRevealColorSetter(baller);
+        if (setRevealColor != null)
+        {
+            setRevealColor(Color.black);
+        }
+        else
+        {
+            Debug.LogWarning($"[Popup_RewardGet] baller{idx}에서 표시 가능한 캐릭터 렌더러를 찾지 못했습니다.");
+        }
+
         DotTweenUtil.Restart(Pos.gameObject);
         Obj[2].transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
 
-        // 스케일을 (1, 1, 1)로 3초 동안 변경
-        Obj[2].transform.DOScale(new Vector3(1f, 1f, 1f), 1.5f).OnComplete(() =>
+        unlockScaleTween = Obj[2].transform.DOScale(Vector3.one, 1.5f).OnComplete(() =>
         {
-            Pos.GetComponent<DOTweenAnimation>().DOKill();
+            Pos.GetComponent<DOTweenAnimation>()?.DOKill();
             Pos.transform.localEulerAngles = Vector3.zero;
+            if (setRevealColor == null)
+            {
+                bActive = true;
+            }
         });
 
+        if (setRevealColor == null)
+        {
+            return;
+        }
 
-        float color = 0;
-        float targetColor = 1;
+        float colorValue = 0f;
+        unlockColorTween = DOTween.To(() => colorValue, value => colorValue = value, 1f, 0.3f)
+            .SetDelay(1.5f)
+            .OnUpdate(() =>
+            {
+                if (baller != null)
+                {
+                    setRevealColor(new Color(colorValue, colorValue, colorValue, 1f));
+                }
+            })
+            .OnComplete(() => bActive = true);
+    }
 
+    private Action<Color> CreateRevealColorSetter(GameObject ballerObject)
+    {
+        VideoCharacterPlayer videoPlayer = ballerObject.GetComponentInChildren<VideoCharacterPlayer>(true);
+        if (videoPlayer != null && videoPlayer.gameObject.activeInHierarchy)
+        {
+            videoPlayer.Replay();
+            return color => videoPlayer.TintColor = color;
+        }
 
-        DOTween.To(() => color, x => color = x, targetColor, 0.3f)
-               .SetDelay(1.5f)
-               .OnUpdate(() => {
-                   anim.color = new Color(color, color, color);
-               })
-               .OnComplete(() => { bActive = true; });
+        SkeletonGraphic skeletonGraphic = ballerObject.GetComponentInChildren<SkeletonGraphic>(true);
+        if (skeletonGraphic != null && skeletonGraphic.gameObject.activeInHierarchy)
+        {
+            skeletonGraphic.Initialize(false);
+            return color => skeletonGraphic.color = color;
+        }
+
+        Image[] images = ballerObject.GetComponentsInChildren<Image>(true);
+        for (int i = 0; i < images.Length; i++)
+        {
+            if (images[i].gameObject.name == "Image")
+            {
+                Image image = images[i];
+                image.gameObject.SetActive(true);
+                return color => image.color = color;
+            }
+        }
+
+        return null;
+    }
+
+    private void KillUnlockTweens()
+    {
+        unlockScaleTween?.Kill();
+        unlockColorTween?.Kill();
+        unlockScaleTween = null;
+        unlockColorTween = null;
     }
 
 

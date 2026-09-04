@@ -16,6 +16,7 @@ public class MyRttsInfo
     [JsonProperty] public int PlayGame { get; private set; } = -1;//      //시드
     [JsonProperty] public int PlayoffStep { get; private set; }    //플레이오프 스텝
     [JsonProperty] public int RewardAcquisitionStep { get; private set; } //보상획득 스텝
+    [JsonProperty] public int RewardPoint { get; private set; } //RTTS 보상 로드 누적 포인트
 
 
     [JsonProperty] public Dictionary<int, TeamRecord> LeagueTeamRecord { get; private set; }
@@ -35,6 +36,8 @@ public class MyRttsInfo
         if (json.ContainsKey("PlayGame")) PlayGame = int.Parse(json["PlayGame"].ToString());
         if (json.ContainsKey("PlayoffStep")) PlayoffStep = int.Parse(json["PlayoffStep"].ToString());
         if (json.ContainsKey("RewardAcquisitionStep")) RewardAcquisitionStep = int.Parse(json["RewardAcquisitionStep"].ToString());        
+        if (json.ContainsKey("RewardPoint")) RewardPoint = int.Parse(json["RewardPoint"].ToString());
+        else RewardPoint = Math.Max(0, PlayGame); //기존 저장 데이터는 경기당 1포인트로 마이그레이션
 
         if (json.ContainsKey("LeagueTeamRecord"))
         {
@@ -66,6 +69,7 @@ public class MyRttsInfo
         PlayGame = -1;
         PlayoffStep = 0;
         RewardAcquisitionStep = 0;
+        RewardPoint = 0;
 
         LeagueTeamRecord = new Dictionary<int, TeamRecord>();
         LeagueTeamRecord.Clear();
@@ -90,6 +94,15 @@ public class MyRttsInfo
         return true;
     }
 
+    public bool AddRewardPoint(int point)
+    {
+        if (point == 0) return false;
+
+        long nextPoint = (long)RewardPoint + point;
+        RewardPoint = (int)Math.Max(0L, Math.Min(int.MaxValue, nextPoint));
+        return true;
+    }
+
 
     /// <summary>
     /// 리그가 업데이트 될때
@@ -104,6 +117,7 @@ public class MyRttsInfo
         Seed = UnityEngine.Random.Range(0, 36);
         PlayGame = -1;
         RewardAcquisitionStep = 0;
+        RewardPoint = 0;
         LeagueTeamRecord.Clear();
         LeaguePlayerRecord.Clear();
         LeagueResult.Clear();

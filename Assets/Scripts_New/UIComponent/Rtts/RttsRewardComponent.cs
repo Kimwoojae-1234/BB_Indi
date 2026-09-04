@@ -17,21 +17,21 @@ public class RttsRewardComponent : MonoBehaviour
 
     public void InitComp()
     {
-        int CurWin = KOBManager.Rtts.CurrentWinDrawLose(0)[0];//
-        WinText.text = CurWin.ToString();
+        int currentPoint = KOBManager.Rtts.CurrentRttsRewardPoint;
+        WinText.text = currentPoint.ToString();
 
         int nextWin =0;
         foreach (KeyValuePair<int, int[]> pair in KOBManager.Rtts.RttsRewardList)
         {
             int key = pair.Key;
-            if(CurWin < key)
+            if(currentPoint < key)
             {
                 nextWin = key;                
                 break;
             }
         }
 
-        int remain = nextWin - CurWin;
+        int remain = nextWin - currentPoint;
 
         if (remain <= 0) //더이상 보상이 없는 경우
         {
@@ -43,14 +43,14 @@ public class RttsRewardComponent : MonoBehaviour
         {       
             //몇경기 남음
             RemainObj.gameObject.SetActive(true);
-            ReaminWinText.text = string.Format("{0} More Win(s)", remain);
+            ReaminWinText.text = string.Format("{0} More Point(s)", remain);
                         
             //슬라이더 
             int lower = 0;
             int upper = KOBManager.Rtts.RewardWinList[0];
             for (int i = 0; i < KOBManager.Rtts.RewardWinList.Count - 1; i++)
             {
-                if (KOBManager.Rtts.RewardWinList[i] <= CurWin && CurWin <= KOBManager.Rtts.RewardWinList[i + 1])
+                if (KOBManager.Rtts.RewardWinList[i] <= currentPoint && currentPoint <= KOBManager.Rtts.RewardWinList[i + 1])
                 {
                     lower = KOBManager.Rtts.RewardWinList[i];
                     upper = KOBManager.Rtts.RewardWinList[i + 1];

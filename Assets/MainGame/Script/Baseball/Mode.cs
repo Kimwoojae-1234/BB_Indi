@@ -60,6 +60,31 @@ namespace BaseBall.BallPlay
         //오직 찬스모드 여부
         public static bool bOnlyChanceMode = false;
 
+        // RTTS 정식 경기 브리지 정보. MainLobby와 BallPlay 씬 사이에서만 사용합니다.
+        public static bool bRttsMode = false;
+        public static bool rttsMyHome = false;
+        public static int rttsOpponentTeamIndex = 1;
+        public static string rttsMyTeamName = string.Empty;
+        public static string rttsOpponentTeamName = string.Empty;
+
+        public static void BeginRttsGame(bool myHome, int opponentTeamIndex, string myTeamName, string opponentTeamName)
+        {
+            bRttsMode = true;
+            rttsMyHome = myHome;
+            rttsOpponentTeamIndex = opponentTeamIndex;
+            rttsMyTeamName = myTeamName ?? string.Empty;
+            rttsOpponentTeamName = opponentTeamName ?? string.Empty;
+        }
+
+        public static void EndRttsGame()
+        {
+            bRttsMode = false;
+            rttsMyHome = false;
+            rttsOpponentTeamIndex = 1;
+            rttsMyTeamName = string.Empty;
+            rttsOpponentTeamName = string.Empty;
+        }
+
         //승부치기(아직 안열음)
         public static bool bTieBreaker = false;      //타이브레이크 모드
         public static bool bPvpMode = false;

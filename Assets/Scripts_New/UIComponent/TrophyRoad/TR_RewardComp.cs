@@ -78,6 +78,10 @@ public class TR_RewardComp : MonoBehaviour
 
     public void Init3(RttsTrophyRoad data, int key, Transform par, TrophyRewartState state)
     {
+        trType = TR_Type.RttsReward;
+        reward_refID = data.rewardInfo.refID;
+        reward_pindex = data.rewardInfo.pindex;
+        trophyKey = key;
         rewardInfo = data.rewardInfo;
         trophy = data.wins;
         init(par, state);

@@ -86,6 +86,17 @@ public class tempSelectPage : MonoBehaviour {
 
     public void dongneYagu()
     {
+        Mode.EndRttsGame();
+        ConfigureDongneYagu();
+        GameStart();
+    }
+
+    /// <summary>
+    /// RTTS에서도 기존 동네야구의 인게임 밸런스 설정을 재사용할 수 있도록
+    /// 씬 진입과 설정을 분리합니다.
+    /// </summary>
+    public static void ConfigureDongneYagu()
+    {
         SKILL_TYPE = 0;
         ERROR_PER = 22;
         SP_PER = 0;
@@ -101,12 +112,11 @@ public class tempSelectPage : MonoBehaviour {
         pitch3 = PitchingArsenal.FORK;
         pitch4 = PitchingArsenal.SLIDER;
         pitch5 = PitchingArsenal.CHANGEUP;
-
-        GameStart();
     }
 
     public void kboYagu()
     {
+        Mode.EndRttsGame();
         SKILL_TYPE = 1;
         ERROR_PER = 4;
         SP_PER = 40;
@@ -129,6 +139,7 @@ public class tempSelectPage : MonoBehaviour {
 
     public void mlbYagu()
     {
+        Mode.EndRttsGame();
         SKILL_TYPE = 2;
         ERROR_PER = 0;
         SP_PER = 100;

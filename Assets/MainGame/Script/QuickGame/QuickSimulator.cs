@@ -148,6 +148,18 @@ namespace BaseBall.BallPlay
 
         private bool bPausePopup = false;
 
+        [Header("Hold Fast Forward")]
+        [SerializeField] private float holdFastForwardScale = 10.0f;
+
+        private bool bHoldFastForward;
+        private bool bBlockFastForwardUntilRelease;
+        private float timeScaleBeforeFastForward = 1.0f;
+        private float appliedFastForwardTimeScale = 1.0f;
+        private readonly int[] fastRunnerPosition = new int[4];
+        private readonly string[] fastRunnerName = new string[4];
+        private readonly int[] fastRunnerTeam = new int[4];
+        private bool bFastRunnerStateValid;
+
 
         //PVP
         private bool bHost;
@@ -166,6 +178,8 @@ namespace BaseBall.BallPlay
 
         void Update()
         {
+            updateHoldFastForward();
+
 #if UNITY_EDITOR
             if (Mode.bPvpMode == false)
             {
@@ -189,6 +203,116 @@ namespace BaseBall.BallPlay
 
         }
 
+        private void OnDisable()
+        {
+            setHoldFastForward(false, false);
+        }
+
+        private void OnDestroy()
+        {
+            setHoldFastForward(false, false);
+        }
+
+        private void OnApplicationPause(bool pause)
+        {
+            if (pause) setHoldFastForward(false, false);
+        }
+
+        private void updateHoldFastForward()
+        {
+            bool pressing = isScreenPressed();
+            if (!pressing)
+            {
+                bBlockFastForwardUntilRelease = false;
+            }
+
+            bool canFastForward = manager != null &&
+                                  Mode.bPvpMode == false &&
+                                  Mode.bOnlyChanceMode == false &&
+                                  bPausePopup == false &&
+                                  bGoToGameFlag == false &&
+                                  Time.timeScale > 0.0f &&
+                                  curState != SimulState.gameover &&
+                                  (chancePopup == null || !chancePopup.activeSelf) &&
+                                  (waitPopup == null || !waitPopup.activeSelf) &&
+                                  (reconnectPopup == null || !reconnectPopup.activeSelf);
+
+            setHoldFastForward(pressing && !bBlockFastForwardUntilRelease && canFastForward);
+        }
+
+        private static bool isScreenPressed()
+        {
+            if (Input.touchCount > 0)
+            {
+                for (int i = 0; i < Input.touchCount; i++)
+                {
+                    TouchPhase phase = Input.GetTouch(i).phase;
+                    if (phase != TouchPhase.Ended && phase != TouchPhase.Canceled) return true;
+                }
+                return false;
+            }
+
+            return Input.GetMouseButton(0);
+        }
+
+        private void setHoldFastForward(bool active, bool restorePresentation = true)
+        {
+            if (bHoldFastForward == active) return;
+
+            bHoldFastForward = active;
+            if (active)
+            {
+                timeScaleBeforeFastForward = Time.timeScale;
+                appliedFastForwardTimeScale = timeScaleBeforeFastForward * Mathf.Max(holdFastForwardScale, 1.0f);
+                Time.timeScale = appliedFastForwardTimeScale;
+                skipCurrentPresentation();
+            }
+            else
+            {
+                // 배속 중 다른 시스템이 일시정지/속도 변경을 했다면 그 값을 덮어쓰지 않습니다.
+                if (Mathf.Approximately(Time.timeScale, appliedFastForwardTimeScale))
+                {
+                    Time.timeScale = timeScaleBeforeFastForward;
+                }
+                if (restorePresentation && gameObject.activeInHierarchy)
+                {
+                    restoreFastForwardPresentation();
+                }
+            }
+        }
+
+        private void stopFastForwardForChance()
+        {
+            bBlockFastForwardUntilRelease = true;
+            setHoldFastForward(false);
+        }
+
+        private void skipCurrentPresentation()
+        {
+            if (inningChange != null) inningChange.SetActive(false);
+            if (callUI != null) callUI.SkipPresentation();
+            if (qField != null) qField.SkipPresentation();
+            if (vsSetter != null) vsSetter.SkipPresentation();
+
+            if (skillUI != null)
+            {
+                for (int i = 0; i < skillUI.Length; i++)
+                {
+                    if (skillUI[i] != null) skillUI[i].SkipPresentation();
+                }
+            }
+        }
+
+        private void restoreFastForwardPresentation()
+        {
+            if (manager == null || curBatter == null || curPitcher == null) return;
+
+            int curIndex = bTopInning ? awayIndex() : homeIndex();
+            setCurPlayers(curIndex, true);
+            updateGameInfo(true);
+            restoreRunnerPresentation();
+        }
+
         /*
         public void setActive(bool bActive)
         {
@@ -199,6 +323,10 @@ namespace BaseBall.BallPlay
 
         public void init(BallPlayManager _manager)
         {
+            setHoldFastForward(false, false);
+            bBlockFastForwardUntilRelease = false;
+            bFastRunnerStateValid = false;
+
             string[] _skinName = new string[] { "Morning", "Afternoon", "Night" };
             bgAnim.Skeleton.SetSkin(_skinName[Background.TimeIndex]);
 
@@ -295,10 +423,12 @@ namespace BaseBall.BallPlay
         /// <summary>
         /// 현재 대결중인 투타 선수들 가지고 온다
         /// </summary>
-        private void setCurPlayers(int curIndex)
+        private void setCurPlayers(int curIndex, bool updatePresentation = true)
         {
             curBatter = SimulPlayerManager.GetBatter(curIndex);
             curPitcher = SimulPlayerManager.GetPitcher(1 - curIndex);
+
+            if (!updatePresentation) return;
 
             int lineup = curLineupCount[curIndex];
             int idx = curLineupCount[curIndex] + (curIndex * 10);
@@ -311,13 +441,13 @@ namespace BaseBall.BallPlay
         /// <summary>
         /// 이닝시작시 게임정보를 업데이트
         /// </summary>
-        private void updateInningInfo()
+        private void updateInningInfo(bool updatePresentation = true)
         {
             offenseTeamIndex = bMyTurn ? SimulPlayerManager.myTeamIndex : SimulPlayerManager.cpuTeamIndex;
             int curIndex = bTopInning ? awayIndex() : homeIndex();
-            setCurPlayers(curIndex);
+            setCurPlayers(curIndex, updatePresentation);
 
-            if (bMyTurn == true)
+            if (updatePresentation && bMyTurn == true)
             {
                 playerInfo[0].setBatter(curBatter);
                 playerInfo[1].setPitcher(curPitcher);
@@ -342,7 +472,7 @@ namespace BaseBall.BallPlay
                 }
                 myLineup[curLineupCount[curIndex]].setFocus(true);
             }
-            else
+            else if (updatePresentation)
             {
                 playerInfo[1].setBatter(curBatter);
                 playerInfo[0].setPitcher(curPitcher);
@@ -370,10 +500,13 @@ namespace BaseBall.BallPlay
             inningLabel.text = inning.ToString();
             arrowObj.transform.localScale = new Vector3((bMyTurn ? 1 : -1), 1, 1);
 
-            lastBatter = curBatter;
-            lastPitcher = curPitcher;
+            if (updatePresentation)
+            {
+                lastBatter = curBatter;
+                lastPitcher = curPitcher;
+            }
 
-            updateGameInfo();
+            updateGameInfo(updatePresentation);
         }
 
         /// <summary>
@@ -390,26 +523,28 @@ namespace BaseBall.BallPlay
         /// <summary>
         /// 게임정보를 업데이트 한다
         /// </summary>
-        private void updateGameInfo()
+        private void updateGameInfo(bool updatePresentation = true)
         {                        
-            if(lastBatter != curBatter)
+            if(updatePresentation && lastBatter != curBatter)
             {
                 playerInfo[bMyTurn ? 0 : 1].setBatter(curBatter);
                 lastBatter = curBatter;
             }
-            if(lastPitcher != curPitcher)
+            if(updatePresentation && lastPitcher != curPitcher)
             {
                 playerInfo[bMyTurn ? 1 : 0].setPitcher(curPitcher);
                 lastPitcher = curPitcher;
             }
 
-            playerInfo[bMyTurn ? 1 : 0].pitcherStatmina(curPitcher);
-
-            numPitchLabel.text = curPitcher.getStat(Param.ST_PNP).ToString();
-
-            for(int i=0; i<2;i++)
+            if (updatePresentation)
             {
-                outSpr[i].gameObject.SetActive((i < info.curOutCount ? true : false));
+                playerInfo[bMyTurn ? 1 : 0].pitcherStatmina(curPitcher);
+                numPitchLabel.text = curPitcher.getStat(Param.ST_PNP).ToString();
+
+                for(int i=0; i<2;i++)
+                {
+                    outSpr[i].gameObject.SetActive((i < info.curOutCount ? true : false));
+                }
             }
 
             //스코어보드
@@ -467,6 +602,7 @@ namespace BaseBall.BallPlay
         private void runnerInningChange()
         {
             runnerIndex = 0;
+            bFastRunnerStateValid = false;
             System.Array.Clear(runnerActive, 0, 4);
             
             for (int i = 0; i < 4; i++)
@@ -817,7 +953,10 @@ namespace BaseBall.BallPlay
         {
             if (manager.bPlayBallEvent == false)
             {
-                LoadDynamicUI("playballPrefab", 100, 1.5f, new Vector3(-63,-47,0));
+                if (!bHoldFastForward)
+                {
+                    LoadDynamicUI("playballPrefab", 100, 1.5f, new Vector3(-63,-47,0));
+                }
                 manager.bPlayBallEvent = true;
                 yield return new WaitForSeconds(1.5f);
             }
@@ -833,110 +972,109 @@ namespace BaseBall.BallPlay
             {
                 if (checkChance() == true || bGoToGameFlag == true)
                 {
+                    stopFastForwardForChance();
                     StartCoroutine(setChancePopup());
                     yield break;
                 }
             }
 
-            SimulBattingData battingResultData;
-
             SimulManager.SimulationBatting(true);
-            battingResultData = SimulManager.GetBattingResult();
-            ////Debug.Log("========================>>>>이닝 " + info.currentInning + " battingResultData = " + battingResultData.result);
+            SimulBattingData battingResultData = SimulManager.GetBattingResult();
             SimulManager.SetQuickgameInfo(info);
 
-            //인덱스
             int curIndex = bTopInning ? awayIndex() : homeIndex();
+            bool skipPresentation = bHoldFastForward;
 
-            //선수 교체 - 타자교체
+            // 선수 교체 계산은 유지하되 배속 중에는 교체 연출만 생략합니다.
             if (curBatter.bChangeIn == true)
             {
                 curBatter.bChangeIn = false;
-                batterChangeEvent(curIndex);                
+                if (!skipPresentation) batterChangeEvent(curIndex);
             }
-            //선수 교체 - 투수교체
             if (curPitcher.bChangeIn == true)
             {
                 curPitcher.bChangeIn = false;
-                pitcherChangeEvent(curIndex);
+                if (!skipPresentation) pitcherChangeEvent(curIndex);
             }
-            //yield return new WaitForSeconds(1.0f);
-            yield return new WaitForSeconds(0.1f);
 
-            //도루 연출
-            if (battingResultData.stealState != SimulStealState.NONE)
+            if (skipPresentation)
             {
-                SimulStealState stealState = battingResultData.stealState;
-                //도루 스킬
-                yield return new WaitForSeconds(setStealSkill(stealState, curIndex));
-                //도루 딜레이
-                yield return new WaitForSeconds(setRunnerSteal(stealState));
-            }
-                        
-            //현재 발동된 스킬 옅출
-            skillUseCount[0] = skillUseCount[1] = 0;
-            foreach (var step in (SkillUseStep[])System.Enum.GetValues(typeof(SkillUseStep)))
-            {
-                if (info.skillInfo.ContainsKey(step) == true)
-                {
-                    //배팅뷰 -> 피칭 -> 필드 순차적으로 스킬 연출
-                    yield return new WaitForSeconds(skillDisplay(info.skillInfo[step], curIndex, step));
-                }
-            }
-            
-
-
-            //주자 연출
-            setRunnerUI(battingResultData);
-
-
-            //필드뷰 공 궤적 연출 & 콜
-            float callDelay = callDisplay(battingResultData);
-            if (callDelay > 0) yield return new WaitForSeconds(callDelay);
-
-
-            
-            //라인업 처리            
-            nextLineup(curIndex, battingResultData.result);
-
-            
-
-
-            //결과 및 뒷처리
-            if (info.bGameEnd == true)
-            {
-                ////UnityEngine.//Debug.Log("===========================>> 패스트 시뮬 끝끝");
-                curState = SimulState.gameover;
+                // 실제 베이스 상태는 찬스 판정에 필요하므로 화면 연출 없이 동기화합니다.
+                syncRunnerStateWithoutPresentation(battingResultData);
             }
             else
             {
-                //찬스체크
+                yield return new WaitForSeconds(0.1f);
+
+                if (battingResultData.stealState != SimulStealState.NONE)
+                {
+                    SimulStealState stealState = battingResultData.stealState;
+                    yield return new WaitForSeconds(setStealSkill(stealState, curIndex));
+                    yield return new WaitForSeconds(setRunnerSteal(stealState));
+                }
+
+                skillUseCount[0] = skillUseCount[1] = 0;
+                foreach (var step in (SkillUseStep[])System.Enum.GetValues(typeof(SkillUseStep)))
+                {
+                    if (info.skillInfo.ContainsKey(step) == true)
+                    {
+                        yield return new WaitForSeconds(skillDisplay(info.skillInfo[step], curIndex, step));
+                    }
+                }
+
+                setRunnerUI(battingResultData);
+
+                float callDelay = callDisplay(battingResultData);
+                if (callDelay > 0) yield return new WaitForSeconds(callDelay);
+            }
+
+            // 배속 중에도 타순의 타석 결과와 상단 점수는 즉시 업데이트합니다.
+            nextLineup(curIndex, battingResultData.result, !skipPresentation);
+
+            if (info.bGameEnd == true)
+            {
+                curState = SimulState.gameover;
+                setHoldFastForward(false, false);
+            }
+            else
+            {
                 if (info.bInningEnd == true)
                 {
-                    changeInningEvent();
-                    yield return new WaitForSeconds(1.65f);
-                                        
+                    if (skipPresentation)
+                    {
+                        changeInningPre();
+                        if (curState == SimulState.gameover) yield break;
+                    }
+                    else
+                    {
+                        changeInningEvent();
+                        yield return new WaitForSeconds(1.65f);
+                    }
+
                     SimulManager.SimulChangeInning(true);
                     bool vsSkill = SimulManager.SetBattingviewSkill();
                     manager.simulCalled = (vsSkill ? SimulPreCalled.VsType : SimulPreCalled.SingleType);
-                    
-                    changeInning(true);
-                    yield return new WaitForSeconds(0.6f);
+
+                    changeInning(!skipPresentation, !skipPresentation);
+                    if (!skipPresentation) yield return new WaitForSeconds(0.6f);
                 }
-                //라인업 업데이트
+
                 SimulManager.SetQuickgameInfo(info);
 
-                //PVP모드에서 재접속 여부
-                if (Mode.gameMode == Mode.GamePlayMode.Pvp)
+                if (Mode.gameMode == Mode.GamePlayMode.Pvp && bReconnectAsked == true)
                 {
-                    if (bReconnectAsked == true)
-                    {
-                        reconnectAskedFinish();                        
-                        yield break;
-                    }
+                    reconnectAskedFinish();
+                    yield break;
                 }
-                
-                //찬스 아닌경우
+
+                if (skipPresentation)
+                {
+                    // 고속 상태에서는 결과가 식별 가능한 최대 10타석/초로 진행합니다.
+                    float fastStep = 1.0f / Mathf.Max(holdFastForwardScale, 1.0f);
+                    yield return new WaitForSecondsRealtime(fastStep);
+                    if (!bHoldFastForward) restoreFastForwardPresentation();
+                }
+
                 StartCoroutine(updater());//simulSpeed));
             }
         }
@@ -949,7 +1087,7 @@ namespace BaseBall.BallPlay
         /// </summary>
         /// <param name="curIndex"></param>
         /// <param name="result"></param>
-        public void nextLineup(int curIndex, SimulResultState result)
+        public void nextLineup(int curIndex, SimulResultState result, bool showPresentation = true)
         {            
             //카운트 처리 및 게임종료, 이닝 전환 처리
             bool bChangeCheck = true;
@@ -968,28 +1106,31 @@ namespace BaseBall.BallPlay
             if (bMyTurn == true)
             {
                 //myLineup[lastLineup].setFocus(false);
-                bShake = myLineup[lastLineup].setHitFlag(result, myLineup[curLineupCount[curIndex]]);
+                bShake = myLineup[lastLineup].setHitFlag(result, myLineup[curLineupCount[curIndex]], showPresentation);
                 //myLineup[curLineupCount[curIndex]].setFocus(true);
             }
             else
             {
                 //cpuLineup[lastLineup].setFocus(false);
-                bShake = cpuLineup[lastLineup].setHitFlag(result, cpuLineup[curLineupCount[curIndex]]);
+                bShake = cpuLineup[lastLineup].setHitFlag(result, cpuLineup[curLineupCount[curIndex]], showPresentation);
                 //cpuLineup[curLineupCount[curIndex]].setFocus(true);
             }
 
-            if (bShake == true)
+            if (showPresentation && bShake == true)
             {
                 StartCoroutine(fieldShake());
             }
 
-            setCurPlayers(curIndex);
-            setRunner(SimulParm.HOMEBASE_INDEX, curBatter.getName());
-            updateGameInfo();
+            setCurPlayers(curIndex, showPresentation);
+            if (showPresentation) setRunner(SimulParm.HOMEBASE_INDEX, curBatter.getName());
+            updateGameInfo(showPresentation);
 
             //타자 스킬 초기화
-            playerInfo[curIndex].initSkillEffect();
-            playerInfo[1 - curIndex].updatePitcher(curPitcher);
+            if (showPresentation)
+            {
+                playerInfo[curIndex].initSkillEffect();
+                playerInfo[1 - curIndex].updatePitcher(curPitcher);
+            }
             
         }
 
@@ -998,6 +1139,7 @@ namespace BaseBall.BallPlay
             int count = 0;
             for (int i = 0; i < 10; i++)
             {
+                if (bHoldFastForward) break;
                 if (count == 0) fieldObj.transform.localPosition = new Vector3(3f, -197, 0);
                 else if (count == 0) fieldObj.transform.localPosition = new Vector3(0, -197 + 6, 0);
                 else fieldObj.transform.localPosition = new Vector3(-3f, -197, 0);
@@ -1163,6 +1305,50 @@ namespace BaseBall.BallPlay
             }
         }
 
+        private void syncRunnerStateWithoutPresentation(SimulBattingData data)
+        {
+            if (data == null) return;
+
+            for (int i = 0; i < 3; i++) bBaseOn[i] = false;
+            for (int i = 0; i < 4; i++)
+            {
+                bool active = data.bRunnerActive[i];
+                runnerActive[i] = active;
+                fastRunnerPosition[i] = data.runnerCurPos[i];
+                fastRunnerName[i] = data.runnerName[i];
+                fastRunnerTeam[i] = offenseTeamIndex;
+
+                if (active)
+                {
+                    int currentBase = data.runnerCurPos[i];
+                    if (currentBase >= 0 && currentBase < bBaseOn.Length)
+                    {
+                        bBaseOn[currentBase] = true;
+                    }
+                }
+            }
+
+            bFastRunnerStateValid = true;
+        }
+
+        private void restoreRunnerPresentation()
+        {
+            if (!bFastRunnerStateValid || runnerObj == null) return;
+
+            int count = Mathf.Min(runnerObj.Length, runnerActive.Length);
+            for (int i = 0; i < count; i++)
+            {
+                if (runnerObj[i] == null) continue;
+
+                runnerObj[i].deActive();
+                if (runnerActive[i])
+                {
+                    runnerObj[i].gameObject.SetActive(true);
+                    runnerObj[i].init(fastRunnerPosition[i], fastRunnerName[i], fastRunnerTeam[i]);
+                }
+            }
+        }
+
         /// <summary>
         /// 게임 엔진으로 부터 퀵시뮬레이터 주자 싱크
         /// </summary>
@@ -1263,6 +1449,7 @@ namespace BaseBall.BallPlay
                     PvpManager.GetInstance().SendQuickGameReplyInfo(ApplyInfo.GameEnd);
                 }
                 curState = SimulState.gameover;
+                setHoldFastForward(false, false);
                 StopAllCoroutines();
             }
             else
@@ -1288,13 +1475,13 @@ namespace BaseBall.BallPlay
         }
 
 
-        private void changeInning(bool bAnim)
+        private void changeInning(bool bAnim, bool showPresentation = true)
         {   
-            updateInningInfo();
-            
+            updateInningInfo(showPresentation);
+
             Panel.GetComponent<Animator>().enabled = false;                        
             inningChange.SetActive(false);
-            if (bAnim == true)
+            if (showPresentation && bAnim == true)
             {
                 playerObj.GetComponent<UIWidget>().alpha = 0;
                 playerObj.SetActive(true);
@@ -1303,7 +1490,7 @@ namespace BaseBall.BallPlay
                 playerInfo[1].setAnim(false);
                 playerInfo[bMyTurn ? 0 : 1].SetLight(0.15f);
             }
-            else
+            else if (showPresentation)
             {
                 playerObj.GetComponent<UIWidget>().alpha = 1;
                 playerObj.SetActive(true);
@@ -1312,7 +1499,7 @@ namespace BaseBall.BallPlay
             }
 
             runnerInningChange();
-            setRunner(SimulParm.HOMEBASE_INDEX, curBatter.getName());
+            if (showPresentation) setRunner(SimulParm.HOMEBASE_INDEX, curBatter.getName());
         }
 
 
@@ -1632,6 +1819,7 @@ namespace BaseBall.BallPlay
         private bool bPopupButtonPress;
         private IEnumerator setChancePopup()
         {
+            stopFastForwardForChance();
             bPopupButtonPress = false;
             int index = (inning - 1) / 3;
             if (bGoToGameFlag == true)
@@ -1669,6 +1857,7 @@ namespace BaseBall.BallPlay
                 {
                     chancePopup.SetActive(false);
                     bChanceFlag[index] = true;
+                    Mode.bOnlyChanceMode = false;
                     StartCoroutine(updater());//simulSpeed));
                 }
             }
@@ -1676,6 +1865,7 @@ namespace BaseBall.BallPlay
 
         public void setActionPlay()
         {
+            stopFastForwardForChance();
             Mode.bOnlyChanceMode = true;
             bPopupButtonPress = true;
 
@@ -1700,6 +1890,8 @@ namespace BaseBall.BallPlay
 
         public void setContinueAutoMode()
         {
+            stopFastForwardForChance();
+            Mode.bOnlyChanceMode = false;
             bPopupButtonPress = true;
 
             if (Mode.bPvpMode == true)
@@ -1726,6 +1918,7 @@ namespace BaseBall.BallPlay
         {
             if (bPausePopup == false)
             {
+                setHoldFastForward(false);
                 StopCoroutine("updater");
                 Util.Load("MainGame/prefabs/gameUI/QuitPopupPrefab", transform, Vector3.zero).GetComponent<UIQuit>().init(manager);            
                 bPausePopup = true;

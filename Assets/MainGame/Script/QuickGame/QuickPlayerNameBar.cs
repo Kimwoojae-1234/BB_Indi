@@ -91,7 +91,7 @@ namespace BaseBall.BallPlay
         }
 
 
-        public bool setHitFlag(SimulResultState result, QuickPlayerNameBar next)
+        public bool setHitFlag(SimulResultState result, QuickPlayerNameBar next, bool showPresentation = true)
         {
             bool bActive = true;
 
@@ -101,6 +101,14 @@ namespace BaseBall.BallPlay
             else if (result == SimulResultState.Triple || result == SimulResultState.TripleOneError) resultLabel.text = "Triple";
             else if (result == SimulResultState.HomeRun) resultLabel.text = "HR";
             else bActive = false;
+
+            if (!showPresentation)
+            {
+                hitFlag.SetActive(bActive);
+                setFocusImmediate(false);
+                next.setFocusImmediate(true);
+                return false;
+            }
 
             if (bActive == false)
             {
@@ -115,6 +123,33 @@ namespace BaseBall.BallPlay
                 StartCoroutine(setHitMark(next));
                 return true;
             }
+        }
+
+        private void setFocusImmediate(bool bFocus)
+        {
+            StopAllCoroutines();
+
+            UITweener[] tweeners = GetComponents<UITweener>();
+            for (int i = 0; i < tweeners.Length; i++) tweeners[i].enabled = false;
+
+            transform.localPosition = new Vector3(
+                bFocus && bCurOffense ? (team == 0 ? -12 : 12) : 0,
+                yPos,
+                0);
+
+            if (focusObj != null)
+            {
+                UITweener[] focusTweeners = focusObj.GetComponents<UITweener>();
+                for (int i = 0; i < focusTweeners.Length; i++) focusTweeners[i].enabled = false;
+
+                UIWidget widget = focusObj.GetComponent<UIWidget>();
+                if (widget != null) widget.alpha = bFocus ? 1.0f : 0.0f;
+                focusObj.SetActive(bFocus);
+            }
+
+            Color color = bFocus ? focusColor : normalColor;
+            num.color = color;
+            name.color = color;
         }
 
         private IEnumerator setHitMark(QuickPlayerNameBar next)

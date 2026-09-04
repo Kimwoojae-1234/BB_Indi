@@ -58,22 +58,25 @@ public class Popup_StatUpgrade : UIPopup
     int SelectIDX;
     int UpdatedIDX = 0;
     Action<int> _action = null;
+    private bool _upgradeRequestInProgress;
 
     public override void Open()
     {
         base.Open();
+        _upgradeRequestInProgress = false;
+        SetUpgradeButtonInteractable(true);
         BubbleDescObj.gameObject.SetActive(false);
         propertyObj.InitProperty(typeof(UI_Ballers));
     }
 
     public override void Close()
     {
-        base.Close();
-        if(_action != null)
-        {
-            _action(UpdatedIDX);
-        }
+        Action<int> closeAction = _action;
+        int updatedIdx = UpdatedIDX;
         _action = null;
+
+        base.Close();
+        closeAction?.Invoke(updatedIdx);
     }
 
 
@@ -276,28 +279,66 @@ public class Popup_StatUpgrade : UIPopup
 
     public void OnClickUpgrade()
     {
+        if (_upgradeRequestInProgress)
+        {
+            return;
+        }
+
         Debug.Log("OnClickUpgrade");
+        _upgradeRequestInProgress = true;
+        SetUpgradeButtonInteractable(false);
+
         TRequestUpgradeCard req = new TRequestUpgradeCard()
         { 
             CardIdx = SelectIDX
         };
 
-        KOBManager.DummyNetwork.SendPacket(req, (BackendReturnObject callback, TResponseBase response) =>
+        try
         {
-            TResultUpgradeCard res = (TResultUpgradeCard)response;
-            if (callback?.IsSuccess() == true && res?.isSuccess == true)
+            KOBManager.DummyNetwork.SendPacket(req, (BackendReturnObject callback, TResponseBase response) =>
             {
-                UpdatedIDX = res.CardIdx;
-                Close();
-            }
-            else
-            {
-                int ErrorCode = res.ErrorCode;
-                Debug.Log("에러코드 : " + ErrorCode);
-            }
-            
-        });
+                try
+                {
+                    TResultUpgradeCard res = response as TResultUpgradeCard;
+                    if (callback?.IsSuccess() == true && res?.isSuccess == true)
+                    {
+                        UpdatedIDX = res.CardIdx;
+                        Close();
+                    }
+                    else
+                    {
+                        int errorCode = res?.ErrorCode ?? -1;
+                        Debug.LogError("카드 업그레이드 실패. 에러코드 : " + errorCode);
+                    }
+                }
+                finally
+                {
+                    CompleteUpgradeRequest();
+                }
+            });
+        }
+        catch (Exception exception)
+        {
+            CompleteUpgradeRequest();
+            Debug.LogException(exception);
+        }
 
+    }
+
+    private void CompleteUpgradeRequest()
+    {
+        _upgradeRequestInProgress = false;
+        SetUpgradeButtonInteractable(true);
+        KOBManager.FrontUI.GetPopup<FrontUI_NetworkLoading>()?.Close();
+    }
+
+    private void SetUpgradeButtonInteractable(bool interactable)
+    {
+        Button upgradeButton = UpgradeBtnObj != null ? UpgradeBtnObj.GetComponent<Button>() : null;
+        if (upgradeButton != null)
+        {
+            upgradeButton.interactable = interactable;
+        }
     }
 
     public void OnClickUnlock()

@@ -13,6 +13,18 @@ namespace BaseBall.BallPlay
 
         int bCount = 0;
 
+        public void SkipPresentation()
+        {
+            StopAllCoroutines();
+            bCount = 0;
+            if (ball == null) return;
+
+            for (int i = 0; i < ball.Length; i++)
+            {
+                if (ball[i] != null) ball[i].gameObject.SetActive(false);
+            }
+        }
+
         public void Active(SimulBattingData battingData, UIFieldCall call)
         {
             //임시

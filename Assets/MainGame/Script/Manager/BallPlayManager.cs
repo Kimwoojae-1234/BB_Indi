@@ -1166,11 +1166,27 @@ namespace BaseBall.BallPlay
             {
                 //시즌 모드
 #if _Test_Local
-                SimulPlayerManager.awayTeamIndex = Random.Range(1, 11);
-                SimulPlayerManager.homeTeamIndex = Random.Range(1, 11);
-                bHome = false;// InGameDebug.MYHOME;
-                SimulPlayerManager.strAwayTeam = SimulPlayerManager.GetTeamName(false);
-                SimulPlayerManager.strHomeTeam = SimulPlayerManager.GetTeamName(true);
+                if (Mode.bRttsMode)
+                {
+                    bHome = Mode.rttsMyHome;
+
+                    // 레거시 인게임 리소스는 1~10 팀 인덱스를 사용합니다.
+                    // RTTS의 내 팀(0)은 1번 리소스를, 상대 팀(1~9)은 2~10번 리소스를 사용합니다.
+                    int myLegacyTeamIndex = 1;
+                    int opponentLegacyTeamIndex = Mathf.Clamp(Mode.rttsOpponentTeamIndex + 1, 2, 10);
+                    SimulPlayerManager.homeTeamIndex = bHome ? myLegacyTeamIndex : opponentLegacyTeamIndex;
+                    SimulPlayerManager.awayTeamIndex = bHome ? opponentLegacyTeamIndex : myLegacyTeamIndex;
+                    SimulPlayerManager.strHomeTeam = bHome ? Mode.rttsMyTeamName : Mode.rttsOpponentTeamName;
+                    SimulPlayerManager.strAwayTeam = bHome ? Mode.rttsOpponentTeamName : Mode.rttsMyTeamName;
+                }
+                else
+                {
+                    SimulPlayerManager.awayTeamIndex = Random.Range(1, 11);
+                    SimulPlayerManager.homeTeamIndex = Random.Range(1, 11);
+                    bHome = false;// InGameDebug.MYHOME;
+                    SimulPlayerManager.strAwayTeam = SimulPlayerManager.GetTeamName(false);
+                    SimulPlayerManager.strHomeTeam = SimulPlayerManager.GetTeamName(true);
+                }
 #else
                 //시즌모드 세팅
                 // DISABLED_MGRS: SeasonGameInfo info = Mgrs.userData.Ingame_seasonGameInfo;
@@ -2254,7 +2270,13 @@ namespace BaseBall.BallPlay
 
 #if _Test_Local
             SimulManager.SimulResultSetting(this, true);
-            //아무처리 안함
+            if (Mode.bRttsMode && KOBManager.Rtts.CompleteLiveGame(this))
+            {
+                MusicManager.Get().StopMusic();
+                return;
+            }
+
+            // RTTS가 아닌 레거시 테스트 게임은 기존 결과 화면을 유지합니다.
             LoadGameResult(); 
 #else
                 //현재 게임 결과를 결과리스트에 추가

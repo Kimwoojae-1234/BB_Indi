@@ -7,6 +7,8 @@ using BackEnd;
 
 public class UI_Ballers : UIWindow
 {
+    private const string UpgradeAnimationName = "flame_fight";
+
     enum BallerUIStae
     {
         Normal,
@@ -40,6 +42,7 @@ public class UI_Ballers : UIWindow
     private int SelectIdx = -1;
     private CardBaller.CardBallerState CardState;
     private GameObject ballerObj = null;
+    private Coroutine upgradeCoroutine;
 
     public override void Initialize()
     {
@@ -125,13 +128,25 @@ public class UI_Ballers : UIWindow
 
 
     public void UpdateInfo(int _idx)
-    {        
+    {
         CharacterData ballerData = KOBManager.Backend.Chart.CharacterData.GetData(_idx); //고정정보 - 선수고유정보
+        if (ballerData == null)
+        {
+            Debug.LogError($"[UI_Ballers] CharacterData가 없습니다. char_idx={_idx}");
+            return;
+        }
+
         BallerInfo.ShowBallerInfo(ballerData);
 
         if (CardState == CardBaller.CardBallerState.Collection)
         {
-            KOBBaller ballerInfo = KOBManager.MyInfo.GameData.PlayerInfo.BallerList[_idx]; //변동정보 - 유저가 성장
+            KOBBaller ballerInfo;
+            if (!KOBManager.MyInfo.GameData.PlayerInfo.BallerList.TryGetValue(_idx, out ballerInfo) || ballerInfo == null)
+            {
+                Debug.LogError($"[UI_Ballers] 보유 캐릭터 정보를 찾을 수 없습니다. char_idx={_idx}");
+                return;
+            }
+
             BallerInfo.ShowTrophyInfo(ballerData, ballerInfo);
             BallerSkill.InitForCollection(ballerData, ballerInfo);
             BallerGear.InitForCollection(ballerData, ballerInfo);
@@ -161,23 +176,24 @@ public class UI_Ballers : UIWindow
     {
         if(State == BallerUIStae.Normal)
         {
+            int requestedBallerIdx = SelectIdx;
             //KOBManager.Backend.GameData.KOBGameData.SetBaller(SelectIdx);
             TRequestSelectBaller req = new TRequestSelectBaller()
             {
-                CardIdx = SelectIdx
+                CardIdx = requestedBallerIdx
             };
 
             KOBManager.DummyNetwork.SendPacket(req, (BackendReturnObject callback, TResponseBase response) =>
             {
-                TResultSelectBaller res = (TResultSelectBaller)response;
+                TResultSelectBaller res = response as TResultSelectBaller;
                 if (callback?.IsSuccess() == true && res?.isSuccess == true)
                 {
                     KOBManager.UI.OpenWindow<UI_LobbyRe>().loadBaller();
-                    KOBManager.MyInfo.SetUISelectedBaller(SelectIdx);  //볼러 UI진입시 UISelected 바꿔줌
+                    KOBManager.MyInfo.SetUISelectedBaller(res.CardIdx);  //실제로 저장 완료된 선택 선수와 UI 상태를 맞춤
                 }
                 else
                 {
-                    int ErrorCode = res.ErrorCode;
+                    int ErrorCode = res?.ErrorCode ?? -1;
                     Debug.Log("에러코드 : " + ErrorCode);
                 }
                 KOBManager.FrontUI.GetPopup<FrontUI_NetworkLoading>()?.Close();
@@ -256,26 +272,72 @@ public class UI_Ballers : UIWindow
     {
         SelectIdx = idx;        
         UpdateInfo(idx);
-        Property.InitProperty(typeof(UI_Ballers));
+        if (Property != null)
+        {
+            Property.InitProperty(typeof(UI_Ballers));
+        }
+        else
+        {
+            Debug.LogError("[UI_Ballers] 업그레이드 후 재화를 갱신할 Property 참조가 없습니다.");
+        }
         Debug.Log("업데이트 되는 연출을 넣어주면 됨");
-        StartCoroutine(UpgradeProcess());
+        if (upgradeCoroutine != null)
+        {
+            StopCoroutine(upgradeCoroutine);
+        }
+        upgradeCoroutine = StartCoroutine(UpgradeProcess());
     }
 
     private void InitUpgrade()
     {
-        //UpgradeEffect.gameObject.SetActive(false);
+        if (UpgradeEffect == null)
+        {
+            return;
+        }
+
+        UpgradeEffect.AnimationState?.ClearTracks();
+        UpgradeEffect.gameObject.SetActive(false);
     }
 
     private IEnumerator UpgradeProcess()
     {
-        //UpgradeEffect.gameObject.SetActive(true);
-        //UpgradeEffect.AnimationState.SetAnimation(0, "etc1", false);
-        yield return new WaitForSeconds(1.667f);
+        if (UpgradeEffect == null)
+        {
+            Debug.LogError("[UI_Ballers] UpgradeEffect가 UI_Ballers 프리팹에 연결되지 않았습니다.");
+            upgradeCoroutine = null;
+            yield break;
+        }
+
+        UpgradeEffect.gameObject.SetActive(true);
+        UpgradeEffect.Initialize(false);
+
+        if (!UpgradeEffect.IsValid || UpgradeEffect.AnimationState == null)
+        {
+            Debug.LogError("[UI_Ballers] 업그레이드 Spine 효과를 초기화할 수 없습니다.");
+            InitUpgrade();
+            upgradeCoroutine = null;
+            yield break;
+        }
+
+        Spine.Animation animation = UpgradeEffect.SkeletonData.FindAnimation(UpgradeAnimationName);
+        if (animation == null)
+        {
+            Debug.LogError($"[UI_Ballers] 업그레이드 애니메이션을 찾을 수 없습니다: {UpgradeAnimationName}");
+            InitUpgrade();
+            upgradeCoroutine = null;
+            yield break;
+        }
+
+        UpgradeEffect.AnimationState.ClearTracks();
+        UpgradeEffect.Skeleton.SetToSetupPose();
+        UpgradeEffect.AnimationState.SetAnimation(0, UpgradeAnimationName, false);
+        yield return new WaitForSeconds(animation.Duration / Mathf.Max(UpgradeEffect.timeScale, 0.01f));
 
         //TODO
         //슬롯 오픈 체크
         //레벨 업 연출 보여주기
 
         InitUpgrade();
+        upgradeCoroutine = null;
     }
 }

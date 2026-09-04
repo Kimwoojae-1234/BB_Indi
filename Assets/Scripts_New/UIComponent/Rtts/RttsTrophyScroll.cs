@@ -40,6 +40,16 @@ public class RttsTrophyScroll : MonoBehaviour
 
     public void InitUI(int League, bool bFirstTry)
     {
+        //UI_RTTS 객체는 재사용되므로 경기 후 다시 열 때 누적 포인트와 획득 상태를 다시 그립니다.
+        if (bInit)
+        {
+            ClearGeneratedChildren(rewardTrans, Clone[0]);
+            ClearGeneratedChildren(pointTrans, Clone[1]);
+            Clone[0].gameObject.SetActive(true);
+            Clone[1].gameObject.SetActive(true);
+            bInit = false;
+        }
+
         if (bInit == false)
         {
             //League = 2; //지워지워-> 테스트용
@@ -152,12 +162,11 @@ public class RttsTrophyScroll : MonoBehaviour
                 }
             }
 #endif
-            CurrentWin = KOBManager.Rtts.CurrentWinDrawLose(0)[0];
+            CurrentWin = KOBManager.Rtts.CurrentRttsRewardPoint;
 
-            int Step = 0;
             int CurrentKey = 0;
             int CurValue = 0;
-            int NextValue = 5;
+            int NextValue = 0;
 
 
             int Key = 1;//
@@ -196,24 +205,30 @@ public class RttsTrophyScroll : MonoBehaviour
                 point.transform.localScale = Vector3.one;
                 point.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = item.Value.wins.ToString();
 
-                if (Step == 0)
+            }
+
+            if (rttsChart.Count == 0)
+            {
+                Clone[0].gameObject.SetActive(false);
+                Clone[1].gameObject.SetActive(false);
+                TropyTxt.text = string.Format("{0} Points", CurrentWin);
+                return;
+            }
+
+            NextValue = rttsChart[1].wins;
+            for (int key = 1; key <= rttsChart.Count; key++)
+            {
+                if (CurrentWin < rttsChart[key].wins)
                 {
-                    if (CurrentWin >= item.Value.wins)
-                    {
-                        if (CurrentWin < rttsChart[item.Key + 1].wins)
-                        {
-                            CurrentKey = item.Key;
-                            CurValue = item.Value.wins;
-                            Debug.Log("첫노드 찾음 CurrentKey : " + CurrentKey);
-                            Step = 1;
-                        }
-                    }
+                    NextValue = rttsChart[key].wins;
+                    break;
                 }
-                else if (Step == 1)
+
+                CurrentKey = key;
+                CurValue = rttsChart[key].wins;
+                if (key == rttsChart.Count)
                 {
-                    NextValue = item.Value.wins;
-                    Debug.Log("두번째노드 찾음 NextValue : " + NextValue);
-                    Step = 2;
+                    NextValue = CurValue;
                 }
             }
 
@@ -232,7 +247,11 @@ public class RttsTrophyScroll : MonoBehaviour
             //슬라이더 밸류 구하기
             float curPos = (SIZE + GAB) * (CurrentKey - 1) + LEFTPADDING + GAB / 2;
             float nextPos = (SIZE + GAB) * (CurrentKey) + LEFTPADDING + GAB / 2;
-            float posGab = ((nextPos - curPos) * (CurrentWin - CurValue)) / (NextValue - CurValue);
+            float posGab = 0f;
+            if (CurrentKey < rttsChart.Count && NextValue > CurValue)
+            {
+                posGab = ((nextPos - curPos) * (CurrentWin - CurValue)) / (NextValue - CurValue);
+            }
             trophyPos = (curPos + 50 + posGab); //50은 위치 어긋나는 버그 때문에 설정해줌
             float sliderValue = trophyPos / scrollSize;
             slider.value = sliderValue;
@@ -240,7 +259,7 @@ public class RttsTrophyScroll : MonoBehaviour
 
             Debug.Log("trophyPos : " + trophyPos);
             //인디케이터 설정하기
-            TropyTxt.text = string.Format("{0} Wins", CurrentWin);
+            TropyTxt.text = string.Format("{0} Points", CurrentWin);
             Indicator.anchoredPosition = new Vector2(trophyPos, Indicator.anchoredPosition.y);
 
             //초기 스크롤 위치
@@ -250,6 +269,17 @@ public class RttsTrophyScroll : MonoBehaviour
         }
         ScrollContent.anchoredPosition = new Vector2(firstScrollPos, ScrollContent.anchoredPosition.y); //열때마다 위치 초기화
 
+    }
+
+    private static void ClearGeneratedChildren(Transform parent, GameObject template)
+    {
+        foreach (Transform child in parent)
+        {
+            if (child.gameObject != template)
+            {
+                Destroy(child.gameObject);
+            }
+        }
     }
 }
 

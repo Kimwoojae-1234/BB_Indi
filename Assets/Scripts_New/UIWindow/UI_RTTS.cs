@@ -68,9 +68,9 @@ public class UI_RTTS : UIWindow
             }
         }
 
-        //for(int i = 0;i< LeftObj.Length;i++) LeftObj[i].gameObject.SetActive(true);
-        LeftObj[1].gameObject.SetActive(false);
-        LeftObj[2].gameObject.SetActive(false);
+        for(int i = 0;i< LeftObj.Length;i++) LeftObj[i].gameObject.SetActive(true);
+        //LeftObj[1].gameObject.SetActive(false);
+        //LeftObj[2].gameObject.SetActive(false);
 
         //새로 생길때만 플래고 온
         isLocalSaveFlag = false;
@@ -471,9 +471,6 @@ public class UI_RTTS : UIWindow
     {
         RttsTrophy.gameObject.SetActive(false);
         for (int i = 0; i < LeftObj.Length; i++) LeftObj[i].gameObject.SetActive(true);
-
-        LeftObj[1].gameObject.SetActive(false); //지워지워
-        LeftObj[2].gameObject.SetActive(false); //지워지워
     }
 
     public override void ClickBackButton()

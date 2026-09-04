@@ -139,16 +139,15 @@ public partial class KOBGameData : BackendData.Base.GameData
     {
         int errorCode = 0;
 
-        int AddTrophy = KOBPointCalUtil.CaculateAddTrophy(req.League, req.Result); //req로부터 트로피 계산
         int AddXP = KOBPointCalUtil.CaculateAddXP(req);     //req로부터 XP 계산
-        int AddFame = KOBPointCalUtil.CaculateAddFame(req.League, req.myRecord);    //req로부터 Fame 계산
         int ballerIDX = req.ballerIdx;
 
-        isRttsChange = RttsInfo.BattleEnd();     //rtts계산
-        isGrowthChange = GrowthInfo.AddTrophy(AddTrophy); //트로피계산 -> 추가
-        isGrowthChange = GrowthInfo.AddXP(AddXP); //XP계산 -> 추가
-        isGrowthChange = GrowthInfo.AddRecord(ballerIDX, req.League, req.myRecord); //업적등을 계산하기 위한
-        isPlayerChange = PlayerInfo.AddFame(ballerIDX, AddFame);
+        isRttsChange |= RttsInfo.BattleEnd();     //rtts 경기수 계산
+        isRttsChange |= RttsInfo.AddRewardPoint(req.RttsRewardPoint);
+        isGrowthChange |= GrowthInfo.AddTrophy(req.TrophyRoadPoint);
+        isGrowthChange |= GrowthInfo.AddXP(AddXP);
+        isGrowthChange |= GrowthInfo.AddRecord(ballerIDX, req.League, req.myRecord); //업적등을 계산하기 위한
+        isPlayerChange |= PlayerInfo.AddFame(ballerIDX, req.BallerReputationPoint);
         
         //업적   -> 미션작업 후     
         IsChangedData = true;
@@ -157,42 +156,64 @@ public partial class KOBGameData : BackendData.Base.GameData
     }
 
     public List<KOBRewardInfo> RttsBattleReward(TRequestBattleEnd req)
-    {        
-        List<KOBRewardInfo> kobRewardList = KOBManager.Rtts.GetRttsRewardInfo(req.Result);
-        if(kobRewardList != null)
-        { 
-            for (int i = 0; i < kobRewardList.Count; i++)
+    {
+        var kobRewardList = new List<KOBRewardInfo>
+        {
+            // 경기 종료 요청에는 해당 경기에 출전한 선택 선수 인덱스가 담겨 있습니다.
+            // 같은 인덱스를 카드 보상에도 사용해 기록/평판/카드 지급 대상이 일치하도록 합니다.
+            new KOBRewardInfo(KOBReward.Card_Common, req.ballerIdx, RttsHardcodedRewardConfig.CardAmount)
             {
-                KOBRewardInfo reward = kobRewardList[i];
-                KOBRewardType type = reward.GetRewardType();
-                bool unlock = false;
-
-                if (type == KOBRewardType.Currency)
-                {
-                    UpdateReward(reward);
-                    //재화는 언락 이슈 없음
-                }
-                else if (type == KOBRewardType.Card)
-                {
-                    reward.pindex = KOBRewardUtil.GetRandomPindex(reward);    //음수인 경우 랜덤 선택
-                    unlock = AddBaller(reward);//.pindex, reward.amount);
-                }
-                else if (type == KOBRewardType.Inventory)
-                {
-                    //ItemInfo
-                    //아이템도 unlock이슈 있음 -> 연출보다는 알람쪽임
-                }
-                else
-                {
-
-                }
-                reward.unlock = unlock;
+                rewardFrom = KOBRewardFrom.Result
+            },
+            new KOBRewardInfo(KOBReward.Gem_Free, 0,
+                UnityEngine.Random.Range(RttsHardcodedRewardConfig.FreeGemMin, RttsHardcodedRewardConfig.FreeGemMaxExclusive))
+            {
+                rewardFrom = KOBRewardFrom.Result
+            },
+            new KOBRewardInfo(KOBReward.Gold, 0,
+                UnityEngine.Random.Range(RttsHardcodedRewardConfig.GoldMin, RttsHardcodedRewardConfig.GoldMaxExclusive))
+            {
+                rewardFrom = KOBRewardFrom.Result
             }
-            IsChangedData = true;
-            return kobRewardList;
+        };
+
+        //MyInfo는 화면용 복사본이므로, 이번 경기 포인트가 반영된 실제 저장 객체의 값을 사용합니다.
+        List<KOBRewardInfo> milestoneRewards = KOBManager.Rtts.GetRttsRewardInfo(RttsInfo.RewardPoint);
+        if (milestoneRewards != null)
+        {
+            kobRewardList.AddRange(milestoneRewards);
         }
 
-        return null;
+        for (int i = 0; i < kobRewardList.Count; i++)
+        {
+            KOBRewardInfo reward = kobRewardList[i];
+            KOBRewardType type = reward.GetRewardType();
+            bool unlock = false;
+
+            if (reward.rewardFrom == KOBRewardFrom.None)
+            {
+                reward.rewardFrom = KOBRewardFrom.Result;
+            }
+
+            if (type == KOBRewardType.Currency)
+            {
+                UpdateReward(reward);
+            }
+            else if (type == KOBRewardType.Card)
+            {
+                reward.pindex = KOBRewardUtil.GetRandomPindex(reward); //음수인 경우에만 랜덤 선택
+                unlock = AddBaller(reward);
+            }
+            else if (type == KOBRewardType.Inventory)
+            {
+                //아이템 저장 구현 시 이 분기에 연결합니다.
+            }
+
+            reward.unlock = unlock;
+        }
+
+        IsChangedData = true;
+        return kobRewardList;
     }
 
 

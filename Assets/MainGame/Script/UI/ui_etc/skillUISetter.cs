@@ -54,6 +54,24 @@ namespace BaseBall.BallPlay
 
         private bool bVsState;
 
+        public void SkipPresentation()
+        {
+            StopAllCoroutines();
+            coroutine = null;
+            destroyObject();
+
+            if (backSpr != null) backSpr.SetActive(false);
+            if (catureTexture != null)
+            {
+                catureTexture.sprite = null;
+                catureTexture.gameObject.SetActive(false);
+            }
+            if (_active != null) _active.SetActive(false);
+
+            UIPanel panel = GetComponent<UIPanel>();
+            if (panel != null) panel.alpha = 1.0f;
+        }
+
         public void init(int skillID, int rank, bool bVs = false)
         {
             bVsState = bVs;
