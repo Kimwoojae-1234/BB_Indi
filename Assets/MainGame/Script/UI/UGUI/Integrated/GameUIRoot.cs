@@ -9,13 +9,26 @@ namespace BaseBall.BallPlay.UGUI
         public int manualWidth = 1280, manualHeight = 720;
         public bool fitWidth, fitHeight = true;
         public Camera uiCamera;
+        public Canvas rootCanvas;
+        public RectTransform hudLayer, effectsLayer, popupLayer;
         private void Awake()
         {
             EnsureInput(gameObject.scene);
             if (uiCamera != null) { uiCamera.eventMask = 0; uiCamera.transparencySortMode = TransparencySortMode.Orthographic; }
-            foreach (var canvas in GetComponentsInChildren<Canvas>(true))
-                if (canvas.renderMode == RenderMode.WorldSpace) canvas.worldCamera = uiCamera;
+            BindCanvases();
             Resize();
+        }
+        public void BindCanvases()
+        {
+            foreach (var canvas in GetComponentsInChildren<Canvas>(true))
+            {
+                canvas.worldCamera = uiCamera;
+                // This also covers existing UGUI card/minimap prefab instances. Preserve their
+                // former root sorting, without breaking inheritance inside those prefabs.
+                var parentCanvas = canvas.transform.parent != null ? canvas.transform.parent.GetComponentInParent<Canvas>(true) : null;
+                if (rootCanvas != null && canvas != rootCanvas && parentCanvas == rootCanvas)
+                    canvas.overrideSorting = true;
+            }
         }
         public static void EnsureInput(Scene scene)
         {
@@ -30,10 +43,41 @@ namespace BaseBall.BallPlay.UGUI
         private void Update() { Resize(); }
         private void Resize()
         {
+            // CanvasScaler owns the screen-space layout. The prefab root only owns its lifetime.
+            if (rootCanvas != null) return;
             float aspect = Screen.width / (float)Mathf.Max(1, Screen.height);
             float height = fitWidth ? (fitHeight ? Mathf.Max(manualHeight, manualWidth / aspect) : manualWidth / aspect)
                 : (fitHeight ? manualHeight : Mathf.Min(manualHeight, manualWidth / aspect));
             transform.localScale = Vector3.one * (2 / Mathf.Max(1, height));
+        }
+        public Transform EffectsParent => effectsLayer != null ? effectsLayer : transform;
+
+        public static void RenderForCapture(Camera camera)
+        {
+            var owner = camera.GetComponentInParent<GameUIRoot>();
+            var canvas = owner != null ? owner.rootCanvas : null;
+            if (canvas == null || canvas.renderMode == RenderMode.WorldSpace) { camera.Render(); return; }
+
+            // A secondary camera must see the same UI geometry as the Spine meshes it captures.
+            // Screen-space canvases otherwise belong exclusively to their assigned UI camera.
+            Canvas.ForceUpdateCanvases();
+            var rect = (RectTransform)canvas.transform;
+            var position = rect.position; var rotation = rect.rotation;
+            var scale = rect.localScale; var size = rect.sizeDelta;
+            var mode = canvas.renderMode;
+            try
+            {
+                canvas.renderMode = RenderMode.WorldSpace;
+                rect.SetPositionAndRotation(position, rotation);
+                rect.localScale = scale; rect.sizeDelta = size;
+                Canvas.ForceUpdateCanvases();
+                camera.Render();
+            }
+            finally
+            {
+                canvas.renderMode = mode;
+                Canvas.ForceUpdateCanvases();
+            }
         }
         public static Camera FindCameraForLayer(int layer)
         {

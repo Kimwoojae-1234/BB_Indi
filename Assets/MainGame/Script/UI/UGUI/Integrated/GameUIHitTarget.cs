@@ -14,7 +14,8 @@ namespace BaseBall.BallPlay.UGUI
         {
             if (pointer == null) return;
             var e = pointer.GetComponentInParent<GameUIElement>();
-            canvas.sortingOrder = GameUIRenderOrder.Get(pointer.GetComponentInParent<GameUIPanel>(), e != null ? e.depth : 0);
+            if (!canvas.isRootCanvas) canvas.overrideSorting = true;
+            canvas.sortingOrder = e != null ? GameUIRenderOrder.Get(e) : GameUIRenderOrder.Get(pointer.GetComponentInParent<GameUIPanel>(), 0);
             if (canvas.worldCamera == null) canvas.worldCamera = GameUIRoot.FindCameraForLayer(gameObject.layer);
         }
         protected override void Awake() { base.Awake(); canvasRenderer.cullTransparentMesh = false; }

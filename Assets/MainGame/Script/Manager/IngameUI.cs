@@ -331,7 +331,8 @@ namespace BaseBall.BallPlay
         /// <param name="uiName"></param>
         public static void LoadDynamicUI(string uiName, float scale, float timeRemain, Vector3 pos)
         {
-            GameObject uiObj = Util.Load("MainGame/prefabs/dynamicUI/" + uiName, Instance_.transform, pos);
+            var root = Instance_.GetComponent<GameUIRoot>();
+            GameObject uiObj = Util.Load("MainGame/prefabs/dynamicUI/" + uiName, root != null ? root.EffectsParent : Instance_.transform, pos);
             uiObj.transform.localScale = new Vector3(scale, scale, scale);
             Destroy(uiObj, timeRemain);
         }

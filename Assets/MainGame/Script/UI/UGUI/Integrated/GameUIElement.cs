@@ -151,8 +151,9 @@ namespace BaseBall.BallPlay.UGUI
             }
             if (displayCanvas != null)
             {
+                if (!displayCanvas.isRootCanvas) displayCanvas.overrideSorting = true;
                 if (appliedDepth != mDepth) { appliedDepth = mDepth; GameUIRenderOrder.Invalidate(); }
-                displayCanvas.sortingOrder = GameUIRenderOrder.Get(Panel, mDepth);
+                displayCanvas.sortingOrder = GameUIRenderOrder.Get(this);
                 if (displayCanvas.worldCamera == null) displayCanvas.worldCamera = GameUIRoot.FindCameraForLayer(gameObject.layer);
             }
         }

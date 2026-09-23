@@ -302,7 +302,7 @@ namespace BaseBall.BallPlay
         {
             RenderTexture tempRT = new RenderTexture(w, h, 24);
             camera.targetTexture = tempRT;
-            camera.Render();
+            BaseBall.BallPlay.UGUI.GameUIRoot.RenderForCapture(camera);
 
             Texture2D virtualPhoto = new Texture2D(w, h, TextureFormat.RGBA32, false);
 
@@ -323,7 +323,7 @@ namespace BaseBall.BallPlay
         {
             RenderTexture tempRT = new RenderTexture(w, h, 24);
             camera.targetTexture = tempRT;
-            camera.Render();
+            BaseBall.BallPlay.UGUI.GameUIRoot.RenderForCapture(camera);
 
             Texture2D virtualPhoto = new Texture2D(w, h, TextureFormat.RGBA32, false);
 

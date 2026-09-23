@@ -40,6 +40,10 @@ public static class IntegratedUGUIChecks
     }
     public static void CheckApplied()
     {
+        CheckApplied(IntegratedUGUIConverter.Output + "/applied-checks.txt");
+    }
+    public static void CheckApplied(string reportPath)
+    {
         var plan = JsonUtility.FromJson<IntegratedUGUIConverter.Plan>(File.ReadAllText(IntegratedUGUIConverter.Output + "/candidate-plan.json"));
         var refs = JsonUtility.FromJson<References>(File.ReadAllText(IntegratedUGUIConverter.Output + "/source-references.json"));
         int count = 0, native = 0;
@@ -85,7 +89,7 @@ public static class IntegratedUGUIChecks
                     foreach (var clip in animator.runtimeAnimatorController.animationClips)
                         Require(!AnimationUtility.GetCurveBindings(clip).Any(b => typeof(UIWidget).IsAssignableFrom(b.type) || b.type == typeof(UIPanel)), asset.source + ": old animation binding " + clip.name);
         }
-        File.WriteAllText(IntegratedUGUIConverter.Output + "/applied-checks.txt", "PASS " + DateTime.UtcNow.ToString("O") + "\nassets=" + plan.assets.Length + " nativeWidgets=" + native + " retainedControllerReferences=" + count + "\nExact reference GUID/fileID mapping and CanvasRenderer presence checked. No NGUI behaviors or NGUI animator curves in converted assets. Gameplay and device validation reported separately.\n");
+        File.WriteAllText(reportPath, "PASS " + DateTime.UtcNow.ToString("O") + "\nassets=" + plan.assets.Length + " nativeWidgets=" + native + " retainedControllerReferences=" + count + "\nExact reference GUID/fileID mapping and CanvasRenderer presence checked. No NGUI behaviors or NGUI animator curves in converted assets. Gameplay and device validation reported separately.\n");
     }
     private static void CheckAction(GameUIAction action, string name)
     {

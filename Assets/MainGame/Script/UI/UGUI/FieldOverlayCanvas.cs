@@ -42,6 +42,7 @@ namespace BaseBall.BallPlay
                 foreach (var graphic in GetComponentsInChildren<Graphic>(true)) Register(graphic);
             }
             displayCanvas.worldCamera = camera;
+            if (!displayCanvas.isRootCanvas) displayCanvas.overrideSorting = true;
             displayCanvas.sortingOrder = order;
             opacity.alpha = alpha;
             opacity.blocksRaycasts = opacity.interactable = false;

@@ -40,6 +40,7 @@ namespace BaseBall.BallPlay
         public void SetInheritedRendering(float alpha, int queue, int order, Camera camera, bool allowInput)
         {
             displayCanvas.worldCamera = camera;
+            if (!displayCanvas.isRootCanvas) displayCanvas.overrideSorting = true;
             displayCanvas.sortingOrder = order;
             opacity.alpha = alpha;
             opacity.blocksRaycasts = opacity.interactable = allowInput && alpha > .001f;
