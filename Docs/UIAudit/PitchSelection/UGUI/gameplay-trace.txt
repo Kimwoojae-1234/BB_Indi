@@ -1,0 +1,98 @@
+Offline _Test_Local entry, 2026-09-23T05:52:55.7381010Z
+0.0 Scene=Logo manager=False board=False
+3.8 Scene=MainLobby manager=False board=False
+ERROR tk2dCamera.GetGameViewSize - has a Unity update broken this?
+This is not a fatal error, but a warning that you've probably not got the latest 2D Toolkit update.
+
+System.NullReferenceException: Object reference not set to an instance of an object
+  at tk2dCamera.Editor__GetGameViewSize (System.Single& width, System.Single& height, System.Single& aspect) [0x00021] in /Users/munhwaie/Projects/BB_Indi/Assets/TK2DROOT/tk2d/Code/Camera/tk2dCamera.cs:371 
+UnityEngine.Debug:LogError (object)
+tk2dCamera:Editor__GetGameViewSize (single&,single&,single&) (at Assets/TK2DROOT/tk2d/Code/Camera/tk2dCamera.cs:430)
+tk2dCamera:GetScreenPixelDimensions (tk2dCamera) (at Assets/TK2DROOT/tk2d/Code/Camera/tk2dCamera.cs:701)
+tk2dCamera:UpdateCameraMatrix () (at Assets/TK2DROOT/tk2d/Code/Camera/tk2dCamera.cs:774)
+tk2dCamera:OnEnable () (at Assets/TK2DROOT/tk2d/Code/Camera/tk2dCamera.cs:275)
+
+6.1 Scene=BallPlay manager=True board=True ugui=True visible=False phase=PLAY_INIT_INNING update=False inning=0 top=False home=False score=0,0 count=0/0/0 display=0:0 alpha=1
+8.1 Scene=BallPlay manager=True board=True ugui=True visible=False phase=NONE update=False inning=1 top=True home=False score=0,0 count=0/0/0 display=0:0 alpha=1
+13.1 Scene=BallPlay manager=True board=True ugui=True visible=False phase=NONE update=True inning=1 top=True home=False score=0,0 count=0/0/0 display=0:0 alpha=1
+14.9 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW_INFO update=True inning=1 top=True home=False score=0,0 count=0/0/0 display=0:0 alpha=1
+17.2 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW update=True inning=1 top=True home=False score=0,0 count=0/0/0 display=0:0 alpha=1
+22.2 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW update=True inning=1 top=True home=False score=0,0 count=0/1/0 display=0:0 alpha=1
+ERROR ArgumentException: Animation not found: DEADBALL2
+Parameter name: animationName
+Spine.AnimationState.SetAnimation (System.Int32 trackIndex, System.String animationName, System.Boolean loop) (at Assets/Spine/spine-csharp/src/AnimationState.cs:405)
+BaseBall.BallPlay.Batter.batterAnim (System.Int32 track, System.String strAnim, System.Boolean bLoop, System.Single timeScale) (at Assets/MainGame/Script/Character/Batter.cs:731)
+BaseBall.BallPlay.Batter+<hitByPitchAnim>d__224.MoveNext () (at Assets/MainGame/Script/Character/Batter.cs:4009)
+UnityEngine.SetupCoroutine.InvokeMoveNext (System.Collections.IEnumerator enumerator, System.IntPtr returnValueAddress) (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/Coroutines.cs:17)
+UnityEngine.MonoBehaviour:StartCoroutine(IEnumerator)
+BaseBall.BallPlay.Batter:lookingFrame() (at Assets/MainGame/Script/Character/Batter.cs:3009)
+BaseBall.BallPlay.Batter:batterFrame() (at Assets/MainGame/Script/Character/Batter.cs:2956)
+BaseBall.BallPlay.BallPlayManager:battingViewFrame() (at Assets/MainGame/Script/Manager/BallPlayManager.cs:3693)
+BaseBall.BallPlay.BallPlayManager:updateFrame() (at Assets/MainGame/Script/Manager/BallPlayManager.cs:3148)
+BaseBall.BallPlay.BallPlayManager:Update() (at Assets/MainGame/Script/Manager/BallPlayManager.cs:952)
+
+ERROR 투수 에러 PITCHER_INCONVENENCE_01
+UnityEngine.Debug:LogError (object)
+BaseBall.BallPlay.Pitcher:pitcherAnim (string,bool,bool) (at Assets/MainGame/Script/Character/Pitcher.cs:533)
+BaseBall.BallPlay.Pitcher/<pitcherAngry>d__149:MoveNext () (at Assets/MainGame/Script/Character/Pitcher.cs:2299)
+UnityEngine.MonoBehaviour:StartCoroutine (System.Collections.IEnumerator)
+BaseBall.BallPlay.Pitcher:checkCount () (at Assets/MainGame/Script/Character/Pitcher.cs:2248)
+BaseBall.BallPlay.Pitcher:finishFrame () (at Assets/MainGame/Script/Character/Pitcher.cs:2017)
+BaseBall.BallPlay.Pitcher:pitchingFrame () (at Assets/MainGame/Script/Character/Pitcher.cs:1788)
+BaseBall.BallPlay.BallPlayManager:battingViewFrame () (at Assets/MainGame/Script/Manager/BallPlayManager.cs:3692)
+BaseBall.BallPlay.BallPlayManager:updateFrame () (at Assets/MainGame/Script/Manager/BallPlayManager.cs:3148)
+BaseBall.BallPlay.BallPlayManager:Update () (at Assets/MainGame/Script/Manager/BallPlayManager.cs:952)
+
+31.3 Scene=BallPlay manager=True board=True ugui=True visible=False phase=PLAY_FIELDING_VIEW update=True inning=1 top=True home=False score=0,0 count=0/1/0 display=0:0 alpha=0
+34.2 Scene=BallPlay manager=True board=True ugui=True visible=False phase=PLAY_BATTING_VIEW_PRE update=True inning=1 top=True home=False score=0,0 count=0/0/0 display=0:0 alpha=0
+35.2 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW_INFO update=True inning=1 top=True home=False score=0,0 count=0/0/0 display=0:0 alpha=1
+37.2 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW update=True inning=1 top=True home=False score=0,0 count=0/0/0 display=0:0 alpha=1
+42.2 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW update=True inning=1 top=True home=False score=0,0 count=1/0/0 display=0:0 alpha=1
+48.2 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW update=True inning=1 top=True home=False score=0,0 count=1/1/0 display=0:0 alpha=1
+54.2 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW update=True inning=1 top=True home=False score=0,0 count=1/2/0 display=0:0 alpha=1
+55.0 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW_READY update=True inning=1 top=True home=False score=0,0 count=1/2/0 display=0:0 alpha=1
+56.2 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW update=True inning=1 top=True home=False score=0,0 count=1/2/0 display=0:0 alpha=1
+60.2 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW update=True inning=1 top=True home=False score=0,0 count=2/2/0 display=0:0 alpha=1
+66.2 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW update=True inning=1 top=True home=False score=0,0 count=3/2/0 display=0:0 alpha=1
+ERROR 투수 에러 PITCHER_SMILE_05
+UnityEngine.Debug:LogError (object)
+BaseBall.BallPlay.Pitcher:pitcherAnim (string,bool,bool) (at Assets/MainGame/Script/Character/Pitcher.cs:533)
+BaseBall.BallPlay.Pitcher/<pitcherCeremony>d__148:MoveNext () (at Assets/MainGame/Script/Character/Pitcher.cs:2284)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr) (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/Coroutines.cs:17)
+
+73.2 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW update=True inning=1 top=True home=False score=0,0 count=3/3/1 display=0:0 alpha=1
+77.2 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW update=True inning=1 top=True home=False score=0,0 count=0/0/1 display=0:0 alpha=1
+78.2 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW_INFO update=True inning=1 top=True home=False score=0,0 count=0/0/1 display=0:0 alpha=1
+80.2 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW update=True inning=1 top=True home=False score=0,0 count=0/0/1 display=0:0 alpha=1
+85.3 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW update=True inning=1 top=True home=False score=0,0 count=0/1/1 display=0:0 alpha=1
+91.3 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW update=True inning=1 top=True home=False score=0,0 count=1/1/1 display=0:0 alpha=1
+97.3 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW update=True inning=1 top=True home=False score=0,0 count=1/2/1 display=0:0 alpha=1
+98.2 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW_READY update=True inning=1 top=True home=False score=0,0 count=1/2/1 display=0:0 alpha=1
+99.4 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW update=True inning=1 top=True home=False score=0,0 count=1/2/1 display=0:0 alpha=1
+103.4 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW update=True inning=1 top=True home=False score=0,0 count=1/3/2 display=0:0 alpha=1
+ERROR 투수 에러 PITCHER_SMILE_05
+UnityEngine.Debug:LogError (object)
+BaseBall.BallPlay.Pitcher:pitcherAnim (string,bool,bool) (at Assets/MainGame/Script/Character/Pitcher.cs:533)
+BaseBall.BallPlay.Pitcher/<pitcherCeremony>d__148:MoveNext () (at Assets/MainGame/Script/Character/Pitcher.cs:2284)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr) (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/Coroutines.cs:17)
+
+107.4 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW update=True inning=1 top=True home=False score=0,0 count=0/0/2 display=0:0 alpha=1
+109.4 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW_INFO update=True inning=1 top=True home=False score=0,0 count=0/0/2 display=0:0 alpha=1
+111.4 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW update=True inning=1 top=True home=False score=0,0 count=0/0/2 display=0:0 alpha=1
+115.4 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW update=True inning=1 top=True home=False score=0,0 count=0/1/2 display=0:0 alpha=1
+122.4 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW update=True inning=1 top=True home=False score=0,0 count=0/2/2 display=0:0 alpha=1
+128.4 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW update=True inning=1 top=True home=False score=0,0 count=1/2/2 display=0:0 alpha=1
+129.4 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW_READY update=True inning=1 top=True home=False score=0,0 count=1/2/2 display=0:0 alpha=1
+130.6 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW update=True inning=1 top=True home=False score=0,0 count=1/2/2 display=0:0 alpha=1
+134.6 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW update=True inning=1 top=True home=False score=0,0 count=1/3/3 display=0:0 alpha=1
+ERROR 투수 에러 PITCHER_SMILE_02
+UnityEngine.Debug:LogError (object)
+BaseBall.BallPlay.Pitcher:pitcherAnim (string,bool,bool) (at Assets/MainGame/Script/Character/Pitcher.cs:533)
+BaseBall.BallPlay.Pitcher/<pitcherCeremony>d__148:MoveNext () (at Assets/MainGame/Script/Character/Pitcher.cs:2284)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr) (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/Coroutines.cs:17)
+
+139.6 Scene=BallPlay manager=True board=True ugui=True visible=False phase=PLAY_CHANGE_INNING update=True inning=1 top=True home=False score=0,0 count=0/0/0 display=0:0 alpha=1
+143.3 Scene=BallPlay manager=True board=True ugui=True visible=False phase=PLAY_BATTING_VIEW_PRE update=True inning=1 top=False home=False score=0,0 count=0/0/0 display=0:0 alpha=1
+144.6 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW_INFO update=True inning=1 top=False home=False score=0,0 count=0/0/0 display=0:0 alpha=1
+146.6 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW_READY update=True inning=1 top=False home=False score=0,0 count=0/0/0 display=0:0 alpha=1
+149.6 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW update=True inning=1 top=False home=False score=0,0 count=0/0/0 display=0:0 alpha=1

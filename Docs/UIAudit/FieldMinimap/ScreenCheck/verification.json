@@ -1,0 +1,106 @@
+{
+  "date": "2026-09-23",
+  "editor": "6000.3.9f1",
+  "target": "Android editor; no player build",
+  "gameViewSizes": [
+    [
+      1918,
+      839
+    ],
+    [
+      905,
+      488
+    ]
+  ],
+  "mode": "offline Manual via ConfigureDongneYagu; no injected hits or runners",
+  "previouslyTestedSourceAndPrefabHashesMatch": {
+    "Assets/Editor/FieldMinimapBatchChecks.cs": true,
+    "Assets/Editor/FieldMinimapMigrationChecks.cs": true,
+    "Assets/Editor/FieldMinimapPlayChecks.cs": true,
+    "Assets/Editor/FieldMinimapUGUIConverter.cs": true,
+    "Assets/MainGame/Script/Character/Runner.cs": true,
+    "Assets/MainGame/Script/UI/UGUI/FieldMinimapView.cs": true,
+    "Assets/MainGame/Script/UI/UGUI/FieldOverlayCanvas.cs": true,
+    "Assets/MainGame/Script/UI/UGUI/MinimapRunnerView.cs": true,
+    "Assets/MainGame/Script/UI/UIFieldUI.cs": true,
+    "Assets/MainGame/Script/UI/ui_etc/miniRunner.cs": true,
+    "Assets/Resources/MainGame/prefabs/gameUI/IngameUIPrefab.prefab": true
+  },
+  "cleanBeforeSessionFilesUnchanged": {
+    "Assets/Resources/MainGame/spineData/bvChar/bvFielder/FIELDER_Material.mat": true,
+    "Assets/Resources/MainGame/spineData/bvChar/bvRunner/runner_Material.mat": true,
+    "Assets/Resources/MainGame/spineData/fieldingview/runner/anim/runnerAnim_Material.mat": true,
+    "UserSettings/EditorUserSettings.asset": true,
+    "UserSettings/Layouts/CurrentMaximizeLayout.dwlt": true
+  },
+  "originalLogoDirtyPreserved": true,
+  "playStopped": true,
+  "observed": [
+    "hit-by-pitch home to first",
+    "actual batted ball to field view",
+    "two runners moving with icon and name",
+    "run scored: 0:0 to 1:0; scored runner removed",
+    "return to batting hides field graphics",
+    "inning change clears then recreates runner",
+    "field outs 0/1/2/3 with existing two-lamp semantics",
+    "fielded-out runners removed",
+    "top of second inning; score 1:0 retained"
+  ],
+  "testInputs": [
+    "TEST_INPUT pitch selection through Unity pointer events",
+    "TEST_INPUT existing pitch-release API at initialized cursor position",
+    "TEST_INPUT existing pitch-release API at initialized cursor position",
+    "TEST_INPUT existing pitch-release API at initialized cursor position"
+  ],
+  "nativePitchButtonDownUpEvidence": [
+    "198.12 focused=True window=GameView mouse=(804.00, 212.00, 0.00) down=True held=True up=False input=StandaloneInputModule hits=button5",
+    "198.20 focused=True window=GameView mouse=(804.00, 212.00, 0.00) down=False held=False up=True input=StandaloneInputModule hits=button5",
+    "213.95 focused=True window=GameView mouse=(801.00, 178.00, 0.00) down=True held=True up=False input=StandaloneInputModule hits=button4",
+    "214.03 focused=True window=GameView mouse=(801.00, 178.00, 0.00) down=False held=False up=True input=StandaloneInputModule hits=button4"
+  ],
+  "errorBaseline": "Docs/UIAudit/PitchSelection/Legacy/gameplay-trace.txt",
+  "errorComparison": {
+    "FirstRun/trace.txt": {
+      "errors": [
+        "ArgumentException: Animation not found: DEADBALL2",
+        "tk2dCamera.GetGameViewSize - has a Unity update broken this?",
+        "투수 에러 PITCHER_INCONVENENCE_01",
+        "투수 에러 PITCHER_SMILE_02",
+        "투수 에러 PITCHER_SMILE_05"
+      ],
+      "newExactSignaturesAgainstEarlierLegacy": []
+    },
+    "trace.txt": {
+      "errors": [
+        "ArgumentException: Animation not found: DEADBALL2",
+        "tk2dCamera.GetGameViewSize - has a Unity update broken this?",
+        "투수 에러 PITCHER_INCONVENENCE_01",
+        "투수 에러 PITCHER_SMILE_02",
+        "투수 에러 PITCHER_SMILE_05"
+      ],
+      "newExactSignaturesAgainstEarlierLegacy": []
+    },
+    "Assisted/trace.txt": {
+      "errors": [
+        "ArgumentException: Animation not found: DEADBALL2",
+        "tk2dCamera.GetGameViewSize - has a Unity update broken this?",
+        "투수 에러 PITCHER_INCONVENENCE_01",
+        "투수 에러 PITCHER_SMILE_01",
+        "투수 에러 PITCHER_SMILE_02",
+        "투수 에러 PITCHER_SMILE_05"
+      ],
+      "newExactSignaturesAgainstEarlierLegacy": [
+        "투수 에러 PITCHER_SMILE_01"
+      ]
+    }
+  },
+  "unverified": [
+    "pause and automatic-play native clicks",
+    "all pitch buttons and input edge cases",
+    "steal/pickoff/advance/return native input",
+    "device touch",
+    "PVP and mode-specific paths",
+    "full match-result-lobby round trip"
+  ],
+  "screenCheckToolSha256": "36f7384e88368a92ab961d578571ff259b8c398a4876873d6e286a316defb98a"
+}

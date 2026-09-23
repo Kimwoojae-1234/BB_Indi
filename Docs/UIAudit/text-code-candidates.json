@@ -1,0 +1,1287 @@
+[
+  {
+    "path": "Assets/Scripts_New/UIWindow/UI_ParameterTester.cs",
+    "line": 81,
+    "code": "TextAddXP.text = \"AddXP : \" + AddXP;"
+  },
+  {
+    "path": "Assets/Scripts_New/UIWindow/UI_ParameterTester.cs",
+    "line": 82,
+    "code": "TextAddGold.text = \"AddGold : \" + AddGold;"
+  },
+  {
+    "path": "Assets/Scripts_New/UIWindow/UI_ParameterTester.cs",
+    "line": 83,
+    "code": "TextAddGem.text = \"AddGem : \" + AddGem;"
+  },
+  {
+    "path": "Assets/Scripts_New/UIWindow/UI_ParameterTester.cs",
+    "line": 84,
+    "code": "TextAddGameToken.text = \"AddToken : \" + AddToken;"
+  },
+  {
+    "path": "Assets/Scripts_New/UIBaseball/UIScoreBoard.cs",
+    "line": 85,
+    "code": "labels[i].text = value == RttsGameResult.GameEndInning ? \"X\" : Mathf.Max(0, value).ToString();"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_StatUpgrade.cs",
+    "line": 98,
+    "code": "UpgradeFeeTxt.text = needGold.ToString(\"N0\");"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_StatUpgrade.cs",
+    "line": 156,
+    "code": "TotalHitValue.text = totalHitting.ToString(\"N0\");"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_StatUpgrade.cs",
+    "line": 157,
+    "code": "HittingValue[0].text = CurValue.power.ToString(\"N0\");"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_StatUpgrade.cs",
+    "line": 158,
+    "code": "HittingValue[1].text = CurValue.contact.ToString(\"N0\");"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_StatUpgrade.cs",
+    "line": 159,
+    "code": "HittingValue[2].text = CurValue.vision.ToString(\"N0\");"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_StatUpgrade.cs",
+    "line": 163,
+    "code": "TotalFieldingValue.text = totalFielding.ToString(\"N0\");"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_StatUpgrade.cs",
+    "line": 164,
+    "code": "FieldingValue[0].text = CurValue.fielding.ToString(\"N0\");"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_StatUpgrade.cs",
+    "line": 165,
+    "code": "FieldingValue[1].text = CurValue.throwing.ToString(\"N0\");"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_StatUpgrade.cs",
+    "line": 166,
+    "code": "FieldingValue[2].text = CurValue.speed.ToString(\"N0\");"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_StatUpgrade.cs",
+    "line": 177,
+    "code": "TitleTxt.text = string.Format(\"UPGRADE TO POWER LEVEL {0}?\", CurLevel);"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_StatUpgrade.cs",
+    "line": 204,
+    "code": "TitleTxt.text = string.Format(\"{0}'S STATS\", CurName);"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_StatUpgrade.cs",
+    "line": 231,
+    "code": "TitleTxt.text = string.Format(\"{0}'S MAX STATS\", CurName);"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_StatUpgrade.cs",
+    "line": 235,
+    "code": "TotalHitValue.text = totalHitting.ToString(\"N0\");"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_StatUpgrade.cs",
+    "line": 236,
+    "code": "HittingValue[0].text = MaxValue.power.ToString(\"N0\");"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_StatUpgrade.cs",
+    "line": 237,
+    "code": "HittingValue[1].text = MaxValue.contact.ToString(\"N0\");"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_StatUpgrade.cs",
+    "line": 238,
+    "code": "HittingValue[2].text = MaxValue.vision.ToString(\"N0\");"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_StatUpgrade.cs",
+    "line": 242,
+    "code": "TotalFieldingValue.text = totalFielding.ToString(\"N0\");"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_StatUpgrade.cs",
+    "line": 243,
+    "code": "FieldingValue[0].text = MaxValue.fielding.ToString(\"N0\");"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_StatUpgrade.cs",
+    "line": 244,
+    "code": "FieldingValue[1].text = MaxValue.throwing.ToString(\"N0\");"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_StatUpgrade.cs",
+    "line": 245,
+    "code": "FieldingValue[2].text = MaxValue.speed.ToString(\"N0\");"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_ChangeName.cs",
+    "line": 103,
+    "code": "KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init(\"Name Change Success\");"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_ChangeName.cs",
+    "line": 109,
+    "code": "KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init(\"Fail\", buttonAvailable);"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_ChangeName.cs",
+    "line": 115,
+    "code": "KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init(\"DuplicateName\", buttonAvailable);"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_ChangeName.cs",
+    "line": 121,
+    "code": "KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init(\"NumberOfCharacters\", buttonAvailable);"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_RewardGet.cs",
+    "line": 127,
+    "code": "Title.text = \"BOX\";"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_RewardGet.cs",
+    "line": 303,
+    "code": "CardAmount.text = string.Format(\"X{0}\", _rewardInfo.amount);"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_Name.cs",
+    "line": 152,
+    "code": "KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init(\"Nickname creation failed: \" + bro3.GetErrorCode());"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_GearSetting.cs",
+    "line": 282,
+    "code": "t.text = string.Format(\"<color=white>Available to learn after reaching</color> POWER LEVEL {0}\", openLv);"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_GearSetting.cs",
+    "line": 294,
+    "code": "t.text = string.Format(\"<color=white>Available to learn after reaching</color> POWER LEVEL {0}\", openLv);"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_Promotion.cs",
+    "line": 66,
+    "code": "textTitle.text = \"Your Tier has increased!\";"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_Promotion.cs",
+    "line": 72,
+    "code": "textTitle.text = \"Baller's Reputation has increased!\";"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_Promotion.cs",
+    "line": 78,
+    "code": "textTitle.text = \"League Promotion achieved!\";"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_SkillSetting.cs",
+    "line": 345,
+    "code": "t.text = string.Format(\"<color=white>Available to learn after reaching</color> POWER LEVEL {0}\", openLv);"
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_SkillSetting.cs",
+    "line": 357,
+    "code": "t.text = string.Format(\"<color=white>Available to learn after reaching</color> POWER LEVEL {0}\", openLv);"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/TrophyRoad/TR_PointComp2.cs",
+    "line": 18,
+    "code": "Title.text = string.Format(\"ballertier{0}\", data.idx);"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/TrophyRoad/TR_RewardComp.cs",
+    "line": 188,
+    "code": "txtName.text = \"Gold\";"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/TrophyRoad/TR_RewardComp.cs",
+    "line": 201,
+    "code": "txtName.text = \"Gem\";"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/TrophyRoad/TR_RewardComp.cs",
+    "line": 215,
+    "code": "txtName.text = \"Energy\";"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/TrophyRoad/TR_RewardComp.cs",
+    "line": 223,
+    "code": "txtName.text =  string.Format(\"Bat{0}\", rewardInfo.pindex);"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/TrophyRoad/TR_RewardComp.cs",
+    "line": 225,
+    "code": "txtMount2.text = string.Format(\"X{0}\", rewardInfo.amount);"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/TrophyRoad/TR_RewardComp.cs",
+    "line": 248,
+    "code": "txtMount2.text = string.Format(\"X{0}\", rewardInfo.amount);"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/TrophyRoad/TR_RewardComp.cs",
+    "line": 263,
+    "code": "txtName.text = \"Box\";"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/TrophyRoad/TR_RewardComp.cs",
+    "line": 286,
+    "code": "KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init(string.Format(\"Requires {0} trophies to collect this reward\", trophy));"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/TrophyRoad/TR_RewardComp.cs",
+    "line": 306,
+    "code": "KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init(\"This reward has already been obtained.\");"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/TrophyRoad/TR_PointComp.cs",
+    "line": 25,
+    "code": "Count.transform.Find(\"Text\").GetComponent<TextMeshProUGUI>().text = Data.trophy.ToString();"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/TrophyRoad/TR_PointComp.cs",
+    "line": 32,
+    "code": "Tier.transform.Find(\"Text\").GetComponent<TextMeshProUGUI>().text = \"TIRE \" + Data.tier;"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/InBox/InboxComponent.cs",
+    "line": 70,
+    "code": "rewardAmount.text = \"BOX\";"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Lobby/LobbyContentTrophy.cs",
+    "line": 32,
+    "code": "BtnText.text = CurrentTrophy.ToString(\"N0\");"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Lobby/LobbyPropertyComponent.cs",
+    "line": 32,
+    "code": "TextGold.text = lastGold.ToString(\"N0\");"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Lobby/LobbyPropertyComponent.cs",
+    "line": 33,
+    "code": "TextGem.text = lastGem.ToString(\"N0\");"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Lobby/LobbyPropertyComponent.cs",
+    "line": 34,
+    "code": "TextEnergy.text = string.Format(\"{0}/{1}\", lastEnergy.ToString(\"N0\"), lastMaxEnergy.ToString(\"N0\"));"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Lobby/LobbyPropertyComponent.cs",
+    "line": 69,
+    "code": ".OnUpdate(() => TextGem.text = gem.ToString(\"N0\"))"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Lobby/LobbyPropertyComponent.cs",
+    "line": 84,
+    "code": ".OnUpdate(() => TextGold.text = gold.ToString(\"N0\"))"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Lobby/LobbyPropertyComponent.cs",
+    "line": 99,
+    "code": ".OnUpdate(() => TextEnergy.text = string.Format(\"{0}/{1}\", energy.ToString(\"N0\"), lastMaxEnergy.ToString(\"N0\")))"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/GameResult/ResultPlayer.cs",
+    "line": 41,
+    "code": "TrophyGainTxt.text = \"MAX\";"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/GameResult/ResultPlayer.cs",
+    "line": 51,
+    "code": "TrophyGainTxt.text = string.Format(\"{0}{1}\", displayedTrophy >= 0 ? \"+\" : string.Empty, displayedTrophy);"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/RttsResult/ResultLeagueStading.cs",
+    "line": 22,
+    "code": "_Desc.text = string.Format(\"Your team's final standing : <size=100>League Champion!</size>\\n<color=#00ff00>{0} wins</color> <color=#AAAAAA>{1} draws</color> <color=#ff0000>{2} loses</color>\","
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/RttsResult/ResultLeagueStading.cs",
+    "line": 28,
+    "code": "_Desc.text = string.Format(\"Your team's final standing : <size=100>Rank {0}th</size>\\n<color=#00ff00>{1} wins</color> <color=#AAAAAA>{2} draws</color> <color=#ff0000>{3} loses</color>\","
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/RttsResult/ResultMyLeaders.cs",
+    "line": 29,
+    "code": "_Title.text = \"HOME RUN WINNER\";"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/RttsResult/ResultMyLeaders.cs",
+    "line": 35,
+    "code": "_Title.text = \"BATTING AVERAGE WINNER\";"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/RttsResult/ResultMyLeaders.cs",
+    "line": 41,
+    "code": "_Title.text = \"RBI WINNER\";"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/RttsResult/ResultMyLeaders.cs",
+    "line": 47,
+    "code": "_Title.text = \"HIT WINNER\";"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/RttsResult/ResultMyLeaders.cs",
+    "line": 53,
+    "code": "_Title.text = \"OPS WINNER\";"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/RttsResult/ResultLeaderComp.cs",
+    "line": 25,
+    "code": "_Desc.text =  string.Format(\"{0}\\n{1} <size=100><color=#00ff00>{2}</color></size>\","
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/RttsResult/ResultMyTeamChamp.cs",
+    "line": 12,
+    "code": "_Desc.text = string.Format(\"Your team's final standing : <size=100>League Champion!</size>\\n<color=#00ff00>{0} wins</color> <color=#AAAAAA>{1} draws</color> <color=#ff0000>{2} loses</color>\","
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Baller/BallerTierSliderComp.cs",
+    "line": 26,
+    "code": "trophyTxt.text = \"MAX\";"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Baller/BallerTierSliderComp.cs",
+    "line": 58,
+    "code": "trophyTxt.text = \"MAX\";"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Baller/BallerTierSliderComp.cs",
+    "line": 74,
+    "code": "trophyTxt.text = \"MAX\";"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Baller/CardBaller.cs",
+    "line": 117,
+    "code": "UnlockTxt.text = string.Format(\"Available on the\\nRTTS{0} League\", league);"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Baller/CareerStatComponent.cs",
+    "line": 13,
+    "code": "Title.text = \"Career Stats\";"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Baller/CareerStatComponent.cs",
+    "line": 34,
+    "code": "Title.text = string.Format(\"League {0} Stats\", league);"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Baller/BallerPowerComponent.cs",
+    "line": 55,
+    "code": "BallerLv.text = string.Format(\"Power <size=65>{0}</size>           <size=40><color=#FFB200>MAX13</size></color>\", ballerInfo.level);"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Baller/BallerPowerComponent.cs",
+    "line": 84,
+    "code": "UpgradeFeeTxt.text = needGold.ToString(\"N0\");"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Baller/BallerPowerComponent.cs",
+    "line": 102,
+    "code": "BallerLv.text = string.Format(\"Power <size=65>{0}</size>              <size=40><color=#FFFF00>MAX13</size></color>\", 1);"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Baller/BallerPowerComponent.cs",
+    "line": 186,
+    "code": "SpSkillTxt[0].text = \"Skill\" + key;"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Baller/BallerPowerComponent.cs",
+    "line": 190,
+    "code": "SpSkillTxt[2].text = string.Format(\"AVAILABLE AT\\n<size=30>POWER{0}</size>\", activateLevel);"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Baller/BallerPowerComponent.cs",
+    "line": 194,
+    "code": "SpSkillTxt[0].text = \"Skill\" + key + \" LV \" + skLv;"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Baller/BallerPowerComponent.cs",
+    "line": 203,
+    "code": "SpSkillTxt[2].text = string.Format(\"UPGRADE AT\\n<size=30>POWER{0}</size>\", nextLevel);"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Baller/BallerPowerComponent.cs",
+    "line": 212,
+    "code": "SpSkillTxt[0].text = \"No special skill\";"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Baller/BallerPowerComponent.cs",
+    "line": 246,
+    "code": "HittingTxt[2].text = string.Format(\"MAX\\n<size=45>{0}</size>\", hittinigMax);"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Baller/BallerPowerComponent.cs",
+    "line": 247,
+    "code": "PhisicalTxt[2].text = string.Format(\"MAX\\n<size=45>{0}</size>\", PhysicMax);"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Baller/SkillSlotBaller.cs",
+    "line": 44,
+    "code": "SkillLvTxt.text = \"LV\" + skillLv;"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Baller/SkillSlotBaller.cs",
+    "line": 60,
+    "code": "SkillTypeTxt.text = (type == 1 ? \"H SKILL\" : \"F SKILL\");"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Baller/SkillSlotBaller.cs",
+    "line": 86,
+    "code": "SkillLvTxt.text = \"LV\" + skillLv;"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Baller/BallerAchieveComponent.cs",
+    "line": 102,
+    "code": "AchiveName.text = data.name_id + \" Lv\" + (Lv + 1);"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Rtts/ScheduleComponent.cs",
+    "line": 53,
+    "code": "DateTxt.text = \"Today Match\";"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Rtts/ScheduleComponent.cs",
+    "line": 76,
+    "code": "DateTxt.text = string.Format(\"{0} Round Result\", KOBTextUtil.ToOrdinal(round + 1));"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Rtts/ScheduleComponent.cs",
+    "line": 93,
+    "code": "DateTxt.text = string.Format(\"{0} Round Match\", KOBTextUtil.ToOrdinal(round));"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Rtts/ScheduleComponent.cs",
+    "line": 95,
+    "code": "Result1Txt.text = \"Upcoming\";"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Rtts/ScheduleComponent.cs",
+    "line": 97,
+    "code": "Result2Txt.text = \"VS\";"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Rtts/LeaderComponent.cs",
+    "line": 76,
+    "code": "RankTxt.text = \"N/A\";"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Rtts/RttsTrophyScroll.cs",
+    "line": 206,
+    "code": "point.transform.Find(\"Text\").GetComponent<TextMeshProUGUI>().text = item.Value.wins.ToString();"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Rtts/RttsTrophyScroll.cs",
+    "line": 214,
+    "code": "TropyTxt.text = string.Format(\"{0} Points\", CurrentWin);"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Rtts/RttsTrophyScroll.cs",
+    "line": 262,
+    "code": "TropyTxt.text = string.Format(\"{0} Points\", CurrentWin);"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Rtts/RttsRewardComponent.cs",
+    "line": 46,
+    "code": "ReaminWinText.text = string.Format(\"{0} More Point(s)\", remain);"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Rtts/ScheduleTeam.cs",
+    "line": 51,
+    "code": "recordTxt.text = string.Format(\"W{0} D{1} L{2}\", LeagueTeamRecord[idx].Win, LeagueTeamRecord[idx].Draw, LeagueTeamRecord[idx].Lose);"
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Rtts/ScheduleTeam.cs",
+    "line": 58,
+    "code": "recordTxt.text = \"W0 D0 L0\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIScoreShow.cs",
+    "line": 72,
+    "code": "myTeamName.text = \"병신이글스\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIScoreShow.cs",
+    "line": 73,
+    "code": "cpuTeamName.text = \"세이콘한화\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIBattingCall.cs",
+    "line": 91,
+    "code": "if (type == 0) ballSpeed.text = \"[FFEA00]Fastball[-]   \" + spd + \"km\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIBattingCall.cs",
+    "line": 92,
+    "code": "else ballSpeed.text = \"[FFEA00]\" + ballName[type - 1] + \"[-]   \" + spd + \"km\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIBattingCall.cs",
+    "line": 103,
+    "code": "swingComment.text = \"Didn't Swing!\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIBattingCall.cs",
+    "line": 109,
+    "code": "swingComment.text = \"Didn't Swing!\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIBattingCall.cs",
+    "line": 115,
+    "code": "swingComment.text = \"Missed the Ball!\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIBattingCall.cs",
+    "line": 121,
+    "code": "swingComment.text = \"Too Early!\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIBattingCall.cs",
+    "line": 125,
+    "code": "swingComment.text = \"Too Late!\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIBattingCall.cs",
+    "line": 129,
+    "code": "swingComment.text = \"Missed the Ball!\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIOpening.cs",
+    "line": 96,
+    "code": "WalkOff[i].transform.Find(\"team\").GetComponent<UILabel>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIOpening.cs",
+    "line": 107,
+    "code": "LiveMatch[i].transform.Find(\"team\").GetComponent<UILabel>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIOpening.cs",
+    "line": 117,
+    "code": "LiveMatch[awayIndex].transform.FindChild(\"rank\").GetComponent<UILabel>().text = info.awayTeam.point.ToString();"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIOpening.cs",
+    "line": 118,
+    "code": "LiveMatch[homeIndex].transform.FindChild(\"rank\").GetComponent<UILabel>().text = info.homeTeam.point.ToString();"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIOpening.cs",
+    "line": 123,
+    "code": "LiveMatch[awayIndex].transform.FindChild(\"wdl\").GetComponent<UILabel>().text = awayText;"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIOpening.cs",
+    "line": 127,
+    "code": "LiveMatch[homeIndex].transform.FindChild(\"wdl\").GetComponent<UILabel>().text = homeText;"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIOpening.cs",
+    "line": 139,
+    "code": "LiveMatch[i].transform.Find(\"team\").GetComponent<UILabel>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIOpening.cs",
+    "line": 150,
+    "code": "SeasonRace[i].transform.Find(\"team\").GetComponent<UILabel>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIOpening.cs",
+    "line": 167,
+    "code": "SeasonRace[awayIndex].transform.FindChild(\"rank\").GetComponent<UILabel>().text = awayTeam.ranking.ToString();"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIOpening.cs",
+    "line": 168,
+    "code": "SeasonRace[awayIndex].transform.FindChild(\"wdl\").GetComponent<UILabel>().text = info.awayWdl[0] + \"승 \" + info.awayWdl[1] + \"무 \" + info.awayWdl[2] + \"패\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIOpening.cs",
+    "line": 170,
+    "code": "SeasonRace[homeIndex].transform.FindChild(\"rank\").GetComponent<UILabel>().text = homeTeam.ranking.ToString();"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIOpening.cs",
+    "line": 171,
+    "code": "SeasonRace[homeIndex].transform.FindChild(\"wdl\").GetComponent<UILabel>().text = info.homeWdl[0] + \"승 \" + info.homeWdl[1] + \"무 \" + info.homeWdl[2] + \"패\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIOpening.cs",
+    "line": 178,
+    "code": "center[0].transform.FindChild(\"Label\").GetComponent<UILabel>().text = day.ToString();"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIOpening.cs",
+    "line": 213,
+    "code": "SeasonRace[awayIndex].transform.FindChild(\"rank\").GetComponent<UILabel>().text = awayTeam.ranking.ToString();"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIOpening.cs",
+    "line": 214,
+    "code": "SeasonRace[awayIndex].transform.FindChild(\"wdl\").GetComponent<UILabel>().text = awayTeam.win + \"승 \" + awayTeam.draw + \"무 \" + awayTeam.lose + \"패\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIOpening.cs",
+    "line": 216,
+    "code": "SeasonRace[homeIndex].transform.FindChild(\"rank\").GetComponent<UILabel>().text = homeTeam.ranking.ToString();"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIOpening.cs",
+    "line": 217,
+    "code": "SeasonRace[homeIndex].transform.FindChild(\"wdl\").GetComponent<UILabel>().text = homeTeam.win + \"승 \" + homeTeam.draw + \"무 \" + homeTeam.lose + \"패\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIPlayerChange.cs",
+    "line": 666,
+    "code": "timerLabel.text = \"[000000]TIMER   [FF0000]\" + string.Format(\"{0:F2}\", remainTime);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIPlayerChange.cs",
+    "line": 670,
+    "code": "timerLabel.text =  \"[000000]TIMER   [FF0000]0.00\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIQuit.cs",
+    "line": 20,
+    "code": "Label.text = \"게임을 나가시겠습니까?\\n\\n[ffff00]경기를 나가실 경우\\n플레이볼은 복구가 안 되며,\\n해당 경기는 취소됩니다.\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIQuit.cs",
+    "line": 24,
+    "code": "Label.text = \"게임을 나가시겠습니까?\\n\\n[ffff00]경기를 나가실 경우\\n도전권은 복구가 안 되며,\\n해당 경기는 취소됩니다.\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIPause.cs",
+    "line": 51,
+    "code": "pvpObj.transform.Find(\"count\").GetComponent<UILabel>().text = num + \"/3\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIPause.cs",
+    "line": 147,
+    "code": "waitTimeLabel.text = \"대기시간 \" + time + \"초\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIStarting.cs",
+    "line": 115,
+    "code": "_text_active.GetComponent<UILabel>().text = \"You're Batting First!\\nScore First!\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIStarting.cs",
+    "line": 119,
+    "code": "_text_active.GetComponent<UILabel>().text = \"You're Fielding First!\\nKeep Them Scoreless!\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIStarting.cs",
+    "line": 165,
+    "code": "teamPower.text = string.Format(\"{0:N0}\", UI_HelperCalculator.CalTeamPower(cards).total);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIStarting.cs",
+    "line": 304,
+    "code": "box.Find(\"num\").GetComponent<UILabel>().text = (count+1).ToString();"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIStarting.cs",
+    "line": 305,
+    "code": "box.Find(\"lineup\").GetComponent<UILabel>().text = curPlayer.getName();"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIScoreBoard.cs",
+    "line": 375,
+    "code": "timerLabel.text = \"TIMER   \" + string.Format(\"{0:F2}\", curTime);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIScoreBoard.cs",
+    "line": 459,
+    "code": "batterTimer.text = \"[ff0000]상대가 코스를 선택 중입니다 : \" + BatterWait + \"초\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIScoreBoard.cs",
+    "line": 467,
+    "code": "batterTimer.text = \"[ffffff]상대가 투구선택을 하는 중입니다 : 8초\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIScoreBoard.cs",
+    "line": 475,
+    "code": "batterTimer.text = \"[ffffff]상대가 투구선택을 하는 중입니다 : \" + BatterWait + \"초\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIScoreBoard.cs",
+    "line": 479,
+    "code": "batterTimer.text = \"[ff0000]상대가 코스를 선택 중입니다 : \" + BatterWait + \"초\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/infoCard.cs",
+    "line": 33,
+    "code": "basicInfo.transform.Find(\"name\").gameObject.GetComponent<UILabel>().text = player.getName();"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/infoCard.cs",
+    "line": 160,
+    "code": "todayStat.transform.Find(\"Label1\").GetComponent<UILabel>().text = \"[75ACEAFF]자책 [ffffff]\" + player.getStat(Param.ST_PER) + \"[75ACEAFF]   피안 [ffffff]\" + player.getStat(Param.ST_PH) + \"[75ACEAFF]   삼진 [ffffff]\" + player.getStat(Param.ST_PSO) + \"[-]\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/infoCard.cs",
+    "line": 179,
+    "code": "todayStat.transform.Find(\"Label1\").GetComponent<UILabel>().text = \"[75ACEAFF]안타 [FFFFFF]\" + player.getStat(Param.ST_H) + \"/\" + (player.getStat(Param.ST_AB) - 1) + \"   [75ACEAFF]홈런 [FFFFFF]\" + player.getStat(Param.ST_HR) + \"   [75ACEAFF]타점 [FFFFFF]\" + player.getStat(Param.ST_RBI) + \"   [75ACEAFF]도루 [FFFFFF]\" + player.getStat(Param.ST_SBS) + \"[-]\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/resultStatBar.cs",
+    "line": 35,
+    "code": "label[0].text = numOrder > 9 ? \"Sub\" : numOrder.ToString();"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/mvpTitle.cs",
+    "line": 38,
+    "code": "goldLabel.text = string.Format(\"{0:n0}\", mvpInfo.rwdGold);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/mvpTitle.cs",
+    "line": 56,
+    "code": "info2[0].text = mvpInfo.rec1Rank + \"위\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/mvpTitle.cs",
+    "line": 57,
+    "code": "info2[1].text = mvpInfo.rec2Rank + \"위\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/mvpTitle.cs",
+    "line": 58,
+    "code": "info2[2].text = mvpInfo.rec3Rank + \"위\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/mvpTitle.cs",
+    "line": 59,
+    "code": "info2[3].text = mvpInfo.rec4Rank + \"위\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/mvpTitle.cs",
+    "line": 60,
+    "code": "info2[4].text = mvpInfo.rec5Rank + \"위\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/gaugePlayerMove.cs",
+    "line": 72,
+    "code": "level.text = \"LV \" + _curLevel;"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/consectiveGameUI.cs",
+    "line": 12,
+    "code": "transform.Find(\"Label\").GetComponent<UILabel>().text = (11 - Mode.ConsecutiveNum) + \"/10\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/otherResultSetting.cs",
+    "line": 56,
+    "code": "rankLabel[i].text = curRank + \"위\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/individualTitle.cs",
+    "line": 30,
+    "code": "goldLabel.text = string.Format(\"{0:n0}\", rewardTitle.rwdGold);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/gaugeMove.cs",
+    "line": 94,
+    "code": "level.text = \"TEAM LEVEL [95E943]\" + _curLevel + \"[-]\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/gaugeMove.cs",
+    "line": 95,
+    "code": "exp.text = \"+EXP  \" + curGetExp;"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/gaugeMove.cs",
+    "line": 96,
+    "code": "percent.text = string.Format(\"{0:F2}%\", curPer);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/gaugeMove.cs",
+    "line": 104,
+    "code": "level.text = \"TEAM LEVEL [95E943]\" + MAXLEVEL + \"[-]\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/gaugeMove.cs",
+    "line": 107,
+    "code": "exp.text = \"+EXP  \" + curGetExp;"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/gaugeMove.cs",
+    "line": 113,
+    "code": "percent.text = \"MAX\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/resultUI/UIWalkOffResult.cs",
+    "line": 63,
+    "code": "gold.text = string.Format(\"{0:N0}\", 0);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/resultUI/UIWalkOffResult.cs",
+    "line": 65,
+    "code": "rank.text = string.Format(\"{0:N0}\", info.curRank);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/resultUI/UIWalkOffResult.cs",
+    "line": 68,
+    "code": "percent.text = \"상위 [03C6D4]\" + string.Format(\"{0:F2}\", topRankPer) +\"%[-]\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/resultUI/UIWalkOffResult.cs",
+    "line": 70,
+    "code": "finalScore.text = manager.nineTwoFinalScore + \"점\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/resultUI/UIWalkOffResult.cs",
+    "line": 75,
+    "code": "goldPerRun.text = string.Format(\"{0:N0}\", (int)(info.rwdGold[0]));"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/resultUI/UIWalkOffResult.cs",
+    "line": 128,
+    "code": "gold.text = string.Format(\"{0:N0}\", (int)(curGold));"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/resultUI/UIWalkOffResult.cs",
+    "line": 138,
+    "code": "gold.text = string.Format(\"{0:N0}\", (int)(getgold));"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/resultUI/UIResultReward.cs",
+    "line": 61,
+    "code": "label.text = string.Format(\"{0:N0}\", (int)(curGold));"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/resultUI/UIResultReward.cs",
+    "line": 71,
+    "code": "label.text = string.Format(\"{0:N0}\", (int)(getgold));"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/resultUI/UIResultMain.cs",
+    "line": 46,
+    "code": "stat.Find(\"teamLabel\").GetComponent<UILabel>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/resultUI/UIResultMain.cs",
+    "line": 47,
+    "code": "stat.Find(\"scoreLabel\").GetComponent<UILabel>().text = manager.nGameScore[i].ToString();"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/resultUI/UIResultMain.cs",
+    "line": 67,
+    "code": "upDownObj[i].transform.Find(\"rankLabel\").GetComponent<UILabel>().text = curRank[i] + \"위\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/resultUI/UIResultMain.cs",
+    "line": 95,
+    "code": "stat.FindChild(\"teamLabel\").GetComponent<UILabel>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/resultUI/UIResultMain.cs",
+    "line": 96,
+    "code": "stat.FindChild(\"scoreLabel\").GetComponent<UILabel>().text = manager.nGameScore[i].ToString();"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/resultUI/UIResultMain.cs",
+    "line": 116,
+    "code": "upDownObj[i].transform.FindChild(\"rankLabel\").GetComponent<UILabel>().text = curRank[i] + \"위\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/resultUI/UIResultMain.cs",
+    "line": 172,
+    "code": "stat.FindChild(\"teamLabel\").GetComponent<UILabel>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/resultUI/UIResultMain.cs",
+    "line": 173,
+    "code": "stat.FindChild(\"scoreLabel\").GetComponent<UILabel>().text = manager.nGameScore[i].ToString();"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/resultUI/UIResultMain.cs",
+    "line": 194,
+    "code": "upDownObj[i].transform.FindChild(\"rankLabel\").GetComponent<UILabel>().text = curRank[i] + \"위\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/resultUI/UIResultMain.cs",
+    "line": 264,
+    "code": "stat.FindChild(\"teamLabel\").GetComponent<UILabel>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/resultUI/UIResultMain.cs",
+    "line": 265,
+    "code": "stat.FindChild(\"scoreLabel\").GetComponent<UILabel>().text = manager.nGameScore[i].ToString();"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UITotalReward.cs",
+    "line": 41,
+    "code": "goldLabel.text = string.Format(\"{0:n0}\", 0);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UITotalReward.cs",
+    "line": 101,
+    "code": "race.transform.Find(\"sesonRankLabel\").GetComponent<UILabel>().text = string.Format(\"{0:n0}\", annInfo.weekRanking);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UITotalReward.cs",
+    "line": 133,
+    "code": "walkoff.transform.Find(\"sesonRankLabel\").GetComponent<UILabel>().text = string.Format(\"{0:n0}\", annInfo.weekRanking);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UITotalReward.cs",
+    "line": 169,
+    "code": "livematch.transform.Find(\"sesonRankLabel\").GetComponent<UILabel>().text = string.Format(\"{0:n0}\", annInfo.finalRank);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UITotalReward.cs",
+    "line": 176,
+    "code": "goldLabel.text = string.Format(\"{0:n0}\", 0);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UITotalReward.cs",
+    "line": 231,
+    "code": "goldLabel.text = string.Format(\"{0:N0}\", (int)(curGold));"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UITotalReward.cs",
+    "line": 241,
+    "code": "goldLabel.text = string.Format(\"{0:N0}\", (int)(gold));"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UILeagueFinalReward.cs",
+    "line": 50,
+    "code": "wdlLabel.text = \"(\" + teamRecordInfo.win + \"승 \" + teamRecordInfo.draw + \"무 \" + teamRecordInfo.lose + \"패)\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UILeagueFinalReward.cs",
+    "line": 59,
+    "code": "teamPowerLabel.text = string.Format(\"{0:n0}\", teamPower);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UILeagueFinalReward.cs",
+    "line": 60,
+    "code": "coinLabel.text = string.Format(\"{0:n0}\", 0);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UILeagueFinalReward.cs",
+    "line": 91,
+    "code": "coinLabel.text = string.Format(\"{0:N0}\", (int)(curGold));"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UILeagueFinalReward.cs",
+    "line": 101,
+    "code": "coinLabel.text = string.Format(\"{0:N0}\", (int)(coin));"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UIFinalStanding.cs",
+    "line": 30,
+    "code": "teamPowerLabel.text = string.Format(\"{0:n0}\", finalRewardMain.getTeamPower());"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UIFinalStanding.cs",
+    "line": 47,
+    "code": "teamPowerLabel.text = string.Format(\"{0:n0}\", finalRewardMain.getTeamPower());"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UIFinalStanding.cs",
+    "line": 110,
+    "code": "label[4].text = string.Format(\"{0:F3}\", teamRecordInfo.wr);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UIFinalStanding.cs",
+    "line": 111,
+    "code": "label[5].text = string.Format(\"{0:F1}\", teamRecordInfo.wd);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UIFinalStanding.cs",
+    "line": 112,
+    "code": "label[6].text = string.Format(\"{0:F3}\", teamRecordInfo.ba);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UIFinalStanding.cs",
+    "line": 115,
+    "code": "label[9].text = string.Format(\"{0:F3}\", teamRecordInfo.ops);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UIFinalStanding.cs",
+    "line": 116,
+    "code": "label[10].text = string.Format(\"{0:F2}\", teamRecordInfo.era);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UIFinalStanding.cs",
+    "line": 147,
+    "code": "label[4].text = string.Format(\"{0:F3}\", teamRecordInfo.wr);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UIFinalStanding.cs",
+    "line": 149,
+    "code": "label[6].text = string.Format(\"{0:F3}\", teamRecordInfo.ba);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UIFinalStanding.cs",
+    "line": 152,
+    "code": "label[9].text = string.Format(\"{0:F3}\", teamRecordInfo.ops);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UIFinalStanding.cs",
+    "line": 153,
+    "code": "label[10].text = string.Format(\"{0:F2}\", teamRecordInfo.era);"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UILeagueUpDown.cs",
+    "line": 226,
+    "code": "leagueRank.text = string.Format(\"{0:N0}\", (int)(rank));"
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UILeagueUpDown.cs",
+    "line": 236,
+    "code": "leagueRank.text = string.Format(\"{0:N0}\", (int)(curRank));"
+  },
+  {
+    "path": "Assets/MainGame/Script/etc/Debug_UI.cs",
+    "line": 40,
+    "code": "fpsLabel.text = \"FPS: \" + ((int)(1.0f / deltaTime)).ToString();"
+  },
+  {
+    "path": "Assets/MainGame/Script/etc/Debug_UI.cs",
+    "line": 51,
+    "code": "Instance_.Round.text = \"ROUND \" + round;"
+  },
+  {
+    "path": "Assets/MainGame/Script/etc/Debug_UI.cs",
+    "line": 86,
+    "code": "pitcherProp[0].text = \"현재체력 : \" + pitcher.getCurrentStamina().ToString();"
+  },
+  {
+    "path": "Assets/MainGame/Script/etc/Debug_UI.cs",
+    "line": 87,
+    "code": "pitcherProp[1].text = \"감소율 : \" + pitcher.staminaReduceRate.ToString();"
+  },
+  {
+    "path": "Assets/MainGame/Script/etc/Debug_UI.cs",
+    "line": 88,
+    "code": "pitcherProp[2].text = \"체력상태 : \" + pitcher.faitgueStep.ToString();"
+  },
+  {
+    "path": "Assets/MainGame/Script/etc/Debug_UI.cs",
+    "line": 89,
+    "code": "pitcherProp[3].text = \"핀치여부 : \" + pitcher.pinchState.ToString();"
+  },
+  {
+    "path": "Assets/MainGame/Script/etc/Debug_UI.cs",
+    "line": 90,
+    "code": "pitcherProp[4].text = \"핀치점수 : \" + pitcher.pinchScore.ToString();"
+  },
+  {
+    "path": "Assets/MainGame/Script/etc/Debug_UI.cs",
+    "line": 107,
+    "code": "batterProp[0].text = \"컨택 : \" + batter.getContact();"
+  },
+  {
+    "path": "Assets/MainGame/Script/etc/Debug_UI.cs",
+    "line": 108,
+    "code": "batterProp[1].text = \"선구 : \" + batter.getEye();"
+  },
+  {
+    "path": "Assets/MainGame/Script/etc/Debug_UI.cs",
+    "line": 109,
+    "code": "batterProp[2].text = \"파워 : \" + batter.getPower();"
+  },
+  {
+    "path": "Assets/MainGame/Script/etc/Debug_UI.cs",
+    "line": 110,
+    "code": "batterProp[3].text = \"탄도 : \" + batter.getTando();"
+  },
+  {
+    "path": "Assets/MainGame/Script/etc/Debug_UI.cs",
+    "line": 111,
+    "code": "batterProp[4].text = \"보너스 : \" + batter.getBonusValue();"
+  },
+  {
+    "path": "Assets/MainGame/Script/etc/tempSelectPage.cs",
+    "line": 42,
+    "code": "button1.transform.Find(\"Label\").GetComponent<UILabel>().text = \"[aaaaaa]투수 모드 OFF\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/etc/tempSelectPage.cs",
+    "line": 47,
+    "code": "button2.transform.Find(\"Label\").GetComponent<UILabel>().text = \"[aaaaaa]특수 능력 OFF\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/etc/tempSelectPage.cs",
+    "line": 58,
+    "code": "button1.transform.Find(\"Label\").GetComponent<UILabel>().text = \"[aaaaaa]투수 모드 OFF\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/etc/tempSelectPage.cs",
+    "line": 64,
+    "code": "button1.transform.Find(\"Label\").GetComponent<UILabel>().text = \"[ffffff]투수 모드 ON\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/etc/tempSelectPage.cs",
+    "line": 75,
+    "code": "button2.transform.Find(\"Label\").GetComponent<UILabel>().text = \"[aaaaaa]특수 능력 OFF\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/etc/tempSelectPage.cs",
+    "line": 81,
+    "code": "button2.transform.Find(\"Label\").GetComponent<UILabel>().text = \"[ffffff]특수 능력 ON\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/Manager/ResultUI.cs",
+    "line": 567,
+    "code": "getCoinObj.transform.Find(\"coinLabel\").GetComponent<UILabel>().text = string.Format(\"{0:N0}\", coin);"
+  },
+  {
+    "path": "Assets/MainGame/Script/Manager/IngameUI.cs",
+    "line": 363,
+    "code": "Instance_.confirmPopup.SetPopup_TwoBtn(title, message, \"확인\", \"취소\", callBack_Left, callBack_Right);"
+  },
+  {
+    "path": "Assets/MainGame/Script/QuickGame/QuickRunner.cs",
+    "line": 174,
+    "code": "baseRunningLabel.text = \"Steal\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/QuickGame/QuickRunner.cs",
+    "line": 184,
+    "code": "baseRunningLabel.text = \"Pick off\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/QuickGame/QuickRunner.cs",
+    "line": 188,
+    "code": "baseRunningLabel.text = \"Pick off Fail\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/QuickGame/QuickRunner.cs",
+    "line": 192,
+    "code": "baseRunningLabel.text = \"Steal Fail\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/QuickGame/QuickRunner.cs",
+    "line": 196,
+    "code": "baseRunningLabel.text = \"Steal Success\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/QuickGame/QuickRunner.cs",
+    "line": 200,
+    "code": "baseRunningLabel.text = \"Out\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/QuickGame/quickBuffUI.cs",
+    "line": 27,
+    "code": "if (type == SkillBuffType.BatterDown) label.text = \"타격 능력 하락\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/QuickGame/quickBuffUI.cs",
+    "line": 28,
+    "code": "else if (type == SkillBuffType.BatterUP) label.text = \"타격 능력 상승\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/QuickGame/quickBuffUI.cs",
+    "line": 31,
+    "code": "label.text = \"타자 특수 능력\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/QuickGame/quickBuffUI.cs",
+    "line": 34,
+    "code": "else if (type == SkillBuffType.DoctorK) label.text = \"닥터 K\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/QuickGame/quickBuffUI.cs",
+    "line": 35,
+    "code": "else if (type == SkillBuffType.PitcherDown) label.text = \"투수 구질 하락\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/QuickGame/quickBuffUI.cs",
+    "line": 36,
+    "code": "else if (type == SkillBuffType.PitcherUP) label.text = \"투수 구질 상승\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/QuickGame/quickBuffUI.cs",
+    "line": 39,
+    "code": "label.text = \"투수 특수 능력\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/QuickGame/quickBuffUI.cs",
+    "line": 44,
+    "code": "label.text = \"스킬 무효화\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/QuickGame/QuickPlayerNameBar.cs",
+    "line": 51,
+    "code": "num.text = string.Format(\"No.{0}\", (player.getOrder() + 1));"
+  },
+  {
+    "path": "Assets/MainGame/Script/QuickGame/QuickPlayerNameBar.cs",
+    "line": 98,
+    "code": "if (result == SimulResultState.FourBall) resultLabel.text = \"BB\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/QuickGame/QuickPlayerNameBar.cs",
+    "line": 99,
+    "code": "else if (result == SimulResultState.Single || result == SimulResultState.SingleOneError || result == SimulResultState.InfieldSingle || result == SimulResultState.BuntSingle) resultLabel.text = \"HIT\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/QuickGame/QuickPlayerNameBar.cs",
+    "line": 100,
+    "code": "else if (result == SimulResultState.Double || result == SimulResultState.DoubleOneError) resultLabel.text = \"Double\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/QuickGame/QuickPlayerNameBar.cs",
+    "line": 101,
+    "code": "else if (result == SimulResultState.Triple || result == SimulResultState.TripleOneError) resultLabel.text = \"Triple\";"
+  },
+  {
+    "path": "Assets/MainGame/Script/QuickGame/QuickPlayerNameBar.cs",
+    "line": 102,
+    "code": "else if (result == SimulResultState.HomeRun) resultLabel.text = \"HR\";"
+  },
+  {
+    "path": "Assets/Scripts/UI_CardBase.cs",
+    "line": 84,
+    "code": "this.labelPlayerName.text = \"테스트\";"
+  },
+  {
+    "path": "Assets/Scripts/UI_PopupConfirm.cs",
+    "line": 76,
+    "code": "public void SetPopup(EPOPUP ePopupType, string title = \"\", string message = \"\", string text_ok = \"\", string text_cancel = \"\",  EventDelegate.Callback okCallBack = null, EventDelegate.Callback cancelCallBack = null, string[] list_text_four = null, EventDelegate.Callback[] list_callback_four = null)"
+  },
+  {
+    "path": "Assets/Scripts/UI_PopupConfirm.cs",
+    "line": 148,
+    "code": "this.SetPopup_OneBtn(title, message, \"확인\", callBack);"
+  },
+  {
+    "path": "Assets/Scripts/UI_PopupConfirm.cs",
+    "line": 177,
+    "code": "this.SetPopup_TwoBtn(title, message, \"확인\", \"취소\", callBack_Left, callBack_Right);"
+  },
+  {
+    "path": "Assets/Scripts/ItemSlot.cs",
+    "line": 181,
+    "code": "have_count_label.text = string.Format(\"X{0}\", have_count);"
+  },
+  {
+    "path": "Assets/Scripts/ItemSlot.cs",
+    "line": 239,
+    "code": "this.have_count_label.text = string.Format(\"X{0}\", have_count);"
+  },
+  {
+    "path": "Assets/Scripts_Old/UI/Ui_PlayerCard.cs",
+    "line": 153,
+    "code": "PositionText.text = \"P\";"
+  }
+]

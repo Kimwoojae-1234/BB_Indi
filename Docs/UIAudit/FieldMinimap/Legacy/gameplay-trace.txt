@@ -1,0 +1,27 @@
+Offline _Test_Local entry, 2026-09-23T06:58:23.5194400Z
+0.0 Scene=Logo manager=False board=False
+ERROR ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the collection.
+Parameter name: index
+System.Collections.Generic.List`1[T].get_Item (System.Int32 index) (at <032c206a1674455bacfc3546f1de5ef3>:0)
+UnityEditor.Search.SearchDatabase+<EnumerateAll>d__80.MoveNext () (at /Users/bokken/build/output/unity/unity/Modules/QuickSearch/Editor/Indexing/SearchDatabase.cs:445)
+System.Linq.Enumerable.TryGetFirst[TSource] (System.Collections.Generic.IEnumerable`1[T] source, System.Boolean& found) (at <2a8fff6ff3e54cfa88259e180adc29eb>:0)
+System.Linq.Enumerable.First[TSource] (System.Collections.Generic.IEnumerable`1[T] source) (at <2a8fff6ff3e54cfa88259e180adc29eb>:0)
+UnityEditor.Search.SearchDatabase.GetDefaultSearchDatabase () (at /Users/bokken/build/output/unity/unity/Modules/QuickSearch/Editor/Indexing/SearchDatabase.cs:420)
+UnityEditor.Search.SearchInit.IndexationOnStartup () (at /Users/bokken/build/output/unity/unity/Modules/QuickSearch/Editor/SearchInit.cs:109)
+UnityEditor.EditorApplication.Internal_CallDelayFunctions () (at /Users/bokken/build/output/unity/unity/Editor/Mono/EditorApplication.cs:407)
+
+3.8 Scene=MainLobby manager=False board=False
+ERROR tk2dCamera.GetGameViewSize - has a Unity update broken this?
+This is not a fatal error, but a warning that you've probably not got the latest 2D Toolkit update.
+
+System.NullReferenceException: Object reference not set to an instance of an object
+  at tk2dCamera.Editor__GetGameViewSize (System.Single& width, System.Single& height, System.Single& aspect) [0x00021] in /private/tmp/bb-ui-stage4-cko5dbir/Assets/TK2DROOT/tk2d/Code/Camera/tk2dCamera.cs:371 
+UnityEngine.Debug:LogError (object)
+tk2dCamera:Editor__GetGameViewSize (single&,single&,single&) (at Assets/TK2DROOT/tk2d/Code/Camera/tk2dCamera.cs:430)
+tk2dCamera:GetScreenPixelDimensions (tk2dCamera) (at Assets/TK2DROOT/tk2d/Code/Camera/tk2dCamera.cs:701)
+tk2dCamera:UpdateCameraMatrix () (at Assets/TK2DROOT/tk2d/Code/Camera/tk2dCamera.cs:774)
+tk2dCamera:OnEnable () (at Assets/TK2DROOT/tk2d/Code/Camera/tk2dCamera.cs:275)
+
+6.2 Scene=BallPlay manager=True board=True ugui=True visible=False phase=PLAY_INIT_INNING update=False inning=0 top=False home=False score=0,0 count=0/0/0 display=0:0 alpha=1
+8.1 Scene=BallPlay manager=True board=True ugui=True visible=False phase=NONE update=False inning=1 top=True home=False score=0,0 count=0/0/0 display=0:0 alpha=1
+9.2 Scene=BallPlay manager=True board=True ugui=True visible=False phase=PLAY_FIELDING_VIEW update=False inning=1 top=True home=False score=0,0 count=0/0/0 display=0:0 alpha=1

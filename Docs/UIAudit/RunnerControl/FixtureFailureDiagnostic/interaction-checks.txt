@@ -1,0 +1,33 @@
+WAITING for offline match initialization. Controlled runner setup and Unity event dispatch; not native touch or an organic hit/steal outcome.
+PASS Real runner objects initialized through chance-runner factory
+PASS Active UGUI input module
+PASS Actual match raycast reaches base 0
+PASS Actual match raycast reaches base 1
+PASS Actual match raycast reaches base 2
+PASS Second pointer cannot duplicate a held base press
+PASS Release and click do not duplicate press command
+PASS Disabling a base clears its held pointer
+PASS Selected light pulses while scaled game time is stopped
+PASS Steal chain mask=1 selected=0 result=1
+PASS Steal chain mask=2 selected=1 result=2
+PASS Steal chain mask=3 selected=0 result=3
+PASS Steal chain mask=3 selected=1 result=2
+PASS Steal chain mask=4 selected=2 result=4
+PASS Steal chain mask=5 selected=0 result=1
+PASS Steal chain mask=5 selected=2 result=4
+PASS Steal chain mask=6 selected=1 result=6
+PASS Steal chain mask=6 selected=2 result=4
+PASS Steal chain mask=7 selected=0 result=7
+PASS Steal chain mask=7 selected=1 result=6
+PASS Steal chain mask=7 selected=2 result=4
+PASS No runners hides control
+PASS Wrong attack phase ignores input
+PASS Unavailable control stays hidden
+PASS Fading control rejects commands immediately
+PASS Frame-based fade ends with hidden UI
+Reactivation state: active=True available=True bases=True,True,True,False panel=0.04000071 canvas=0.04000071
+FAIL System.InvalidOperationException: Reactivation cancels stale fade
+  at RunnerControlMigrationChecks.Require (System.Boolean condition, System.String message) [0x00009] in /Users/munhwaie/Projects/BB_Indi/Assets/Editor/RunnerControlMigrationChecks.cs:19 
+  at RunnerControlPlayProbe.Require (System.Boolean condition, System.String label) [0x00001] in /Users/munhwaie/Projects/BB_Indi/Assets/Editor/RunnerControlPlayChecks.cs:66 
+  at RunnerControlPlayProbe+<Check>d__10.MoveNext () [0x00c72] in /Users/munhwaie/Projects/BB_Indi/Assets/Editor/RunnerControlPlayChecks.cs:189 
+  at RunnerControlPlayProbe+<Guarded>d__6.MoveNext () [0x0002a] in /Users/munhwaie/Projects/BB_Indi/Assets/Editor/RunnerControlPlayChecks.cs:59 

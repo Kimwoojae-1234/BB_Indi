@@ -11,6 +11,8 @@ namespace BaseBall.BallPlay
 
         public UISprite _team;
         public UILabel _name;
+        [SerializeField] private MinimapRunnerView uguiView;
+        public MinimapRunnerView UguiView => uguiView;
 
         float xPos, yPos;
         BallPlayManager manager;
@@ -45,18 +47,19 @@ namespace BaseBall.BallPlay
             this.runner = runner;
             runner.minimapRunner = gameObject;
 
-            _team.spriteName = "minimap_team" + team;
-
-            if (Mode.gameMode == Mode.GamePlayMode.NineInningTwoOut)
+            if (uguiView != null)
             {
-                foreach (Transform child in transform)
-                {
-                    child.gameObject.SetActive(false);
-                }
+                bool hideName = Mode.gameMode == Mode.GamePlayMode.NineInningTwoOut;
+                uguiView.SetPresentation(team, hideName ? string.Empty : runner.pRunner.getName(), hideName);
             }
             else
             {
-                _name.text = runner.pRunner.getName();
+                _team.spriteName = "minimap_team" + team;
+                if (Mode.gameMode == Mode.GamePlayMode.NineInningTwoOut)
+                {
+                    foreach (Transform child in transform) child.gameObject.SetActive(false);
+                }
+                else _name.text = runner.pRunner.getName();
             }
 
             int basePos = runner.currentPos;
@@ -80,6 +83,12 @@ namespace BaseBall.BallPlay
         }
 
 
+
+        public void FadeOut(float duration)
+        {
+            if (uguiView != null) uguiView.FadeOut(duration);
+            else TweenAlpha.Begin(gameObject, duration, 0);
+        }
 
         public void move()
         {

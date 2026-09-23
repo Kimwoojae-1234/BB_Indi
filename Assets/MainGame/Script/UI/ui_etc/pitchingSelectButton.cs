@@ -11,6 +11,9 @@ namespace BaseBall.BallPlay
         public UITexture effect;
         public GameObject _light;
 
+        [SerializeField] private PitchSelectionButtonView uguiView;
+        public PitchSelectionButtonView UguiView => uguiView;
+
         private PitchingArsenal _selectedBall;
         private int _selectedSlot;
 
@@ -20,6 +23,13 @@ namespace BaseBall.BallPlay
         public void setInit(CPlayer pitcher, PitchingArsenal index, int slot)
         {
             bPushAvail = true;
+            if (uguiView != null)
+            {
+                _selectedBall = index;
+                _selectedSlot = slot;
+                uguiView.Begin(index, pitcher.getBallValue(index) / 10, slot);
+                return;
+            }
             effect.gameObject.SetActive(false);
             _light.gameObject.SetActive(false);
             _selectedBall = index;
@@ -50,7 +60,8 @@ namespace BaseBall.BallPlay
             {
                 bPushAvail = false;                
                 IngameUI.GetPitchingSelect().SetBallType(_selectedSlot, _selectedBall);
-                StartCoroutine(buttonEffect());                
+                if (uguiView != null) uguiView.PlaySelectionEffect();
+                else StartCoroutine(buttonEffect());
             }
         }
 
@@ -72,6 +83,12 @@ namespace BaseBall.BallPlay
 
         public void setRelease(int selected, int type)
         {
+            if (uguiView != null)
+            {
+                bPushAvail = false;
+                uguiView.Release(selected, type);
+                return;
+            }
             StartCoroutine(setPosition2(selected, type));
         }
 

@@ -9,6 +9,21 @@ namespace BaseBall.BallPlay
         public GameObject _active;
         public pitchingSelectButton[] button;
 
+        [SerializeField] private PitchSelectionCanvas uguiView;
+        public PitchSelectionCanvas UguiView => uguiView;
+        private UIPanel inheritedPanel;
+        private Camera uiCamera;
+
+        private void LateUpdate()
+        {
+            if (uguiView == null || !uguiView.gameObject.activeInHierarchy) return;
+            if (inheritedPanel == null) inheritedPanel = GetComponentInParent<UIPanel>();
+            if (uiCamera == null) uiCamera = NGUITools.FindCameraForLayer(gameObject.layer);
+            uguiView.SetInheritedRendering(inheritedPanel != null ? inheritedPanel.CalculateFinalAlpha(Time.frameCount) : 1,
+                inheritedPanel != null ? inheritedPanel.startingRenderQueue : 3000,
+                inheritedPanel != null ? inheritedPanel.sortingOrder : 0, uiCamera, !Mode.bPauseGame);
+        }
+
 
         private BallPlayManager manager = null;
         private PitchingArsenal selectBallType;
@@ -18,6 +33,11 @@ namespace BaseBall.BallPlay
         public void Init(BallPlayManager _manager)
         {
             manager = _manager;
+            if (uguiView != null)
+            {
+                var ui = GetComponentInParent<IngameUI>();
+                uguiView.SetInputRoot(ui != null ? ui.transform : transform);
+            }
         }
 
 

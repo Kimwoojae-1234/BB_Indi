@@ -1,0 +1,21 @@
+WAITING for offline match. Controlled field and runner state; no organic hit or complete match verification.
+ENTRY batch fixture after field/player initialization; batting mesh EndOfFrame wait is not completed.
+PASS Chance-runner factory creates and binds three real minimap markers
+PASS Field camera enables minimap and out count
+PASS All four initial base positions and initPosition mappings preserved
+PASS 72 movement samples across four segments and MOVE/STEAL states preserve interpolation
+PASS States outside STANDBY through STEAL do not move the marker
+PASS Out count 0 retains original visibility
+PASS Out count 1 retains original visibility
+PASS Out count 2 retains original visibility
+PASS Out count 3 retains original visibility
+PASS Hiding field UI hides map, markers and count
+PASS Showing field UI restores map and count
+PASS Marker fades before removal
+PASS Actual Runner.destroyRunner removes only its marker
+PASS NineInningTwoOut hides names while retaining team icon (display branch only)
+PASS DestroyHitterRunner removes the most recently created marker only
+PASS Marker with a missing runner cleans itself up
+PASS DestroyAllMinimapRunner clears every logical marker
+PASS New marker can be created after clearing the minimap
+COMPLETE — controlled Play Mode fixture. Native screen rendering, organic play outcomes, PVP and complete-match flow require separate verification.

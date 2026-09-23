@@ -25,6 +25,9 @@ namespace BaseBall.BallPlay
 
         //미니맵
         public GameObject minimap;
+        [SerializeField] private FieldMinimapView uguiMinimap;
+        [SerializeField] private miniRunner uguiMinimapRunner;
+        public FieldMinimapView UguiMinimap => uguiMinimap;
         //필드 라인 이펙트
         public tk2dSpriteAnimator fieldLine;
 
@@ -190,7 +193,9 @@ namespace BaseBall.BallPlay
         /// <param name="team"></param>
         public void MakeMinimapRunner(BallPlayManager manager, Runner runner, int team)
         {
-            hitterRunnerObj = Util.Load("MainGame/prefabs/ControlUI/miniRunner2", minimap.transform, Vector3.zero);
+            hitterRunnerObj = uguiMinimap != null
+                ? Instantiate(uguiMinimapRunner, minimap.transform, false).gameObject
+                : Util.Load("MainGame/prefabs/ControlUI/miniRunner2", minimap.transform, Vector3.zero);
             hitterRunnerObj.GetComponent<miniRunner>().set(manager, runner, team);
 
         }

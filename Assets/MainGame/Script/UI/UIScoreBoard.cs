@@ -8,6 +8,31 @@ namespace BaseBall.BallPlay
         //
         public GameObject _active;
 
+        [SerializeField] private IngameScoreboardView uguiView;
+        private UIPanel scoreboardPanel;
+
+        public IngameScoreboardView UguiView { get { return uguiView; } }
+
+        private void Awake()
+        {
+            scoreboardPanel = GetComponent<UIPanel>();
+            if (uguiView != null)
+                uguiView.displayCanvas.worldCamera = NGUITools.FindCameraForLayer(gameObject.layer);
+        }
+
+        private void LateUpdate()
+        {
+            if (uguiView != null && scoreboardPanel != null)
+                uguiView.SetInheritedRendering(scoreboardPanel.CalculateFinalAlpha(Time.frameCount),
+                    scoreboardPanel.startingRenderQueue, scoreboardPanel.sortingOrder);
+        }
+
+        private void SetBoardPosition(Vector3 position)
+        {
+            if (uguiView != null) uguiView.entrance.StopAt(position);
+            else board.transform.localPosition = position;
+        }
+
         //보드
         public UISprite homeLogo, awayLogo;
         public UILabel homeName, awayName;
@@ -57,7 +82,7 @@ namespace BaseBall.BallPlay
         {
             bBoardInit = false;
             //board = _active.transform.FindChild("board").gameObject;
-            board.transform.localPosition = new Vector3(-900, 0, 0);
+            SetBoardPosition(new Vector3(-900, 0, 0));
             waitObj.SetActive(false);
 
             bNoAutoButton = false;
@@ -117,7 +142,7 @@ namespace BaseBall.BallPlay
                 
                 if (bFade == false)
                 {
-                    board.transform.localPosition = new Vector3(-446, 0, 0);
+                    SetBoardPosition(new Vector3(-446, 0, 0));
                     
                     /*if (Mode.gameMode == Mode.GamePlayMode.NineInningTwoOut)
                     {
@@ -130,9 +155,16 @@ namespace BaseBall.BallPlay
                 }
                 else
                 {
-                    UITweener tween1 = board.GetComponent<TweenPosition>();
-                    tween1.ResetToBeginning();
-                    tween1.PlayForward();
+                    if (uguiView != null)
+                    {
+                        uguiView.entrance.PlayFromStart();
+                    }
+                    else
+                    {
+                        UITweener tween1 = board.GetComponent<TweenPosition>();
+                        tween1.ResetToBeginning();
+                        tween1.PlayForward();
+                    }
 
                     /*if (Mode.gameMode == Mode.GamePlayMode.NineInningTwoOut)
                     {
@@ -151,7 +183,7 @@ namespace BaseBall.BallPlay
             {
                 if (bFade == false)
                 {
-                    board.transform.localPosition = new Vector3(-900, 0, 0);
+                    SetBoardPosition(new Vector3(-900, 0, 0));
                     /*if (Mode.gameMode == Mode.GamePlayMode.NineInningTwoOut)
                     {
                     }
@@ -182,7 +214,7 @@ namespace BaseBall.BallPlay
                     break;
                 }
             }
-            board.transform.localPosition = new Vector3(-900, 0, 0);
+            SetBoardPosition(new Vector3(-900, 0, 0));
             /*if (Mode.gameMode == Mode.GamePlayMode.NineInningTwoOut)
             {
             }
@@ -198,6 +230,12 @@ namespace BaseBall.BallPlay
         public void Init(BallPlayManager _manager)
         {
             this.manager = _manager;
+            if (uguiView != null)
+            {
+                uguiView.SetTeams(SimulPlayerManager.homeTeamIndex, SimulPlayerManager.strHomeTeam,
+                    SimulPlayerManager.awayTeamIndex, SimulPlayerManager.strAwayTeam);
+                return;
+            }
             //팀정보
             Util.SetSpritePixelPerfect(homeLogo, "logo_" + SimulPlayerManager.homeTeamIndex);//homeLogo.spriteName = "logo_" + SimulPlayerManager.homeTeamIndex;
             Util.SetSpritePixelPerfect(awayLogo, "logo_" + SimulPlayerManager.awayTeamIndex);//awayLogo.spriteName = "logo_" + SimulPlayerManager.awayTeamIndex;
@@ -221,7 +259,16 @@ namespace BaseBall.BallPlay
         }
 
         public void BoardUpdate()
-        {   
+        {
+            if (uguiView != null)
+            {
+                uguiView.SetState(manager.nInningCount, manager.bTopInning, manager.bMyHome,
+                    manager.nGameScore[0], manager.nGameScore[1],
+                    manager.nBallCount, manager.nStrikeCount, manager.nOutCount,
+                    manager.field.run.bOnBase[0], manager.field.run.bOnBase[1], manager.field.run.bOnBase[2]);
+                IngameUI.GetPlayerInfo().SetPitchNum(manager.pitcher.pPitcher);
+                return;
+            }
             //이닝 정보
             inningInfo.text = manager.nInningCount.ToString();
             topBottom.spriteName = manager.bTopInning ? "scoreboard_top" : "scoreboard_bottom";

@@ -1,0 +1,635 @@
+{
+  "coverage": {
+    "Eng": {
+      "filled": 1081,
+      "total": 1134
+    },
+    "Kor": {
+      "filled": 1081,
+      "total": 1134
+    },
+    "Esp": {
+      "filled": 736,
+      "total": 1134
+    },
+    "Jpn": {
+      "filled": 678,
+      "total": 1134
+    },
+    "ChnT": {
+      "filled": 678,
+      "total": 1134
+    },
+    "ChnS": {
+      "filled": 678,
+      "total": 1134
+    },
+    "Fra": {
+      "filled": 2,
+      "total": 1134
+    },
+    "Deu": {
+      "filled": 0,
+      "total": 1134
+    },
+    "Idn": {
+      "filled": 0,
+      "total": 1134
+    },
+    "Ita": {
+      "filled": 0,
+      "total": 1134
+    },
+    "Prt": {
+      "filled": 0,
+      "total": 1134
+    },
+    "Rus": {
+      "filled": 0,
+      "total": 1134
+    },
+    "Tha": {
+      "filled": 0,
+      "total": 1134
+    },
+    "Tur": {
+      "filled": 0,
+      "total": 1134
+    },
+    "Vnm": {
+      "filled": 0,
+      "total": 1134
+    }
+  },
+  "unique_keys": 1127,
+  "duplicates": [
+    "ButtonTxt.ByLevel",
+    "PopupBody.GoogleLogin",
+    "PopUp_BattleEnd_Result_Win",
+    "PopUp_BattleEnd_Result_Invalid",
+    "PopUp_BattleEnd_Result_Tie",
+    "Ingame.NicePlay",
+    "Ingame.YouWin"
+  ],
+  "empty_all_languages": [
+    "PopUp_DiscordOpen_Explain_3",
+    "CharDesc_0002",
+    "CharDesc_0003",
+    "CharDesc_0004",
+    "CharDesc_0005",
+    "CharDesc_0006",
+    "CharDesc_0007",
+    "CharDesc_0008",
+    "CharDesc_0009",
+    "CharDesc_0010",
+    "CharDesc_0011",
+    "CharDesc_0012",
+    "CharDesc_0013",
+    "CharDesc_0014",
+    "CharDesc_0015",
+    "CharDesc_0016",
+    "CharDesc_0017",
+    "CharDesc_0018",
+    "CharDesc_0019",
+    "CharDesc_0020",
+    "CharDesc_0021",
+    "CharDesc_0022",
+    "CharDesc_0023",
+    "CharDesc_0024",
+    "CharDesc_0025",
+    "CharDesc_0026",
+    "CharDesc_0027",
+    "CharDesc_0028",
+    "CharDesc_0029",
+    "CharDesc_0030",
+    "CharDesc_0031",
+    "CharDesc_0032",
+    "CharDesc_0033",
+    "CharDesc_0034",
+    "CharDesc_0035",
+    "CharDesc_0036",
+    "CharDesc_0037",
+    "CharDesc_0038",
+    "CharDesc_0039",
+    "CharDesc_0040",
+    "CharDesc_0041",
+    "CharDesc_0042",
+    "CharDesc_0043",
+    "CharDesc_0044",
+    "CharDesc_0045",
+    "CharDesc_0046",
+    "CharDesc_0047",
+    "CharDesc_0048",
+    "GearDesc.20018",
+    "GearDesc.20030",
+    "GearDesc.20036",
+    "GearDesc.20037",
+    "GearDesc.20038"
+  ],
+  "missing_literal_keys": [],
+  "literal_calls": [
+    {
+      "path": "Assets/Scripts_New/UIWindow/UI_BallersList.cs",
+      "line": 92,
+      "key": "UI.BallerListTitle",
+      "dynamic_prefix": false
+    },
+    {
+      "path": "Assets/Scripts_New/UIWindow/UI_BallersList.cs",
+      "line": 95,
+      "key": "UI.BallerSort",
+      "dynamic_prefix": true
+    },
+    {
+      "path": "Assets/Scripts_New/UIWindow/UI_BallersList.cs",
+      "line": 139,
+      "key": "UI.BallerSort",
+      "dynamic_prefix": true
+    },
+    {
+      "path": "Assets/Scripts_New/UIPopup/Popup_Name.cs",
+      "line": 42,
+      "key": "PopupBody.CreateNickname1",
+      "dynamic_prefix": false
+    },
+    {
+      "path": "Assets/Scripts_New/UIPopup/Popup_Name.cs",
+      "line": 43,
+      "key": "PopupBody.CreateNickname2",
+      "dynamic_prefix": false
+    },
+    {
+      "path": "Assets/Scripts_New/UIPopup/Popup_Name.cs",
+      "line": 57,
+      "key": "PopupBody.ChangeNickname1",
+      "dynamic_prefix": false
+    },
+    {
+      "path": "Assets/Scripts_New/UIPopup/Popup_Name.cs",
+      "line": 58,
+      "key": "PopupBody.ChangeNickname2",
+      "dynamic_prefix": false
+    }
+  ],
+  "placeholder_differences": [
+    {
+      "key": "SkillDesc.10003",
+      "language": "Eng",
+      "Kor": "2구부터 누적되는 투구 수 마다 선구 +{0}, 타구속도 +{1}",
+      "target": "For every number of pitches accumulated from the 2nd pitch, lead <color=yellow>+{0}</color>, exit speed <color=yellow>+{2}</color>",
+      "expected": [
+        "0",
+        "1"
+      ],
+      "actual": [
+        "0",
+        "2"
+      ]
+    },
+    {
+      "key": "SkillDesc.10004",
+      "language": "Eng",
+      "Kor": "우투수 시 {0}%확률로 컨택 +{0}",
+      "target": "When a right-handed pitcher, <color=red>{1}%</color> chance to make contact <color=yellow>+{0}</color>",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "key": "SkillDesc.10005",
+      "language": "Eng",
+      "Kor": "우투수 시 {0}%확률로 컨택 +{0}",
+      "target": "When a right-handed pitcher, <color=red>{1}%</color> chance to make contact <color=yellow>+{0}</color>",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "key": "SkillDesc.10006",
+      "language": "Eng",
+      "Kor": "우투수 시 100%확률로 컨택 +{0},  선구+{0}",
+      "target": "When a right-handed pitcher, <color=red>100%</color> chance of contact <color=yellow>+{0}</color>, lead <color=yellow>+{2}</color>",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "0",
+        "2"
+      ]
+    },
+    {
+      "key": "SkillDesc.10007",
+      "language": "Eng",
+      "Kor": "좌투수 시 {0}%확률로 파워 +{0}",
+      "target": "When left pitching, <color=red>{1}%</color> chance to get power <color=yellow>+{0}</color>",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "key": "SkillDesc.10008",
+      "language": "Eng",
+      "Kor": "좌투수 시 {0}%확률로 파워 +{0}",
+      "target": "When left pitching, <color=red>{1}%</color> chance to get power <color=yellow>+{0}</color>",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "key": "SkillDesc.10009",
+      "language": "Eng",
+      "Kor": "좌투수 시 100%확률로 파워 +{0},  선구+{0}",
+      "target": "When left-handed pitching, 100% chance to get power <color=yellow>+{0}</color>, lead <color=yellow>+{2}</color>",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "0",
+        "2"
+      ]
+    },
+    {
+      "key": "SkillDesc.10012",
+      "language": "Eng",
+      "Kor": "초구에 {0}%확률로 파워 +{0}",
+      "target": "<color=red>{1}%</color> chance of power <color=yellow>+{0}</color> on the first pitch",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "key": "SkillDesc.10013",
+      "language": "Eng",
+      "Kor": "초구에 {0}%확률로 파워 +{0}",
+      "target": "<color=red>{1}%</color> chance of power <color=yellow>+{0}</color> on the first pitch",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "key": "SkillDesc.10014",
+      "language": "Eng",
+      "Kor": "초구에 100%확률로 파워 +{0}, 컨택+{0}",
+      "target": "100% chance of power <color=yellow>+{0}</color>, contact <color=yellow>+{2}</color> on the first pitch",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "0",
+        "2"
+      ]
+    },
+    {
+      "key": "SkillDesc.10015",
+      "language": "Eng",
+      "Kor": "변화구 타격시 타구속도 +{0}%",
+      "target": "Exit speed <color=red>+{1}%</color> when hitting a breaking ball",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "1"
+      ]
+    },
+    {
+      "key": "SkillDesc.10016",
+      "language": "Eng",
+      "Kor": "변화구 타격시 타구속도 +{0}%, 체크스윙 +{1}%",
+      "target": "When hitting a breaking ball, exit speed <color=red>+{1}%</color>, check swing <color=red>{3}%</color>",
+      "expected": [
+        "0",
+        "1"
+      ],
+      "actual": [
+        "1",
+        "3"
+      ]
+    },
+    {
+      "key": "SkillDesc.10017",
+      "language": "Eng",
+      "Kor": "직구 타격시 타구속도 +{0}%",
+      "target": "Exit speed <color=red>+{1}%</color> when hitting a fastball",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "1"
+      ]
+    },
+    {
+      "key": "SkillDesc.10018",
+      "language": "Eng",
+      "Kor": "직구 타격시 타구속도 +{0}%, 체크스윙 +{1}%",
+      "target": "When hitting a fastball, exit speed <color=red>+{1}%</color>, check swing <color=red>{3}%</color>",
+      "expected": [
+        "0",
+        "1"
+      ],
+      "actual": [
+        "1",
+        "3"
+      ]
+    },
+    {
+      "key": "SkillDesc.10019",
+      "language": "Eng",
+      "Kor": "라인드라이브 타격시 타구속도 +{0}%",
+      "target": "Exit speed <color=red>+{1}%</color> when hitting a line drive",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "1"
+      ]
+    },
+    {
+      "key": "SkillDesc.10020",
+      "language": "Eng",
+      "Kor": "플라이볼 타격시 타구속도 +{0}%",
+      "target": "Exit speed <color=red>+{1}%</color> when hitting a fly ball",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "1"
+      ]
+    },
+    {
+      "key": "SkillDesc.10021",
+      "language": "Eng",
+      "Kor": "주자 도루 할 때 타격시 타구속도 +{0}%",
+      "target": "Exit speed <color=red>+{1}%</color> when hitting when a runner steals base",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "1"
+      ]
+    },
+    {
+      "key": "SkillDesc.10024",
+      "language": "Eng",
+      "Kor": "낮경기 시 선구+{0} 파워+{0}",
+      "target": "Pioneer<color=yellow>+{0}</color> Power<color=yellow>+{2}</color> during daytime games",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "0",
+        "2"
+      ]
+    },
+    {
+      "key": "SkillDesc.10025",
+      "language": "Eng",
+      "Kor": "밤경기 시 선구+{0} 컨택+{0}",
+      "target": "Leading team during night games<color=yellow>+{0}</color> contact<color=yellow>+{2}</color>",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "0",
+        "2"
+      ]
+    },
+    {
+      "key": "SkillDesc.10028",
+      "language": "Eng",
+      "Kor": "투아웃에서 {0}%확률로 컨택 +{0}",
+      "target": "<color=red>{1}%</color> chance of making contact with two outs <color=yellow>+{0}</color>",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "key": "SkillDesc.10030",
+      "language": "Eng",
+      "Kor": "투스트라이크에서 {0}%확률로 선구 +{0}",
+      "target": "<color=red>{1}%</color> chance to lead with two strikes <color=yellow>+{0}</color>",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "key": "SkillDesc.10031",
+      "language": "Eng",
+      "Kor": "투스트라이크에서 {0}%확률로 선구 +{0}",
+      "target": "<color=red>{1}%</color> chance to lead with two strikes <color=yellow>+{0}</color>",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "key": "SkillDesc.10032",
+      "language": "Eng",
+      "Kor": "투스트라이크에서 100%확률로 선구 +{0} , 체크스윙 +{0}% 증가",
+      "target": "In two strikes, 100% chance of leading <color=yellow>+{0}</color> and check swing <color=red>+{1}%</color> increase.",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "key": "SkillDesc.10033",
+      "language": "Eng",
+      "Kor": "주자 스코어링 포지션에서 {0}%확률로 파워 +{0}",
+      "target": "Power <color=yellow>+{0}</color> with <color=red>{1}%</color> probability in runner scoring position",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "key": "SkillDesc.10034",
+      "language": "Eng",
+      "Kor": "주자 스코어링 포지션에서 {0}%확률로 파워 +{0}",
+      "target": "Power <color=yellow>+{0}</color> with <color=red>{1}%</color> probability in runner scoring position",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "key": "SkillDesc.10035",
+      "language": "Eng",
+      "Kor": "주자 스코어링 포지션에서 100%확률로 파워 +{0} 컨택 +{0}",
+      "target": "100% chance of power <color=yellow>+{0}</color> contact <color=yellow>+{2}</color> in runner scoring position",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "0",
+        "2"
+      ]
+    },
+    {
+      "key": "SkillDesc.10036",
+      "language": "Eng",
+      "Kor": "지고 있는 경우 {0}%확률로 컨택 +{0}",
+      "target": "If you are losing, <color=red>{1}%</color> chance to contact <color=yellow>+{0}</color>",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "key": "SkillDesc.10038",
+      "language": "Eng",
+      "Kor": "이닝의 선두타자 시 {0}%확률로 선구 +{0}",
+      "target": "When batting first in an inning, there is a <color=red>{1}%</color> chance to lead the line <color=yellow>+{0}</color>",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "key": "SkillDesc.10039",
+      "language": "Eng",
+      "Kor": "이닝의 선두타자 시 {0}%확률로 선구 +{0}",
+      "target": "When batting first in an inning, there is a <color=red>{1}%</color> chance to lead the line <color=yellow>+{0}</color>",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "key": "SkillDesc.10040",
+      "language": "Eng",
+      "Kor": "이닝의 선두타자 시 100%확률로 선구 +{0}, 파워 +{0}",
+      "target": "When batting first in an inning, there is a 100% chance of leading <color=yellow>+{0}</color>, power <color=yellow>+{2}</color>",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "0",
+        "2"
+      ]
+    },
+    {
+      "key": "SkillDesc.10041",
+      "language": "Eng",
+      "Kor": "주자 만루시 타구속도 +{0}% 증가",
+      "target": "When runner bases are loaded, batting speed increases by <color=red>+{1}%</color>",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "1"
+      ]
+    },
+    {
+      "key": "SkillDesc.10042",
+      "language": "Eng",
+      "Kor": "이기고 있는 경우 {0}%확률로 파워 +{0}",
+      "target": "If you are winning, <color=red>{1}%</color> chance for power <color=yellow>+{0}</color>",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "key": "SkillDesc.10044",
+      "language": "Eng",
+      "Kor": "주자 없는 경우 {0}%확률로 선구 +{0}",
+      "target": "If there is no runner, <color=red>{1}%</color> chance to lead <color=yellow>+{0}</color>",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "key": "SkillDesc.10045",
+      "language": "Eng",
+      "Kor": "주자 없는 경우 {0}%확률로 선구 +{0}",
+      "target": "If there is no runner, <color=red>{1}%</color> chance to lead <color=yellow>+{0}</color>",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "0",
+        "1"
+      ]
+    },
+    {
+      "key": "SkillDesc.10046",
+      "language": "Eng",
+      "Kor": "주자 없는 경우 100%확률로 선구 +{0}, 타구속도 +{0}%",
+      "target": "If there are no runners, there is a 100% chance of <color=red>+{1}%</color> batting speed and <color=red>+{3}%</color> batting speed.",
+      "expected": [
+        "0"
+      ],
+      "actual": [
+        "1",
+        "3"
+      ]
+    }
+  ],
+  "legacy_csv": {
+    "header": [
+      "KEY",
+      "Korea"
+    ],
+    "data_rows": 232
+  }
+}

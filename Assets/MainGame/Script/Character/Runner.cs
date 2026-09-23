@@ -407,7 +407,7 @@ namespace BaseBall.BallPlay
             //리와인드인 경우 이곳으로 들어오지 않는다.
             ////UnityEngine.//Debug.Log("=================>>Runner :: destroyRunner 체크");
             run.runnerActive[arrayIndex] = false;
-            TweenAlpha.Begin(minimapRunner, 0.3f, 0);
+            minimapRunner.GetComponent<miniRunner>().FadeOut(0.3f);
             Destroy(minimapRunner.gameObject,0.3f); //미니맵러너 삭제
             Destroy(gameObject);
         }

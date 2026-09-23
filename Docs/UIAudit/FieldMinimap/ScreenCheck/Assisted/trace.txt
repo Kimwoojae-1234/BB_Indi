@@ -1,0 +1,207 @@
+Native Unity Game View observation, 2026-09-23T07:36:39.4190850Z
+Original Logo dirty=True; no scene save/open operation.
+Synthetic pitch-selection events and existing pitch-release API; no injected hit or runner state.
+0.00 Scene=Logo
+4.17 Scene=MainLobby
+5.08 Scene=MainLoading
+ERROR tk2dCamera.GetGameViewSize - has a Unity update broken this?
+This is not a fatal error, but a warning that you've probably not got the latest 2D Toolkit update.
+
+System.NullReferenceException: Object reference not set to an instance of an object
+  at tk2dCamera.Editor__GetGameViewSize (System.Single& width, System.Single& height, System.Single& aspect) [0x00021] in /Users/munhwaie/Projects/BB_Indi/Assets/TK2DROOT/tk2d/Code/Camera/tk2dCamera.cs:371 
+UnityEngine.Debug:LogError (object)
+tk2dCamera:Editor__GetGameViewSize (single&,single&,single&) (at Assets/TK2DROOT/tk2d/Code/Camera/tk2dCamera.cs:430)
+tk2dCamera:GetScreenPixelDimensions (tk2dCamera) (at Assets/TK2DROOT/tk2d/Code/Camera/tk2dCamera.cs:701)
+tk2dCamera:UpdateCameraMatrix () (at Assets/TK2DROOT/tk2d/Code/Camera/tk2dCamera.cs:774)
+tk2dCamera:OnEnable () (at Assets/TK2DROOT/tk2d/Code/Camera/tk2dCamera.cs:275)
+
+5.42 phase=PLAY_INIT_INNING update=False inning=0 top=False attack=True score=0,0 count=0/0/0 contact=False hit= field=True ugui=True countLights=True,True markers=0
+6.81 phase=NONE update=False inning=1 top=True attack=True score=0,0 count=0/0/0 contact=False hit= field=False ugui=True countLights=False,False markers=1
+12.07 phase=NONE update=True inning=1 top=True attack=True score=0,0 count=0/0/0 contact=False hit= field=False ugui=True countLights=False,False markers=1
+13.80 phase=PLAY_START_INNING update=True inning=1 top=True attack=True score=0,0 count=0/0/0 contact=False hit= field=False ugui=True countLights=False,False markers=1
+14.27 phase=PLAY_BATTING_VIEW_INFO update=True inning=1 top=True attack=True score=0,0 count=0/0/0 contact=False hit= field=False ugui=True countLights=False,False markers=1
+16.27 phase=PLAY_BATTING_VIEW_READY update=True inning=1 top=True attack=True score=0,0 count=0/0/0 contact=False hit= field=False ugui=True countLights=False,False markers=1
+16.37 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/0/0 contact=False hit= field=False ugui=True countLights=False,False markers=1
+21.02 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/1/0 contact=False hit= field=False ugui=True countLights=False,False markers=1
+22.34 phase=PLAY_BATTING_VIEW_READY update=True inning=1 top=True attack=True score=0,0 count=0/1/0 contact=False hit= field=False ugui=True countLights=False,False markers=1
+22.64 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/1/0 contact=False hit= field=False ugui=True countLights=False,False markers=1
+ERROR ArgumentException: Animation not found: DEADBALL2
+Parameter name: animationName
+Spine.AnimationState.SetAnimation (System.Int32 trackIndex, System.String animationName, System.Boolean loop) (at Assets/Spine/spine-csharp/src/AnimationState.cs:405)
+BaseBall.BallPlay.Batter.batterAnim (System.Int32 track, System.String strAnim, System.Boolean bLoop, System.Single timeScale) (at Assets/MainGame/Script/Character/Batter.cs:731)
+BaseBall.BallPlay.Batter+<hitByPitchAnim>d__224.MoveNext () (at Assets/MainGame/Script/Character/Batter.cs:4009)
+UnityEngine.SetupCoroutine.InvokeMoveNext (System.Collections.IEnumerator enumerator, System.IntPtr returnValueAddress) (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/Coroutines.cs:17)
+UnityEngine.MonoBehaviour:StartCoroutine(IEnumerator)
+BaseBall.BallPlay.Batter:lookingFrame() (at Assets/MainGame/Script/Character/Batter.cs:3009)
+BaseBall.BallPlay.Batter:batterFrame() (at Assets/MainGame/Script/Character/Batter.cs:2956)
+BaseBall.BallPlay.BallPlayManager:battingViewFrame() (at Assets/MainGame/Script/Manager/BallPlayManager.cs:3693)
+BaseBall.BallPlay.BallPlayManager:updateFrame() (at Assets/MainGame/Script/Manager/BallPlayManager.cs:3148)
+BaseBall.BallPlay.BallPlayManager:Update() (at Assets/MainGame/Script/Manager/BallPlayManager.cs:952)
+
+ERROR 투수 에러 PITCHER_INCONVENENCE_01
+UnityEngine.Debug:LogError (object)
+BaseBall.BallPlay.Pitcher:pitcherAnim (string,bool,bool) (at Assets/MainGame/Script/Character/Pitcher.cs:533)
+BaseBall.BallPlay.Pitcher/<pitcherAngry>d__149:MoveNext () (at Assets/MainGame/Script/Character/Pitcher.cs:2299)
+UnityEngine.MonoBehaviour:StartCoroutine (System.Collections.IEnumerator)
+BaseBall.BallPlay.Pitcher:checkCount () (at Assets/MainGame/Script/Character/Pitcher.cs:2248)
+BaseBall.BallPlay.Pitcher:finishFrame () (at Assets/MainGame/Script/Character/Pitcher.cs:2017)
+BaseBall.BallPlay.Pitcher:pitchingFrame () (at Assets/MainGame/Script/Character/Pitcher.cs:1788)
+BaseBall.BallPlay.BallPlayManager:battingViewFrame () (at Assets/MainGame/Script/Manager/BallPlayManager.cs:3692)
+BaseBall.BallPlay.BallPlayManager:updateFrame () (at Assets/MainGame/Script/Manager/BallPlayManager.cs:3148)
+BaseBall.BallPlay.BallPlayManager:Update () (at Assets/MainGame/Script/Manager/BallPlayManager.cs:952)
+
+30.21 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/1/0 contact=False hit= field=True ugui=True countLights=False,False markers=1
+CAPTURE 1 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/1/0 contact=False hit= field=True ugui=True countLights=False,False markers=1
+CAPTURE 2 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/1/0 contact=False hit= field=True ugui=True countLights=False,False markers=1
+CAPTURE 3 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/1/0 contact=False hit= field=True ugui=True countLights=False,False markers=1
+CAPTURE 4 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/1/0 contact=False hit= field=True ugui=True countLights=False,False markers=1
+CAPTURE 5 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/1/0 contact=False hit= field=True ugui=True countLights=False,False markers=1
+32.91 phase=PLAY_BATTING_VIEW_PRE update=True inning=1 top=True attack=True score=0,0 count=0/0/0 contact=False hit= field=False ugui=True countLights=False,False markers=2
+33.94 phase=PLAY_BATTING_VIEW_INFO update=True inning=1 top=True attack=True score=0,0 count=0/0/0 contact=False hit= field=False ugui=True countLights=False,False markers=2
+35.95 phase=NONE update=True inning=1 top=True attack=True score=0,0 count=0/0/0 contact=False hit= field=False ugui=True countLights=False,False markers=2
+36.05 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/0/0 contact=False hit= field=False ugui=True countLights=False,False markers=2
+40.80 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=1/0/0 contact=False hit= field=False ugui=True countLights=False,False markers=2
+42.06 phase=PLAY_BATTING_VIEW_READY update=True inning=1 top=True attack=True score=0,0 count=1/0/0 contact=False hit= field=False ugui=True countLights=False,False markers=2
+42.36 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=1/0/0 contact=False hit= field=False ugui=True countLights=False,False markers=2
+47.01 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=1/1/0 contact=False hit= field=False ugui=True countLights=False,False markers=2
+48.26 phase=PLAY_BATTING_VIEW_READY update=True inning=1 top=True attack=True score=0,0 count=1/1/0 contact=False hit= field=False ugui=True countLights=False,False markers=2
+48.55 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=1/1/0 contact=False hit= field=False ugui=True countLights=False,False markers=2
+53.12 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=1/2/0 contact=False hit= field=False ugui=True countLights=False,False markers=2
+54.44 phase=PLAY_BATTING_VIEW_READY update=True inning=1 top=True attack=True score=0,0 count=1/2/0 contact=False hit= field=False ugui=True countLights=False,False markers=2
+54.74 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=1/2/0 contact=False hit= field=False ugui=True countLights=False,False markers=2
+59.49 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=2/2/0 contact=False hit= field=False ugui=True countLights=False,False markers=2
+60.74 phase=PLAY_BATTING_VIEW_READY update=True inning=1 top=True attack=True score=0,0 count=2/2/0 contact=False hit= field=False ugui=True countLights=False,False markers=2
+61.04 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=2/2/0 contact=False hit= field=False ugui=True countLights=False,False markers=2
+65.58 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=3/2/0 contact=False hit= field=False ugui=True countLights=False,False markers=2
+66.91 phase=PLAY_BATTING_VIEW_READY update=True inning=1 top=True attack=True score=0,0 count=3/2/0 contact=False hit= field=False ugui=True countLights=False,False markers=2
+67.21 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=3/2/0 contact=False hit= field=False ugui=True countLights=False,False markers=2
+71.85 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=3/3/1 contact=False hit= field=False ugui=True countLights=False,False markers=2
+ERROR 투수 에러 PITCHER_SMILE_05
+UnityEngine.Debug:LogError (object)
+BaseBall.BallPlay.Pitcher:pitcherAnim (string,bool,bool) (at Assets/MainGame/Script/Character/Pitcher.cs:533)
+BaseBall.BallPlay.Pitcher/<pitcherCeremony>d__148:MoveNext () (at Assets/MainGame/Script/Character/Pitcher.cs:2284)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr) (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/Coroutines.cs:17)
+
+73.86 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=3/3/1 contact=False hit= field=False ugui=True countLights=False,False markers=1
+75.78 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/0/1 contact=False hit= field=False ugui=True countLights=False,False markers=2
+77.30 phase=PLAY_BATTING_VIEW_INFO update=True inning=1 top=True attack=True score=0,0 count=0/0/1 contact=False hit= field=False ugui=True countLights=False,False markers=2
+79.30 phase=PLAY_BATTING_VIEW_READY update=True inning=1 top=True attack=True score=0,0 count=0/0/1 contact=False hit= field=False ugui=True countLights=False,False markers=2
+79.42 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/0/1 contact=False hit= field=False ugui=True countLights=False,False markers=2
+83.95 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/1/1 contact=False hit= field=False ugui=True countLights=False,False markers=2
+85.27 phase=PLAY_BATTING_VIEW_READY update=True inning=1 top=True attack=True score=0,0 count=0/1/1 contact=False hit= field=False ugui=True countLights=False,False markers=2
+85.57 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/1/1 contact=False hit= field=False ugui=True countLights=False,False markers=2
+90.17 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=1/1/1 contact=False hit= field=False ugui=True countLights=False,False markers=2
+91.48 phase=PLAY_BATTING_VIEW_READY update=True inning=1 top=True attack=True score=0,0 count=1/1/1 contact=False hit= field=False ugui=True countLights=False,False markers=2
+91.78 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=1/1/1 contact=False hit= field=False ugui=True countLights=False,False markers=2
+96.35 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=1/2/1 contact=False hit= field=False ugui=True countLights=False,False markers=2
+97.68 phase=PLAY_BATTING_VIEW_READY update=True inning=1 top=True attack=True score=0,0 count=1/2/1 contact=False hit= field=False ugui=True countLights=False,False markers=2
+97.95 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=1/2/1 contact=False hit= field=False ugui=True countLights=False,False markers=2
+102.42 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=1/3/2 contact=False hit= field=False ugui=True countLights=False,False markers=2
+ERROR 투수 에러 PITCHER_SMILE_02
+UnityEngine.Debug:LogError (object)
+BaseBall.BallPlay.Pitcher:pitcherAnim (string,bool,bool) (at Assets/MainGame/Script/Character/Pitcher.cs:533)
+BaseBall.BallPlay.Pitcher/<pitcherCeremony>d__148:MoveNext () (at Assets/MainGame/Script/Character/Pitcher.cs:2284)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr) (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/Coroutines.cs:17)
+
+104.44 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=1/3/2 contact=False hit= field=False ugui=True countLights=False,False markers=1
+106.47 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/0/2 contact=False hit= field=False ugui=True countLights=False,False markers=2
+107.94 phase=PLAY_BATTING_VIEW_INFO update=True inning=1 top=True attack=True score=0,0 count=0/0/2 contact=False hit= field=False ugui=True countLights=False,False markers=2
+109.96 phase=NONE update=True inning=1 top=True attack=True score=0,0 count=0/0/2 contact=False hit= field=False ugui=True countLights=False,False markers=2
+110.06 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/0/2 contact=False hit= field=False ugui=True countLights=False,False markers=2
+114.52 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/1/2 contact=False hit= field=False ugui=True countLights=False,False markers=2
+115.77 phase=PLAY_BATTING_VIEW_READY update=True inning=1 top=True attack=True score=0,0 count=0/1/2 contact=False hit= field=False ugui=True countLights=False,False markers=2
+116.07 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/1/2 contact=False hit= field=False ugui=True countLights=False,False markers=2
+120.52 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/2/2 contact=False hit= field=False ugui=True countLights=False,False markers=2
+121.79 phase=PLAY_BATTING_VIEW_READY update=True inning=1 top=True attack=True score=0,0 count=0/2/2 contact=False hit= field=False ugui=True countLights=False,False markers=2
+122.08 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/2/2 contact=False hit= field=False ugui=True countLights=False,False markers=2
+126.23 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/2/2 contact=True hit= field=False ugui=True countLights=False,False markers=2
+126.63 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/2/2 contact=True hit= field=True ugui=True countLights=True,True markers=2
+CAPTURE 6 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/2/2 contact=True hit= field=True ugui=True countLights=True,True markers=2
+CAPTURE 7 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/2/2 contact=True hit= field=True ugui=True countLights=True,True markers=2
+127.75 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/2/2 contact=True hit=좌익수앞  field=True ugui=True countLights=True,True markers=2
+CAPTURE 8 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/2/2 contact=True hit=좌익수앞  field=True ugui=True countLights=True,True markers=2
+CAPTURE 9 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/2/2 contact=True hit=좌익수앞  field=True ugui=True countLights=True,True markers=2
+CAPTURE 10 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/2/2 contact=True hit=좌익수앞  field=True ugui=True countLights=True,True markers=2
+CAPTURE 11 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/2/2 contact=True hit=좌익수앞  field=True ugui=True countLights=True,True markers=2
+CAPTURE 12 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/2/2 contact=True hit=좌익수앞  field=True ugui=True countLights=True,True markers=2
+CAPTURE 13 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/2/2 contact=True hit=좌익수앞  field=True ugui=True countLights=True,True markers=2
+CAPTURE 14 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/2/2 contact=True hit=좌익수앞  field=True ugui=True countLights=True,True markers=2
+CAPTURE 15 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/2/2 contact=True hit=좌익수앞  field=True ugui=True countLights=True,True markers=2
+CAPTURE 16 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/2/2 contact=True hit=좌익수앞  field=True ugui=True countLights=True,True markers=2
+CAPTURE 17 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/2/2 contact=True hit=좌익수앞  field=True ugui=True countLights=True,True markers=2
+CAPTURE 18 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/2/2 contact=True hit=좌익수앞  field=True ugui=True countLights=True,True markers=2
+CAPTURE 19 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/2/2 contact=True hit=좌익수앞  field=True ugui=True countLights=True,True markers=2
+CAPTURE 20 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/2/2 contact=True hit=좌익수앞  field=True ugui=True countLights=True,True markers=2
+CAPTURE 21 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/2/2 contact=True hit=좌익수앞  field=True ugui=True countLights=True,True markers=2
+CAPTURE 22 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/2/2 contact=True hit=좌익수앞  field=True ugui=True countLights=True,True markers=2
+CAPTURE 23 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=0,0 count=0/2/2 contact=True hit=좌익수앞  field=True ugui=True countLights=True,True markers=2
+137.34 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=1,0 count=0/2/2 contact=True hit=좌익수앞  field=True ugui=True countLights=True,True markers=1
+CAPTURE 24 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=1,0 count=0/2/2 contact=True hit=좌익수앞  field=True ugui=True countLights=True,True markers=1
+CAPTURE 25 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=1,0 count=0/2/2 contact=True hit=좌익수앞  field=True ugui=True countLights=True,True markers=1
+CAPTURE 26 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=1,0 count=0/2/2 contact=True hit=좌익수앞  field=True ugui=True countLights=True,True markers=1
+CAPTURE 27 phase=PLAY_FIELDING_VIEW update=True inning=1 top=True attack=True score=1,0 count=0/2/2 contact=True hit=좌익수앞  field=True ugui=True countLights=True,True markers=1
+139.78 phase=PLAY_BATTING_VIEW_PRE update=True inning=1 top=True attack=True score=1,0 count=0/0/2 contact=False hit= field=False ugui=True countLights=False,False markers=2
+140.82 phase=PLAY_BATTING_VIEW_INFO update=True inning=1 top=True attack=True score=1,0 count=0/0/2 contact=False hit= field=False ugui=True countLights=False,False markers=2
+142.83 phase=NONE update=True inning=1 top=True attack=True score=1,0 count=0/0/2 contact=False hit= field=False ugui=True countLights=False,False markers=2
+142.93 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=1,0 count=0/0/2 contact=False hit= field=False ugui=True countLights=False,False markers=2
+147.68 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=1,0 count=0/1/2 contact=False hit= field=False ugui=True countLights=False,False markers=2
+149.00 phase=PLAY_BATTING_VIEW_READY update=True inning=1 top=True attack=True score=1,0 count=0/1/2 contact=False hit= field=False ugui=True countLights=False,False markers=2
+149.31 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=1,0 count=0/1/2 contact=False hit= field=False ugui=True countLights=False,False markers=2
+153.96 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=1,0 count=0/2/2 contact=False hit= field=False ugui=True countLights=False,False markers=2
+155.21 phase=PLAY_BATTING_VIEW_READY update=True inning=1 top=True attack=True score=1,0 count=0/2/2 contact=False hit= field=False ugui=True countLights=False,False markers=2
+155.51 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=1,0 count=0/2/2 contact=False hit= field=False ugui=True countLights=False,False markers=2
+160.16 phase=PLAY_BATTING_VIEW update=True inning=1 top=True attack=True score=1,0 count=0/3/3 contact=False hit= field=False ugui=True countLights=False,False markers=2
+ERROR 투수 에러 PITCHER_SMILE_01
+UnityEngine.Debug:LogError (object)
+BaseBall.BallPlay.Pitcher:pitcherAnim (string,bool,bool) (at Assets/MainGame/Script/Character/Pitcher.cs:533)
+BaseBall.BallPlay.Pitcher/<pitcherCeremony>d__148:MoveNext () (at Assets/MainGame/Script/Character/Pitcher.cs:2284)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr) (at /Users/bokken/build/output/unity/unity/Runtime/Export/Scripting/Coroutines.cs:17)
+
+164.61 phase=PLAY_CHANGE_INNING update=True inning=1 top=True attack=True score=1,0 count=0/0/0 contact=False hit= field=False ugui=True countLights=False,False markers=0
+168.58 phase=NONE update=True inning=1 top=False attack=False score=1,0 count=0/0/0 contact=False hit= field=False ugui=True countLights=False,False markers=1
+CAPTURE 28 phase=NONE update=True inning=1 top=False attack=False score=1,0 count=0/0/0 contact=False hit= field=False ugui=True countLights=False,False markers=1
+169.08 phase=PLAY_BATTING_VIEW_PRE update=True inning=1 top=False attack=False score=1,0 count=0/0/0 contact=False hit= field=False ugui=True countLights=False,False markers=1
+170.10 phase=PLAY_BATTING_VIEW_INFO update=True inning=1 top=False attack=False score=1,0 count=0/0/0 contact=False hit= field=False ugui=True countLights=False,False markers=1
+172.13 phase=PLAY_BATTING_VIEW_READY update=True inning=1 top=False attack=False score=1,0 count=0/0/0 contact=False hit= field=False ugui=True countLights=False,False markers=1
+TEST_INPUT pitch selection through Unity pointer events
+173.65 phase=PLAY_BATTING_VIEW update=True inning=1 top=False attack=False score=1,0 count=0/0/0 contact=False hit= field=False ugui=True countLights=False,False markers=1
+TEST_INPUT existing pitch-release API at initialized cursor position
+177.48 phase=PLAY_BATTING_VIEW update=True inning=1 top=False attack=False score=1,0 count=0/0/0 contact=True hit= field=False ugui=True countLights=False,False markers=1
+177.98 phase=PLAY_FIELDING_VIEW update=True inning=1 top=False attack=False score=1,0 count=0/0/0 contact=True hit= field=True ugui=True countLights=False,False markers=1
+CAPTURE 29 phase=PLAY_FIELDING_VIEW update=True inning=1 top=False attack=False score=1,0 count=0/0/0 contact=True hit= field=True ugui=True countLights=False,False markers=1
+178.08 phase=PLAY_FIELDING_VIEW update=True inning=1 top=False attack=False score=1,0 count=0/0/0 contact=True hit=2B앞 내야 field=True ugui=True countLights=False,False markers=1
+CAPTURE 30 phase=PLAY_FIELDING_VIEW update=True inning=1 top=False attack=False score=1,0 count=0/0/0 contact=True hit=2B앞 내야 field=True ugui=True countLights=False,False markers=1
+179.90 phase=PLAY_FIELDING_VIEW update=True inning=1 top=False attack=False score=1,0 count=0/0/1 contact=True hit=2B앞 내야 field=True ugui=True countLights=True,False markers=1
+181.42 phase=PLAY_FIELDING_VIEW update=True inning=1 top=False attack=False score=1,0 count=0/0/1 contact=True hit=2B앞 내야 field=True ugui=True countLights=True,False markers=0
+182.80 phase=PLAY_BATTING_VIEW_PRE update=True inning=1 top=False attack=False score=1,0 count=0/0/1 contact=False hit= field=False ugui=True countLights=False,False markers=1
+183.83 phase=PLAY_BATTING_VIEW_INFO update=True inning=1 top=False attack=False score=1,0 count=0/0/1 contact=False hit= field=False ugui=True countLights=False,False markers=1
+185.85 phase=PLAY_BATTING_VIEW_READY update=True inning=1 top=False attack=False score=1,0 count=0/0/1 contact=False hit= field=False ugui=True countLights=False,False markers=1
+199.80 phase=PLAY_BATTING_VIEW update=True inning=1 top=False attack=False score=1,0 count=0/0/1 contact=False hit= field=False ugui=True countLights=False,False markers=1
+TEST_INPUT existing pitch-release API at initialized cursor position
+203.13 phase=PLAY_BATTING_VIEW update=True inning=1 top=False attack=False score=1,0 count=0/0/1 contact=True hit= field=False ugui=True countLights=False,False markers=1
+203.75 phase=PLAY_FIELDING_VIEW update=True inning=1 top=False attack=False score=1,0 count=0/0/1 contact=True hit= field=True ugui=True countLights=True,False markers=1
+204.15 phase=PLAY_FIELDING_VIEW update=True inning=1 top=False attack=False score=1,0 count=0/0/1 contact=True hit=SS앞 내야 field=True ugui=True countLights=True,False markers=1
+206.57 phase=PLAY_FIELDING_VIEW update=True inning=1 top=False attack=False score=1,0 count=0/0/2 contact=True hit=SS앞 내야 field=True ugui=True countLights=True,True markers=1
+208.08 phase=PLAY_FIELDING_VIEW update=True inning=1 top=False attack=False score=1,0 count=0/0/2 contact=True hit=SS앞 내야 field=True ugui=True countLights=True,True markers=0
+209.43 phase=PLAY_BATTING_VIEW_PRE update=True inning=1 top=False attack=False score=1,0 count=0/0/2 contact=False hit= field=False ugui=True countLights=False,False markers=1
+210.46 phase=PLAY_BATTING_VIEW_INFO update=True inning=1 top=False attack=False score=1,0 count=0/0/2 contact=False hit= field=False ugui=True countLights=False,False markers=1
+212.48 phase=PLAY_BATTING_VIEW_READY update=True inning=1 top=False attack=False score=1,0 count=0/0/2 contact=False hit= field=False ugui=True countLights=False,False markers=1
+215.52 phase=NONE update=True inning=1 top=False attack=False score=1,0 count=0/0/2 contact=False hit= field=False ugui=True countLights=False,False markers=1
+215.61 phase=PLAY_BATTING_VIEW update=True inning=1 top=False attack=False score=1,0 count=0/0/2 contact=False hit= field=False ugui=True countLights=False,False markers=1
+TEST_INPUT existing pitch-release API at initialized cursor position
+219.06 phase=PLAY_BATTING_VIEW update=True inning=1 top=False attack=False score=1,0 count=0/0/2 contact=True hit= field=False ugui=True countLights=False,False markers=1
+219.66 phase=PLAY_FIELDING_VIEW update=True inning=1 top=False attack=False score=1,0 count=0/0/2 contact=True hit= field=True ugui=True countLights=True,True markers=1
+220.06 phase=PLAY_FIELDING_VIEW update=True inning=1 top=False attack=False score=1,0 count=0/0/2 contact=True hit=2B앞 내야 field=True ugui=True countLights=True,True markers=1
+221.98 phase=PLAY_FIELDING_VIEW update=True inning=1 top=False attack=False score=1,0 count=0/0/3 contact=True hit=2B앞 내야 field=True ugui=True countLights=True,True markers=1
+223.50 phase=PLAY_FIELDING_VIEW update=True inning=1 top=False attack=False score=1,0 count=0/0/3 contact=True hit=2B앞 내야 field=True ugui=True countLights=True,True markers=0
+224.91 phase=PLAY_CHANGE_INNING update=True inning=1 top=False attack=False score=1,0 count=0/0/0 contact=False hit= field=False ugui=True countLights=False,False markers=0
+228.86 phase=PLAY_START_INNING update=True inning=2 top=True attack=True score=1,0 count=0/0/0 contact=False hit= field=False ugui=True countLights=False,False markers=1
+231.00 phase=PLAY_BATTING_VIEW_INFO update=True inning=2 top=True attack=True score=1,0 count=0/0/0 contact=False hit= field=False ugui=True countLights=False,False markers=1
+233.05 phase=PLAY_BATTING_VIEW update=True inning=2 top=True attack=True score=1,0 count=0/0/0 contact=False hit= field=False ugui=True countLights=False,False markers=1
+237.68 phase=PLAY_BATTING_VIEW update=True inning=2 top=True attack=True score=1,0 count=0/1/0 contact=False hit= field=False ugui=True countLights=False,False markers=1
+238.97 phase=PLAY_BATTING_VIEW_READY update=True inning=2 top=True attack=True score=1,0 count=0/1/0 contact=False hit= field=False ugui=True countLights=False,False markers=1
+239.25 phase=PLAY_BATTING_VIEW update=True inning=2 top=True attack=True score=1,0 count=0/1/0 contact=False hit= field=False ugui=True countLights=False,False markers=1
+243.80 phase=PLAY_BATTING_VIEW update=True inning=2 top=True attack=True score=1,0 count=0/2/0 contact=False hit= field=False ugui=True countLights=False,False markers=1
+245.14 phase=PLAY_BATTING_VIEW_READY update=True inning=2 top=True attack=True score=1,0 count=0/2/0 contact=False hit= field=False ugui=True countLights=False,False markers=1
+245.45 phase=PLAY_BATTING_VIEW update=True inning=2 top=True attack=True score=1,0 count=0/2/0 contact=False hit= field=False ugui=True countLights=False,False markers=1
+STOPPED; Unity restored the original open scene, including its unsaved state.

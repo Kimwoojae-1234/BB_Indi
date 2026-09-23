@@ -10,6 +10,21 @@ namespace BaseBall.BallPlay
         public GameObject [] baseObj;
         public GameObject intWalkButton;
 
+        [SerializeField] private RunnerControlView uguiView;
+        public RunnerControlView UguiView => uguiView;
+        private UIPanel panel;
+        private Camera uiCamera;
+        private Coroutine fadeRoutine;
+
+        private void LateUpdate()
+        {
+            if (uguiView == null || !_active.activeInHierarchy) return;
+            if (panel == null) panel = GetComponent<UIPanel>();
+            if (uiCamera == null) uiCamera = NGUITools.FindCameraForLayer(gameObject.layer);
+            uguiView.canvas.SetInheritedRendering(panel.CalculateFinalAlpha(Time.frameCount), panel.startingRenderQueue,
+                panel.sortingOrder, uiCamera, bPressAvail && !Mode.bPauseGame);
+        }
+
         
         //
         private BallPlayManager manager;
@@ -29,7 +44,7 @@ namespace BaseBall.BallPlay
             for (int i = 0; i < 3; i++)
             {
                 pressActive[i] = false;
-                onBaseObj[i] = baseObj[i].transform.Find("onbase").gameObject;
+                onBaseObj[i] = uguiView != null ? uguiView.occupied[i].gameObject : baseObj[i].transform.Find("onbase").gameObject;
             }
         }
 
@@ -44,6 +59,14 @@ namespace BaseBall.BallPlay
             
             //intWalkButton.SetActive(!manager.bMyTurn); //이게 진짜였는데 없어짐
             intWalkButton.SetActive(false);     //영원히
+
+            if (uguiView != null)
+            {
+                var ui = GetComponentInParent<IngameUI>();
+                uguiView.canvas.SetInputRoot(ui != null ? ui.transform : transform);
+                uguiView.SetMode(manager.bMyTurn);
+                return;
+            }
 
             for (int i = 0; i < 3; i++)
             {
@@ -66,6 +89,13 @@ namespace BaseBall.BallPlay
                 for (int i = 0; i < 3; i++)
                 {
                     pressActive[i] = false;
+                    if (uguiView != null)
+                    {
+                        var runner = manager.field.run.bOnBase[i] ? manager.field.run.getRunner(i) : null;
+                        uguiView.SetRunner(i, runner != null, runner != null ? runner.pRunner.getSpeed() / 10 : 0,
+                            runner != null && runner.pRunner.skillAvailable(SkillIndex.RunnerStealMaster), manager.bMyTurn);
+                        continue;
+                    }
                     if (manager.field.run.bOnBase[i] == true)
                     {
                         onBaseObj[i].SetActive(true);                        
@@ -85,6 +115,23 @@ namespace BaseBall.BallPlay
         {
             //2사만루 모드 비활성화
             if (Mode.gameMode == Mode.GamePlayMode.NineInningTwoOut) return;
+
+            if (uguiView != null)
+            {
+                if (fadeRoutine != null) { StopCoroutine(fadeRoutine); fadeRoutine = null; }
+                bool available = bActiveAvailble && (manager.field.run.bOnBase[0] || manager.field.run.bOnBase[1] || manager.field.run.bOnBase[2]);
+                bPressAvail = bActive && available;
+                if (panel == null) panel = GetComponent<UIPanel>();
+                if (bPressAvail)
+                {
+                    panel.alpha = 1;
+                    _active.SetActive(true);
+                }
+                else if (available && fade && _active.activeSelf) fadeRoutine = StartCoroutine(deActive(panel));
+                else _active.SetActive(false);
+                uguiView.canvas.opacity.interactable = uguiView.canvas.opacity.blocksRaycasts = bPressAvail && !Mode.bPauseGame;
+                return;
+            }
 
             if ((manager.field.run.bOnBase[0] == true || manager.field.run.bOnBase[1] == true || manager.field.run.bOnBase[2] == true)
                 && bActiveAvailble == true)
@@ -161,6 +208,11 @@ namespace BaseBall.BallPlay
         //버튼 활성화 여부
         private void setState(GameObject runnerObj)
         {
+            if (uguiView != null)
+            {
+                uguiView.Select(System.Array.IndexOf(onBaseObj, runnerObj), manager.bMyTurn);
+                return;
+            }
             runnerObj.GetComponent<UISprite>().spriteName = "runnercon_steal";
             runnerObj.transform.Find("light").gameObject.SetActive(true);
             runnerObj.transform.Find("steal").gameObject.GetComponent<UISprite>().spriteName = (manager.bMyTurn == true ? "steal_2" : "pickoff_2");

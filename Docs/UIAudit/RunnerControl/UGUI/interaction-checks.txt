@@ -1,0 +1,36 @@
+WAITING for offline match initialization. Controlled runner setup and Unity event dispatch; not native touch or an organic hit/steal outcome.
+PASS Real runner objects initialized through chance-runner factory
+PASS Active UGUI input module
+PASS Actual match raycast reaches base 0
+PASS Actual match raycast reaches base 1
+PASS Actual match raycast reaches base 2
+PASS Second pointer cannot duplicate a held base press
+PASS Release and click do not duplicate press command
+PASS Disabling a base clears its held pointer
+PASS Selected light pulses while scaled game time is stopped
+PASS Steal chain mask=1 selected=0 result=1
+PASS Steal chain mask=2 selected=1 result=2
+PASS Steal chain mask=3 selected=0 result=3
+PASS Steal chain mask=3 selected=1 result=2
+PASS Steal chain mask=4 selected=2 result=4
+PASS Steal chain mask=5 selected=0 result=1
+PASS Steal chain mask=5 selected=2 result=4
+PASS Steal chain mask=6 selected=1 result=6
+PASS Steal chain mask=6 selected=2 result=4
+PASS Steal chain mask=7 selected=0 result=7
+PASS Steal chain mask=7 selected=1 result=6
+PASS Steal chain mask=7 selected=2 result=4
+PASS No runners hides control
+PASS Wrong attack phase ignores input
+PASS Unavailable control stays hidden
+PASS Fading control rejects commands immediately
+PASS Frame-based fade ends with hidden UI
+Reactivation state: active=True available=True bases=True,True,True,False panel=1 canvas=1
+PASS Reactivation cancels stale fade
+PASS Pause blocks UGUI input
+PASS Runner and pitch selection share one EventSystem
+PASS Hiding pitch selection keeps runner input alive
+PASS Hiding runner control keeps pitch input alive
+PASS PVP433 pickoff guard unchanged (no network session)
+PASS Second-base pickoff reaches existing field controller and PLAY_FIELDING_VIEW
+COMPLETE — controlled Play Mode fixture; native touch, network play and complete steal/pickoff outcomes remain unverified.

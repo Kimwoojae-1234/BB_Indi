@@ -1,0 +1,30 @@
+{
+  "scope": "Controlled Play Mode runner fixture; Unity events, real game runner factory, no native touch or network session; not an organic match outcome comparison",
+  "legacyPassed": 20,
+  "uguiPassed": 33,
+  "missingLegacyChecks": [],
+  "additionalUguiChecks": [
+    "Active UGUI input module",
+    "Actual match raycast reaches base 0",
+    "Actual match raycast reaches base 1",
+    "Actual match raycast reaches base 2",
+    "Disabling a base clears its held pointer",
+    "Hiding pitch selection keeps runner input alive",
+    "Hiding runner control keeps pitch input alive",
+    "Pause blocks UGUI input",
+    "Reactivation cancels stale fade",
+    "Release and click do not duplicate press command",
+    "Runner and pitch selection share one EventSystem",
+    "Second pointer cannot duplicate a held base press",
+    "Selected light pulses while scaled game time is stopped"
+  ],
+  "legacyErrors": [
+    "ArgumentException: Animation not found: GETUP_AFTER_SLIDING_S",
+    "Coroutine couldn't be started because the the game object 'pitcherPrefab' is inactive!",
+    "tk2dCamera.GetGameViewSize - has a Unity update broken this?"
+  ],
+  "uguiErrors": [
+    "tk2dCamera.GetGameViewSize - has a Unity update broken this?"
+  ],
+  "newErrors": []
+}
