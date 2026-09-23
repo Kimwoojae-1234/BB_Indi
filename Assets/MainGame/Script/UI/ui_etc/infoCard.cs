@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace BaseBall.BallPlay
@@ -6,7 +7,7 @@ namespace BaseBall.BallPlay
     public class infoCard : MonoBehaviour
     {
         public GameObject origin;
-        public UISprite bg;
+        public GameUIElement bg;
         public GameObject basicInfo;
         public GameObject skillInfo;
         public GameObject todayInfo;
@@ -18,24 +19,24 @@ namespace BaseBall.BallPlay
 
         private GameObject todayStat;
 
-        public UISprite[] bgSpr;
+        public GameUIElement[] bgSpr;
         public GameObject[] light;
-        public UISprite[] stamina;
+        public GameUIElement[] stamina;
 
         public SkillSlot[] slot;
         
 
         private void init(CPlayer player, int team)
         {
-            todayInfo.GetComponent<UIWidget>().alpha = 1;
+            todayInfo.GetComponent<GameUIElement>().alpha = 1;
             bg.SetDimensions(302, 328);
                         
-            basicInfo.transform.Find("name").gameObject.GetComponent<UILabel>().text = player.getName();
+            basicInfo.transform.Find("name").gameObject.GetComponent<GameUIElement>().text = player.getName();
 #if _Test_Local
-            basicInfo.transform.Find("logo").gameObject.GetComponent<UISprite>().spriteName = "logo_" + team;
+            basicInfo.transform.Find("logo").gameObject.GetComponent<GameUIElement>().spriteName = "logo_" + team;
 #else
-            //basicInfo.transform.FindChild("logo").gameObject.GetComponent<UISprite>().spriteName = "logo_" + (int)player.getPlayerData().eTeam;
-            Util.SetSpritePixelPerfect(basicInfo.transform.FindChild("logo").gameObject.GetComponent<UISprite>(), "logo_" + (int)player.getPlayerData().eTeam);
+            //basicInfo.transform.FindChild("logo").gameObject.GetComponent<GameUIElement>().spriteName = "logo_" + (int)player.getPlayerData().eTeam;
+            Util.SetSpritePixelPerfect(basicInfo.transform.FindChild("logo").gameObject.GetComponent<GameUIElement>(), "logo_" + (int)player.getPlayerData().eTeam);
             playerCard.SetCardInfo(new CardData(player.getCard()));
 #endif
         }
@@ -126,7 +127,7 @@ namespace BaseBall.BallPlay
             pTodayObj.SetActive(true);
             todayStat = pTodayObj;
             todayStat.transform.localPosition = new Vector3(0, -303, 0);
-            //todayStat.transform.FindChild("Label1").GetComponent<UILabel>().text = "[75ACEAFF]자책 [ffffff]" + player.getStat(Param.ST_PER) + "[75ACEAFF]   피안 [ffffff]" + player.getStat(Param.ST_PH) + "[75ACEAFF]   삼진 [ffffff]" + player.getStat(Param.ST_PSO) + "[-]";
+            //todayStat.transform.FindChild("Label1").GetComponent<GameUIElement>().text = "[75ACEAFF]자책 [ffffff]" + player.getStat(Param.ST_PER) + "[75ACEAFF]   피안 [ffffff]" + player.getStat(Param.ST_PH) + "[75ACEAFF]   삼진 [ffffff]" + player.getStat(Param.ST_PSO) + "[-]";
             //setStamina(player.getCurrentStamina());
             setPitcherRecord(player);
 
@@ -134,18 +135,19 @@ namespace BaseBall.BallPlay
             init(player, team);
             initSkill(player);
             setStatPitcher(player);
-            UISprite pos = basicInfo.transform.Find("pos").gameObject.GetComponent<UISprite>();
+            GameUIElement pos = basicInfo.transform.Find("pos").gameObject.GetComponent<GameUIElement>();
             pos.spriteName = Util.getPitcherposSprite(player);
             pos.MakePixelPerfect();
             
-            UILabel overallLabel = basicInfo.transform.Find("overrall").gameObject.GetComponent<UILabel>();
+            GameUIElement overallLabel = basicInfo.transform.Find("overrall").gameObject.GetComponent<GameUIElement>();
             int overallNum;
 #if _Test_Local
             overallNum = Random.Range(50, 150);            
 #else
             overallNum = Utils.TeamPowerUtils.calCardPower(player.getCard());            
 #endif
-            overallLabel.bitmapFont = Util.GetOverallFont(overallNum);
+
+            // The optional overall-font loader is disabled; retain the prefab font.
             overallLabel.text = overallNum.ToString();
 
             transform.localPosition = startPos;
@@ -157,7 +159,7 @@ namespace BaseBall.BallPlay
         /// <param name="player"></param>
         private void setPitcherRecord(CPlayer player)
         {
-            todayStat.transform.Find("Label1").GetComponent<UILabel>().text = "[75ACEAFF]자책 [ffffff]" + player.getStat(Param.ST_PER) + "[75ACEAFF]   피안 [ffffff]" + player.getStat(Param.ST_PH) + "[75ACEAFF]   삼진 [ffffff]" + player.getStat(Param.ST_PSO) + "[-]";
+            todayStat.transform.Find("Label1").GetComponent<GameUIElement>().text = "[75ACEAFF]자책 [ffffff]" + player.getStat(Param.ST_PER) + "[75ACEAFF]   피안 [ffffff]" + player.getStat(Param.ST_PH) + "[75ACEAFF]   삼진 [ffffff]" + player.getStat(Param.ST_PSO) + "[-]";
             setStamina(player.getCurrentStamina());
         }
 
@@ -176,24 +178,25 @@ namespace BaseBall.BallPlay
             pTodayObj.SetActive(false);
             todayStat = bTodayObj;
             todayStat.transform.localPosition = new Vector3(0, -303, 0);
-            todayStat.transform.Find("Label1").GetComponent<UILabel>().text = "[75ACEAFF]안타 [FFFFFF]" + player.getStat(Param.ST_H) + "/" + (player.getStat(Param.ST_AB) - 1) + "   [75ACEAFF]홈런 [FFFFFF]" + player.getStat(Param.ST_HR) + "   [75ACEAFF]타점 [FFFFFF]" + player.getStat(Param.ST_RBI) + "   [75ACEAFF]도루 [FFFFFF]" + player.getStat(Param.ST_SBS) + "[-]";
+            todayStat.transform.Find("Label1").GetComponent<GameUIElement>().text = "[75ACEAFF]안타 [FFFFFF]" + player.getStat(Param.ST_H) + "/" + (player.getStat(Param.ST_AB) - 1) + "   [75ACEAFF]홈런 [FFFFFF]" + player.getStat(Param.ST_HR) + "   [75ACEAFF]타점 [FFFFFF]" + player.getStat(Param.ST_RBI) + "   [75ACEAFF]도루 [FFFFFF]" + player.getStat(Param.ST_SBS) + "[-]";
 
             origin.SetActive(false);
             init(player, team);
             initSkill(player);
             setStatBatter(player);
-            UISprite pos = basicInfo.transform.Find("pos").gameObject.GetComponent<UISprite>();
+            GameUIElement pos = basicInfo.transform.Find("pos").gameObject.GetComponent<GameUIElement>();
             pos.spriteName = "info_" + count;
             pos.MakePixelPerfect();
 
-            UILabel overallLabel = basicInfo.transform.Find("overrall").gameObject.GetComponent<UILabel>();
+            GameUIElement overallLabel = basicInfo.transform.Find("overrall").gameObject.GetComponent<GameUIElement>();
             int overallNum;
 #if _Test_Local
             overallNum = Random.Range(50, 150);            
 #else
             overallNum = Utils.TeamPowerUtils.calCardPower(player.getCard().abilities);
 #endif
-            overallLabel.bitmapFont = Util.GetOverallFont(overallNum);
+
+            // The optional overall-font loader is disabled; retain the prefab font.
             overallLabel.text = overallNum.ToString();
 
             transform.localPosition = startPos;
@@ -218,14 +221,14 @@ namespace BaseBall.BallPlay
         {
             yield return new WaitForSeconds(0.1f);
             origin.SetActive(true);            
-            UITweener tween1 = GetComponent<TweenPosition>();
+            GameUITween tween1 = GetComponent<GameUITweenPosition>();
             tween1.ResetToBeginning();            
             tween1.PlayForward();
             
 
             yield return new WaitForSeconds(1.0f);
-            TweenAlpha.Begin(todayInfo.gameObject, 0.2f, 0);
-            TweenPosition.Begin(skillInfo.gameObject, 0.2f, new Vector3(0,-37,0));
+            GameUITweenAlpha.Begin(todayInfo.gameObject, 0.2f, 0);
+            GameUITweenPosition.Begin(skillInfo.gameObject, 0.2f, new Vector3(0,-37,0));
 
             float len = 328;
             float statPosY = -303;
@@ -252,11 +255,11 @@ namespace BaseBall.BallPlay
         {
             setPitcherRecord(player);
             yield return new WaitForSeconds(0.1f);
-            todayInfo.GetComponent<UIWidget>().alpha = 0;
+            todayInfo.GetComponent<GameUIElement>().alpha = 0;
             skillInfo.transform.localPosition = new Vector3(0, -37, 0);
             bg.SetDimensions(302, 113);
             origin.SetActive(true);            
-            UITweener tween1 = GetComponent<TweenPosition>();
+            GameUITween tween1 = GetComponent<GameUITweenPosition>();
             tween1.ResetToBeginning();            
             tween1.PlayForward();
             

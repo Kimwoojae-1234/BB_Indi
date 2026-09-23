@@ -1,4 +1,5 @@
-﻿//#define _TEST_RUNNER
+﻿using BaseBall.BallPlay.UGUI;
+//#define _TEST_RUNNER
 //#define _TEST_NOSKILL
 //#define _TEST_ONEMOREBASE
 //#define _TEST_FIRSTBASE_OVERRUN
@@ -4462,8 +4463,8 @@ namespace BaseBall.BallPlay
             errorMark.spriteId = errorMark.GetSpriteIdByName("hiticon");
             errorMark.gameObject.SetActive(true);
             errorMark.transform.localScale = Vector3.one;
-            UITweener tween = TweenScale.Begin(errorMark.gameObject, 0.25f, new Vector3(2, 2, 1));
-            tween.style = UITweener.Style.PingPong;
+            GameUITween tween = GameUITweenScale.Begin(errorMark.gameObject, 0.25f, new Vector3(2, 2, 1));
+            tween.style = GameUITween.Style.PingPong;
 
             yield return new WaitForSeconds(0.5f);
 
@@ -4479,8 +4480,8 @@ namespace BaseBall.BallPlay
             errorMark.spriteId = errorMark.GetSpriteIdByName(bOut?"nobrainicon":"onemoreicon");
             errorMark.gameObject.SetActive(true);
             errorMark.transform.localScale = Vector3.one;
-            UITweener tween = TweenScale.Begin(errorMark.gameObject, 0.25f, new Vector3(2, 2, 1));
-            tween.style = UITweener.Style.PingPong;
+            GameUITween tween = GameUITweenScale.Begin(errorMark.gameObject, 0.25f, new Vector3(2, 2, 1));
+            tween.style = GameUITween.Style.PingPong;
         }
 
 

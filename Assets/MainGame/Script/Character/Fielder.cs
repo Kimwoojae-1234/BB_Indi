@@ -1,4 +1,5 @@
-﻿//#define NO_SPECIAL_MOVE
+﻿using BaseBall.BallPlay.UGUI;
+//#define NO_SPECIAL_MOVE
 //#define NO_DASH_MOVE
 //#define NO_SPECIAL_THROW
 //#define NO_SPECIAL_FLY_MOVE
@@ -9733,8 +9734,8 @@ namespace BaseBall.BallPlay
             errorMark.spriteId = errorMark.GetSpriteIdByName("hiticon");
             errorMark.gameObject.SetActive(true);
             errorMark.transform.localScale = Vector3.one;
-            UITweener tween = TweenScale.Begin(errorMark.gameObject, 0.25f, new Vector3(2, 2, 1));
-            tween.style = UITweener.Style.PingPong;
+            GameUITween tween = GameUITweenScale.Begin(errorMark.gameObject, 0.25f, new Vector3(2, 2, 1));
+            tween.style = GameUITween.Style.PingPong;
 
             yield return new WaitForSeconds(0.5f);
 

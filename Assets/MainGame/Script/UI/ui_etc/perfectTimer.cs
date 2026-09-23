@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 namespace BaseBall.BallPlay
 {
@@ -11,7 +12,7 @@ namespace BaseBall.BallPlay
             //scale.duration = remainTime;
             //scale.enabled = true;
             scale.transform.localScale = new Vector3(2, 2, 1);
-            TweenScale.Begin(scale, remainTime, new Vector3(0.1f,  0.1f, 1));
+            GameUITweenScale.Begin(scale, remainTime, new Vector3(0.1f,  0.1f, 1));
         }
     }
 }

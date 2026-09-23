@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace BaseBall.BallPlay
@@ -12,7 +13,7 @@ namespace BaseBall.BallPlay
         public GameObject pvpObj;
 
 
-        public UILabel waitTimeLabel;
+        public GameUIElement waitTimeLabel;
 
         private BallPlayManager manager;
         private int num;        
@@ -48,7 +49,7 @@ namespace BaseBall.BallPlay
                         PvpManager.GetInstance().SendQuickGameReplyInfo(ApplyInfo.ChangeWait);
                     }
                     num--;
-                    pvpObj.transform.Find("count").GetComponent<UILabel>().text = num + "/3";
+                    pvpObj.transform.Find("count").GetComponent<GameUIElement>().text = num + "/3";
 
                     pauseTimer = pauseTimerSetting();
                     StartCoroutine(pauseTimer);
@@ -60,7 +61,7 @@ namespace BaseBall.BallPlay
                 }
                 manager = _manager;
                 _active.SetActive(true);
-                TweenAlpha.Begin(gameObject, 0.3f, 1);
+                GameUITweenAlpha.Begin(gameObject, 0.3f, 1);
             }
             return true;
         }

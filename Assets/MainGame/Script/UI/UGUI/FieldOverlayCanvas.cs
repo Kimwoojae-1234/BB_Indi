@@ -1,3 +1,4 @@
+using BaseBall.BallPlay.UGUI;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -10,7 +11,7 @@ namespace BaseBall.BallPlay
     {
         public Canvas displayCanvas;
         public CanvasGroup opacity;
-        private UIPanel panel;
+        private GameUIPanel panel;
         private Camera uiCamera;
         private readonly Dictionary<Material, Material> materials = new Dictionary<Material, Material>();
         private readonly HashSet<Graphic> graphics = new HashSet<Graphic>();
@@ -51,8 +52,8 @@ namespace BaseBall.BallPlay
 
         private void LateUpdate()
         {
-            if (panel == null) panel = GetComponentInParent<UIPanel>();
-            if (uiCamera == null) uiCamera = NGUITools.FindCameraForLayer(gameObject.layer);
+            if (panel == null) panel = GetComponentInParent<GameUIPanel>();
+            if (uiCamera == null) uiCamera = GameUIRoot.FindCameraForLayer(gameObject.layer);
             ApplyRendering(panel != null ? panel.CalculateFinalAlpha(Time.frameCount) : 1,
                 panel != null ? panel.startingRenderQueue : 3000, panel != null ? panel.sortingOrder : 0, uiCamera);
         }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 
 namespace BaseBall.BallPlay
@@ -707,7 +708,7 @@ namespace BaseBall.BallPlay
         //메인 카메라 위치 이동
         private void setPositionTo(Vector3 dst, float remainTime)
         {
-            TweenPosition.Begin(gameObject, remainTime, dst);
+            GameUITweenPosition.Begin(gameObject, remainTime, dst);
         }
 
         //메인 카메라 위치 초기화
@@ -715,7 +716,7 @@ namespace BaseBall.BallPlay
         {   
             /*
             _camera.transform.localPosition = pos;*/
-            TweenPosition.Begin(_camera.gameObject, 0.01f, pos);
+            GameUITweenPosition.Begin(_camera.gameObject, 0.01f, pos);
 
             //fieldCamera.transform.localPosition = new Vector3(0, 0, 0);
         }
@@ -740,15 +741,15 @@ namespace BaseBall.BallPlay
             {
                 if (shakeStep == 0)
                 {
-                    TweenPosition.Begin(_camera.gameObject, _ShakeTimeGab, cameraInitPos + new Vector3(-gab, 0, 0));
+                    GameUITweenPosition.Begin(_camera.gameObject, _ShakeTimeGab, cameraInitPos + new Vector3(-gab, 0, 0));
                 }
                 else if (shakeStep == 1)
                 {
-                    TweenPosition.Begin(_camera.gameObject, _ShakeTimeGab, cameraInitPos + new Vector3(gab, 0, 0));
+                    GameUITweenPosition.Begin(_camera.gameObject, _ShakeTimeGab, cameraInitPos + new Vector3(gab, 0, 0));
                 }
                 else
                 {
-                    TweenPosition.Begin(_camera.gameObject, _ShakeTimeGab, cameraInitPos + new Vector3(0, gab, 0));
+                    GameUITweenPosition.Begin(_camera.gameObject, _ShakeTimeGab, cameraInitPos + new Vector3(0, gab, 0));
                 }
                 yield return new WaitForSeconds(_ShakeTimeGab);
                 shakeTime += _ShakeTimeGab;
@@ -774,15 +775,15 @@ namespace BaseBall.BallPlay
             {
                 if (shakeStep1 == 0)
                 {
-                    TweenPosition.Begin(fieldOrigin, _ShakeTimeGab, new Vector3(-gab, 0, 0));
+                    GameUITweenPosition.Begin(fieldOrigin, _ShakeTimeGab, new Vector3(-gab, 0, 0));
                 }
                 else if (shakeStep1 == 1)
                 {
-                    TweenPosition.Begin(fieldOrigin, _ShakeTimeGab, new Vector3(gab, 0, 0));
+                    GameUITweenPosition.Begin(fieldOrigin, _ShakeTimeGab, new Vector3(gab, 0, 0));
                 }
                 else
                 {
-                    TweenPosition.Begin(fieldOrigin, _ShakeTimeGab, new Vector3(0, gab, 0));
+                    GameUITweenPosition.Begin(fieldOrigin, _ShakeTimeGab, new Vector3(0, gab, 0));
                 }
                 yield return new WaitForSeconds(_ShakeTimeGab);
                 shakeTime1 += _ShakeTimeGab;

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 
 namespace BaseBall.BallPlay
@@ -6,8 +7,8 @@ namespace BaseBall.BallPlay
     public class UIFieldCall : MonoBehaviour
     {
         public GameObject _active;
-        public UISprite callSpr;
-        public UISprite [] doublePlay;
+        public GameUIElement callSpr;
+        public GameUIElement [] doublePlay;
         public Spine.Unity.SkeletonAnimation homeRunAnim;
 
 

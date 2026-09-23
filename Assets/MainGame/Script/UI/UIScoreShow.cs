@@ -1,4 +1,5 @@
-﻿//#define _TEST_STATE
+﻿using BaseBall.BallPlay.UGUI;
+//#define _TEST_STATE
 
 using UnityEngine;
 using System.Collections;
@@ -8,20 +9,20 @@ namespace BaseBall.BallPlay
     public class UIScoreShow : MonoBehaviour
     {
         public GameObject _active;
-        public UILabel curInning;
-        public UITexture myLogo, cpuLogo;
-        public UILabel myTeamName, cpuTeamName;
+        public GameUIElement curInning;
+        public GameUIElement myLogo, cpuLogo;
+        public GameUIElement myTeamName, cpuTeamName;
 
         public spriteNumber myScore, cpuScore;
         public spriteNumber myScoreAlpha, cpuScoreAlpha;
 
-        public UISprite[] myTeam;
-        public UISprite inningSpr;
+        public GameUIElement[] myTeam;
+        public GameUIElement inningSpr;
 
-        public UIPanel[] scorePanel;
-        public UIPanel[] scoreAlphaPanel;
+        public GameUIPanel[] scorePanel;
+        public GameUIPanel[] scoreAlphaPanel;
 
-        public UITexture[] light;
+        public GameUIElement[] light;
 
         private BallPlayManager manager;
         
@@ -98,10 +99,10 @@ namespace BaseBall.BallPlay
                 scorePanel[i].transform.localScale = Vector3.one;
                 scoreAlphaPanel[i].alpha = 0;
                 scoreAlphaPanel[i].transform.localScale = Vector3.one;
-                TweenAlpha a = scorePanel[i].GetComponent<TweenAlpha>();
-                TweenScale b = scorePanel[i].GetComponent<TweenScale>();
-                TweenAlpha c = scoreAlphaPanel[i].GetComponent<TweenAlpha>();
-                TweenScale d = scoreAlphaPanel[i].GetComponent<TweenScale>();
+                GameUITweenAlpha a = scorePanel[i].GetComponent<GameUITweenAlpha>();
+                GameUITweenScale b = scorePanel[i].GetComponent<GameUITweenScale>();
+                GameUITweenAlpha c = scoreAlphaPanel[i].GetComponent<GameUITweenAlpha>();
+                GameUITweenScale d = scoreAlphaPanel[i].GetComponent<GameUITweenScale>();
                 if (a != null) Destroy(a);
                 if (b != null) Destroy(b);
                 if (c != null) Destroy(c);
@@ -130,10 +131,10 @@ namespace BaseBall.BallPlay
                 scoreAlphaPanel[i].alpha = 0;
                 scoreAlphaPanel[i].transform.localScale = Vector3.one;
 
-                TweenAlpha a = scorePanel[i].GetComponent<TweenAlpha>();
-                TweenScale b = scorePanel[i].GetComponent<TweenScale>();
-                TweenAlpha c = scoreAlphaPanel[i].GetComponent<TweenAlpha>();
-                TweenScale d = scoreAlphaPanel[i].GetComponent<TweenScale>();
+                GameUITweenAlpha a = scorePanel[i].GetComponent<GameUITweenAlpha>();
+                GameUITweenScale b = scorePanel[i].GetComponent<GameUITweenScale>();
+                GameUITweenAlpha c = scoreAlphaPanel[i].GetComponent<GameUITweenAlpha>();
+                GameUITweenScale d = scoreAlphaPanel[i].GetComponent<GameUITweenScale>();
                 if (a != null) Destroy(a);
                 if (b != null) Destroy(b);
                 if (c != null) Destroy(c);
@@ -170,15 +171,15 @@ namespace BaseBall.BallPlay
             yield return new WaitForSeconds(0.4f);
             for (int i = 0; i < 2; i++)
             {
-                TweenAlpha.Begin(scorePanel[i].gameObject, 0.3f, 1);
+                GameUITweenAlpha.Begin(scorePanel[i].gameObject, 0.3f, 1);
             }
 
             yield return new WaitForSeconds(0.5f);
 
             scoreAlphaPanel[curIndex].alpha = 1;
             scoreAlphaPanel[curIndex].transform.localScale = new Vector3(2, 2);
-            TweenScale.Begin(scoreAlphaPanel[curIndex].gameObject, 0.2f, Vector3.one);
-            TweenAlpha.Begin(scorePanel[curIndex].gameObject, 0.2f, 0);
+            GameUITweenScale.Begin(scoreAlphaPanel[curIndex].gameObject, 0.2f, Vector3.one);
+            GameUITweenAlpha.Begin(scorePanel[curIndex].gameObject, 0.2f, 0);
 
             yield return new WaitForSeconds(0.2f);
 #if _TEST_STATE
@@ -190,8 +191,8 @@ namespace BaseBall.BallPlay
             //cpuScore.set(manager.nGameScore[1 - awayIndex]);
 #endif
             scorePanel[curIndex].alpha = 0.7f;
-            TweenAlpha.Begin(scorePanel[curIndex].gameObject, 0.3f, 0);
-            TweenScale.Begin(scorePanel[curIndex].gameObject, 0.3f, new Vector3(1.5f, 1.5f, 1));
+            GameUITweenAlpha.Begin(scorePanel[curIndex].gameObject, 0.3f, 0);
+            GameUITweenScale.Begin(scorePanel[curIndex].gameObject, 0.3f, new Vector3(1.5f, 1.5f, 1));
             
             
 

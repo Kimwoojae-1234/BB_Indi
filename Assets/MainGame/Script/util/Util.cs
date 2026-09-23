@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 
 namespace BaseBall.BallPlay
@@ -83,6 +84,7 @@ namespace BaseBall.BallPlay
 
         public static void ChangeChildObjColor(GameObject obj, Color col)
         {
+            foreach (var element in obj.GetComponentsInChildren<GameUIElement>()) element.color = col;
             Transform[] ts = obj.GetComponentsInChildren<Transform>();
             if (ts == null)
                 return;
@@ -192,6 +194,16 @@ namespace BaseBall.BallPlay
             if (inningCount == 0) return "99.99";
             int whip = (chuluNum * 100 * 3) / inningCount;
             return ((whip / 100) + "." + (whip % 100).ToString("00"));
+        }
+
+        public static void SetUILabelColor(GameUIElement label, int value)
+        {
+            Color[] colors = { new Color(.74f, .74f, .74f), new Color(.455f, .588f, .984f), Color.green, new Color(1, .9f, 0), Color.red };
+            label.color = colors[MyMath.SetMinMax(value / 200, 0, 4)];
+        }
+        public static void SetSpritePixelPerfect(GameUIElement sprite, string name, bool pixelPerfect = true)
+        {
+            sprite.spriteName = name; if (pixelPerfect) sprite.MakePixelPerfect();
         }
 
         public static void SetUILabelColor(UILabel label, int value)
@@ -557,6 +569,8 @@ namespace BaseBall.BallPlay
 
         public static void SetTweenerStart(GameObject obj)
         {
+            var native = obj.GetComponent<GameUITween>();
+            if (native != null) { native.ResetToBeginning(); native.PlayForward(); return; }
             UITweener tween = obj.GetComponent<UITweener>();
             tween.ResetToBeginning();
             tween.enabled = true;
@@ -587,6 +601,8 @@ namespace BaseBall.BallPlay
 
         public static void SetTween(GameObject obj)
         {
+            var native = obj.GetComponent<GameUITween>();
+            if (native != null) { obj.SetActive(true); native.ResetToBeginning(); native.PlayForward(); return; }
             obj.SetActive(true);
             UITweener tween = obj.GetComponent<UITweener>();
             tween.ResetToBeginning();
@@ -595,6 +611,8 @@ namespace BaseBall.BallPlay
 
         public static void SetTweenReverse(GameObject obj)
         {
+            var native = obj.GetComponent<GameUITween>();
+            if (native != null) { native.PlayReverse(); return; }
             //obj.SetActive(true);
             UITweener tween = obj.GetComponent<UITweener>();
             //tween.ResetToBeginning();

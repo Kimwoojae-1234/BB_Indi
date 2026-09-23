@@ -1,13 +1,14 @@
-﻿using System.Collections;
+﻿using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace BaseBall.BallPlay
 {
     public class UIWalkOff : MonoBehaviour
     {
-        public UILabel roundLabel;
+        public GameUIElement roundLabel;
         public GameObject arrow;
-        public UISprite[] strikeSpr;
+        public GameUIElement[] strikeSpr;
 
         float curTime;
         int step = 0;

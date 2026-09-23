@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 
 namespace BaseBall.BallPlay
@@ -12,15 +13,15 @@ namespace BaseBall.BallPlay
 
         [SerializeField] private RunnerControlView uguiView;
         public RunnerControlView UguiView => uguiView;
-        private UIPanel panel;
+        private GameUIPanel panel;
         private Camera uiCamera;
         private Coroutine fadeRoutine;
 
         private void LateUpdate()
         {
             if (uguiView == null || !_active.activeInHierarchy) return;
-            if (panel == null) panel = GetComponent<UIPanel>();
-            if (uiCamera == null) uiCamera = NGUITools.FindCameraForLayer(gameObject.layer);
+            if (panel == null) panel = GetComponent<GameUIPanel>();
+            if (uiCamera == null) uiCamera = GameUIRoot.FindCameraForLayer(gameObject.layer);
             uguiView.canvas.SetInheritedRendering(panel.CalculateFinalAlpha(Time.frameCount), panel.startingRenderQueue,
                 panel.sortingOrder, uiCamera, bPressAvail && !Mode.bPauseGame);
         }
@@ -121,7 +122,7 @@ namespace BaseBall.BallPlay
                 if (fadeRoutine != null) { StopCoroutine(fadeRoutine); fadeRoutine = null; }
                 bool available = bActiveAvailble && (manager.field.run.bOnBase[0] || manager.field.run.bOnBase[1] || manager.field.run.bOnBase[2]);
                 bPressAvail = bActive && available;
-                if (panel == null) panel = GetComponent<UIPanel>();
+                if (panel == null) panel = GetComponent<GameUIPanel>();
                 if (bPressAvail)
                 {
                     panel.alpha = 1;
@@ -137,7 +138,7 @@ namespace BaseBall.BallPlay
                 && bActiveAvailble == true)
                 //&& Mode.bAutoPlay == false)
             {
-                UIPanel panel = GetComponent<UIPanel>();
+                GameUIPanel panel = GetComponent<GameUIPanel>();
                 if (bActive == true)
                 {                 
                     bPressAvail = true;
@@ -163,7 +164,7 @@ namespace BaseBall.BallPlay
 
         }
 
-        private IEnumerator deActive(UIPanel panel)
+        private IEnumerator deActive(GameUIPanel panel)
         {
             bPressAvail = false;
             float alpha = 1.0f;

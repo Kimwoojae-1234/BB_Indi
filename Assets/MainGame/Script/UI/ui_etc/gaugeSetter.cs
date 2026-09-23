@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace BaseBall.BallPlay
@@ -7,8 +8,8 @@ namespace BaseBall.BallPlay
     {
         private readonly int MAX_VALUE = 120;
 
-        public UISprite firstGauge, secondGague;
-        public UILabel overallValue;
+        public GameUIElement firstGauge, secondGague;
+        public GameUIElement overallValue;
 
         
 

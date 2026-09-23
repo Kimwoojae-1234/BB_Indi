@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace BaseBall.BallPlay
@@ -6,16 +7,16 @@ namespace BaseBall.BallPlay
     public class QuickPlayerInfo : MonoBehaviour
     {
         public GameObject batter, pitcher;
-        public UILabel[] batterLabel;
-        public UILabel[] pitcherLabel;
+        public GameUIElement[] batterLabel;
+        public GameUIElement[] pitcherLabel;
 
         public Transform playerCard;
         //public SkillSlot[] skillSlot;
 
-        public UISprite batterPos;
-        public UISprite pitcherPos;
+        public GameUIElement batterPos;
+        public GameUIElement pitcherPos;
 
-        public UISprite staminaGauge;
+        public GameUIElement staminaGauge;
 
         public GameObject batterChange, pitcherChange;
 
@@ -202,12 +203,12 @@ namespace BaseBall.BallPlay
             {
                 //165
                 playerCard.transform.localPosition = new Vector3(165, -70, 0);
-                TweenPosition.Begin(playerCard.gameObject, 0.15f, new Vector3(226, -70, 0));
+                GameUITweenPosition.Begin(playerCard.gameObject, 0.15f, new Vector3(226, -70, 0));
             }
             else
             {
                 playerCard.transform.localPosition = new Vector3(-165, -70, 0);
-                TweenPosition.Begin(playerCard.gameObject, 0.15f, new Vector3(-226, -70, 0));
+                GameUITweenPosition.Begin(playerCard.gameObject, 0.15f, new Vector3(-226, -70, 0));
             }
         }
 
@@ -247,7 +248,7 @@ namespace BaseBall.BallPlay
         {
             Util.SetTween(bBatter ? batterChange : pitcherChange);
             yield return new WaitForSeconds(0.25f);
-            TweenRotation rot = playerCard.GetComponent<TweenRotation>();
+            GameUITweenRotation rot = playerCard.GetComponent<GameUITweenRotation>();
             rot.enabled = true;
             yield return new WaitForSeconds(0.25f);
             rot.enabled = false;

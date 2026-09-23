@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace BaseBall.BallPlay
@@ -10,7 +11,7 @@ namespace BaseBall.BallPlay
 
         private UIPlayerChange changeManager;
         private BoxCollider col;
-        //private UISprite backGround;
+        //private GameUIElement backGround;
 
         private bool bSelected;
 
@@ -22,7 +23,7 @@ namespace BaseBall.BallPlay
             changeManager = _changeManager;
             curPlayer = player;
             col = GetComponent<BoxCollider>();
-            //backGround = GetComponent<UISprite>();
+            //backGround = GetComponent<GameUIElement>();
 
             CardData data = new CardData(player.getCard());
             card.SetCardInfo(data);
@@ -59,7 +60,7 @@ namespace BaseBall.BallPlay
 
         public void SelectChangePlayer(CPlayer player)
         {
-            GetComponent<UISprite>().enabled = true;
+            GetComponent<GameUIElement>().enabled = true;
             select.SetActive(true);
             card.gameObject.SetActive(true);
             CardData data = new CardData(player.getCard());

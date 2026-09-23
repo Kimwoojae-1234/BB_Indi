@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Spine.Unity;
@@ -22,7 +23,7 @@ namespace BaseBall.BallPlay
         public bool bLeftPosition;
         public GameObject front, back;
         public SkillSlot skillStot;
-        public UISprite[] line;
+        public GameUIElement[] line;
 
         public GameObject backSpr;
 
@@ -68,7 +69,7 @@ namespace BaseBall.BallPlay
             }
             if (_active != null) _active.SetActive(false);
 
-            UIPanel panel = GetComponent<UIPanel>();
+            GameUIPanel panel = GetComponent<GameUIPanel>();
             if (panel != null) panel.alpha = 1.0f;
         }
 
@@ -150,17 +151,17 @@ namespace BaseBall.BallPlay
 
             //초기 포지션 세팅
             transform.localPosition = new Vector3(bLeftPosition == true ? leftInitPos : rightInitPos, 0, 0);
-            gameObject.GetComponent<UIPanel>().alpha = 1.0f;            
+            gameObject.GetComponent<GameUIPanel>().alpha = 1.0f;
             _active.SetActive(true);
             backSpr.SetActive(true);
-            backSpr.GetComponent<UISprite>().alpha = 0.0f;
-            TweenAlpha.Begin(backSpr, 0.2f, 1);    
+            backSpr.GetComponent<GameUIElement>().alpha = 0.0f;
+            GameUITweenAlpha.Begin(backSpr, 0.2f, 1);
 
             //Util.SetTweenerStart(gameObject);
-            TweenPosition.Begin(gameObject, backUITime, new Vector3(bLeftPosition == true ? leftPos : rightPos, 0, 0));
+            GameUITweenPosition.Begin(gameObject, backUITime, new Vector3(bLeftPosition == true ? leftPos : rightPos, 0, 0));
             if (bg != null)
             {
-                UITweener tweener = bg.transform.Find("spr").GetComponent<UITweener>();
+                GameUITween tweener = bg.transform.Find("spr").GetComponent<GameUITween>();
                 if (tweener != null)
                 {
                     tweener.enabled = true;
@@ -169,7 +170,7 @@ namespace BaseBall.BallPlay
             }
             if (textPos == null)
             {
-                TweenPosition.Begin(skillStot.gameObject, spineWaitTime - 0.05f, new Vector3((bLeftPosition == true ?55:-55), 52, 0));
+                GameUITweenPosition.Begin(skillStot.gameObject, spineWaitTime - 0.05f, new Vector3((bLeftPosition == true ?55:-55), 52, 0));
             }
             yield return new WaitForSeconds(spineWaitTime);
             
@@ -196,7 +197,7 @@ namespace BaseBall.BallPlay
                 //반짝 효과
                 yield return new WaitForSeconds(0.2f);
                 setCature(captureCamera, Color.white);
-                UITweener tween = catureTexture.gameObject.GetComponent<UITweener>();
+                GameUITween tween = catureTexture.gameObject.GetComponent<GameUITween>();
                 tween.ResetToBeginning();
                 tween.PlayForward();
                 yield return new WaitForSeconds(0.8f);
@@ -207,8 +208,8 @@ namespace BaseBall.BallPlay
             yield return new WaitForSeconds(remainTime);
 
 
-            TweenPosition.Begin(gameObject, 0.2f, new Vector3(bLeftPosition == true ? leftInitPos : rightInitPos, 0, 0));
-            TweenAlpha.Begin(backSpr, 0.2f, 0);
+            GameUITweenPosition.Begin(gameObject, 0.2f, new Vector3(bLeftPosition == true ? leftInitPos : rightInitPos, 0, 0));
+            GameUITweenAlpha.Begin(backSpr, 0.2f, 0);
 
             yield return new WaitForSeconds(0.5f);
 
@@ -233,7 +234,7 @@ namespace BaseBall.BallPlay
             while (alpha > 0)
             {
                 alpha -= 0.1f;
-                gameObject.GetComponent<UIPanel>().alpha = alpha;
+                gameObject.GetComponent<GameUIPanel>().alpha = alpha;
                 if(anim!= null) anim.skeleton.A = alpha;
                 yield return new WaitForSeconds(0.02f);            
             }  
@@ -364,9 +365,9 @@ namespace BaseBall.BallPlay
             yield return new WaitForSeconds(0.5f);
 
             //사라짐
-            TweenAlpha.Begin(backSpr, 0.2f, 0);
-            TweenAlpha.Begin(catureTexture.gameObject, 0.2f, 0);
-            TweenAlpha.Begin(gameObject, 0.2f, 0);
+            GameUITweenAlpha.Begin(backSpr, 0.2f, 0);
+            GameUITweenAlpha.Begin(catureTexture.gameObject, 0.2f, 0);
+            GameUITweenAlpha.Begin(gameObject, 0.2f, 0);
             burnEffect.gameObject.SetActive(false);
             yield return new WaitForSeconds(0.2f);
             catureTexture.sprite = null;

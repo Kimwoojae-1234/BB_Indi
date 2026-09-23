@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 using WebConnector;
 using System.Collections.Generic;
@@ -3371,7 +3372,7 @@ namespace BaseBall.BallPlay
                 }
 
                 //카메라 트윈 제거
-                UITweener tween = CameraManager.GetInstance().GetComponent<UITweener>();
+                GameUITween tween = CameraManager.GetInstance().GetComponent<GameUITween>();
                 if (tween != null)
                 {
                     tween.enabled = false;

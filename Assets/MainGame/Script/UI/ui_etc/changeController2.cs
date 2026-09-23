@@ -1,14 +1,15 @@
-﻿using System.Collections;
+﻿using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace BaseBall.BallPlay
 {
     public class changeController2 : MonoBehaviour
     {
-        public UILabel overRoll;
-        public UILabel nameLabel;
+        public GameUIElement overRoll;
+        public GameUIElement nameLabel;
         public GameObject stamina;
-        public UISprite gauge;
+        public GameUIElement gauge;
         public GameObject selected;
         public GameObject caution;
 

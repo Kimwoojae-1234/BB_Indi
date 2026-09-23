@@ -1,4 +1,5 @@
-﻿//#define _NO_FIELD_CONTROL     //특능 자동으로 컨트롤 되게 설정 - 지워지워
+﻿using BaseBall.BallPlay.UGUI;
+//#define _NO_FIELD_CONTROL     //특능 자동으로 컨트롤 되게 설정 - 지워지워
 //#define _NO_FIELD_ZOOM                                         - 지워지워
 //#define _RANDOM_HIT_TEST      //와일드 피치 테스트시 킴        - 지워지워
 //#define _NOHOOKSLICE
@@ -2513,7 +2514,7 @@ namespace BaseBall.BallPlay
                 //setZoom(1.0f);
                 
                 //카메라 트윈 제거
-                UITweener tween = CameraManager.GetInstance().GetComponent<UITweener>();
+                GameUITween tween = CameraManager.GetInstance().GetComponent<GameUITween>();
                 if (tween != null)
                 {
                     tween.enabled = false;
@@ -2654,7 +2655,7 @@ namespace BaseBall.BallPlay
             //setZoom(1.0f);
 
             //카메라 트윈 제거
-            UITweener tween = CameraManager.GetInstance().GetComponent<UITweener>();
+            GameUITween tween = CameraManager.GetInstance().GetComponent<GameUITween>();
             if (tween != null)
             {
                 tween.enabled = false;

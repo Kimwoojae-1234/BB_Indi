@@ -1,4 +1,5 @@
-﻿//#define _TEST_TYPE
+﻿using BaseBall.BallPlay.UGUI;
+//#define _TEST_TYPE
 
 using System.Collections;
 using System.Collections.Generic;
@@ -16,9 +17,9 @@ namespace BaseBall.BallPlay
 
 
         //탑정보
-        public UITexture logo;
+        public GameUIElement logo;
         public GameObject away, home;
-        public UILabel teamPower;
+        public GameUIElement teamPower;
 
         //선수정보
         public UI_CardSmall playerCard;
@@ -36,7 +37,7 @@ namespace BaseBall.BallPlay
         public GameObject top;
 
         //라이트
-        public UISprite light;
+        public GameUIElement light;
 
         private bool bQuit;
         private BallPlayManager manager;
@@ -45,7 +46,7 @@ namespace BaseBall.BallPlay
         private int teamIndex;
         private bool bHome;
 
-        private UISprite[] infoSpr = new UISprite[6];
+        private GameUIElement[] infoSpr = new GameUIElement[6];
 
         void Awake()
         {
@@ -100,7 +101,7 @@ namespace BaseBall.BallPlay
 
             //
             for (int i = 0; i < 6; i++)
-                infoSpr[i] = gaugeObj[i].transform.Find("name").GetComponent<UISprite>();
+                infoSpr[i] = gaugeObj[i].transform.Find("name").GetComponent<GameUIElement>();
 
 #if _Test_Local
 #else          
@@ -112,19 +113,19 @@ namespace BaseBall.BallPlay
             
             if(manager.bMyTurn == true)
             {
-                _text_active.GetComponent<UILabel>().text = "You're Batting First!\nScore First!";
+                _text_active.GetComponent<GameUIElement>().text = "You're Batting First!\nScore First!";
             }
             else
             {
-                _text_active.GetComponent<UILabel>().text = "You're Fielding First!\nKeep Them Scoreless!";
+                _text_active.GetComponent<GameUIElement>().text = "You're Fielding First!\nKeep Them Scoreless!";
             }
             _text_active.SetActive(true);
 
             /*_active.SetActive(true);
-            gameObject.GetComponent<UIPanel>().alpha = 0;
-            TweenAlpha.Begin(gameObject, 0.3f, 1);
+            gameObject.GetComponent<GameUIPanel>().alpha = 0;
+            GameUITweenAlpha.Begin(gameObject, 0.3f, 1);
             top.transform.localPosition = new Vector3(-55, 259, 0);
-            top.GetComponent<UIWidget>().alpha = 0;*/
+            top.GetComponent<GameUIElement>().alpha = 0;*/
             StartCoroutine(showLineup(6.0f));
         }
 
@@ -296,23 +297,23 @@ namespace BaseBall.BallPlay
             CPlayer curPlayer = SimulPlayerManager.GetFielder(curIndex,count);
 
 #if _Test_Local
-            Util.SetSpritePixelPerfect(box.Find("logo").GetComponent<UISprite>(), "logo_" + teamIndex);
+            Util.SetSpritePixelPerfect(box.Find("logo").GetComponent<GameUIElement>(), "logo_" + teamIndex);
 #else
-            Util.SetSpritePixelPerfect(box.FindChild("logo").GetComponent<UISprite>(), "logo_" + (int)curPlayer.getPlayerData().eTeam);
+            Util.SetSpritePixelPerfect(box.FindChild("logo").GetComponent<GameUIElement>(), "logo_" + (int)curPlayer.getPlayerData().eTeam);
 #endif
             //
-            box.Find("num").GetComponent<UILabel>().text = (count+1).ToString();
-            box.Find("lineup").GetComponent<UILabel>().text = curPlayer.getName();
+            box.Find("num").GetComponent<GameUIElement>().text = (count+1).ToString();
+            box.Find("lineup").GetComponent<GameUIElement>().text = curPlayer.getName();
             //
-            /*UILabel overall = box.FindChild("rate").GetComponent<UILabel>();
+            /*GameUIElement overall = box.FindChild("rate").GetComponent<GameUIElement>();
             int overallNum = Utils.TeamPowerUtils.calCardPower(curPlayer.getCard().abilities);
             //overall.bitmapFont = Util.GetOverallFont(overallNum);
             overall.text = overallNum.ToString();            
             //
-            box.FindChild("pos").GetComponent<UISprite>().spriteName = "position_" + (curPlayer.getCurPos() + 1).ToString();
+            box.FindChild("pos").GetComponent<GameUIElement>().spriteName = "position_" + (curPlayer.getCurPos() + 1).ToString();
 
             WebConnector.GameRecordHitter record = curPlayer.getBatterRecord();
-            box.FindChild("avg").GetComponent<UILabel>().text = Util.GetCurAvg(record, 0, 0);*/
+            box.FindChild("avg").GetComponent<GameUIElement>().text = Util.GetCurAvg(record, 0, 0);*/
         }
 
         private void setPitcherBox(Transform box)
@@ -320,20 +321,20 @@ namespace BaseBall.BallPlay
             int curIndex = manager.bMyTurn ? 0 : 1;
             CPlayer curPlayer = SimulPlayerManager.GetPitcher(curIndex);
 #if _Test_Local
-            Util.SetSpritePixelPerfect(box.Find("logo").GetComponent<UISprite>(), "logo_" + teamIndex);
+            Util.SetSpritePixelPerfect(box.Find("logo").GetComponent<GameUIElement>(), "logo_" + teamIndex);
 #else
-            Util.SetSpritePixelPerfect(box.Find("logo").GetComponent<UISprite>(), "logo_" + (int)curPlayer.getPlayerData().eTeam);
+            Util.SetSpritePixelPerfect(box.Find("logo").GetComponent<GameUIElement>(), "logo_" + (int)curPlayer.getPlayerData().eTeam);
 #endif      
             //
-            /*box.FindChild("lineup").GetComponent<UILabel>().text = curPlayer.getName();
+            /*box.FindChild("lineup").GetComponent<GameUIElement>().text = curPlayer.getName();
             //
-            UILabel overall = box.FindChild("rate").GetComponent<UILabel>();
+            GameUIElement overall = box.FindChild("rate").GetComponent<GameUIElement>();
             int overallNum = Utils.TeamPowerUtils.calCardPower(curPlayer.getCard());
             //overall.bitmapFont = Util.GetOverallFont(overallNum);
             overall.text = overallNum.ToString(); 
             //
             WebConnector.GameRecordPitcher record = curPlayer.getPitcherRecord();
-            box.FindChild("avg").GetComponent<UILabel>().text = Util.GetCurErr(record, 0, 0);*/
+            box.FindChild("avg").GetComponent<GameUIElement>().text = Util.GetCurErr(record, 0, 0);*/
         }
 
 
@@ -341,14 +342,14 @@ namespace BaseBall.BallPlay
         {
             /*for (int i = 0; i < 10; i++)
             {
-                lineupObj[i].transform.GetComponent<UISprite>().spriteName = "lineup_table2";
-                lineupObj[i].transform.FindChild("focus").GetComponent<UISprite>().alpha = 0;
+                lineupObj[i].transform.GetComponent<GameUIElement>().spriteName = "lineup_table2";
+                lineupObj[i].transform.FindChild("focus").GetComponent<GameUIElement>().alpha = 0;
             }
             
             yield return new WaitForSeconds(0.3f);
 
-            TweenAlpha.Begin(top, 0.2f, 1);
-            TweenPosition.Begin(top, 0.2f, new Vector3(0, 259, 0));
+            GameUITweenAlpha.Begin(top, 0.2f, 1);
+            GameUITweenPosition.Begin(top, 0.2f, new Vector3(0, 259, 0));
 
             yield return new WaitForSeconds(0.2f);
 
@@ -365,7 +366,7 @@ namespace BaseBall.BallPlay
                 setPlayerInfoBox(curPlayer, (i == 9 ? true : false));
 
                 GameObject focus = lineupObj[i].transform.FindChild("focus").gameObject;
-                TweenAlpha.Begin(focus, 0.1f, 1);
+                GameUITweenAlpha.Begin(focus, 0.1f, 1);
                 yield return new WaitForSeconds(0.1f);
                 light.gameObject.SetActive(true);
                 for (int j = 0; j < 20; j++)
@@ -375,7 +376,7 @@ namespace BaseBall.BallPlay
                      //yield return new WaitForSeconds(0.6f / 20.0f);
                 }
                 light.gameObject.SetActive(false);
-                TweenAlpha.Begin(focus, 0.1f, 0);
+                GameUITweenAlpha.Begin(focus, 0.1f, 0);
                 yield return new WaitForSeconds(0.1f);
             }*/
 
@@ -385,9 +386,9 @@ namespace BaseBall.BallPlay
 
             bQuit = true;
 
-            //TweenAlpha.Begin(_text_active, 0.5f, 0);
+            //GameUITweenAlpha.Begin(_text_active, 0.5f, 0);
 
-            //TweenAlpha.Begin(gameObject, 0.5f, 0);
+            //GameUITweenAlpha.Begin(gameObject, 0.5f, 0);
             yield return new WaitForSeconds(0.5f);
             manager.playState = PlayState.PLAY_START_INNING;
             manager.setInningChangeSkip();
@@ -395,7 +396,7 @@ namespace BaseBall.BallPlay
             _active.SetActive(false);
 
             yield return new WaitForSeconds(0.2f);
-            TweenAlpha.Begin(_text_active, 0.2f, 0);
+            GameUITweenAlpha.Begin(_text_active, 0.2f, 0);
             if (showCount >= 2)
             {
                 Destroy(gameObject,0.5f);
@@ -406,12 +407,12 @@ namespace BaseBall.BallPlay
 
         private IEnumerator deActive()
         {
-            UITweener tween = CameraManager.GetInstance().GetComponent<UITweener>();
+            GameUITween tween = CameraManager.GetInstance().GetComponent<GameUITween>();
             if (tween != null)
             {
                 tween.enabled = false;
             }
-            TweenAlpha.Begin(gameObject, 0.5f, 0);
+            GameUITweenAlpha.Begin(gameObject, 0.5f, 0);
             yield return new WaitForSeconds(0.5f);
             manager.playState = PlayState.PLAY_START_INNING;
             manager.setInningChangeSkip();

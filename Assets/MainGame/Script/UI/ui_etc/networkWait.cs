@@ -1,13 +1,14 @@
-﻿using System.Collections;
+﻿using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class networkWait : MonoBehaviour {
 
-    UISprite spr;
+    GameUIElement spr;
 	// Use this for initialization
 	void Start () {
-        spr = GetComponent<UISprite>();
+        spr = GetComponent<GameUIElement>();
         curTime = 0;
         index = 1;
 	}

@@ -1,11 +1,12 @@
-﻿using System.Collections;
+﻿using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace BaseBall.BallPlay
 {
     public class UIQuit : MonoBehaviour
     {
-        public UILabel Label;
+        public GameUIElement Label;
 
         private BallPlayManager manager;
 

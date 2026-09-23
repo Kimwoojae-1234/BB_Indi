@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 
 namespace BaseBall.BallPlay
@@ -8,8 +9,8 @@ namespace BaseBall.BallPlay
         public GameObject _active;
         
         //로고
-        public UITexture myLogo, cpuLogo;
-        public UISprite myHomeAway, cpuHomeAway;
+        public GameUIElement myLogo, cpuLogo;
+        public GameUIElement myHomeAway, cpuHomeAway;
 
         //모드별
         public GameObject [] SeasonRace;
@@ -20,12 +21,12 @@ namespace BaseBall.BallPlay
         public GameObject[] center;
 
         //리그 로고
-        public UISprite leagueLogo;
-        public UISprite walkoffLogo;
-        public UISprite liveMatchLogo;
+        public GameUIElement leagueLogo;
+        public GameUIElement walkoffLogo;
+        public GameUIElement liveMatchLogo;
 
         //구장
-        public UILabel stadiumLabel;
+        public GameUIElement stadiumLabel;
 
         //
         public GameObject cosecutive;
@@ -66,7 +67,7 @@ namespace BaseBall.BallPlay
                 for (int i = 0; i < 2; i++)
                 {
                     Rank[i].SetActive(true);
-                    Rank[i].transform.FindChild("team").GetComponent<UILabel>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);
+                    Rank[i].transform.FindChild("team").GetComponent<GameUIElement>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);
                 }
 
 #if _Test_Local
@@ -76,11 +77,11 @@ namespace BaseBall.BallPlay
                 int leagueGrade = (_manager.bMyHome ? info.homeTeam.league : info.awayTeam.league);
                 leagueLogo.spriteName = "league_" + leagueGrade;
                 //포인트
-                Rank[awayIndex].transform.FindChild("rank").GetComponent<UILabel>().text = info.awayTeam.point.ToString();
-                Rank[homeIndex].transform.FindChild("rank").GetComponent<UILabel>().text = info.homeTeam.point.ToString();
+                Rank[awayIndex].transform.FindChild("rank").GetComponent<GameUIElement>().text = info.awayTeam.point.ToString();
+                Rank[homeIndex].transform.FindChild("rank").GetComponent<GameUIElement>().text = info.homeTeam.point.ToString();
                 //승무패는 추후
-                Rank[awayIndex].transform.FindChild("wdl").GetComponent<UILabel>().text = info.awayTeam.wdl[0] + "승 " + info.awayTeam.wdl[1] + "무 " + info.awayTeam.wdl[2] + "패";
-                Rank[homeIndex].transform.FindChild("wdl").GetComponent<UILabel>().text = info.homeTeam.wdl[0] + "승 " + info.homeTeam.wdl[1] + "무 " + info.homeTeam.wdl[2] + "패";
+                Rank[awayIndex].transform.FindChild("wdl").GetComponent<GameUIElement>().text = info.awayTeam.wdl[0] + "승 " + info.awayTeam.wdl[1] + "무 " + info.awayTeam.wdl[2] + "패";
+                Rank[homeIndex].transform.FindChild("wdl").GetComponent<GameUIElement>().text = info.homeTeam.wdl[0] + "승 " + info.homeTeam.wdl[1] + "무 " + info.homeTeam.wdl[2] + "패";
 #endif
 
             }
@@ -93,7 +94,7 @@ namespace BaseBall.BallPlay
                 for (int i = 0; i < 2; i++)
                 {
                     WalkOff[i].SetActive(true);
-                    WalkOff[i].transform.Find("team").GetComponent<UILabel>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);
+                    WalkOff[i].transform.Find("team").GetComponent<GameUIElement>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);
                 }
 
             }
@@ -104,7 +105,7 @@ namespace BaseBall.BallPlay
                 for (int i = 0; i < 2; i++)
                 {
                     LiveMatch[i].SetActive(true);
-                    LiveMatch[i].transform.Find("team").GetComponent<UILabel>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);
+                    LiveMatch[i].transform.Find("team").GetComponent<GameUIElement>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);
                 }
 
 #if _Test_Local
@@ -114,17 +115,17 @@ namespace BaseBall.BallPlay
                 int leagueGrade =  1;// (_manager.bMyHome ? info.homeTeam.league : info.awayTeam.league);
                 liveMatchLogo.spriteName = "rankmark_" + leagueGrade;
                 //포인트
-                LiveMatch[awayIndex].transform.FindChild("rank").GetComponent<UILabel>().text = info.awayTeam.point.ToString();
-                LiveMatch[homeIndex].transform.FindChild("rank").GetComponent<UILabel>().text = info.homeTeam.point.ToString();
+                LiveMatch[awayIndex].transform.FindChild("rank").GetComponent<GameUIElement>().text = info.awayTeam.point.ToString();
+                LiveMatch[homeIndex].transform.FindChild("rank").GetComponent<GameUIElement>().text = info.homeTeam.point.ToString();
                 //승무패는 추후
                 string awayText;
                 if (info.awayTeam.wdl == null) awayText = "0승 0무 0패";
                 else awayText = info.awayTeam.wdl[0] + "승 " + info.awayTeam.wdl[1] + "무 " + info.awayTeam.wdl[2] + "패";
-                LiveMatch[awayIndex].transform.FindChild("wdl").GetComponent<UILabel>().text = awayText;
+                LiveMatch[awayIndex].transform.FindChild("wdl").GetComponent<GameUIElement>().text = awayText;
                 string homeText;
                 if (info.homeTeam.wdl == null) homeText = "0승 0무 0패";
                 else homeText = info.homeTeam.wdl[0] + "승 " + info.homeTeam.wdl[1] + "무 " + info.homeTeam.wdl[2] + "패";
-                LiveMatch[homeIndex].transform.FindChild("wdl").GetComponent<UILabel>().text = homeText;
+                LiveMatch[homeIndex].transform.FindChild("wdl").GetComponent<GameUIElement>().text = homeText;
                 
 #endif
             }
@@ -136,7 +137,7 @@ namespace BaseBall.BallPlay
                 for (int i = 0; i < 2; i++)
                 {
                     LiveMatch[i].SetActive(true);
-                    LiveMatch[i].transform.Find("team").GetComponent<UILabel>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);
+                    LiveMatch[i].transform.Find("team").GetComponent<GameUIElement>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);
                 }
             }
             else //if (Mode.gameMode == Mode.GamePlayMode.Season //  시즌, 쟁탈)
@@ -147,7 +148,7 @@ namespace BaseBall.BallPlay
                 for (int i = 0; i < 2; i++)
                 {
                     SeasonRace[i].SetActive(true);
-                    SeasonRace[i].transform.Find("team").GetComponent<UILabel>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);
+                    SeasonRace[i].transform.Find("team").GetComponent<GameUIElement>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);
                 }
 
 #if !_Test_Local
@@ -164,18 +165,18 @@ namespace BaseBall.BallPlay
                     WebConnector.SeasonTeamInfo homeTeam = info.teamInfos[teamNo[0]];
 
                     //어웨이
-                    SeasonRace[awayIndex].transform.FindChild("rank").GetComponent<UILabel>().text = awayTeam.ranking.ToString();
-                    SeasonRace[awayIndex].transform.FindChild("wdl").GetComponent<UILabel>().text = info.awayWdl[0] + "승 " + info.awayWdl[1] + "무 " + info.awayWdl[2] + "패";
+                    SeasonRace[awayIndex].transform.FindChild("rank").GetComponent<GameUIElement>().text = awayTeam.ranking.ToString();
+                    SeasonRace[awayIndex].transform.FindChild("wdl").GetComponent<GameUIElement>().text = info.awayWdl[0] + "승 " + info.awayWdl[1] + "무 " + info.awayWdl[2] + "패";
                     //홈
-                    SeasonRace[homeIndex].transform.FindChild("rank").GetComponent<UILabel>().text = homeTeam.ranking.ToString();
-                    SeasonRace[homeIndex].transform.FindChild("wdl").GetComponent<UILabel>().text = info.homeWdl[0] + "승 " + info.homeWdl[1] + "무 " + info.homeWdl[2] + "패";
+                    SeasonRace[homeIndex].transform.FindChild("rank").GetComponent<GameUIElement>().text = homeTeam.ranking.ToString();
+                    SeasonRace[homeIndex].transform.FindChild("wdl").GetComponent<GameUIElement>().text = info.homeWdl[0] + "승 " + info.homeWdl[1] + "무 " + info.homeWdl[2] + "패";
                     //일차
                     if (info.gameType == WebConnector.SeasonGameType.PennantRace)
                     {
                         //페넌트레이스
                         center[0].SetActive(true);
                         // DISABLED_MGRS: int day = Mgrs.userData.seasonLobbyInfo.roundNo;// info.homeWdl[0] + info.homeWdl[1] + info.homeWdl[2]; //임시
-                        center[0].transform.FindChild("Label").GetComponent<UILabel>().text = day.ToString();
+                        center[0].transform.FindChild("Label").GetComponent<GameUIElement>().text = day.ToString();
                     }
                     else
                     {
@@ -186,13 +187,13 @@ namespace BaseBall.BallPlay
                         else title = "한국시리즈 ";
                         //포스트 시즌
                         center[3].SetActive(true);
-                        // DISABLED_MGRS: center[3].transform.FindChild("Label").GetComponent<UILabel>().text = title + Mgrs.userData.seasonLobbyInfo.roundNo + "차전";
+                        // DISABLED_MGRS: center[3].transform.FindChild("Label").GetComponent<GameUIElement>().text = title + Mgrs.userData.seasonLobbyInfo.roundNo + "차전";
                     }
 
                     // DISABLED_MGRS: if (Mgrs.userData.GetUserGameMode() == DefineEnum.EGameMode.SeasonConsecutive)
                     {
                         //cosecutive.gameObject.SetActive(true);
-                        //cosecutive.transform.FindChild("Label").GetComponent<UILabel>().text = (11-Mode.ConsecutiveNum) + "/10";
+                        //cosecutive.transform.FindChild("Label").GetComponent<GameUIElement>().text = (11-Mode.ConsecutiveNum) + "/10";
                         GameObject obj = Util.Load("MainGame/prefabs/gameUI/consectiveGamePrefab", transform, new Vector3(0, 361, 0));
                         obj.GetComponent<consectiveGameUI>().Init();
                     }
@@ -210,11 +211,11 @@ namespace BaseBall.BallPlay
                     leagueLogo.spriteName = "league_" + info.leagueLev;
 
                     //어웨이
-                    SeasonRace[awayIndex].transform.FindChild("rank").GetComponent<UILabel>().text = awayTeam.ranking.ToString();
-                    SeasonRace[awayIndex].transform.FindChild("wdl").GetComponent<UILabel>().text = awayTeam.win + "승 " + awayTeam.draw + "무 " + awayTeam.lose + "패";
+                    SeasonRace[awayIndex].transform.FindChild("rank").GetComponent<GameUIElement>().text = awayTeam.ranking.ToString();
+                    SeasonRace[awayIndex].transform.FindChild("wdl").GetComponent<GameUIElement>().text = awayTeam.win + "승 " + awayTeam.draw + "무 " + awayTeam.lose + "패";
                     //홈
-                    SeasonRace[homeIndex].transform.FindChild("rank").GetComponent<UILabel>().text = homeTeam.ranking.ToString();
-                    SeasonRace[homeIndex].transform.FindChild("wdl").GetComponent<UILabel>().text = homeTeam.win + "승 " + homeTeam.draw + "무 " + homeTeam.lose + "패";
+                    SeasonRace[homeIndex].transform.FindChild("rank").GetComponent<GameUIElement>().text = homeTeam.ranking.ToString();
+                    SeasonRace[homeIndex].transform.FindChild("wdl").GetComponent<GameUIElement>().text = homeTeam.win + "승 " + homeTeam.draw + "무 " + homeTeam.lose + "패";
 
                 }
 #endif
@@ -268,7 +269,7 @@ namespace BaseBall.BallPlay
                 manager.bUpdate = true;
             }
             //오프닝 연출 마감
-            TweenAlpha.Begin(gameObject, 0.5f, 0);
+            GameUITweenAlpha.Begin(gameObject, 0.5f, 0);
             yield return new WaitForSeconds(0.5f);            
             Destroy(gameObject);
             
@@ -309,7 +310,7 @@ namespace BaseBall.BallPlay
                 manager.startGame();
                 //yield return new WaitForSeconds(2.0f);
                 Debug_UI.SetNetwork(false);
-                TweenAlpha.Begin(gameObject, 0.5f, 0);
+                GameUITweenAlpha.Begin(gameObject, 0.5f, 0);
                 yield return new WaitForSeconds(0.5f);                
                 Destroy(gameObject);
             }
@@ -320,7 +321,7 @@ namespace BaseBall.BallPlay
                 {
                     yield return new WaitForSeconds(0.3f);
                 }
-                TweenAlpha.Begin(gameObject, 0.5f, 0);
+                GameUITweenAlpha.Begin(gameObject, 0.5f, 0);
                 yield return new WaitForSeconds(0.5f);
                 Destroy(gameObject);
             }

@@ -1,20 +1,21 @@
-﻿using UnityEngine;
+﻿using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 
 namespace BaseBall.BallPlay
 {
     public class QuickPlayerNameBar : MonoBehaviour
     {
-        public UISprite bg;
-        public UILabel num;
-        public UILabel name;
-        public UILabel overall;
-        public UISprite logo;
+        public GameUIElement bg;
+        public GameUIElement num;
+        public GameUIElement name;
+        public GameUIElement overall;
+        public GameUIElement logo;
         public GameObject hitFlag;
         public GameObject focusObj;
 
 
-        private UILabel resultLabel;
+        private GameUIElement resultLabel;
 
         private bool bPitcher;
         private int team;
@@ -43,7 +44,8 @@ namespace BaseBall.BallPlay
             if (bPitcher == true) overallNum = Utils.TeamPowerUtils.calCardPower(player.getCard());                
             else overallNum = Utils.TeamPowerUtils.calCardPower(player.getCard());
 #endif      
-            overall.bitmapFont = Util.GetOverallFont(overallNum);
+
+            // The optional overall-font loader is disabled; retain the prefab font.
             overall.text = overallNum.ToString();
 
             if (bOffense == true)
@@ -64,7 +66,7 @@ namespace BaseBall.BallPlay
 
             setFocus(false);
 
-            resultLabel = hitFlag.transform.Find("hitlabel").GetComponent<UILabel>();
+            resultLabel = hitFlag.transform.Find("hitlabel").GetComponent<GameUIElement>();
 
             hitFlag.SetActive(false);
         }
@@ -129,7 +131,7 @@ namespace BaseBall.BallPlay
         {
             StopAllCoroutines();
 
-            UITweener[] tweeners = GetComponents<UITweener>();
+            GameUITween[] tweeners = GetComponents<GameUITween>();
             for (int i = 0; i < tweeners.Length; i++) tweeners[i].enabled = false;
 
             transform.localPosition = new Vector3(
@@ -139,10 +141,10 @@ namespace BaseBall.BallPlay
 
             if (focusObj != null)
             {
-                UITweener[] focusTweeners = focusObj.GetComponents<UITweener>();
+                GameUITween[] focusTweeners = focusObj.GetComponents<GameUITween>();
                 for (int i = 0; i < focusTweeners.Length; i++) focusTweeners[i].enabled = false;
 
-                UIWidget widget = focusObj.GetComponent<UIWidget>();
+                GameUIElement widget = focusObj.GetComponent<GameUIElement>();
                 if (widget != null) widget.alpha = bFocus ? 1.0f : 0.0f;
                 focusObj.SetActive(bFocus);
             }
@@ -166,13 +168,13 @@ namespace BaseBall.BallPlay
         {
             if (deFocus != null) StopCoroutine(deFocus);
 
-            if (bCurOffense) TweenPosition.Begin(gameObject, 0.1f, new Vector3(team == 0 ? -12 : 12, yPos, 0));
+            if (bCurOffense) GameUITweenPosition.Begin(gameObject, 0.1f, new Vector3(team == 0 ? -12 : 12, yPos, 0));
             else transform.localPosition = new Vector3(0, yPos, 0);
 
             yield return new WaitForSeconds(0.1f);
 
             focusObj.SetActive(true);
-            TweenAlpha.Begin(focusObj, 0.15f, 1);
+            GameUITweenAlpha.Begin(focusObj, 0.15f, 1);
 
             yield return new WaitForSeconds(0.15f);
 
@@ -184,7 +186,7 @@ namespace BaseBall.BallPlay
         {
             if (focus != null) StopCoroutine(focus);
 
-            if (bCurOffense) TweenPosition.Begin(gameObject, 0.1f, new Vector3(0, yPos, 0));
+            if (bCurOffense) GameUITweenPosition.Begin(gameObject, 0.1f, new Vector3(0, yPos, 0));
             else transform.localPosition = new Vector3(0, yPos, 0);                
 
             //상대 포지션 유지하기 위한 뻘짓
@@ -199,7 +201,7 @@ namespace BaseBall.BallPlay
             //0.1초동안...
 
             hitFlag.transform.localPosition = new Vector3(team == 0 ? -25 : 289, 0, 0);
-            TweenAlpha.Begin(focusObj, 0.1f, 0);
+            GameUITweenAlpha.Begin(focusObj, 0.1f, 0);
 
             yield return new WaitForSeconds(0.1f);
 

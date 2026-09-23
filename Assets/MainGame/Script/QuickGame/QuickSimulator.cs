@@ -1,4 +1,5 @@
-﻿using Spine.Unity;
+﻿using BaseBall.BallPlay.UGUI;
+using Spine.Unity;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -60,17 +61,17 @@ namespace BaseBall.BallPlay
         public QuickPlayerNameBar[] cpuLineup;
 
         //게임정보
-        public UILabel numPitchLabel;
-        public UISprite topBottom;
-        public UILabel inningLabel;
+        public GameUIElement numPitchLabel;
+        public GameUIElement topBottom;
+        public GameUIElement inningLabel;
         public GameObject arrowObj;
-        public UISprite arrow;
-        public UISprite[] outSpr;
+        public GameUIElement arrow;
+        public GameUIElement[] outSpr;
         //이닝전환
         public GameObject inningChange;
         public GameObject playerObj;
-        public UITexture myLogo;
-        public UITexture cpuLogo;
+        public GameUIElement myLogo;
+        public GameUIElement cpuLogo;
 
         //스킬 연출
         public skillUISetter [] skillUI;
@@ -119,8 +120,8 @@ namespace BaseBall.BallPlay
         private bool[] bBaseOn;
         private int runnerIndex;
         bool[] runnerActive = new bool[4] { false, false, false, false };
-        //private UILabel[] runnerName;
-        //private UISprite[] runnerCap;
+        //private GameUIElement[] runnerName;
+        //private GameUIElement[] runnerCap;
        
 
         private int[] awayScore = new int[12];
@@ -584,13 +585,13 @@ namespace BaseBall.BallPlay
         private void initRunnerUI()
         {
             bBaseOn = new bool[3] { false, false, false };
-            /*runnerName = new UILabel[4];
-            runnerCap = new UISprite[4];
+            /*runnerName = new GameUIElement[4];
+            runnerCap = new GameUIElement[4];
 
             for (int i = 0; i < 4; i++)
             {
-                runnerName[i] = runnerObj[i].transform.FindChild("Label").GetComponent<UILabel>();
-                runnerCap[i] = runnerObj[i].GetComponent<UISprite>();
+                runnerName[i] = runnerObj[i].transform.FindChild("Label").GetComponent<GameUIElement>();
+                runnerCap[i] = runnerObj[i].GetComponent<GameUIElement>();
             }*/
 
             //
@@ -1483,16 +1484,16 @@ namespace BaseBall.BallPlay
             inningChange.SetActive(false);
             if (showPresentation && bAnim == true)
             {
-                playerObj.GetComponent<UIWidget>().alpha = 0;
+                playerObj.GetComponent<GameUIElement>().alpha = 0;
                 playerObj.SetActive(true);
-                TweenAlpha.Begin(playerObj, 0.15f, 1);
+                GameUITweenAlpha.Begin(playerObj, 0.15f, 1);
                 playerInfo[0].setAnim(true);
                 playerInfo[1].setAnim(false);
                 playerInfo[bMyTurn ? 0 : 1].SetLight(0.15f);
             }
             else if (showPresentation)
             {
-                playerObj.GetComponent<UIWidget>().alpha = 1;
+                playerObj.GetComponent<GameUIElement>().alpha = 1;
                 playerObj.SetActive(true);
                 playerInfo[0].initPos(true);
                 playerInfo[1].initPos(false);
@@ -1843,7 +1844,7 @@ namespace BaseBall.BallPlay
                 SkeletonAnimation anim = chancePopup.transform.Find("anim").GetComponent<SkeletonAnimation>();
                 anim.skeleton.SetToSetupPose();
                 anim.state.SetAnimation(0, MyMath.Half() ? "chance_time" : "game_over", false);
-                UISprite gauge = chancePopup.transform.Find("gaugebar").GetComponent<UISprite>();
+                GameUIElement gauge = chancePopup.transform.Find("gaugebar").GetComponent<GameUIElement>();
                 changeRemain--;
                 float remainTime = 5.0f;
                 while(remainTime > 0)
@@ -2716,7 +2717,7 @@ namespace BaseBall.BallPlay
             SkeletonAnimation anim = chancePopup.transform.Find("anim").GetComponent<SkeletonAnimation>();
             anim.skeleton.SetToSetupPose();
             anim.state.SetAnimation(0, MyMath.Half() ? "chance_time" : "game_over", false);
-            UISprite gauge = chancePopup.transform.Find("gaugebar").GetComponent<UISprite>();
+            GameUIElement gauge = chancePopup.transform.Find("gaugebar").GetComponent<GameUIElement>();
             changeRemain--;
             float remainTime = 5.0f;
             while (remainTime > 0)

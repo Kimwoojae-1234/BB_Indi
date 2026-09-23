@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace BaseBall.BallPlay
@@ -6,7 +7,7 @@ namespace BaseBall.BallPlay
     public class quickBuffUI : MonoBehaviour
     {
         public GameObject _active;
-        public UILabel label;
+        public GameUIElement label;
         public GameObject up, down;
         public GameObject light;
 
@@ -44,7 +45,7 @@ namespace BaseBall.BallPlay
                 label.text = "스킬 무효화";
                 label.transform.localPosition = Vector3.zero;
             }
-            _active.GetComponent<UISprite>().spriteName = bMyUI ? "buff_team1" : "buff_team2";
+            _active.GetComponent<GameUIElement>().spriteName = bMyUI ? "buff_team1" : "buff_team2";
 
         }
 
@@ -84,8 +85,8 @@ namespace BaseBall.BallPlay
             }
 
             yield return new WaitForSeconds(0.85f);
-            TweenPosition.Begin(gameObject, 0.3f, new Vector3(0, (bDown?-30:30), 0));
-            TweenAlpha.Begin(gameObject, 0.3f, 0);
+            GameUITweenPosition.Begin(gameObject, 0.3f, new Vector3(0, (bDown?-30:30), 0));
+            GameUITweenAlpha.Begin(gameObject, 0.3f, 0);
             yield return new WaitForSeconds(0.4f);
             Destroy(gameObject);
         }
@@ -118,7 +119,7 @@ namespace BaseBall.BallPlay
                 up.SetActive(true);
             }
             yield return new WaitForSeconds(1.5f);
-            TweenAlpha.Begin(gameObject, 0.3f, 0);
+            GameUITweenAlpha.Begin(gameObject, 0.3f, 0);
             yield return new WaitForSeconds(0.4f);
             Destroy(gameObject);
         }

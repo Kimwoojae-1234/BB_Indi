@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 
 
@@ -11,14 +12,14 @@ namespace BaseBall.BallPlay
 
         [SerializeField] private PitchSelectionCanvas uguiView;
         public PitchSelectionCanvas UguiView => uguiView;
-        private UIPanel inheritedPanel;
+        private GameUIPanel inheritedPanel;
         private Camera uiCamera;
 
         private void LateUpdate()
         {
             if (uguiView == null || !uguiView.gameObject.activeInHierarchy) return;
-            if (inheritedPanel == null) inheritedPanel = GetComponentInParent<UIPanel>();
-            if (uiCamera == null) uiCamera = NGUITools.FindCameraForLayer(gameObject.layer);
+            if (inheritedPanel == null) inheritedPanel = GetComponentInParent<GameUIPanel>();
+            if (uiCamera == null) uiCamera = GameUIRoot.FindCameraForLayer(gameObject.layer);
             uguiView.SetInheritedRendering(inheritedPanel != null ? inheritedPanel.CalculateFinalAlpha(Time.frameCount) : 1,
                 inheritedPanel != null ? inheritedPanel.startingRenderQueue : 3000,
                 inheritedPanel != null ? inheritedPanel.sortingOrder : 0, uiCamera, !Mode.bPauseGame);

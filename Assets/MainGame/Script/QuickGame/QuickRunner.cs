@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace BaseBall.BallPlay
@@ -20,8 +21,8 @@ namespace BaseBall.BallPlay
         public Transform[] pos;
 
         public int arrayIndex;
-        public UILabel playerName, baseRunningLabel;
-        public UISprite cap;
+        public GameUIElement playerName, baseRunningLabel;
+        public GameUIElement cap;
         public int curPos;
         private int addDestPos;
         private bool bMoving;
@@ -91,7 +92,7 @@ namespace BaseBall.BallPlay
             do
             {
                 position = (position + 1) % 4;
-                TweenPosition.Begin(gameObject, 0.4f, pos[position].localPosition);
+                GameUITweenPosition.Begin(gameObject, 0.4f, pos[position].localPosition);
                 yield return new WaitForSeconds(0.45f);
                 transform.localPosition = pos[position].localPosition;  //다음 베이스
                 next--;

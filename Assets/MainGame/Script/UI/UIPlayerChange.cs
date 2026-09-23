@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 
 namespace BaseBall.BallPlay
@@ -87,7 +88,7 @@ namespace BaseBall.BallPlay
                 timer = null;
             }
             _active.SetActive(true);
-            TweenAlpha.Begin(gameObject, 0.5f, 1);
+            GameUITweenAlpha.Begin(gameObject, 0.5f, 1);
 
         }
 
@@ -364,10 +365,10 @@ namespace BaseBall.BallPlay
             bool bPitcher = (changeType == PlayerChangeType.PitcherChange ? true : false);
             for (int i = 0; i < count; i++)
             {
-                UISprite bar1 = gauge[i].transform.Find("bar1").GetComponent<UISprite>();
-                UISprite bar2 = gauge[i].transform.Find("bar2").GetComponent<UISprite>();
-                UILabel Label = gauge[i].transform.Find("Label").GetComponent<UILabel>();
-                UILabel minus = gauge[i].transform.Find("minus").GetComponent<UILabel>();
+                GameUIElement bar1 = gauge[i].transform.Find("bar1").GetComponent<GameUIElement>();
+                GameUIElement bar2 = gauge[i].transform.Find("bar2").GetComponent<GameUIElement>();
+                GameUIElement Label = gauge[i].transform.Find("Label").GetComponent<GameUIElement>();
+                GameUIElement minus = gauge[i].transform.Find("minus").GetComponent<GameUIElement>();
 
                 bar2.gameObject.SetActive(false);
 
@@ -427,15 +428,15 @@ namespace BaseBall.BallPlay
                 int bigValue = 0;
                 bool bOutPlayerBig = false;
 
-                UISprite outbar1 = outGauge[i].transform.Find("bar1").GetComponent<UISprite>();
-                UISprite outbar2 = outGauge[i].transform.Find("bar2").GetComponent<UISprite>();
-                UILabel outLabel = outGauge[i].transform.Find("Label").GetComponent<UILabel>();
-                UILabel outminus = outGauge[i].transform.Find("minus").GetComponent<UILabel>();
+                GameUIElement outbar1 = outGauge[i].transform.Find("bar1").GetComponent<GameUIElement>();
+                GameUIElement outbar2 = outGauge[i].transform.Find("bar2").GetComponent<GameUIElement>();
+                GameUIElement outLabel = outGauge[i].transform.Find("Label").GetComponent<GameUIElement>();
+                GameUIElement outminus = outGauge[i].transform.Find("minus").GetComponent<GameUIElement>();
 
-                UISprite inbar1 = inGauge[i].transform.Find("bar1").GetComponent<UISprite>();
-                UISprite inbar2 = inGauge[i].transform.Find("bar2").GetComponent<UISprite>();
-                UILabel inLabel = inGauge[i].transform.Find("Label").GetComponent<UILabel>();
-                UILabel inminus = inGauge[i].transform.Find("minus").GetComponent<UILabel>();
+                GameUIElement inbar1 = inGauge[i].transform.Find("bar1").GetComponent<GameUIElement>();
+                GameUIElement inbar2 = inGauge[i].transform.Find("bar2").GetComponent<GameUIElement>();
+                GameUIElement inLabel = inGauge[i].transform.Find("Label").GetComponent<GameUIElement>();
+                GameUIElement inminus = inGauge[i].transform.Find("minus").GetComponent<GameUIElement>();
 
                 outbar2.gameObject.SetActive(false);
                 inbar2.gameObject.SetActive(false);
@@ -619,7 +620,7 @@ namespace BaseBall.BallPlay
             //선수교체 이벤트 호출
             IngameUI.GetChangeEventUI().InitPlayerChangeUI(true, manager, outPlayerCard, inPlayerCard, changeType, index);
 
-            TweenAlpha.Begin(gameObject, 0.2f, 0);
+            GameUITweenAlpha.Begin(gameObject, 0.2f, 0);
             Invoke("deactive2", 0.3f);
         }
 
@@ -657,8 +658,8 @@ namespace BaseBall.BallPlay
         private IEnumerator timer;
         private IEnumerator timerSetting()
         {
-            UILabel timerLabel = timerObj.transform.Find("Label").GetComponent<UILabel>();
-            UISprite timerGauge = timerObj.transform.Find("gauge").GetComponent<UISprite>();
+            GameUIElement timerLabel = timerObj.transform.Find("Label").GetComponent<GameUIElement>();
+            GameUIElement timerGauge = timerObj.transform.Find("gauge").GetComponent<GameUIElement>();
             while (remainTime >= 0)
             {
                 yield return new WaitForEndOfFrame();

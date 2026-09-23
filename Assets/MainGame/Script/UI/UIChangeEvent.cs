@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,12 +9,12 @@ namespace BaseBall.BallPlay
     {
         public GameObject _active;
 
-        public UITexture logoTexture;
-        public UILabel teamLabel;
+        public GameUIElement logoTexture;
+        public GameUIElement teamLabel;
         public UI_CardSmall outPlayer, inPlayer;
         public GameObject arrow;
 
-        public UISprite bg;
+        public GameUIElement bg;
 
         private BallPlayManager manager;
 
@@ -37,7 +38,7 @@ namespace BaseBall.BallPlay
 
             changePlayer(bMyTeam, outPlayerCard, inPlayerCard, changeType, index);
 
-            gameObject.GetComponent<UIPanel>().alpha = 1;
+            gameObject.GetComponent<GameUIPanel>().alpha = 1;
             bg.color = new Color(1, 1, 1, 0);
             _active.SetActive(true);            
             Animator anim = gameObject.GetComponent<Animator>();
@@ -45,7 +46,7 @@ namespace BaseBall.BallPlay
             anim.Rebind();
             anim.Play(Animator.StringToHash("playerchange"));
 
-            TweenAlpha.Begin(bg.gameObject, 1.0f, 1);
+            GameUITweenAlpha.Begin(bg.gameObject, 1.0f, 1);
 
             StartCoroutine(endEvent(changeType));
         }
@@ -63,7 +64,7 @@ namespace BaseBall.BallPlay
                 yield return new WaitForSeconds(0.2f);
             }
 
-            TweenAlpha.Begin(gameObject, 0.4f, 0);
+            GameUITweenAlpha.Begin(gameObject, 0.4f, 0);
             yield return new WaitForSeconds(0.4f);
             manager.returnFromChangeEvent(changeType);
             _active.SetActive(false);

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 namespace BaseBall.BallPlay
 {
@@ -6,19 +7,19 @@ namespace BaseBall.BallPlay
     {
         public GameObject _active;
 
-        public UISprite count;
+        public GameUIElement count;
         public GameObject fielderInfo;
         public GameObject [] outCount;
         public SpriteRenderer changeView;
 
 
         //필더 정보
-        public UISprite logo;
-        public UISprite position;
-        public UILabel playerName;
-        public UILabel overall;
+        public GameUIElement logo;
+        public GameUIElement position;
+        public GameUIElement playerName;
+        public GameUIElement overall;
         public SkillSlot[] slot;
-        public UISprite infoBG1, infoBG2, infoBG3;
+        public GameUIElement infoBG1, infoBG2, infoBG3;
 
         
 
@@ -241,7 +242,7 @@ namespace BaseBall.BallPlay
 
         private IEnumerator changeViewDelay()
         {
-            TweenAlpha.Begin(changeView.gameObject, 0.4f, 0);
+            GameUITweenAlpha.Begin(changeView.gameObject, 0.4f, 0);
             yield return new WaitForSeconds(0.5f);
             changeView.sprite = null;
             changeView.gameObject.SetActive(false);

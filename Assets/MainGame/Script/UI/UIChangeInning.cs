@@ -1,4 +1,5 @@
-﻿//#define _TEST_STATE
+﻿using BaseBall.BallPlay.UGUI;
+//#define _TEST_STATE
 
 using UnityEngine;
 using System.Collections;
@@ -11,10 +12,10 @@ namespace BaseBall.BallPlay
 
         public scoreboard board;
 
-        public UITexture myTeam, cpuTeam;
-        public UISprite myState;
-        public UILabel inning;
-        public UISprite topBottom;
+        public GameUIElement myTeam, cpuTeam;
+        public GameUIElement myState;
+        public GameUIElement inning;
+        public GameUIElement topBottom;
 
         public UI_CardSmall[] playerCard;
 
@@ -104,7 +105,7 @@ namespace BaseBall.BallPlay
                 playerCard[i].SetCardInfo(data);
             }
 #endif           
-            gameObject.GetComponent<UIPanel>().alpha = 1;
+            gameObject.GetComponent<GameUIPanel>().alpha = 1;
             StartCoroutine(active(_active, 3.0f));
 
         }
@@ -117,7 +118,7 @@ namespace BaseBall.BallPlay
             StartCoroutine(arrowDelay());
             yield return new WaitForSeconds(delay);
             StopCoroutine(arrowDelay());
-            TweenAlpha.Begin(gameObject, 0.5f, 0);
+            GameUITweenAlpha.Begin(gameObject, 0.5f, 0);
             yield return new WaitForSeconds(0.5f);
             obj.SetActive(false);
         }
@@ -127,7 +128,7 @@ namespace BaseBall.BallPlay
         {
             StopCoroutine("active");            
             StopCoroutine(arrowDelay());
-            TweenAlpha.Begin(gameObject, 0.5f, 0);
+            GameUITweenAlpha.Begin(gameObject, 0.5f, 0);
             yield return new WaitForSeconds(0.5f);
             obj.SetActive(false);
             if (Mode.gameMode == Mode.GamePlayMode.NineInningTwoOut)
@@ -144,14 +145,14 @@ namespace BaseBall.BallPlay
 
         public GameObject _walkOff;
 
-        public UISprite wLogo;
-        public UILabel wTeamLabel;
-        public UILabel[] wScore;
-        public UISprite wCur;
-        public UILabel wTotalScore;
-        public UILabel wRound;
+        public GameUIElement wLogo;
+        public GameUIElement wTeamLabel;
+        public GameUIElement[] wScore;
+        public GameUIElement wCur;
+        public GameUIElement wTotalScore;
+        public GameUIElement wRound;
         public GameObject wArrow;
-        public UISprite[] wStrike;
+        public GameUIElement[] wStrike;
 
         public UI_CardSmall[] wPlayerCard;
 
@@ -195,7 +196,7 @@ namespace BaseBall.BallPlay
             wTotalScore.text = score.ToString();
             wRound.text = round.ToString();
             bPressPossible = true;
-            gameObject.GetComponent<UIPanel>().alpha = 1;
+            gameObject.GetComponent<GameUIPanel>().alpha = 1;
             StartCoroutine(active(_walkOff, 2.0f));
 
 #if _Test_Local

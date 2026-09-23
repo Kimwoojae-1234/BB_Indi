@@ -1,11 +1,12 @@
+using BaseBall.BallPlay.UGUI;
 using UnityEngine;
 using UnityEngine.Rendering;
 
 public class PlayerCardInfo : MonoBehaviour
 {
-    [SerializeField] UILabel PlayerName;
-    [SerializeField] UITexture Logo;
-    [SerializeField] UITexture pic;
+    [SerializeField] GameUIElement PlayerName;
+    [SerializeField] GameUIElement Logo;
+    [SerializeField] GameUIElement pic;
 
     public void SetInfo(int idx, string name, int logoIndex)
     {

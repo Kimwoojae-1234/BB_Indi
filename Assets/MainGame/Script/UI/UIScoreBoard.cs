@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 
 namespace BaseBall.BallPlay
@@ -9,15 +10,15 @@ namespace BaseBall.BallPlay
         public GameObject _active;
 
         [SerializeField] private IngameScoreboardView uguiView;
-        private UIPanel scoreboardPanel;
+        private GameUIPanel scoreboardPanel;
 
         public IngameScoreboardView UguiView { get { return uguiView; } }
 
         private void Awake()
         {
-            scoreboardPanel = GetComponent<UIPanel>();
+            scoreboardPanel = GetComponent<GameUIPanel>();
             if (uguiView != null)
-                uguiView.displayCanvas.worldCamera = NGUITools.FindCameraForLayer(gameObject.layer);
+                uguiView.displayCanvas.worldCamera = GameUIRoot.FindCameraForLayer(gameObject.layer);
         }
 
         private void LateUpdate()
@@ -60,11 +61,11 @@ namespace BaseBall.BallPlay
 
         //타이머
         public GameObject Timer;
-        public UILabel timerLabel;
-        public UISprite timerGauge;
+        public GameUIElement timerLabel;
+        public GameUIElement timerGauge;
 
         //타자 타이머
-        public UILabel batterTimer;
+        public GameUIElement batterTimer;
 
 
         //연속경기
@@ -119,7 +120,7 @@ namespace BaseBall.BallPlay
        
         public void SetActive(bool bActive, bool bFade = false)
         {
-            UIPanel panel = gameObject.GetComponent<UIPanel>();
+            GameUIPanel panel = gameObject.GetComponent<GameUIPanel>();
 
             if (Mode.gameMode == Mode.GamePlayMode.NineInningTwoOut)
             {
@@ -161,7 +162,7 @@ namespace BaseBall.BallPlay
                     }
                     else
                     {
-                        UITweener tween1 = board.GetComponent<TweenPosition>();
+                        GameUITween tween1 = board.GetComponent<GameUITweenPosition>();
                         tween1.ResetToBeginning();
                         tween1.PlayForward();
                     }
@@ -172,7 +173,7 @@ namespace BaseBall.BallPlay
                     else*/
                     {
                         if (bNoAutoButton == false) autoButton.SetActive(!Mode.bOnlyChanceMode);
-                        UITweener tween2 = topUI.GetComponent<TweenPosition>();
+                        GameUITween tween2 = topUI.GetComponent<GameUITweenPosition>();
                         tween2.ResetToBeginning();
                         tween2.PlayForward();
                     }
@@ -200,7 +201,7 @@ namespace BaseBall.BallPlay
             }
         }
 
-        private IEnumerator fadeOut(UIPanel panel)
+        private IEnumerator fadeOut(GameUIPanel panel)
         {
             float alpha = 1;
             while (true)
@@ -395,7 +396,7 @@ namespace BaseBall.BallPlay
                         {
                             bTimerActive = false;
                             StopCoroutine(timerSetting);
-                            TweenPosition.Begin(Timer, 0.2f, new Vector3(0, (155*1.5f), 0));
+                            GameUITweenPosition.Begin(Timer, 0.2f, new Vector3(0, (155*1.5f), 0));
                         }
                     }
                 }
@@ -409,7 +410,7 @@ namespace BaseBall.BallPlay
         private IEnumerator timerStart()
         {
             manager.pitcher.bPitchTimerOn = false;
-            TweenPosition.Begin(Timer, 0.2f, new Vector3(0, 88, 0));
+            GameUITweenPosition.Begin(Timer, 0.2f, new Vector3(0, 88, 0));
             yield return new WaitForSeconds(0.2f);
 
             float curTime = 8.0f;
@@ -423,7 +424,7 @@ namespace BaseBall.BallPlay
                 yield return new WaitForEndOfFrame();
             }
 
-            TweenPosition.Begin(Timer, 0.2f, new Vector3(0, 155*1.5f, 0));
+            GameUITweenPosition.Begin(Timer, 0.2f, new Vector3(0, 155*1.5f, 0));
 
             if (manager.bMyTurn == false)
             {

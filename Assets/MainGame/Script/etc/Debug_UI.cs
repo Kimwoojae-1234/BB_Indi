@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 namespace BaseBall.BallPlay
 {
@@ -6,15 +7,15 @@ namespace BaseBall.BallPlay
     {
         static Debug_UI Instance_;
 
-        public UILabel fpsLabel;
+        public GameUIElement fpsLabel;
 
-        public UILabel Round, Notice;
+        public GameUIElement Round, Notice;
 
         public GameObject Loading;
         public GameObject Network;
 
-        public UILabel [] pitcherProp;
-        public UILabel [] batterProp;
+        public GameUIElement [] pitcherProp;
+        public GameUIElement [] batterProp;
 
         
         void Awake()

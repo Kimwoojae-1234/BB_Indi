@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 
 namespace BaseBall.BallPlay
@@ -605,7 +606,7 @@ namespace BaseBall.BallPlay
             
 
             ballObjSpr.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
-            TweenScale.Begin(ballObjSpr, perfectTime, new Vector3(1.6f, 1.6f, 1.6f));
+            GameUITweenScale.Begin(ballObjSpr, perfectTime, new Vector3(1.6f, 1.6f, 1.6f));
             StartCoroutine(setTailing());
         }
 

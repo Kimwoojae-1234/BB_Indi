@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 
 namespace BaseBall.BallPlay
@@ -30,7 +31,7 @@ namespace BaseBall.BallPlay
         private bool bInitMotion = false;
         public void SetActive(bool bActive, bool bFade = false, bool bNewPitcher = false)
         {
-            UIPanel panel = GetComponent<UIPanel>();
+            GameUIPanel panel = GetComponent<GameUIPanel>();
 
             if (bActive == true)
             {
@@ -137,7 +138,7 @@ namespace BaseBall.BallPlay
 
         public void Active()
         {
-            gameObject.GetComponent<UIPanel>().alpha = 1.0f;
+            gameObject.GetComponent<GameUIPanel>().alpha = 1.0f;
             _active.SetActive(true);
 
             //버프 UI
@@ -175,9 +176,9 @@ namespace BaseBall.BallPlay
         /// </summary>
         /// <param name="panel"></param>
         /// <returns></returns>
-        private IEnumerator deActive(UIPanel panel)
+        private IEnumerator deActive(GameUIPanel panel)
         {
-            TweenAlpha.Begin(gameObject, 0.5f, 0);
+            GameUITweenAlpha.Begin(gameObject, 0.5f, 0);
             yield return new WaitForSeconds(0.6f);
             _active.SetActive(false);
         }

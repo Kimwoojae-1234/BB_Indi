@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 namespace BaseBall.BallPlay
 {
@@ -351,7 +352,7 @@ namespace BaseBall.BallPlay
                 if (value == UserControlValue.Miss)
                 {
                     missSpr.gameObject.SetActive(true);
-                    UITweener tween = missSpr.GetComponent<UITweener>();
+                    GameUITween tween = missSpr.GetComponent<GameUITween>();
                     tween.ResetToBeginning();
                     tween.PlayForward();
                 }

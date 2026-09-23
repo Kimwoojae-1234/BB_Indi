@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using WebConnector;
@@ -29,8 +30,8 @@ namespace BaseBall.BallPlay
         //아웃게임 메니저
         private GameObject Managers;
         const int MAX_GAUGE = 796;
-        public UITexture texture;
-        public UISprite gauge;//, ball;        
+        public GameUIElement texture;
+        public GameUIElement gauge;//, ball;
         float lastCounter;
         int tipIndex, lastIndex;
 
@@ -179,7 +180,7 @@ namespace BaseBall.BallPlay
 
             _active.gameObject.SetActive(true);
 
-            TweenAlpha.Begin(gameObject, 0.5f, 1);
+            GameUITweenAlpha.Begin(gameObject, 0.5f, 1);
 
             if (IsLoadGame == false)
             {

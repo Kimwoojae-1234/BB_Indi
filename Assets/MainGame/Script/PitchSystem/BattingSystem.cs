@@ -1,4 +1,5 @@
-﻿//#define _Test_BattingSystem
+﻿using BaseBall.BallPlay.UGUI;
+//#define _Test_BattingSystem
 
 using UnityEngine;
 using System.Collections;
@@ -471,7 +472,7 @@ namespace BaseBall.BallPlay
             if (bHitGood == true)
             {
                 manager.battingview.justmeet.transform.localPosition = new Vector3(0, 474 + mainCameraPositionY, -0.5f);
-                TweenPosition.Begin(manager.battingview.justmeet.gameObject, rotateTime, new Vector3(mainCameraPositionX * 1.5f, 474 + mainCameraPositionY, -0.5f));
+                GameUITweenPosition.Begin(manager.battingview.justmeet.gameObject, rotateTime, new Vector3(mainCameraPositionX * 1.5f, 474 + mainCameraPositionY, -0.5f));
 
                 if (bLowAngle == true)
                 {

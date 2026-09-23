@@ -4,6 +4,7 @@
 #define _NOT_YET_GROUNDERVIEW   //아직냅둬 그라운더뷰 완성안됨
 //#define _WILD_PITCH_TEST
 
+using BaseBall.BallPlay.UGUI;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -4771,7 +4772,7 @@ namespace BaseBall.BallPlay
                 icon.scale = new Vector3(nSign*0.8f, 0.8f, 1);
                 icon.transform.localPosition = new Vector3(90, 137, -0.1f);
             }            
-            UITweener tween = icon.GetComponent<UITweener>();
+            GameUITween tween = icon.GetComponent<GameUITween>();
             tween.ResetToBeginning();
             tween.PlayForward();
             yield return new WaitForSeconds(0.5f);

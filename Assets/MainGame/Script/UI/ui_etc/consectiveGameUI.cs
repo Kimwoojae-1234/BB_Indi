@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace BaseBall.BallPlay
         public void Init()
         {
             transform.localScale = Vector3.one;
-            transform.Find("Label").GetComponent<UILabel>().text = (11 - Mode.ConsecutiveNum) + "/10";
+            transform.Find("Label").GetComponent<GameUIElement>().text = (11 - Mode.ConsecutiveNum) + "/10";
         }
 
         public void setConsectiveQuit()

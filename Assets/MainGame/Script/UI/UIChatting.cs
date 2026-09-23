@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Spine.Unity;
@@ -91,7 +92,7 @@ namespace BaseBall.BallPlay
 
         private void resetTimer()
         {
-            setBlend(origin.GetComponent<UIPanel>(), 1.0f);
+            setBlend(origin.GetComponent<GameUIPanel>(), 1.0f);
             if (checkTime != null) StopCoroutine(checkTime);
             checkTime = setCheckTime();
             StartCoroutine(checkTime);
@@ -110,7 +111,7 @@ namespace BaseBall.BallPlay
                     resetTimer();
                 }
 
-                UITweener tween = obj.transform.Find("light").GetComponent<UITweener>();
+                GameUITween tween = obj.transform.Find("light").GetComponent<GameUITween>();
                 tween.gameObject.SetActive(true);
                 tween.ResetToBeginning();
                 tween.PlayForward();
@@ -170,7 +171,7 @@ namespace BaseBall.BallPlay
             bAlphBlend = false;
             /*yield return new WaitForSeconds(3.0f);
             bAlphBlend = true;
-            UIPanel panel = origin.GetComponent<UIPanel>();
+            GameUIPanel panel = origin.GetComponent<GameUIPanel>();
 
             float alpha = 1.0f;
             while (alpha > 0.65f)
@@ -188,7 +189,7 @@ namespace BaseBall.BallPlay
         }
 
 
-        private void setBlend(UIPanel panel, float alpha)
+        private void setBlend(GameUIPanel panel, float alpha)
         {
             panel.alpha = alpha;
             for(int i = 0; i < button.Length; i++)
@@ -271,7 +272,7 @@ namespace BaseBall.BallPlay
         public void chattingDisable(bool bToggle = false)
         {
             bForceDisable = false;
-            TweenPosition.Begin(origin, 0.2f, new Vector3(0, -500, 0));
+            GameUITweenPosition.Begin(origin, 0.2f, new Vector3(0, -500, 0));
             bChatActive = false;
             bSelectAvailable = false;
             if (bToggle == true)
@@ -303,7 +304,7 @@ namespace BaseBall.BallPlay
 
         public void chattingEnable(bool bToggle = false)
         {            
-            TweenPosition.Begin(origin, 0.2f, new Vector3(0, -360, 0));
+            GameUITweenPosition.Begin(origin, 0.2f, new Vector3(0, -360, 0));
             bChatActive = true;
             bSelectAvailable = true;
             if (bToggle == true)

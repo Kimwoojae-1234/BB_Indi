@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 
 namespace BaseBall.BallPlay
@@ -74,8 +75,8 @@ namespace BaseBall.BallPlay
             effect.gameObject.SetActive(true);            
             effect.alpha = 0;
             effect.transform.localScale = new Vector3(0.3f, 0.3f, 1);
-            TweenAlpha.Begin(effect.gameObject, 0.4f, 1).ResetToBeginning();
-            TweenScale.Begin(effect.gameObject, 0.4f, new Vector3(0.87f, 0.87f, 1)).ResetToBeginning();
+            GameUITweenAlpha.Begin(effect.gameObject, 0.4f, 1).ResetToBeginning();
+            GameUITweenScale.Begin(effect.gameObject, 0.4f, new Vector3(0.87f, 0.87f, 1)).ResetToBeginning();
             yield return new WaitForSeconds(0.4f);
             effect.gameObject.SetActive(false);
         }
@@ -95,9 +96,9 @@ namespace BaseBall.BallPlay
         private IEnumerator setPosition(int type)
         {
             yield return new WaitForSeconds(type * 0.1f);
-            TweenPosition.Begin(gameObject, 0.2f, new Vector3((20 * type) - 50, (66 * type), 0));
+            GameUITweenPosition.Begin(gameObject, 0.2f, new Vector3((20 * type) - 50, (66 * type), 0));
             yield return new WaitForSeconds(0.2f);
-            TweenPosition.Begin(gameObject, 0.1f, new Vector3((20 * type), (66 * type), 0));
+            GameUITweenPosition.Begin(gameObject, 0.1f, new Vector3((20 * type), (66 * type), 0));
         }
 
 
@@ -112,9 +113,9 @@ namespace BaseBall.BallPlay
             {
                 yield return new WaitForSeconds(type * 0.05f);
             }
-            TweenPosition.Begin(gameObject, 0.1f, new Vector3((20 * type) - 50, (66 * type), 0));
+            GameUITweenPosition.Begin(gameObject, 0.1f, new Vector3((20 * type) - 50, (66 * type), 0));
             yield return new WaitForSeconds(0.1f);
-            TweenPosition.Begin(gameObject, 0.2f, new Vector3((20 * type) + 500, (66 * type), 0));
+            GameUITweenPosition.Begin(gameObject, 0.2f, new Vector3((20 * type) + 500, (66 * type), 0));
             
         }
 

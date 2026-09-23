@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 
 namespace BaseBall.BallPlay
@@ -6,9 +7,9 @@ namespace BaseBall.BallPlay
     public class zoneTrace : MonoBehaviour
     {
 
-        public UISprite grade, gradeWhite;
-        public UISprite circle;
-        public UISprite call;
+        public GameUIElement grade, gradeWhite;
+        public GameUIElement circle;
+        public GameUIElement call;
 
         // Use this for initialization
         void Start()
@@ -61,7 +62,7 @@ namespace BaseBall.BallPlay
             }
         }
 
-        private void setSprite(UISprite spr, string name)
+        private void setSprite(GameUIElement spr, string name)
         {
             spr.spriteName = name;
             spr.MakePixelPerfect();

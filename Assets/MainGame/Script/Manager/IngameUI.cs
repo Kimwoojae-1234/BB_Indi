@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ namespace BaseBall.BallPlay
 {
     public class IngameUI : MonoBehaviour
     {
-        public UIPanel mainPanel;
+        public GameUIPanel mainPanel;
 
         /// <summary>
         /// 스코어보드 객체

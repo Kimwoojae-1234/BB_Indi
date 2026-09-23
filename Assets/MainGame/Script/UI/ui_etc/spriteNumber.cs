@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 
 namespace BaseBall.BallPlay
 {
     public class spriteNumber : MonoBehaviour
     {
-        public UISprite [] num;
+        public GameUIElement [] num;
 
 
         protected int gabX;

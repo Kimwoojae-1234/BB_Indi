@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 
 namespace BaseBall.BallPlay
@@ -7,11 +8,11 @@ namespace BaseBall.BallPlay
     {
         public GameObject _active;
         
-        public UISprite callSpr;
-        //public UILabel ballType;
+        public GameUIElement callSpr;
+        //public GameUIElement ballType;
         public GameObject stateBG;
-        public UILabel ballSpeed;
-        public UILabel swingComment;
+        public GameUIElement ballSpeed;
+        public GameUIElement swingComment;
 
 
         private bool bPview;
@@ -91,7 +92,7 @@ namespace BaseBall.BallPlay
             if (type == 0) ballSpeed.text = "[FFEA00]Fastball[-]   " + spd + "km";
             else ballSpeed.text = "[FFEA00]" + ballName[type - 1] + "[-]   " + spd + "km";
 
-            UISprite bg = stateBG.GetComponent<UISprite>();
+            GameUIElement bg = stateBG.GetComponent<GameUIElement>();
             bg.spriteName = (bPview ? "call_bg_p" : "call_bg");
             bg.MakePixelPerfect();
 
@@ -148,7 +149,7 @@ namespace BaseBall.BallPlay
 
             yield return new WaitForSeconds(0.3f);
 
-            UIWidget bg = stateBG.GetComponent<UIWidget>();
+            GameUIElement bg = stateBG.GetComponent<GameUIElement>();
            
             bg.alpha = 1.0f;
             stateBG.SetActive(true);

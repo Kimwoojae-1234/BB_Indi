@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace BaseBall.BallPlay
@@ -10,10 +11,10 @@ namespace BaseBall.BallPlay
         public GameObject [] teamObj;
         public GameObject cur;
 
-        private UISprite[] logo = new UISprite[2];
-        private UILabel[] teamName = new UILabel[2];
-        private UILabel[,] score = new UILabel[2,MAX_INNNG];
-        private UILabel[,] stat = new UILabel[2, 3];
+        private GameUIElement[] logo = new GameUIElement[2];
+        private GameUIElement[] teamName = new GameUIElement[2];
+        private GameUIElement[,] score = new GameUIElement[2,MAX_INNNG];
+        private GameUIElement[,] stat = new GameUIElement[2, 3];
         private GameObject[] indicator = new GameObject[2];
 
         
@@ -22,13 +23,13 @@ namespace BaseBall.BallPlay
             int count = 0;
             for (int i = 0; i < 2; i++)
             {
-                logo[i] = teamObj[i].transform.Find("logo").GetComponent<UISprite>();
-                teamName[i] = teamObj[i].transform.Find("teamLabel").GetComponent<UILabel>();
+                logo[i] = teamObj[i].transform.Find("logo").GetComponent<GameUIElement>();
+                teamName[i] = teamObj[i].transform.Find("teamLabel").GetComponent<GameUIElement>();
                 count = 0;
                 Transform scoreTrans = teamObj[i].transform.Find("score");
                 foreach (Transform s in scoreTrans)
                 {
-                    UILabel label = s.GetComponent<UILabel>();
+                    GameUIElement label = s.GetComponent<GameUIElement>();
                     if (label != null)
                     {
                         score[i, count] = label;
@@ -39,7 +40,7 @@ namespace BaseBall.BallPlay
                 Transform statTrans = teamObj[i].transform.Find("stat");
                 foreach (Transform s in statTrans)
                 {
-                    UILabel label = s.GetComponent<UILabel>();
+                    GameUIElement label = s.GetComponent<GameUIElement>();
                     if (label != null)
                     {
                         stat[i, count] = label;

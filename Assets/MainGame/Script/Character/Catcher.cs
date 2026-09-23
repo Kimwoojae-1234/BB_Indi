@@ -1,4 +1,5 @@
-﻿//#define _NO_TEXTURE_LOADING       //지워지워
+﻿using BaseBall.BallPlay.UGUI;
+//#define _NO_TEXTURE_LOADING       //지워지워
 
 using UnityEngine;
 using System.Collections;
@@ -319,13 +320,13 @@ namespace BaseBall.BallPlay
             catcherAnim2(ani, false); //catcherAnim(2, "CATCH_BODY_IMG_7", false);
            
             //왼팔 움직임
-            TweenPosition.Begin(leftArmPos.gameObject, 0.167f, newPos);
+            GameUITweenPosition.Begin(leftArmPos.gameObject, 0.167f, newPos);
 
             //글러브 중점움직임
             float dstX = Mathf.Clamp(pitcher.zoneUI.curX - gabX, -40, 40);
             float dstY = Mathf.Clamp(pitcher.zoneUI.curY, -40, 40);
             Vector3 nextGlovePos = new Vector3(dstX, dstY, 0);
-            TweenPosition.Begin(glove.gameObject, 0.167f, nextGlovePos);
+            GameUITweenPosition.Begin(glove.gameObject, 0.167f, nextGlovePos);
             
             form = nextForm;
             yield return new WaitForSeconds(0.167f);
@@ -423,7 +424,7 @@ namespace BaseBall.BallPlay
 
             chageCatcherForm(aimX, aimY);//, false);
             
-            TweenPosition.Begin(glove.gameObject, 0.2f, new Vector3(aimX, aimY, 0));
+            GameUITweenPosition.Begin(glove.gameObject, 0.2f, new Vector3(aimX, aimY, 0));
         }
 
         /// <summary>
