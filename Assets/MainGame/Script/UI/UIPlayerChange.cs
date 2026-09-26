@@ -583,9 +583,9 @@ namespace BaseBall.BallPlay
             else
             {
                 //일반 모드에서는 팝업을 띄워줌
-                string message = "선수를 교체 하시겠습니까?"; //포지션이 맞는 경우
-                if (inPlayerCard.getPosition() != outPlayerCard.getCurPos()) message = "포지션이 맞지 않습니다.\n정말 교체 하시겠습니까?"; //포지션이 맞지 않는경우
-                IngameUI.SetConfirmPopupTwobutton("타이틀", message, this.changePlayerEvent, IngameUI.ClosePopup);
+                string message = L10n.T("UI.Label.SubstituteThisPlayer"); //포지션이 맞는 경우
+                if (inPlayerCard.getPosition() != outPlayerCard.getCurPos()) message = L10n.T("UI.Message.ThisPlayersPositionDoesNotMatchSubstituteAnyway"); //포지션이 맞지 않는경우
+                IngameUI.SetConfirmPopupTwobutton(L10n.T("UI.Label.PlayerSubstitution"), message, this.changePlayerEvent, IngameUI.ClosePopup);
             }
         }
 
@@ -664,11 +664,11 @@ namespace BaseBall.BallPlay
             {
                 yield return new WaitForEndOfFrame();
                 remainTime -= Time.deltaTime;
-                timerLabel.text = "[000000]TIMER   [FF0000]" + string.Format("{0:F2}", remainTime); 
+                L10n.SetText(timerLabel, "UI.Format.TimerValue", string.Format("{0:F2}", remainTime));
                 int w = (int)(285 * remainTime / 10.00f);
                 timerGauge.SetDimensions(w, 6);
             }
-            timerLabel.text =  "[000000]TIMER   [FF0000]0.00";
+            L10n.SetText(timerLabel, "UI.Label.Timer000");
             deactive();
         }
 

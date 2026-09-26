@@ -2694,7 +2694,7 @@ namespace BaseBall.BallPlay
             if ((outFlag & _DP_FLAG) == _DP_FLAG)
             {
                 ////UnityEngine.//Debug.Log("==============>>병살");
-                strBatterResult = strFieldOutType + " 병살";
+                strBatterResult = L10n.F("UI.Format.ValueDoublePlay", strFieldOutType);
                 nDPCount[offenseIndex]++;
                 addBatterRecord(Param.ST_DP);  //병살
                 //setAp(-2, offenseIndex);
@@ -2712,9 +2712,9 @@ namespace BaseBall.BallPlay
 
                 if ((outFlag & _SO_FLAG) == _SO_FLAG)
                 {
-                    strBatterResult = "삼진 아웃";
+                    strBatterResult = L10n.T("Baseball.Result.Strikeout.Ballplaymanager");
                     addBatterRecord(Param.ST_SO);  //삼진
-                    batter.pBatter.setResultStr("삼진");
+                    batter.pBatter.setResultStr(L10n.T("Baseball.Result.Strikeout"));
                     //setAp(-2, offenseIndex);
                 }
                 else
@@ -2722,8 +2722,8 @@ namespace BaseBall.BallPlay
                     if (batter.buntSuccess != SimulBuntType.NONE)
                     {
                         addBatterRecord(Param.ST_AB, -1);     //타자 타석 - 희생시 다시 뺴줄것
-                        strBatterResult = (batter.buntSuccess == SimulBuntType.SQUEEZE ? "스퀴즈 번트" : "희생 번트");
-                        batter.pBatter.setResultStr("희생");
+                        strBatterResult = (batter.buntSuccess == SimulBuntType.SQUEEZE ? L10n.T("UI.Label.SqueezeBunt") : L10n.T("UI.Label.SacrificeBunt"));
+                        batter.pBatter.setResultStr(L10n.T("UI.Label.Sacrifice"));
                         batter.buntSuccess = SimulBuntType.NONE;                        
                     }
                     else
@@ -2731,14 +2731,14 @@ namespace BaseBall.BallPlay
                         if (batter.bSacFly == true)
                         {
                             addBatterRecord(Param.ST_AB, -1);     //타자 타석 - 희생시 다시 뺴줄것
-                            strBatterResult = "희생플라이";
-                            batter.pBatter.setResultStr("희생");
+                            strBatterResult = L10n.T("UI.Label.SacrificeFly");
+                            batter.pBatter.setResultStr(L10n.T("UI.Label.Sacrifice"));
                             batter.bSacFly = false;
                         }
                         else
                         {
-                            strBatterResult = strFieldOutType + " 아웃"; 
-                            batter.pBatter.setResultStr(field.bOutByFlyball?"뜬공":"땅볼");
+                            strBatterResult = L10n.F("UI.Format.ValueOut", strFieldOutType);
+                            batter.pBatter.setResultStr(field.bOutByFlyball?L10n.T("UI.Label.Flyout"):L10n.T("UI.Label.Groundout.Ballplaymanager"));
                         }
                     }
                 }
@@ -2798,12 +2798,12 @@ namespace BaseBall.BallPlay
             addPitcherRecord(Param.ST_PSO);  //삼진
             //setAp(2, defenseIndex);
             addBatterRecord(Param.ST_SO);  //삼진
-            batter.pBatter.setResultStr("삼진");
+            batter.pBatter.setResultStr(L10n.T("Baseball.Result.Strikeout"));
             //setAp(-2, offenseIndex);
 
             if (bNotOut == false)
             {
-                strBatterResult = "삼진 아웃";
+                strBatterResult = L10n.T("Baseball.Result.Strikeout.Ballplaymanager");
                 addPitcherRecord(Param.ST_IP);  //이닝 카운트
 
                 nOutCount++;
@@ -2827,8 +2827,8 @@ namespace BaseBall.BallPlay
             //////UnityEngine.//Debug.Log("=========================================>>nOutCount = " + nOutCount);
             if (nOutCount > newOutCount)
             {
-                strBatterResult = strFieldOutType+" (야수선택)";
-                batter.pBatter.setResultStr(field.bOutByFlyball ? "뜬공" : "땅볼");
+                strBatterResult = L10n.F("UI.Format.ValueFieldersChoice", strFieldOutType);
+                batter.pBatter.setResultStr(field.bOutByFlyball ? L10n.T("UI.Label.Flyout") : L10n.T("UI.Label.Groundout.Ballplaymanager"));
                 newOutCount = nOutCount;
                 return;
             }
@@ -2856,27 +2856,27 @@ namespace BaseBall.BallPlay
                 //장타 증가
                 if (currentBase == FieldParm.SECONDBASE_INDEX)
                 {
-                    strBatterResult = strHitType2 + " 2루타";
+                    strBatterResult = L10n.F("UI.Format.ValueDouble", strHitType2);
                     addPitcherRecord(Param.ST_P2B); //투수 피2루타 증가
                     addBatterRecord(Param.ST_2B);   //타자 2루타 증가
-                    batter.pBatter.setResultStr("2루타");
+                    batter.pBatter.setResultStr(L10n.T("Baseball.Result.Double"));
                     //setAp(3, offenseIndex);
                 }
                 else if (currentBase == FieldParm.THIRDBASE_INDEX)
                 {
-                    strBatterResult = strHitType2 + " 3루타";
+                    strBatterResult = L10n.F("UI.Format.ValueTriple", strHitType2);
                     addPitcherRecord(Param.ST_P3B); //투수 피3루타 증가
                     addBatterRecord(Param.ST_3B);   //타자 3루타 증가
-                    batter.pBatter.setResultStr("3루타");
+                    batter.pBatter.setResultStr(L10n.T("Baseball.Result.Triple"));
                     //setAp(5, offenseIndex);
                 }
                 else if (currentBase == FieldParm.HOMEBASE_INDEX)
                 {
-                    strBatterResult = strHitType2 + " 홈런";
+                    strBatterResult = L10n.F("UI.Format.ValueHomeRun", strHitType2);
                     pitcher.conHR++;
                     addPitcherRecord(Param.ST_PHR); //투수 피홈런 증가
                     addBatterRecord(Param.ST_HR);   //타자 홈런 증가
-                    batter.pBatter.setResultStr("홈런");
+                    batter.pBatter.setResultStr(L10n.T("Baseball.Result.HomeRun"));
                     //setAp(7, offenseIndex);
                     //setAp(-3, defenseIndex);
                     displayEffectType = 0;
@@ -2884,8 +2884,8 @@ namespace BaseBall.BallPlay
             }
             else
             {
-                strBatterResult = strHitType+" 안타";
-                batter.pBatter.setResultStr("안타");
+                strBatterResult = L10n.F("UI.Format.ValueHit", strHitType);
+                batter.pBatter.setResultStr(L10n.T("Baseball.Stat.HitsShort.Ballplay"));
                 //setAp(2, offenseIndex);
             }
 
@@ -2904,18 +2904,18 @@ namespace BaseBall.BallPlay
             //BB 혹은 HBP증가
             if (bHitByPitch == false)
             {
-                strBatterResult = "베이스 온 볼";
+                strBatterResult = L10n.T("Baseball.Result.Walk");
                 addPitcherRecord(Param.ST_PBB); //투수 포볼 증가
                 addBatterRecord(Param.ST_BB);   //타자 포볼 증가
-                batter.pBatter.setResultStr("포볼");
+                batter.pBatter.setResultStr(L10n.T("Baseball.Result.Walk.Ballplaymanager"));
                 displayEffectType = 2;
             }
             else
             {
-                strBatterResult = "몸에 맞는 볼";
+                strBatterResult = L10n.T("UI.Label.HitByPitch.Ballplaymanager");
                 addPitcherRecord(Param.ST_PHBP); //투수 힛바이피치 증가
                 addBatterRecord(Param.ST_HBP);   //타자 힛바이피치 증가
-                batter.pBatter.setResultStr("사구");
+                batter.pBatter.setResultStr(L10n.T("UI.Label.HitByPitch"));
             }
             addBatterRecord(Param.ST_AB, -1);     //타자 타석 증가 - 포볼시 다시 뺴줄것
 
@@ -2934,8 +2934,8 @@ namespace BaseBall.BallPlay
 
             if (bOneHitOneError == false)
             {
-                strBatterResult = "에러로 출루";
-                batter.pBatter.setResultStr("에러");                
+                strBatterResult = L10n.T("UI.Label.ReachedOnError");
+                batter.pBatter.setResultStr(L10n.T("UI.Label.Error"));
             }
             int eIndex = field.nErrorFielder;
             addFielderRecord(Param.ST_E, eIndex);

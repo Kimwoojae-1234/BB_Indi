@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5037472799816590330}
   - component: {fileID: 9139849298058800364}
   - component: {fileID: 8944139647798640794}
+  - component: {fileID: 6141568765533053765}
   m_Layer: 5
   m_Name: Text_Value
   m_TagString: Untagged
@@ -146,6 +147,7 @@ GameObject:
   - component: {fileID: 1637713952356943173}
   - component: {fileID: 6794837533284768643}
   - component: {fileID: 7302280545488551833}
+  - component: {fileID: 4162282251397979061}
   m_Layer: 5
   m_Name: Text_Type
   m_TagString: Untagged
@@ -5318,3 +5320,41 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6141568765533053765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 847819948216818409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.X20.Uppercase
+  sourceText: X 20
+  tmp: {fileID: 8944139647798640794}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &4162282251397979061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4089540554501692032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.GameToken
+  sourceText: GAME TOKEN
+  tmp: {fileID: 7302280545488551833}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

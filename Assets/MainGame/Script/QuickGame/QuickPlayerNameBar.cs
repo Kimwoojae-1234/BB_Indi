@@ -50,7 +50,7 @@ namespace BaseBall.BallPlay
 
             if (bOffense == true)
             {
-                num.text = string.Format("No.{0}", (player.getOrder() + 1));
+                num.text = L10n.F("UI.Format.NoValue", (player.getOrder() + 1));
             }
             else
             {
@@ -97,11 +97,11 @@ namespace BaseBall.BallPlay
         {
             bool bActive = true;
 
-            if (result == SimulResultState.FourBall) resultLabel.text = "BB";
-            else if (result == SimulResultState.Single || result == SimulResultState.SingleOneError || result == SimulResultState.InfieldSingle || result == SimulResultState.BuntSingle) resultLabel.text = "HIT";
-            else if (result == SimulResultState.Double || result == SimulResultState.DoubleOneError) resultLabel.text = "Double";
-            else if (result == SimulResultState.Triple || result == SimulResultState.TripleOneError) resultLabel.text = "Triple";
-            else if (result == SimulResultState.HomeRun) resultLabel.text = "HR";
+            if (result == SimulResultState.FourBall) L10n.SetText(resultLabel, "Baseball.Stat.WalksAbbreviation");
+            else if (result == SimulResultState.Single || result == SimulResultState.SingleOneError || result == SimulResultState.InfieldSingle || result == SimulResultState.BuntSingle) L10n.SetText(resultLabel, "Baseball.Stat.HitsShort");
+            else if (result == SimulResultState.Double || result == SimulResultState.DoubleOneError) L10n.SetText(resultLabel, "Baseball.Result.Double");
+            else if (result == SimulResultState.Triple || result == SimulResultState.TripleOneError) L10n.SetText(resultLabel, "Baseball.Result.Triple");
+            else if (result == SimulResultState.HomeRun) L10n.SetText(resultLabel, "Baseball.Stat.HomeRunsAbbreviation");
             else bActive = false;
 
             if (!showPresentation)

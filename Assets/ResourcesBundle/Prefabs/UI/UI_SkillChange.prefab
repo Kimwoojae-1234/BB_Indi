@@ -5199,6 +5199,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4063535424910392}
   - component: {fileID: 9145421749410279714}
+  - component: {fileID: 903485232748747804}
   m_Layer: 5
   m_Name: haveTrophycount
   m_TagString: Untagged
@@ -7926,6 +7927,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4836640088932488}
   - component: {fileID: 7934061411971444805}
+  - component: {fileID: 7919230220724877959}
   m_Layer: 5
   m_Name: scope_rate
   m_TagString: Untagged
@@ -9383,6 +9385,7 @@ GameObject:
   - component: {fileID: 4623231155704690}
   - component: {fileID: 1388687428268306032}
   - component: {fileID: 8427535313543175034}
+  - component: {fileID: 6725977501358328251}
   m_Layer: 5
   m_Name: desc_label
   m_TagString: Untagged
@@ -10028,6 +10031,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4248324793430128}
   - component: {fileID: 7016772267764847760}
+  - component: {fileID: 7696779056920978795}
   m_Layer: 5
   m_Name: skillName_label
   m_TagString: Untagged
@@ -13300,3 +13304,79 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85167597ccbf486cb16fffcb53693afe, type: 3}
   m_Name: ''
   m_EditorClassIdentifier: ''
+--- !u!114 &903485232748747804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192002739191854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.0
+  sourceText: "0\uAC1C"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 9145421749410279714}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &6725977501358328251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454439962927486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.AsAStackingSkill
+  sourceText: "\uC2A4\uD14D\uD615 \uC2A4\uD0AC\uB85C"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 1388687428268306032}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &7696779056920978795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499929025271646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.SuperstarSlugger
+  sourceText: "\uC288\uD37C\uC2A4\uD0C0\uBD88\uBC29\uB9DD\uC774"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 7016772267764847760}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &7919230220724877959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733463149627674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.PitchQuality24
+  sourceText: "\uAD6C\uC9C8 : -2/-4"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 7934061411971444805}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

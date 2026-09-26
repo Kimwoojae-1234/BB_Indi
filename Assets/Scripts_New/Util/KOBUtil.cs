@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 public static class KOBUtil 
 {
@@ -98,15 +98,15 @@ public static class KOBUtil
         string _id = string.Empty;
         if (hand == KOBHand.Left)
         {
-            return "Lefty";
+            return L10n.T("UI.Label.Lefty");
         }
         else if (hand == KOBHand.Right)
         {
-            return "Righty";
+            return L10n.T("UI.Label.Righty");
         }
         else
         {
-            return "Switch";
+            return L10n.T("UI.Label.Switch");
         }
 
         //return KOBManager.Localization.GetUILocalizedValue2(_id);
@@ -117,55 +117,55 @@ public static class KOBUtil
         
         if (pos == KOBPosition.Pitcher)
         {
-            return "P";
+            return L10n.T("UI.Label.P");
         }
         else if (pos == KOBPosition.Catcher)
         {
-            return "C";
+            return L10n.T("UI.Label.C");
         }
         else if (pos == KOBPosition.First)
         {
-            return "1B";
+            return L10n.T("Baseball.Position.FirstBaseAbbreviation");
         }
         else if (pos == KOBPosition.Second)
         {
-            return "2B";
+            return L10n.T("Baseball.Position.SecondBaseAbbreviation");
         }
         else if (pos == KOBPosition.Third)
         {
-            return "3B";
+            return L10n.T("Baseball.Position.ThirdBaseAbbreviation");
         }
         else if (pos == KOBPosition.Short)
         {
-            return "SS";
+            return L10n.T("Baseball.Position.ShortstopAbbreviation");
         }
         else if (pos == KOBPosition.Left)
         {
-            return "LF";
+            return L10n.T("Baseball.Position.LeftFieldAbbreviation");
         }
         else if (pos == KOBPosition.Center)
         {
-            return "CF";
+            return L10n.T("Baseball.Position.CenterFieldAbbreviation");
         }
         else if (pos == KOBPosition.Right)
         {
-            return "RF";
+            return L10n.T("Baseball.Position.RightFieldAbbreviation");
         }
         else if (pos == KOBPosition.DH)
         {
-            return "RF";
+            return L10n.T("Baseball.Position.RightFieldAbbreviation");
         }
         else if (pos == KOBPosition.InfieldUtil)
         {
-            return "IF";
+            return L10n.T("UI.Label.If");
         }
         else if (pos == KOBPosition.OutfieldUtil)
         {
-            return "OF";
+            return L10n.T("UI.Label.Of");
         }
         else
         {
-            return "ALL";
+            return L10n.T("UI.Label.All.Uppercase");
         }
     }
 
@@ -175,55 +175,55 @@ public static class KOBUtil
 
         if (pos == KOBPosition.Pitcher)
         {
-            return "Pitcher";
+            return L10n.T("Baseball.Position.Pitcher");
         }
         else if (pos == KOBPosition.Catcher)
         {
-            return "Catcher";
+            return L10n.T("Baseball.Position.Catcher");
         }
         else if (pos == KOBPosition.First)
         {
-            return "First baseman";
+            return L10n.T("UI.Label.FirstBaseman");
         }
         else if (pos == KOBPosition.Second)
         {
-            return "Second baseman";
+            return L10n.T("UI.Label.SecondBaseman");
         }
         else if (pos == KOBPosition.Third)
         {
-            return "Third baseman";
+            return L10n.T("UI.Label.ThirdBaseman");
         }
         else if (pos == KOBPosition.Short)
         {
-            return "Short stop";
+            return L10n.T("UI.Label.ShortStop");
         }
         else if (pos == KOBPosition.Left)
         {
-            return "Left fielder";
+            return L10n.T("UI.Label.LeftFielder");
         }
         else if (pos == KOBPosition.Center)
         {
-            return "Center fielder";
+            return L10n.T("UI.Label.CenterFielder");
         }
         else if (pos == KOBPosition.Right)
         {
-            return "Right fielder";
+            return L10n.T("UI.Label.RightFielder");
         }
         else if (pos == KOBPosition.DH)
         {
-            return "DH";
+            return L10n.T("Baseball.Position.DesignatedHitterAbbreviation");
         }
         else if (pos == KOBPosition.InfieldUtil)
         {
-            return "Infielder";
+            return L10n.T("UI.Label.Infielder");
         }
         else if (pos == KOBPosition.OutfieldUtil)
         {
-            return "Outfielder";
+            return L10n.T("UI.Label.Outfielder");
         }
         else
         {
-            return "All position";
+            return L10n.T("UI.Label.AllPosition");
         }
     }
 
@@ -290,12 +290,12 @@ public static class KOBUtil
 
         if (components.Length > 0)
         {
-            Debug.Log(typeof(T).Name + " ¹ß°ßµÊ: " + components[0].gameObject.name);
+            Debug.Log(typeof(T).Name + " ë°œê²¬ë¨: " + components[0].gameObject.name);
             return components[0];
         }
         else
         {
-            Debug.Log("È°¼ºÈ­µÈ " + typeof(T).Name + "°¡ ¾øÀ½");
+            Debug.Log("í™œì„±í™”ëœ " + typeof(T).Name + "ê°€ ì—†ìŒ");
             return null;
         }
     }

@@ -7531,6 +7531,7 @@ GameObject:
   - component: {fileID: 4718815371573278}
   - component: {fileID: 5966788579755553189}
   - component: {fileID: 5747079290612679139}
+  - component: {fileID: 7360079577121778464}
   m_Layer: 5
   m_Name: desc_label
   m_TagString: Untagged
@@ -26383,6 +26384,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4580381881565572}
   - component: {fileID: 6803908658206289890}
+  - component: {fileID: 6356606307660723268}
   m_Layer: 5
   m_Name: SelectMaterialInfo
   m_TagString: Untagged
@@ -27131,3 +27133,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85167597ccbf486cb16fffcb53693afe, type: 3}
   m_Name: ''
   m_EditorClassIdentifier: ''
+--- !u!114 &6356606307660723268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037972672356702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.SelectMaterialCards1010
+  sourceText: "\uC7AC\uB8CC\uCE74\uB4DC \uC120\uD0DD(10/10)"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 6803908658206289890}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &7360079577121778464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276245539366516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Message.YouCanUseUpTo10MaterialCards
+  sourceText: "\uCD5C\uB300 10\uC7A5\uC758 \uC7AC\uB8CC\uCE74\uB4DC\uB97C \uC801\uC6A9\uD560
+    \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 5966788579755553189}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

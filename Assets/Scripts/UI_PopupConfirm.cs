@@ -146,7 +146,7 @@ public class UI_PopupConfirm : UI_WindowBase
     public void SetPopup_OneBtn(string title, string message, System.Action callBack = null)
     {
         
-        this.SetPopup_OneBtn(title, message, "확인", callBack);
+        this.SetPopup_OneBtn(title, message, L10n.T("Common.Action.OK"), callBack);
     }
 
     public void SetPopup_OneBtn(string title, string message, string text_Btn, System.Action callBack = null)
@@ -175,7 +175,7 @@ public class UI_PopupConfirm : UI_WindowBase
 
     public void SetPopup_TwoBtn(string title, string message, System.Action callBack_Left = null, System.Action callBack_Right = null)
     {
-        this.SetPopup_TwoBtn(title, message, "확인", "취소", callBack_Left, callBack_Right);
+        this.SetPopup_TwoBtn(title, message, L10n.T("Common.Action.OK"), L10n.T("Common.Action.Cancel"), callBack_Left, callBack_Right);
     }
 
     public void SetPopup_TwoBtn(string title, string message, string text_BtnLeft, string text_BtnRight, System.Action callBack_Left = null, System.Action callBack_Right = null)

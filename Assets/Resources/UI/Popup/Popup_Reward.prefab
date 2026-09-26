@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1133122468}
   - component: {fileID: 1133122470}
   - component: {fileID: 1133122469}
+  - component: {fileID: 7836798253384679071}
   m_Layer: 5
   m_Name: Text_Continue
   m_TagString: Untagged
@@ -31570,6 +31571,7 @@ GameObject:
   - component: {fileID: 6350600458987034262}
   - component: {fileID: 6350600458987034248}
   - component: {fileID: 6350600458987034249}
+  - component: {fileID: 343802998544560796}
   m_Layer: 5
   m_Name: Text_Remain
   m_TagString: Untagged
@@ -41518,6 +41520,7 @@ GameObject:
   - component: {fileID: 6350600459134444593}
   - component: {fileID: 6350600459134444595}
   - component: {fileID: 6350600459134444592}
+  - component: {fileID: 3610833248797435896}
   m_Layer: 5
   m_Name: Text_Rewards
   m_TagString: Untagged
@@ -51901,3 +51904,60 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7836798253384679071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133122467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: Common.Action.Confirm
+  sourceText: CONFIRM
+  tmp: {fileID: 1133122469}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &343802998544560796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6350600458987034263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.Remain
+  sourceText: 'REMAIN :'
+  tmp: {fileID: 6350600458987034249}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &3610833248797435896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6350600459134444606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.Rewards
+  sourceText: REWARDS
+  tmp: {fileID: 6350600459134444592}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

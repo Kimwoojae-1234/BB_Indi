@@ -172,7 +172,7 @@ namespace BaseBall.BallPlay
         {
             if (type == BaseRunningType.StealOut || type == BaseRunningType.StealSafe)
             {
-                baseRunningLabel.text = "Steal";
+                L10n.SetText(baseRunningLabel, "UI.Label.Steal.Ballplay");
                 baseRunningLabel.gameObject.SetActive(true);
             }
 
@@ -182,23 +182,23 @@ namespace BaseBall.BallPlay
         {
             if (type == BaseRunningType.PickOffOut)
             {
-                baseRunningLabel.text = "Pick off";
+                L10n.SetText(baseRunningLabel, "UI.Label.PickOff");
             }
             else if (type == BaseRunningType.PickOffSafe)
             {
-                baseRunningLabel.text = "Pick off Fail";
+                L10n.SetText(baseRunningLabel, "UI.Label.PickOffFail");
             }
             else if (type == BaseRunningType.StealOut)
             {
-                baseRunningLabel.text = "Steal Fail";
+                L10n.SetText(baseRunningLabel, "UI.Label.StealFail");
             }
             else if (type == BaseRunningType.StealSafe)
             {
-                baseRunningLabel.text = "Steal Success";
+                L10n.SetText(baseRunningLabel, "UI.Label.StealSuccess");
             }
             else
             {
-                baseRunningLabel.text = "Out";
+                L10n.SetText(baseRunningLabel, "Baseball.Result.Out");
             }
             baseRunningLabel.gameObject.SetActive(true);
         }

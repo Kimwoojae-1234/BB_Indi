@@ -70,8 +70,8 @@ namespace BaseBall.BallPlay
             cpuScoreAlpha.init("score_", 0, 24);
 
 #if _TEST_STATE
-            myTeamName.text = "병신이글스";
-            cpuTeamName.text = "세이콘한화";
+            L10n.SetText(myTeamName, "UI.TeamNumber", 1);
+            L10n.SetText(cpuTeamName, "UI.TeamNumber", 2);
 #else
             myTeamName.text = SimulPlayerManager.strMyTeam;// .strAwayTeam;// .strMyTeam;
             cpuTeamName.text = SimulPlayerManager.strCPUTeam;// .strHomeTeam;// .strCPUTeam;

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,26 +16,26 @@ public class ScheduleTeam : MonoBehaviour
 
     public void Init(int idx, int gab)
     {
-        RttsTeam teamInfo = KOBManager.Rtts.GetTeam(idx); //ÀÌ°É·Î ¸®±× Á¤º¸¿Í ÇÔ²² ½ÇÁ¦ ÆÀÀÎµ¦½º·Î(10º¸´Ù Å¬¼ö ÀÖÀ½) ÆÀÁ¤º¸ ¾ò¾î¿À³ª,
+        RttsTeam teamInfo = KOBManager.Rtts.GetTeam(idx); //ì´ê±¸ë¡œ ë¦¬ê·¸ ì •ë³´ì™€ í•¨ê»˜ ì‹¤ì œ íŒ€ì¸ë±ìŠ¤ë¡œ(10ë³´ë‹¤ í´ìˆ˜ ìˆìŒ) íŒ€ì •ë³´ ì–»ì–´ì˜¤ë‚˜,
         Dictionary<int, TeamRecord> LeagueTeamRecord = KOBManager.MyInfo.GameData.RttsInfo.LeagueTeamRecord;
         Sprite spr = null;
 
-        if (idx == 0) //³»ÆÀ Á¤º¸
+        if (idx == 0) //ë‚´íŒ€ ì •ë³´
         {
-            //³»ÆÀÀÎ °æ¿ì
+            //ë‚´íŒ€ì¸ ê²½ìš°
             isMyTeam = true;
             spr = KOBManager.Resource.LoadMyTeamLogoSprite();
             teamTxt.text = KOBTextUtil.GetMyTeamName();
         }
         else
         {
-            //»ó´ëÆÀÀÎ °æ¿ì
+            //ìƒëŒ€íŒ€ì¸ ê²½ìš°
             isMyTeam = false;
             spr = KOBManager.Resource.LoadTeamLogo(teamInfo.Logo);            
             teamTxt.text = teamInfo.Name;
         }
 
-        //·Î°í ¼¼ÆÃ
+        //ë¡œê³  ì„¸íŒ…
         if (spr != null)
         {
             for (int i = 0; i < logo.Length; i++)
@@ -45,17 +45,17 @@ public class ScheduleTeam : MonoBehaviour
             }
         }
 
-        //ÆÀ±â·Ï °ü·Ã ¼¼ÆÃ
+        //íŒ€ê¸°ë¡ ê´€ë ¨ ì„¸íŒ…
         if (LeagueTeamRecord.ContainsKey(idx))
         {
-            recordTxt.text = string.Format("W{0} D{1} L{2}", LeagueTeamRecord[idx].Win, LeagueTeamRecord[idx].Draw, LeagueTeamRecord[idx].Lose);
+            recordTxt.text = L10n.F("UI.Format.WValueDValueLValue", LeagueTeamRecord[idx].Win, LeagueTeamRecord[idx].Draw, LeagueTeamRecord[idx].Lose);
             int rank = KOBManager.Rtts.CurrentRank[idx];
             rankTxt.text = KOBTextUtil.SetRankText(rank);
         }
         else
         {
-            //±â·ÏÀÌ ¾ø´Â °æ¿ì
-            recordTxt.text = "W0 D0 L0";
+            //ê¸°ë¡ì´ ì—†ëŠ” ê²½ìš°
+            L10n.SetText(recordTxt, "UI.Message.W0D0L0");
             rankTxt.text = KOBTextUtil.SetRankText(0);
         }
     }

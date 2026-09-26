@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 217421647}
   - component: {fileID: 217421649}
   - component: {fileID: 217421648}
+  - component: {fileID: 9035292402412762286}
   m_Layer: 5
   m_Name: Inning
   m_TagString: Untagged
@@ -414,6 +415,7 @@ GameObject:
   - component: {fileID: 2032982337700532550}
   - component: {fileID: 2032982337700532548}
   - component: {fileID: 2032982337700532549}
+  - component: {fileID: 3286721599788362320}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -926,3 +928,41 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &9035292402412762286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 217421646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.TopOf8
+  sourceText: Top of 8
+  tmp: {fileID: 217421648}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &3286721599788362320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2032982337700532551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.Skip
+  sourceText: SKIP
+  tmp: {fileID: 2032982337700532549}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

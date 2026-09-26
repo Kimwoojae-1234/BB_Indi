@@ -1,4 +1,4 @@
-using TMPro;
+﻿using TMPro;
 using BaseBall.BallPlay.UGUI;
 using UnityEngine;
 using System.Collections;
@@ -224,21 +224,21 @@ namespace BaseBall.BallPlay
 
         public static string GetPositionString(int pos)
         {
-            string[] posStr = new string[10] { "P", "C", "1B", "2B", "3B", "SS", "LF", "CF", "RF", "DH" };
+            string[] posStr = new string[10] { L10n.T("UI.Label.P"), L10n.T("UI.Label.C"), L10n.T("Baseball.Position.FirstBaseAbbreviation"), L10n.T("Baseball.Position.SecondBaseAbbreviation"), L10n.T("Baseball.Position.ThirdBaseAbbreviation"), L10n.T("Baseball.Position.ShortstopAbbreviation"), L10n.T("Baseball.Position.LeftFieldAbbreviation"), L10n.T("Baseball.Position.CenterFieldAbbreviation"), L10n.T("Baseball.Position.RightFieldAbbreviation"), L10n.T("Baseball.Position.DesignatedHitterAbbreviation") };
 
             return posStr[pos];
         }
 
         public static string GetPositionString2(int pos)
         {
-            string[] posStr = new string[10] { "P", "C", "1B", "2B", "3B", "SS", "LF", "CF", "RF", "DH" };
+            string[] posStr = new string[10] { L10n.T("UI.Label.P"), L10n.T("UI.Label.C"), L10n.T("Baseball.Position.FirstBaseAbbreviation"), L10n.T("Baseball.Position.SecondBaseAbbreviation"), L10n.T("Baseball.Position.ThirdBaseAbbreviation"), L10n.T("Baseball.Position.ShortstopAbbreviation"), L10n.T("Baseball.Position.LeftFieldAbbreviation"), L10n.T("Baseball.Position.CenterFieldAbbreviation"), L10n.T("Baseball.Position.RightFieldAbbreviation"), L10n.T("Baseball.Position.DesignatedHitterAbbreviation") };
 
             return posStr[pos];
         }
 
         public static string GetPositionStringEng(int pos)
         {
-            string[] posStr = new string[10] { "DH", "C", "1B", "2B", "3B", "SS", "LF", "CF", "RF", "DH" };
+            string[] posStr = new string[10] { L10n.T("Baseball.Position.DesignatedHitterAbbreviation"), L10n.T("UI.Label.C"), L10n.T("Baseball.Position.FirstBaseAbbreviation"), L10n.T("Baseball.Position.SecondBaseAbbreviation"), L10n.T("Baseball.Position.ThirdBaseAbbreviation"), L10n.T("Baseball.Position.ShortstopAbbreviation"), L10n.T("Baseball.Position.LeftFieldAbbreviation"), L10n.T("Baseball.Position.CenterFieldAbbreviation"), L10n.T("Baseball.Position.RightFieldAbbreviation"), L10n.T("Baseball.Position.DesignatedHitterAbbreviation") };
 
             return posStr[pos];
         }
@@ -256,29 +256,29 @@ namespace BaseBall.BallPlay
                     //string[] name = new string[5] { "아웃", "안타", "2루타", "3루타", "홈런" };
                     if (hitCount == 1)
                     {
-                        dir = Util.GetPositionString(fIndex) + "앞 ";
+                        dir = L10n.F("UI.Format.InFrontOfValue", Util.GetPositionString(fIndex));
                         if (fIndex < CPlayer._LEFTFIELDER)
                         {
-                            dir += "내야 ";
+                            dir += L10n.T("UI.Label.Infield");
                         }
-                        dir += "안타";
+                        dir += L10n.T("Baseball.Stat.HitsShort.Ballplay");
                     }
                     else
                     {
-                        if (fIndex == CPlayer._LEFTFIELDER) dir = "좌월 ";
-                        else if (fIndex == CPlayer._CENTERFIELDER) dir = "중월 ";
-                        else if (fIndex == CPlayer._RIGHTFIELDER) dir = "우월 ";
+                        if (fIndex == CPlayer._LEFTFIELDER) dir = L10n.T("UI.Label.ToLeftField.Padded");
+                        else if (fIndex == CPlayer._CENTERFIELDER) dir = L10n.T("UI.Label.ToCenterField");
+                        else if (fIndex == CPlayer._RIGHTFIELDER) dir = L10n.T("UI.Label.ToRightField.Padded");
 
-                        if (hitCount == 2) dir += "2루타";
-                        else if (hitCount == 3) dir += "3루타";
-                        else dir += "홈런";
+                        if (hitCount == 2) dir += L10n.T("Baseball.Result.Double");
+                        else if (hitCount == 3) dir += L10n.T("Baseball.Result.Triple");
+                        else dir += L10n.T("Baseball.Result.HomeRun");
                     }
                 }
                 else
                 {
                     if (bGround == true)
                     {
-                        dir = Util.GetPositionString(fIndex) + "앞 ";
+                        dir = L10n.F("UI.Format.InFrontOfValue", Util.GetPositionString(fIndex));
                     }
                     else
                     {
@@ -429,7 +429,7 @@ namespace BaseBall.BallPlay
             if (pos == PitcherPosotion.STARTER) return "선발";
             else if (pos == PitcherPosotion.SAVE) return "마무리";
             else return "중계";*/
-            return "SP";
+            return L10n.T("UI.Label.Sp");
         }
 
 
@@ -437,23 +437,23 @@ namespace BaseBall.BallPlay
         {
             if (player.getStat(Param.ST_PW) == Param.P_ACHIEVE_COMPLETE)
             {
-                return "W";
+                return L10n.T("UI.Label.W");
             }
             else if (player.getStat(Param.ST_PL) == Param.P_ACHIEVE_COMPLETE)
             {
-                return "L";
+                return L10n.T("UI.Label.L");
             }
             else if (player.getStat(Param.ST_SV) == Param.P_ACHIEVE_COMPLETE)
             {
-                return "S";
+                return L10n.T("UI.Label.S");
             }
             else if (player.getStat(Param.ST_HLD) == Param.P_ACHIEVE_COMPLETE)
             {
-                return "H";
+                return L10n.T("Baseball.Stat.HitsAbbreviation");
             }
             else if (player.getStat(Param.ST_BS) == Param.P_ACHIEVE_COMPLETE)
             {
-                return "BS";
+                return L10n.T("UI.Label.Bs");
             }
             else
             {
@@ -466,27 +466,27 @@ namespace BaseBall.BallPlay
         {
             if (type == Mode.StadiumType.ChampionsField)
             {
-                return "광주-기아 챔피언스 필드";
+                return L10n.T("UI.Label.GwangjuKiaChampionsField");
             }
             else if (type == Mode.StadiumType.Dome)
             {
-                return "고척 스카이돔";
+                return L10n.T("UI.Label.GocheokSkyDome");
             }
             else if (type == Mode.StadiumType.HanhwaField)
             {
-                return "대전 한화생명 이글스 파크";
+                return L10n.T("UI.Label.DaejeonHanwhaLifeEaglesPark");
             }
             else if (type == Mode.StadiumType.LionsPark)
             {
-                return "대구 삼성 라이온즈 파크";
+                return L10n.T("UI.Label.DaeguSamsungLionsPark");
             }
             else if (type == Mode.StadiumType.HappyDream)
             {
-                return "인천 SK 행복드림구장";
+                return L10n.T("UI.Label.IncheonSkHappyDreamPark");
             }
             else
             {
-                return "서울 잠실 종합운동장 야구장";
+                return L10n.T("UI.Label.SeoulJamsilBaseballStadium");
             }
         }
 

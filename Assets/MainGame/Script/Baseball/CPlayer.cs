@@ -1527,7 +1527,7 @@ namespace BaseBall.BallPlay
             {
                 detailRecord[i] = 0;
             }
-            resultStr = "오늘 기록 없음";
+            resultStr = L10n.T("UI.Label.NoRecordsToday");
         }
         
         /// <summary>

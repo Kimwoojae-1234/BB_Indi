@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4921135752286122}
   - component: {fileID: 6891546843449753039}
+  - component: {fileID: 6368573572161950967}
   m_Layer: 5
   m_Name: maintext
   m_TagString: Untagged
@@ -4786,6 +4787,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4735277394434828}
   - component: {fileID: 4588146619496911220}
+  - component: {fileID: 621370301591286263}
   m_Layer: 5
   m_Name: noticetext
   m_TagString: Untagged
@@ -6474,6 +6476,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4887467864265208}
   - component: {fileID: 2854131866535050173}
+  - component: {fileID: 4831634508909278371}
   m_Layer: 5
   m_Name: midtext
   m_TagString: Untagged
@@ -6850,6 +6853,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4341192043015678}
   - component: {fileID: 6028677645339155768}
+  - component: {fileID: 3162666558016501321}
   m_Layer: 5
   m_Name: text
   m_TagString: Untagged
@@ -12001,3 +12005,80 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85167597ccbf486cb16fffcb53693afe, type: 3}
   m_Name: ''
   m_EditorClassIdentifier: ''
+--- !u!114 &4831634508909278371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1254113562701840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.StartTheLeagueBattle
+  sourceText: "\uC7C1\uD0C8\uC744 \uC2DC\uC791\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 2854131866535050173}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &621370301591286263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410633855839872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Message.NoInstantCompletionTicketIsUsedIfTheLeagueEndsDuringPlay
+  sourceText: "\uC9C4\uD589\uC911 \uB9AC\uADF8\uAC00 \uC885\uB8CC\uB418\uBA74 \uC989\uC2DC\uC644\uB8CC\uAD8C\uC744
+    \uC0AC\uC6A9\uD558\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4!"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 4588146619496911220}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &3162666558016501321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454848053481894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.InstantCompletionTickets46
+  sourceText: "\uC989\uC2DC\uC644\uB8CC\uAD8C : 46\uC7A5"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 6028677645339155768}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &6368573572161950967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965535674669660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Message.SelectTheNumberOfInstantCompletions
+  sourceText: "\uC989\uC2DC \uC644\uB8CC \uD69F\uC218\uB97C \uC120\uD0DD\uD574\uC8FC\uC138\uC694."
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 6891546843449753039}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

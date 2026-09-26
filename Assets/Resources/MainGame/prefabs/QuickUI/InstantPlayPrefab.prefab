@@ -53,6 +53,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4236058495754258}
   - component: {fileID: 732173737484908771}
+  - component: {fileID: 1178980194501135202}
   m_Layer: 5
   m_Name: R
   m_TagString: Untagged
@@ -407,6 +408,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4231345660756386}
   - component: {fileID: 9030623503903141524}
+  - component: {fileID: 847188002865755273}
   m_Layer: 5
   m_Name: B
   m_TagString: Untagged
@@ -7021,6 +7023,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4739245366662900}
   - component: {fileID: 6588779965786066921}
+  - component: {fileID: 1679952645755459350}
   m_Layer: 5
   m_Name: H
   m_TagString: Untagged
@@ -11942,6 +11945,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4010253234167408}
   - component: {fileID: 8258141134063813222}
+  - component: {fileID: 2680429443597856447}
   m_Layer: 5
   m_Name: E
   m_TagString: Untagged
@@ -12116,3 +12120,79 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85167597ccbf486cb16fffcb53693afe, type: 3}
   m_Name: ''
   m_EditorClassIdentifier: ''
+--- !u!114 &2680429443597856447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201857817772626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: Baseball.Stat.ErrorsAbbreviation
+  sourceText: E
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 8258141134063813222}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &1679952645755459350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388131930549370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: Baseball.Stat.HitsAbbreviation
+  sourceText: H
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 6588779965786066921}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &847188002865755273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1456984173566792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.B
+  sourceText: B
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 9030623503903141524}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &1178980194501135202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1666155568585908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: Baseball.Stat.RunsAbbreviation
+  sourceText: R
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 732173737484908771}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

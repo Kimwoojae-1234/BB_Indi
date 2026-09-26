@@ -66,9 +66,9 @@ namespace BaseBall.BallPlay
             rank.text = string.Format("{0:N0}", info.curRank);
             //퍼센트
             float topRankPer = (float)(info.curRank * 100) / (float)(info.curRankSize);
-            percent.text = "상위 [03C6D4]" + string.Format("{0:F2}", topRankPer) +"%[-]";
+            L10n.SetText(percent, "UI.Format.TopValue", string.Format("{0:F2}", topRankPer));
             //최종스코어
-            finalScore.text = manager.nineTwoFinalScore + "점";
+            L10n.SetText(finalScore, "UI.Format.ValuePoints.Lowercase", manager.nineTwoFinalScore);
             //최종라운드
             finalRound.text = manager.nineTwoFinalRound.ToString();
 

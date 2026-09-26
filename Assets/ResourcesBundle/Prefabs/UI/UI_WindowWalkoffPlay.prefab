@@ -5143,6 +5143,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4000012051489510}
   - component: {fileID: 821423452338002718}
+  - component: {fileID: 6917633621015775062}
   m_Layer: 5
   m_Name: TopPercent_txt
   m_TagString: Untagged
@@ -11029,6 +11030,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4425406589730790}
   - component: {fileID: 6499864112845706092}
+  - component: {fileID: 5488593049574882894}
   m_Layer: 5
   m_Name: endTime_label
   m_TagString: Untagged
@@ -20554,3 +20556,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85167597ccbf486cb16fffcb53693afe, type: 3}
   m_Name: ''
   m_EditorClassIdentifier: ''
+--- !u!114 &6917633621015775062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013918845054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.Top
+  sourceText: "\uC0C1\uC704"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 821423452338002718}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &5488593049574882894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948387786952440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.Remaining
+  sourceText: "\uB0A8\uC558\uC2B5\uB2C8\uB2E4."
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 6499864112845706092}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

@@ -124,7 +124,7 @@ public class Popup_RewardGet : UIPopup
         for (int i = 0; i < Obj.Length; i++) Obj[i].SetActive(false);
         Obj[3].gameObject.SetActive(true);
         Title.gameObject.SetActive(true);
-        Title.text = "BOX"; //임시
+        L10n.SetText(Title, "UI.Label.Box.Uppercase"); //임시
         canvasGroup.alpha = 1;
         bActive = true;
     }
@@ -300,7 +300,7 @@ public class Popup_RewardGet : UIPopup
             //카드수 증가
             Title.gameObject.SetActive(true);   
             Obj[1].gameObject.SetActive(true);
-            CardAmount.text = string.Format("X{0}", _rewardInfo.amount);
+            CardAmount.text = L10n.F("Common.Format.ItemQuantityUppercase", _rewardInfo.amount);
             Card.Init(_rewardInfo, 1.0f);
             canvasGroup.alpha = 1;
             DotTweenUtil.Restart(Card.gameObject);

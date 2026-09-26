@@ -113,11 +113,11 @@ namespace BaseBall.BallPlay
             
             if(manager.bMyTurn == true)
             {
-                _text_active.GetComponent<GameUIElement>().text = "You're Batting First!\nScore First!";
+                L10n.SetText(_text_active.GetComponent<GameUIElement>(), "UI.Label.YoureBattingFirstScoreFirst");
             }
             else
             {
-                _text_active.GetComponent<GameUIElement>().text = "You're Fielding First!\nKeep Them Scoreless!";
+                L10n.SetText(_text_active.GetComponent<GameUIElement>(), "UI.Message.YoureFieldingFirstKeepThemScoreless");
             }
             _text_active.SetActive(true);
 

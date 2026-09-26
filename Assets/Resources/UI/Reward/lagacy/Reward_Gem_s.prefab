@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1025423444067889317}
   - component: {fileID: 1025423444067889315}
   - component: {fileID: 1025423444067889316}
+  - component: {fileID: 2846946870586921290}
   m_Layer: 5
   m_Name: Text_Value
   m_TagString: Untagged
@@ -5305,6 +5306,7 @@ GameObject:
   - component: {fileID: 1025423446045644019}
   - component: {fileID: 1025423446045644017}
   - component: {fileID: 1025423446045644018}
+  - component: {fileID: 3687113975154695285}
   m_Layer: 5
   m_Name: Text_Bonus
   m_TagString: Untagged
@@ -5429,3 +5431,41 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2846946870586921290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025423444067889318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.Max1
+  sourceText: MAX+1
+  tmp: {fileID: 1025423444067889316}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &3687113975154695285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025423446045644020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.Bonus
+  sourceText: BONUS
+  tmp: {fileID: 1025423446045644018}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

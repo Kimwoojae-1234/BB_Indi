@@ -39,8 +39,8 @@ public class Popup_Name : UIPopup
         Type = NicknameEdit.Create;
         ButtonInActive();
         for (int i = 0; i < quitObj.Length; i++) quitObj[i].gameObject.SetActive(false);
-        Title.text = KOBManager.Localization.GetUILocalizedValue2("PopupBody.CreateNickname1");
-        Title2.text = KOBManager.Localization.GetUILocalizedValue2("PopupBody.CreateNickname2");
+        L10n.SetText(Title, "UI.Label.PopupbodyCreatenickname1");
+        L10n.SetText(Title2, "UI.Label.PopupbodyCreatenickname2");
 
         ButtonCreate.gameObject.SetActive(true);
         ButtonChange.gameObject.SetActive(false);
@@ -54,8 +54,8 @@ public class Popup_Name : UIPopup
         Type = NicknameEdit.Change;
         ButtonInActive();
         for (int i = 0; i < quitObj.Length; i++) quitObj[i].gameObject.SetActive(true);
-        Title.text = KOBManager.Localization.GetUILocalizedValue2("PopupBody.ChangeNickname1");
-        Title2.text = KOBManager.Localization.GetUILocalizedValue2("PopupBody.ChangeNickname2");
+        L10n.SetText(Title, "UI.Label.PopupbodyChangenickname1");
+        L10n.SetText(Title2, "UI.Label.PopupbodyChangenickname2");
 
         ButtonCreate.gameObject.SetActive(false);
         ButtonChange.gameObject.SetActive(true);
@@ -149,7 +149,7 @@ public class Popup_Name : UIPopup
         {
             Debug.Log("닉네임 생성 실패 " + bro3.ToString());
             ButtonCreate.interactable = true;
-            KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init("Nickname creation failed: " + bro3.GetErrorCode());
+            KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init(L10n.F("UI.Format.NicknameCreationFailedValue", bro3.GetErrorCode()));
         }
     }
 

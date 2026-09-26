@@ -114,7 +114,7 @@ public class CardBaller : MonoBehaviour
 
         //언락 리그
         int league = data.league;
-        UnlockTxt.text = string.Format("Available on the\nRTTS{0} League", league);
+        UnlockTxt.text = L10n.F("UI.Format.AvailableOnTheRttsValueLeague", league);
     }
 
     private void baseInfo(CharacterData data)

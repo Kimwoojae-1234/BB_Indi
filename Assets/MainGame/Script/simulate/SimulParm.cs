@@ -1516,15 +1516,15 @@ namespace BaseBall.BallPlay
 #if _Test_Local
             //10001 제5의 내야수
             if(skillMap.ContainsKey(10001) == false)
-                skillMap.Add(10001, new skillEffectMap("제5의내야수", Restriction_Type.Field));
+                skillMap.Add(10001, new skillEffectMap(L10n.T("UI.Label.FifthInfielder"), Restriction_Type.Field));
 
             //10002 견제왕
             if (skillMap.ContainsKey(10002) == false)
-                skillMap.Add(10002, new skillEffectMap("견제왕", Restriction_Type.Field));
+                skillMap.Add(10002, new skillEffectMap(L10n.T("UI.Label.PickoffKing"), Restriction_Type.Field));
 
             //10003 선두타자승부            
             if (skillMap.ContainsKey(10003) == false)
-                skillMap.Add(10003, new skillEffectMap("선두타자승부", Restriction_Type.NoRestriction, Effect_InvokeCondition.InningStart, Effect_Validity.BattingEnd));
+                skillMap.Add(10003, new skillEffectMap(L10n.T("UI.Label.LeadoffDuel"), Restriction_Type.NoRestriction, Effect_InvokeCondition.InningStart, Effect_Validity.BattingEnd));
 
             //10004 추격본능
             List<int?> counterList = new List<int?>();
@@ -1532,207 +1532,207 @@ namespace BaseBall.BallPlay
             {                
                 counterList.Add(20010);
                 counterList.Add(20012);
-                skillMap.Add(10004, new skillEffectMap("추격본능", Restriction_Type.NoRestriction, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 100000, counterList));
+                skillMap.Add(10004, new skillEffectMap(L10n.T("UI.Label.ComebackInstinct"), Restriction_Type.NoRestriction, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 100000, counterList));
             }
 
             //11104 소년가장
             if (skillMap.ContainsKey(11104) == false)
             {
-                skillMap.Add(11104, new skillEffectMap("소년가장", Restriction_Type.NoRestriction, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 100000, counterList));
+                skillMap.Add(11104, new skillEffectMap(L10n.T("UI.Label.YoungAce"), Restriction_Type.NoRestriction, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 100000, counterList));
             }
 
             //10005 불꽃투혼
             if (skillMap.ContainsKey(10005) == false)
-                skillMap.Add(10005, new skillEffectMap("불꽃투혼", Restriction_Type.NoRestriction, Effect_InvokeCondition.Crisis, Effect_Validity.BattingEnd, 100000, counterList));
+                skillMap.Add(10005, new skillEffectMap(L10n.T("UI.Label.FieryFightingSpirit"), Restriction_Type.NoRestriction, Effect_InvokeCondition.Crisis, Effect_Validity.BattingEnd, 100000, counterList));
 
             //10006 강심장
             if (skillMap.ContainsKey(10006) == false)
-                skillMap.Add(10006, new skillEffectMap("강심장", Restriction_Type.NoRestriction, Effect_InvokeCondition.ScoringPosition, Effect_Validity.BattingEnd, 100000, counterList));
+                skillMap.Add(10006, new skillEffectMap(L10n.T("UI.Label.NervesOfSteel"), Restriction_Type.NoRestriction, Effect_InvokeCondition.ScoringPosition, Effect_Validity.BattingEnd, 100000, counterList));
 
             //10007 회심의일격
             if (skillMap.ContainsKey(10007) == false)
-                skillMap.Add(10007, new skillEffectMap("회심의일격", Restriction_Type.Batter, Effect_InvokeCondition.PitchStart, Effect_Validity.PitchEnd, 1));
+                skillMap.Add(10007, new skillEffectMap(L10n.T("UI.Label.DecisiveStrike"), Restriction_Type.Batter, Effect_InvokeCondition.PitchStart, Effect_Validity.PitchEnd, 1));
 
             //11107 회심의일격
             if (skillMap.ContainsKey(11107) == false)
-                skillMap.Add(11107, new skillEffectMap("돌직구", Restriction_Type.Batter, Effect_InvokeCondition.PitchStart, Effect_Validity.PitchEnd, 1));
+                skillMap.Add(11107, new skillEffectMap(L10n.T("UI.Label.StoneFastball"), Restriction_Type.Batter, Effect_InvokeCondition.PitchStart, Effect_Validity.PitchEnd, 1));
 
             //10008 매혹
             if (skillMap.ContainsKey(10008) == false)
-                skillMap.Add(10008, new skillEffectMap("매혹", Restriction_Type.Batter, Effect_InvokeCondition.PitchStart, Effect_Validity.PitchEnd, 1));
+                skillMap.Add(10008, new skillEffectMap(L10n.T("UI.Label.Charm"), Restriction_Type.Batter, Effect_InvokeCondition.PitchStart, Effect_Validity.PitchEnd, 1));
 
             //11108 선크림
             if (skillMap.ContainsKey(11108) == false)
-                skillMap.Add(11108, new skillEffectMap("선크림", Restriction_Type.Batter, Effect_InvokeCondition.PitchStart, Effect_Validity.PitchEnd, 1));
+                skillMap.Add(11108, new skillEffectMap(L10n.T("UI.Label.SunCream"), Restriction_Type.Batter, Effect_InvokeCondition.PitchStart, Effect_Validity.PitchEnd, 1));
 
             //11208 뱀직구
             if (skillMap.ContainsKey(11208) == false)
-                skillMap.Add(11208, new skillEffectMap("뱀직구", Restriction_Type.Batter, Effect_InvokeCondition.PitchStart, Effect_Validity.PitchEnd, 1));
+                skillMap.Add(11208, new skillEffectMap(L10n.T("UI.Label.SerpentFastball"), Restriction_Type.Batter, Effect_InvokeCondition.PitchStart, Effect_Validity.PitchEnd, 1));
 
             //10009 투수위압
             if (skillMap.ContainsKey(10009) == false)
-                skillMap.Add(10009, new skillEffectMap("투수위압", Restriction_Type.Inning, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 1, counterList));
+                skillMap.Add(10009, new skillEffectMap(L10n.T("UI.Label.PitcherIntimidation"), Restriction_Type.Inning, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 1, counterList));
 
             //11109 니느님
             if (skillMap.ContainsKey(11109) == false)
-                skillMap.Add(11109, new skillEffectMap("니느님", Restriction_Type.Inning, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 1, counterList));
+                skillMap.Add(11109, new skillEffectMap(L10n.T("UI.Label.NippertTheGreat"), Restriction_Type.Inning, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 1, counterList));
 
             //10010 강철어깨
             if (skillMap.ContainsKey(10010) == false)
-                skillMap.Add(10010, new skillEffectMap("강철어깨", Restriction_Type.NoRestriction, Effect_InvokeCondition.Passive, Effect_Validity.GameEnd));
+                skillMap.Add(10010, new skillEffectMap(L10n.T("UI.Label.IronArm"), Restriction_Type.NoRestriction, Effect_InvokeCondition.Passive, Effect_Validity.GameEnd));
 
             //10011 카리스마
             if (skillMap.ContainsKey(10011) == false)
-                skillMap.Add(10011, new skillEffectMap("카리스마", Restriction_Type.Inning, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 1));
+                skillMap.Add(10011, new skillEffectMap(L10n.T("UI.Label.Charisma"), Restriction_Type.Inning, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 1));
 
             //10012 닥터K
             if (skillMap.ContainsKey(10012) == false)
-                skillMap.Add(10012, new skillEffectMap("닥터K", Restriction_Type.NoRestriction, Effect_InvokeCondition.ExceptionCase, Effect_Validity.ExceptionCase));
+                skillMap.Add(10012, new skillEffectMap(L10n.T("UI.Label.DoctorK.Simulparm"), Restriction_Type.NoRestriction, Effect_InvokeCondition.ExceptionCase, Effect_Validity.ExceptionCase));
 
             //11112 닥터광
             if (skillMap.ContainsKey(11112) == false)
-                skillMap.Add(11112, new skillEffectMap("닥터광", Restriction_Type.NoRestriction, Effect_InvokeCondition.ExceptionCase, Effect_Validity.ExceptionCase));
+                skillMap.Add(11112, new skillEffectMap(L10n.T("UI.Label.DoctorGwang"), Restriction_Type.NoRestriction, Effect_InvokeCondition.ExceptionCase, Effect_Validity.ExceptionCase));
 
             //10013 필승의지
             if (skillMap.ContainsKey(10013) == false)
-                skillMap.Add(10013, new skillEffectMap("필승의지", Restriction_Type.NoRestriction, Effect_InvokeCondition.ExceptionCase, Effect_Validity.ExceptionCase));
+                skillMap.Add(10013, new skillEffectMap(L10n.T("UI.Label.WillToWin"), Restriction_Type.NoRestriction, Effect_InvokeCondition.ExceptionCase, Effect_Validity.ExceptionCase));
 
             //20001	내야수	철벽수비
             if (skillMap.ContainsKey(20001) == false)
-                skillMap.Add(20001, new skillEffectMap("철벽수비", Restriction_Type.Field));
+                skillMap.Add(20001, new skillEffectMap(L10n.T("UI.Label.IronWallDefense"), Restriction_Type.Field));
 		
             //20002	내야수	특급송구
             if (skillMap.ContainsKey(20002) == false)
-                skillMap.Add(20002, new skillEffectMap("특급송구", Restriction_Type.Field));
+                skillMap.Add(20002, new skillEffectMap(L10n.T("UI.Label.EliteThrow"), Restriction_Type.Field));
 
             //21102	내야수	평화송구
             if (skillMap.ContainsKey(21102) == false)
-                skillMap.Add(21102, new skillEffectMap("평화송구", Restriction_Type.Field));
+                skillMap.Add(21102, new skillEffectMap(L10n.T("UI.Label.PeacefulThrow"), Restriction_Type.Field));
 
             //20003	외야수	쇠그물수비
             if (skillMap.ContainsKey(20003) == false)
-                skillMap.Add(20003, new skillEffectMap("쇠그물수비", Restriction_Type.Field));		
+                skillMap.Add(20003, new skillEffectMap(L10n.T("UI.Label.IronNetDefense"), Restriction_Type.Field));
 		
             //20004	외야수	레이저송구
             if (skillMap.ContainsKey(20004) == false)
-                skillMap.Add(20004, new skillEffectMap("레이저송구", Restriction_Type.Field));
+                skillMap.Add(20004, new skillEffectMap(L10n.T("UI.Label.LaserThrow"), Restriction_Type.Field));
 
             //20005	포수	도발꾼
             if (skillMap.ContainsKey(20005) == false)
-                skillMap.Add(20005, new skillEffectMap("도발꾼", Restriction_Type.Batter, Effect_InvokeCondition.PitchStart, Effect_Validity.PitchEnd, 1));
+                skillMap.Add(20005, new skillEffectMap(L10n.T("UI.Label.Provocateur"), Restriction_Type.Batter, Effect_InvokeCondition.PitchStart, Effect_Validity.PitchEnd, 1));
 
             //21105	포수	도발꾼
             if (skillMap.ContainsKey(21105) == false)
-                skillMap.Add(21105, new skillEffectMap("풍기문란", Restriction_Type.Batter, Effect_InvokeCondition.PitchStart, Effect_Validity.PitchEnd, 1));
+                skillMap.Add(21105, new skillEffectMap(L10n.T("UI.Label.WildSwing"), Restriction_Type.Batter, Effect_InvokeCondition.PitchStart, Effect_Validity.PitchEnd, 1));
 
             //21205	포수	도발꾼
             if (skillMap.ContainsKey(21205) == false)
-                skillMap.Add(21205, new skillEffectMap("갑드래곤", Restriction_Type.Batter, Effect_InvokeCondition.PitchStart, Effect_Validity.PitchEnd, 1));
+                skillMap.Add(21205, new skillEffectMap(L10n.T("UI.Label.GapDragon"), Restriction_Type.Batter, Effect_InvokeCondition.PitchStart, Effect_Validity.PitchEnd, 1));
 		
             //20006	포수	수비형포수
             if (skillMap.ContainsKey(20006) == false)
-                skillMap.Add(20006, new skillEffectMap("수비형포수", Restriction_Type.Field));
+                skillMap.Add(20006, new skillEffectMap(L10n.T("UI.Label.DefensiveCatcher"), Restriction_Type.Field));
 
             //21106	포수	안방마님
             if (skillMap.ContainsKey(21106) == false)
-                skillMap.Add(21106, new skillEffectMap("안방마님", Restriction_Type.Field));	
+                skillMap.Add(21106, new skillEffectMap(L10n.T("UI.Label.MasterBehindThePlate"), Restriction_Type.Field));
 		
             //20007	공용	질주본능
             if (skillMap.ContainsKey(20007) == false)
-                skillMap.Add(20007, new skillEffectMap("질주본능", Restriction_Type.Field));
+                skillMap.Add(20007, new skillEffectMap(L10n.T("UI.Label.SprintingInstinct"), Restriction_Type.Field));
 
             //21107	공용	질주본능
             if (skillMap.ContainsKey(21107) == false)
-                skillMap.Add(21107, new skillEffectMap("바람의아들", Restriction_Type.Field));
+                skillMap.Add(21107, new skillEffectMap(L10n.T("UI.Label.SonOfTheWind"), Restriction_Type.Field));
 		
             //20008	공용	주루센스
             if (skillMap.ContainsKey(20008) == false)
-                skillMap.Add(20008, new skillEffectMap("주루센스", Restriction_Type.Field));		
+                skillMap.Add(20008, new skillEffectMap(L10n.T("UI.Label.BaserunningInstinct"), Restriction_Type.Field));
 		
             //20009	공용	매의눈
             if (skillMap.ContainsKey(20009) == false)
-                skillMap.Add(20009, new skillEffectMap("매의눈", Restriction_Type.NoRestriction, Effect_InvokeCondition.PitchStart, Effect_Validity.PitchEnd));
+                skillMap.Add(20009, new skillEffectMap(L10n.T("UI.Label.HawkEye.Simulparm"), Restriction_Type.NoRestriction, Effect_InvokeCondition.PitchStart, Effect_Validity.PitchEnd));
 
             //21109	공용	매의눈
             if (skillMap.ContainsKey(21109) == false)
-                skillMap.Add(21109, new skillEffectMap("용의눈", Restriction_Type.NoRestriction, Effect_InvokeCondition.PitchStart, Effect_Validity.PitchEnd));
+                skillMap.Add(21109, new skillEffectMap(L10n.T("UI.Label.DragonsEye"), Restriction_Type.NoRestriction, Effect_InvokeCondition.PitchStart, Effect_Validity.PitchEnd));
 
             //21209	공용	매의눈
             if (skillMap.ContainsKey(21209) == false)
-                skillMap.Add(21209, new skillEffectMap("송골매", Restriction_Type.NoRestriction, Effect_InvokeCondition.PitchStart, Effect_Validity.PitchEnd));
+                skillMap.Add(21209, new skillEffectMap(L10n.T("UI.Label.PeregrineFalcon"), Restriction_Type.NoRestriction, Effect_InvokeCondition.PitchStart, Effect_Validity.PitchEnd));
 
             //21309	공용	매의눈
             if (skillMap.ContainsKey(21309) == false)
-                skillMap.Add(21309, new skillEffectMap("스나이퍼", Restriction_Type.NoRestriction, Effect_InvokeCondition.PitchStart, Effect_Validity.PitchEnd));
+                skillMap.Add(21309, new skillEffectMap(L10n.T("UI.Label.Sniper"), Restriction_Type.NoRestriction, Effect_InvokeCondition.PitchStart, Effect_Validity.PitchEnd));
 
             //20010	공용	타자위압
             if (skillMap.ContainsKey(20010) == false)
-                skillMap.Add(20010, new skillEffectMap("타자위압", Restriction_Type.Inning, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 1));
+                skillMap.Add(20010, new skillEffectMap(L10n.T("UI.Label.BatterIntimidation"), Restriction_Type.Inning, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 1));
 
             //21110	공용	타자위압
             if (skillMap.ContainsKey(21110) == false)
-                skillMap.Add(21110, new skillEffectMap("출근의신", Restriction_Type.Inning, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 1));
+                skillMap.Add(21110, new skillEffectMap(L10n.T("UI.Label.AlwaysReady"), Restriction_Type.Inning, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 1));
 
             //21210	공용	타자위압
             if (skillMap.ContainsKey(21210) == false)
-                skillMap.Add(21210, new skillEffectMap("소년장사", Restriction_Type.Inning, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 1));
+                skillMap.Add(21210, new skillEffectMap(L10n.T("UI.Label.YoungPowerhouse"), Restriction_Type.Inning, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 1));
 
             //21310	공용	타자위압
             if (skillMap.ContainsKey(21310) == false)
-                skillMap.Add(21310, new skillEffectMap("금강불괴", Restriction_Type.Inning, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 1));
+                skillMap.Add(21310, new skillEffectMap(L10n.T("UI.Label.Indestructible"), Restriction_Type.Inning, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 1));
 
             //21410	공용	신의위압
             if (skillMap.ContainsKey(21410) == false)
-                skillMap.Add(21410, new skillEffectMap("신의위압", Restriction_Type.Inning, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 1));
+                skillMap.Add(21410, new skillEffectMap(L10n.T("UI.Label.DivineIntimidation"), Restriction_Type.Inning, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 1));
 
             //20011	공용	강습타구
             if (skillMap.ContainsKey(20011) == false)
-                skillMap.Add(20011, new skillEffectMap("강습타구", Restriction_Type.Inning, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 1));
+                skillMap.Add(20011, new skillEffectMap(L10n.T("UI.Label.HardHitBall"), Restriction_Type.Inning, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 1));
 
             //21111	공용	
             if (skillMap.ContainsKey(21111) == false)
-                skillMap.Add(21111, new skillEffectMap("타격기계", Restriction_Type.Inning, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 1));
+                skillMap.Add(21111, new skillEffectMap(L10n.T("UI.Label.HittingMachine"), Restriction_Type.Inning, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 1));
 
             //21211	공용	
             if (skillMap.ContainsKey(21211) == false)
-                skillMap.Add(21211, new skillEffectMap("만세타법", Restriction_Type.Inning, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 1));
+                skillMap.Add(21211, new skillEffectMap(L10n.T("UI.Label.HandsUpSwing"), Restriction_Type.Inning, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 1));
 
             //20012	공용	찬스맨
             if (skillMap.ContainsKey(20012) == false)
-                skillMap.Add(20012, new skillEffectMap("찬스맨", Restriction_Type.Inning, Effect_InvokeCondition.ScoringPosition, Effect_Validity.BattingEnd, 1));
+                skillMap.Add(20012, new skillEffectMap(L10n.T("UI.Label.ClutchHitter"), Restriction_Type.Inning, Effect_InvokeCondition.ScoringPosition, Effect_Validity.BattingEnd, 1));
 
             //21112	공용	찬스맨
             if (skillMap.ContainsKey(21112) == false)
-                skillMap.Add(21112, new skillEffectMap("리틀쿠바", Restriction_Type.Inning, Effect_InvokeCondition.ScoringPosition, Effect_Validity.BattingEnd, 1));
+                skillMap.Add(21112, new skillEffectMap(L10n.T("UI.Label.LittleCuba"), Restriction_Type.Inning, Effect_InvokeCondition.ScoringPosition, Effect_Validity.BattingEnd, 1));
 
             //21212	공용	찬스맨
             if (skillMap.ContainsKey(21212) == false)
-                skillMap.Add(21212, new skillEffectMap("꽃범호", Restriction_Type.Inning, Effect_InvokeCondition.ScoringPosition, Effect_Validity.BattingEnd, 1));
+                skillMap.Add(21212, new skillEffectMap(L10n.T("UI.Label.FlowerBumHo"), Restriction_Type.Inning, Effect_InvokeCondition.ScoringPosition, Effect_Validity.BattingEnd, 1));
 
 
             //20013	공용	번트의신
             if (skillMap.ContainsKey(20013) == false)
-                skillMap.Add(20013, new skillEffectMap("번트의신", Restriction_Type.Inning, Effect_InvokeCondition.NoRunner, Effect_Validity.BattingEnd, 1));
+                skillMap.Add(20013, new skillEffectMap(L10n.T("UI.Label.BuntMaster"), Restriction_Type.Inning, Effect_InvokeCondition.NoRunner, Effect_Validity.BattingEnd, 1));
             
             //21113	공용	번트의신
             if (skillMap.ContainsKey(21113) == false)
-                skillMap.Add(21113, new skillEffectMap("용규놀이", Restriction_Type.Inning, Effect_InvokeCondition.NoRunner, Effect_Validity.BattingEnd, 1));
+                skillMap.Add(21113, new skillEffectMap(L10n.T("UI.Label.YongKyuHustle"), Restriction_Type.Inning, Effect_InvokeCondition.NoRunner, Effect_Validity.BattingEnd, 1));
 
             //20014	공용	뜬금포
             if (skillMap.ContainsKey(20014) == false)
-                skillMap.Add(20014, new skillEffectMap("뜬금포", Restriction_Type.Game, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 1));
+                skillMap.Add(20014, new skillEffectMap(L10n.T("UI.Label.SurpriseHomer"), Restriction_Type.Game, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 1));
 
             //21114	공용	뜬금포
             if (skillMap.ContainsKey(21114) == false)
-                skillMap.Add(21114, new skillEffectMap("박뱅포", Restriction_Type.Game, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 1));
+                skillMap.Add(21114, new skillEffectMap(L10n.T("UI.Label.ParkBang"), Restriction_Type.Game, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 1));
 
             //21214	공용	뜬금포
             if (skillMap.ContainsKey(21214) == false)
-                skillMap.Add(21214, new skillEffectMap("빅보이", Restriction_Type.Game, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 1));
+                skillMap.Add(21214, new skillEffectMap(L10n.T("UI.Label.BigBoy"), Restriction_Type.Game, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 1));
 
             //21314	공용	뜬금포
             if (skillMap.ContainsKey(21314) == false)
-                skillMap.Add(21314, new skillEffectMap("국민타자", Restriction_Type.Game, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 1));
+                skillMap.Add(21314, new skillEffectMap(L10n.T("UI.Label.ThePeoplesSlugger"), Restriction_Type.Game, Effect_InvokeCondition.BattingStart, Effect_Validity.BattingEnd, 1));
 #else
             skillMap.Clear();
             gameConstCommon = common;

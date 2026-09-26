@@ -179,7 +179,7 @@ public class ItemSlot : MonoBehaviour {
             return;
         }
         
-        have_count_label.text = string.Format("X{0}", have_count);
+        have_count_label.text = L10n.F("Common.Format.ItemQuantityUppercase", have_count);
         itemName.text = itemData.itemDB_data.name;
         bg.MakePixelPerfect();
         icon.MakePixelPerfect();
@@ -237,7 +237,7 @@ public class ItemSlot : MonoBehaviour {
     public void SetItemCount(int value)
     {
         int have_count = value;
-        this.have_count_label.text = string.Format("X{0}", have_count);
+        this.have_count_label.text = L10n.F("Common.Format.ItemQuantityUppercase", have_count);
     }
 
     private void SetPackInfo(int pack_id, int have_count)

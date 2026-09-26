@@ -116,6 +116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 498352}
   - component: {fileID: 8546250861843802752}
+  - component: {fileID: 5872300754989869028}
   m_Layer: 5
   m_Name: labelVersion
   m_TagString: Untagged
@@ -700,6 +701,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4924993478163182}
   - component: {fileID: 8188382299906185145}
+  - component: {fileID: 6228322872248630601}
   m_Layer: 5
   m_Name: TEXT
   m_TagString: Untagged
@@ -5606,6 +5608,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4820900520637938}
   - component: {fileID: 3540567692087351158}
+  - component: {fileID: 7796966919653239645}
   m_Layer: 5
   m_Name: TEXT
   m_TagString: Untagged
@@ -11458,6 +11461,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4888089085413962}
   - component: {fileID: 2632962826564807299}
+  - component: {fileID: 8433653023212681858}
   m_Layer: 5
   m_Name: TEXT
   m_TagString: Untagged
@@ -17338,3 +17342,79 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85167597ccbf486cb16fffcb53693afe, type: 3}
   m_Name: ''
   m_EditorClassIdentifier: ''
+--- !u!114 &5872300754989869028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 103208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.Version
+  sourceText: Version
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 8546250861843802752}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &8433653023212681858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125133889796798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.Guest
+  sourceText: GUEST
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 2632962826564807299}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &7796966919653239645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434870053053638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.Facebook
+  sourceText: FACEBOOK
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 3540567692087351158}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &6228322872248630601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1998584137744532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.SignInWithGoogle
+  sourceText: SIGN IN WITH GOOGLE
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 8188382299906185145}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

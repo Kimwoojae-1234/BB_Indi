@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -275,57 +275,22 @@ public static class GameConfig
 
     public static void ChangeLanguage()
     {
-        if (PlayerPrefs.HasKey("RegistLanguae"))
+        // Migrate older mixed-language builds to the English baseline once.
+        if (PlayerPrefs.GetInt("LocalizationBaselineVersion", 0) < 1)
         {
-            CurrentLanguage = GetRegistLanguage();
+            PlayerPrefs.SetInt("LocalizationBaselineVersion", 1);
+            L10n.SetLanguage(GameDefine.eLanguage.English);
             return;
         }
-
-        PlayerPrefs.SetString("RegistLanguae", nameof(GameDefine.eLanguage.English)); //임시 - 우선은 영어로
-        CurrentLanguage = GameDefine.eLanguage.English;
-
-        /* //추후 이걸로...
-        switch (Application.systemLanguage)
-        {
-            case SystemLanguage.English:
-                PlayerPrefs.SetString("RegistLanguae", nameof(GameDefine.eLanguage.English));
-                CurrentLanguage = GameDefine.eLanguage.English;
-                break;
-            case SystemLanguage.Korean:
-                PlayerPrefs.SetString("RegistLanguae", nameof(GameDefine.eLanguage.Korea));
-                CurrentLanguage = GameDefine.eLanguage.Korean;
-                break;
-            case SystemLanguage.Japanese:
-                PlayerPrefs.SetString("RegistLanguae", nameof(GameDefine.eLanguage.Japan));
-                CurrentLanguage = GameDefine.eLanguage.Japanese;
-                break;
-            case SystemLanguage.Spanish:
-                PlayerPrefs.SetString("RegistLanguae", nameof(GameDefine.eLanguage.Spain));
-                CurrentLanguage = GameDefine.eLanguage.Spanish;
-                break;
-            case SystemLanguage.ChineseTraditional:
-                PlayerPrefs.SetString("RegistLanguae", nameof(GameDefine.eLanguage.China_Traditional));
-                CurrentLanguage = GameDefine.eLanguage.ChineseTraditional;
-                break;
-            case SystemLanguage.ChineseSimplified:
-                PlayerPrefs.SetString("RegistLanguae", nameof(GameDefine.eLanguage.China_Simplified));
-                CurrentLanguage = GameDefine.eLanguage.ChineseSimplified;
-                break;
-            default:
-                PlayerPrefs.SetString("RegistLanguae", nameof(GameDefine.eLanguage.English));
-                CurrentLanguage = GameDefine.eLanguage.English;
-                break;
-        }*/
+        L10n.SetLanguage(GetRegistLanguage());
     }
-
 
     public static GameDefine.eLanguage GetRegistLanguage()
     {
-        GameDefine.eLanguage langauge = GameDefine.eLanguage.English;
-        if (PlayerPrefs.HasKey("RegistLanguae"))
-        {
-            langauge = (GameDefine.eLanguage)System.Enum.Parse(typeof(GameDefine.eLanguage), PlayerPrefs.GetString("RegistLanguae"));
-        }
-        return langauge;
+        GameDefine.eLanguage value;
+        if (System.Enum.TryParse(PlayerPrefs.GetString(L10n.PreferenceKey, "English"), out value)
+            && System.Enum.IsDefined(typeof(GameDefine.eLanguage), value) && value != GameDefine.eLanguage.MAX)
+            return value;
+        return GameDefine.eLanguage.English;
     }
 }

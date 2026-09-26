@@ -22,8 +22,8 @@ public class ResultLeaderComp : MonoBehaviour
         }
 
         CharacterData cardData = KOBManager.Backend.Chart.CharacterData.GetData(_player_idx);
-        _Desc.text =  string.Format("{0}\n{1} <size=100><color=#00ff00>{2}</color></size>",
-                       cardData.name_id,
+        L10n.SetText(_Desc, "UI.LeaderResult",
+                       L10n.T(cardData.name_id),
                        GetTitleType(type),
                        value[1]);
 
@@ -33,23 +33,23 @@ public class ResultLeaderComp : MonoBehaviour
     {
         if (type == ResultMyLeaders.LeaderType.Homerun)
         {
-            return "HR LEADER";
+            return L10n.T("UI.Label.HrLeader");
         }
         else if (type == ResultMyLeaders.LeaderType.Avg)
         {
-            return "AVG LEADER";
+            return L10n.T("UI.Label.AvgLeader");
         }
         else if (type == ResultMyLeaders.LeaderType.Rbi)
         {
-            return "RBI LEADER";
+            return L10n.T("UI.Label.RbiLeader");
         }
         else if (type == ResultMyLeaders.LeaderType.Hit)
         {
-            return "HIT LEADER";
+            return L10n.T("UI.Label.HitLeader");
         }
         else if (type == ResultMyLeaders.LeaderType.Ops)
         {
-            return "OPS LEADER";
+            return L10n.T("UI.Label.OpsLeader");
         }
         return string.Empty;
     }

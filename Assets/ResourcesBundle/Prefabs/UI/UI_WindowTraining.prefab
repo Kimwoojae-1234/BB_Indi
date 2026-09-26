@@ -5411,6 +5411,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4323674604920060}
   - component: {fileID: 2346293259667786569}
+  - component: {fileID: 8773511940488683809}
   m_Layer: 5
   m_Name: Tip
   m_TagString: Untagged
@@ -13431,6 +13432,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4072210483498384}
   - component: {fileID: 2343815119488866597}
+  - component: {fileID: 91558272079584382}
   m_Layer: 5
   m_Name: Talk
   m_TagString: Untagged
@@ -18667,6 +18669,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4807892010158220}
   - component: {fileID: 1016704001379490894}
+  - component: {fileID: 5947652038579515068}
   m_Layer: 5
   m_Name: Time
   m_TagString: Untagged
@@ -29985,3 +29988,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85167597ccbf486cb16fffcb53693afe, type: 3}
   m_Name: ''
   m_EditorClassIdentifier: ''
+--- !u!114 &8773511940488683809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184174171362354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.EarnXpThroughTraining
+  sourceText: "\uD6C8\uB828\uC744 \uD1B5\uD558\uC5EC \uACBD\uD5D8\uCE58\uB97C \uC99D\uAC00
+    \uC2DC\uD0AC \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 2346293259667786569}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &91558272079584382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210842644039142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.DontSkipYourPractice
+  sourceText: "\uC5F0\uC2B5\uC744 \uAC8C\uC744\uB9AC \uD574\uC120 \uC548\uB418\uC9C0!"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 2343815119488866597}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &5947652038579515068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453491800133920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.TimeRemaining
+  sourceText: "\uB0A8\uC740\uC2DC\uAC04"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 1016704001379490894}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

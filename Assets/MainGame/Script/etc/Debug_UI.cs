@@ -38,7 +38,7 @@ namespace BaseBall.BallPlay
             deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
             if (curTime > 1.0f)
             {
-                fpsLabel.text = "FPS: " + ((int)(1.0f / deltaTime)).ToString(); // (1.0f / deltaTime).ToString() + " FPS";
+                L10n.SetText(fpsLabel, "UI.Format.FpsValue", ((int)(1.0f / deltaTime)).ToString()); // (1.0f / deltaTime).ToString() + " FPS";
                 curTime = 0;
             }
         }
@@ -49,7 +49,7 @@ namespace BaseBall.BallPlay
             Instance_.Round.gameObject.SetActive(bActive);
             if (bActive == true)
             {
-                Instance_.Round.text = "ROUND " + round;
+                L10n.SetText(Instance_.Round, "UI.Format.RoundValue", round);
             }
         }
 
@@ -84,11 +84,11 @@ namespace BaseBall.BallPlay
         private void setPitcher(CPlayer pitcher)
         {
 #if _Test_Local
-            pitcherProp[0].text = "현재체력 : " + pitcher.getCurrentStamina().ToString();
-            pitcherProp[1].text = "감소율 : " + pitcher.staminaReduceRate.ToString();
-            pitcherProp[2].text = "체력상태 : " + pitcher.faitgueStep.ToString();
-            pitcherProp[3].text = "핀치여부 : " + pitcher.pinchState.ToString();
-            pitcherProp[4].text = "핀치점수 : " + pitcher.pinchScore.ToString();
+            L10n.SetText(pitcherProp[0], "UI.Format.CurrentStaminaValue", pitcher.getCurrentStamina().ToString());
+            L10n.SetText(pitcherProp[1], "UI.Format.ReductionRateValue", pitcher.staminaReduceRate.ToString());
+            L10n.SetText(pitcherProp[2], "UI.Format.StaminaStateValue", pitcher.faitgueStep.ToString());
+            L10n.SetText(pitcherProp[3], "UI.Format.InAPinchValue", pitcher.pinchState.ToString());
+            L10n.SetText(pitcherProp[4], "UI.Format.PinchScoreValue", pitcher.pinchScore.ToString());
 
             //int guweeBouns = pitcher.pPitcher.getBallValue
             /*pitcherProp[0].text = "직구 : " + pitcher.getBallValue2(0).ToString();
@@ -105,11 +105,11 @@ namespace BaseBall.BallPlay
 
         private void setBatter(CPlayer batter)
         {
-            batterProp[0].text = "컨택 : " + batter.getContact();
-            batterProp[1].text = "선구 : " + batter.getEye();
-            batterProp[2].text = "파워 : " + batter.getPower();
-            batterProp[3].text = "탄도 : " + batter.getTando();
-            batterProp[4].text = "보너스 : " + batter.getBonusValue();
+            L10n.SetText(batterProp[0], "UI.Format.ContactValue", batter.getContact());
+            L10n.SetText(batterProp[1], "UI.Format.BattingEyeValue", batter.getEye());
+            L10n.SetText(batterProp[2], "UI.Format.PowerValue", batter.getPower());
+            L10n.SetText(batterProp[3], "UI.Format.LaunchAngleValue", batter.getTando());
+            L10n.SetText(batterProp[4], "UI.Format.BonusValue", batter.getBonusValue());
         }
 
     }

@@ -37,7 +37,7 @@ public class LeaderComponent : MonoBehaviour
         }
         else
         {            
-            PlayerTxt.text = cardData.name_id;
+            L10n.SetText(PlayerTxt, cardData.name_id);
         }
 
         if (teamIdx == 0 && cardData.char_type == CharacterType.Ballers)
@@ -73,7 +73,7 @@ public class LeaderComponent : MonoBehaviour
             if (value < KOBConstant.QPA_CONSTANT)
             {
                 //규정타석이 아닌 경우
-                RankTxt.text = "N/A";
+                L10n.SetText(RankTxt, "Common.Value.NotAvailable");
             }
             else
             {

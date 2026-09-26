@@ -2780,6 +2780,7 @@ GameObject:
   m_Component:
   - component: {fileID: 489676}
   - component: {fileID: 3942740074184125862}
+  - component: {fileID: 6018292660380242251}
   m_Layer: 5
   m_Name: Textlabel
   m_TagString: Untagged
@@ -3633,6 +3634,7 @@ GameObject:
   m_Component:
   - component: {fileID: 498744}
   - component: {fileID: 4673099725154723373}
+  - component: {fileID: 7583252646322639568}
   m_Layer: 5
   m_Name: TitleLabel
   m_TagString: Untagged
@@ -4084,3 +4086,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85167597ccbf486cb16fffcb53693afe, type: 3}
   m_Name: ''
   m_EditorClassIdentifier: ''
+--- !u!114 &7583252646322639568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 189958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.BecomeTheHomeRunChampion
+  sourceText: "\uD648\uB7F0\uC655\uC5D0 \uB3C4\uC804\uD558\uB77C!"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 4673099725154723373}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &6018292660380242251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Message.Hit4HomeRunsInSeasonMode
+  sourceText: "\uC2DC\uC98C\uBAA8\uB4DC\uC5D0\uC11C \uD648\uB7F0 4\uAC1C\uB97C \uB2EC\uC131\uD558\uC138\uC694."
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 3942740074184125862}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

@@ -254,7 +254,7 @@ namespace BaseBall.BallPlay
                 batter.setRecord(Param.ST_2B);
                 ////UnityEngine.Debug.Log("[시뮬기록]=======================>>>투수피2루타: " + pitcher.getName());
                 pitcher.setRecord(Param.ST_P2B);
-                batter.setResultStr("2루타");
+                batter.setResultStr(L10n.T("Baseball.Result.Double"));
                 //setAp(3, index);
                 batter.setDetailRecord(Param.DetailRecord.Double, currentInning);
 
@@ -266,7 +266,7 @@ namespace BaseBall.BallPlay
                 batter.setRecord(Param.ST_3B);
                 ////UnityEngine.Debug.Log("[시뮬기록]=======================>>>투수피3루타: " + pitcher.getName());
                 pitcher.setRecord(Param.ST_P3B);
-                batter.setResultStr("3루타");
+                batter.setResultStr(L10n.T("Baseball.Result.Triple"));
                 //setAp(5, index);
                 batter.setDetailRecord(Param.DetailRecord.Tripple, currentInning);
 
@@ -280,7 +280,7 @@ namespace BaseBall.BallPlay
                 batter.setRecord(Param.ST_HR);
                 ////UnityEngine.Debug.Log("[시뮬기록]=======================>>>투수피홈런: " + pitcher.getName());
                 pitcher.setRecord(Param.ST_PHR);
-                batter.setResultStr("홈런");
+                batter.setResultStr(L10n.T("Baseball.Result.HomeRun"));
                 //setAp(7, index);
                 //setAp(-3, 1-index);
                 batter.setDetailRecord(Param.DetailRecord.Homerun, currentInning);
@@ -288,7 +288,7 @@ namespace BaseBall.BallPlay
             }
             else
             {
-                batter.setResultStr("안타");
+                batter.setResultStr(L10n.T("Baseball.Stat.HitsShort.Ballplay"));
                 //setAp(2, index);
                 batter.setDetailRecord(Param.DetailRecord.Single, currentInning);
             }
@@ -350,7 +350,7 @@ namespace BaseBall.BallPlay
             ////UnityEngine.Debug.Log("[시뮬기록]=======================>>>타자타수: " + batter.getName());
             batter.setRecord(Param.ST_PA);
             batter.setRecord(Param.ST_AB);
-            batter.setResultStr("삼진");
+            batter.setResultStr(L10n.T("Baseball.Result.Strikeout"));
             batter.setDetailRecord(Param.DetailRecord.StrikeOut, currentInning);
 
             //해당 투수 기록도 카운트
@@ -379,7 +379,7 @@ namespace BaseBall.BallPlay
                 //투수
                 ////UnityEngine.Debug.Log("[시뮬기록]=======================>>>투수4구: " + pitcher.getName());
                 pitcher.setRecord(Param.ST_PBB);
-                batter.setResultStr("포볼");
+                batter.setResultStr(L10n.T("Baseball.Result.Walk.Ballplaymanager"));
                 batter.setDetailRecord(Param.DetailRecord.Baseonball, currentInning);
             }
             else
@@ -390,7 +390,7 @@ namespace BaseBall.BallPlay
                 //투수
                 ////UnityEngine.Debug.Log("[시뮬기록]=======================>>>투수힛바이피치볼: " + pitcher.getName());
                 pitcher.setRecord(Param.ST_PHBP);
-                batter.setResultStr("사구");
+                batter.setResultStr(L10n.T("UI.Label.HitByPitch"));
                 batter.setDetailRecord(Param.DetailRecord.HitbyPitched, currentInning);
             }
 
@@ -415,7 +415,7 @@ namespace BaseBall.BallPlay
                 if (bSac == false)
                 {
                     batter.setRecord(Param.ST_AB);
-                    batter.setResultStr(type == SimulResultState.Grounder ? "땅볼" : "뜬공");
+                    batter.setResultStr(type == SimulResultState.Grounder ? L10n.T("UI.Label.Groundout.Ballplaymanager") : L10n.T("UI.Label.Flyout"));
 
                     if(hitType == SimulHitType.Liner) batter.setDetailRecord(Param.DetailRecord.Liner, currentInning);
                     else if (hitType == SimulHitType.Fly) batter.setDetailRecord(Param.DetailRecord.Fly, currentInning);
@@ -424,7 +424,7 @@ namespace BaseBall.BallPlay
                 else
                 {
                     //희생타인 경우 타수 안올라감
-                    batter.setResultStr("희생");
+                    batter.setResultStr(L10n.T("UI.Label.Sacrifice"));
                     batter.setDetailRecord(Param.DetailRecord.Sacrify, currentInning);
                 }
             }

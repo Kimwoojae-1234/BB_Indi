@@ -150,7 +150,7 @@ public class Ui_PlayerCard : UIItem
 
     public void SetPlayerPitcherPosition()
     {
-        PositionText.text = "P";
+        L10n.SetText(PositionText, "UI.Label.P");
         PositionText.gameObject.SetActive(PositionText == null ? false : true);
     }
 

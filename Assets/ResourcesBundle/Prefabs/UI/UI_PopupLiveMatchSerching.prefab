@@ -221,6 +221,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4642745869009510}
   - component: {fileID: 4122894061926490480}
+  - component: {fileID: 5314961275587534209}
   m_Layer: 5
   m_Name: title_txt
   m_TagString: Untagged
@@ -3477,6 +3478,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4195405881586290}
   - component: {fileID: 7894886910339009776}
+  - component: {fileID: 2120465625480218158}
   m_Layer: 5
   m_Name: txt
   m_TagString: Untagged
@@ -5196,3 +5198,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85167597ccbf486cb16fffcb53693afe, type: 3}
   m_Name: ''
   m_EditorClassIdentifier: ''
+--- !u!114 &5314961275587534209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095248636769182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.LiveMatching
+  sourceText: LIVE MATCHING
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 4122894061926490480}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &2120465625480218158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213320894824760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.FindingAnOpponent
+  sourceText: "\uACBD\uAE30 \uC0C1\uB300\uB97C \uCC3E\uACE0 \uC788\uC2B5\uB2C8\uB2E4..."
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 7894886910339009776}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

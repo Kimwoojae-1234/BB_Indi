@@ -211,7 +211,7 @@ public class RttsTrophyScroll : MonoBehaviour
             {
                 Clone[0].gameObject.SetActive(false);
                 Clone[1].gameObject.SetActive(false);
-                TropyTxt.text = string.Format("{0} Points", CurrentWin);
+                TropyTxt.text = L10n.F("UI.Format.ValuePoints", CurrentWin);
                 return;
             }
 
@@ -259,7 +259,7 @@ public class RttsTrophyScroll : MonoBehaviour
 
             Debug.Log("trophyPos : " + trophyPos);
             //인디케이터 설정하기
-            TropyTxt.text = string.Format("{0} Points", CurrentWin);
+            TropyTxt.text = L10n.F("UI.Format.ValuePoints", CurrentWin);
             Indicator.anchoredPosition = new Vector2(trophyPos, Indicator.anchoredPosition.y);
 
             //초기 스크롤 위치

@@ -54,7 +54,7 @@ namespace BaseBall.BallPlay
                 else updown[i].spriteName = "result_rankkeep";                
                 updown[i].MakePixelPerfect();
 
-                rankLabel[i].text = curRank + "위";
+                L10n.SetText(rankLabel[i], "UI.Format.RankValue", curRank);
 
                 //팀점수
                 scoreLabel[i].text = (i == 0 ? gameResult[curIndex].awayScore : gameResult[curIndex].homeScore).ToString();

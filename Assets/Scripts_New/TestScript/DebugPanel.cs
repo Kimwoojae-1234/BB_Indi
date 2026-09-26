@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -24,7 +24,8 @@ public class DebugPanel : MonoBehaviour
     int maxCard = 4;
 
 
-    static string[] giftText = new string[3] { "COIN", "GEM", "ENERGY" };
+    static string[] giftTextKeys = new string[3] { "UI.Label.Coin", "UI.Label.Gem", "UI.Label.Energy" };
+        static string[] giftText => L10n.Texts(giftTextKeys);
     static int[] cardText = new int[6] { 1001, 1049, 1050, 1051, 1052, 1053 };
 
 
@@ -48,7 +49,7 @@ public class DebugPanel : MonoBehaviour
         {
             if (callback?.IsSuccess() == true)
             {
-                //Debug.Log("�׽�Ʈ�׽�Ʈ a = " + a);
+                //Debug.Log("테스트테스트 a = " + a);
                 LobbyStepTxt.text = string.Format("LobbyStep: {0}", KOBManager.MyInfo.UserInfo.LobbyStep);
                 //TResultLobbyStepUpdate respose = (TResultLobbyStepUpdate)response;                
             }

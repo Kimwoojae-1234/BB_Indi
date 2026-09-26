@@ -26,31 +26,31 @@ public class ResultMyLeaders : MonoBehaviour
         if (type == LeaderType.Homerun)
         {
             plyer_idx = res.HRLeader[0];
-            _Title.text = "HOME RUN WINNER";
+            L10n.SetText(_Title, "UI.Label.HomeRunWinner");
             _leaderComp.Set(type, res.HRLeader, league);
         }
         else if (type == LeaderType.Avg)
         {
             plyer_idx = res.AvgLeader[0];
-            _Title.text = "BATTING AVERAGE WINNER";
+            L10n.SetText(_Title, "UI.Label.BattingAverageWinner");
             _leaderComp.Set(type, res.AvgLeader, league);
         }
         else if (type == LeaderType.Rbi)
         {
             plyer_idx = res.RbiLeader[0];
-            _Title.text = "RBI WINNER";
+            L10n.SetText(_Title, "UI.Label.RbiWinner");
             _leaderComp.Set(type, res.RbiLeader, league);
         }
         else if (type == LeaderType.Hit)
         {
             plyer_idx = res.HitLeader[0];
-            _Title.text = "HIT WINNER";
+            L10n.SetText(_Title, "UI.Label.HitWinner");
             _leaderComp.Set(type, res.HitLeader, league);
         }
         else if (type == LeaderType.Ops)
         {
             plyer_idx = res.OpsLeader[0];
-            _Title.text = "OPS WINNER";
+            L10n.SetText(_Title, "UI.Label.OpsWinner");
             _leaderComp.Set(type, res.OpsLeader, league);
         }
 

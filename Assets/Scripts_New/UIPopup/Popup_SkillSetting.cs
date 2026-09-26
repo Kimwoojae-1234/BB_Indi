@@ -311,7 +311,7 @@ public class Popup_SkillSetting : UIPopup
         }
         else
         {
-            SkillNameTxt.text = string.Format("{0} LV{1}", KOBManager.Localization.GetUILocalizedValue2(skillData.name_id), CurLevel);
+            SkillNameTxt.text = L10n.F("UI.Format.ValueLvValue", KOBManager.Localization.GetUILocalizedValue2(skillData.name_id), CurLevel);
             level = CurLevel - 1;
         }
 
@@ -342,7 +342,7 @@ public class Popup_SkillSetting : UIPopup
                 NotAvailble.gameObject.SetActive(true);
                 TextMeshProUGUI t = NotAvailble.transform.Find("Text").GetComponent<TextMeshProUGUI>();
                 t.color = KOBUtil.GetRarityColor(CurRarity);
-                t.text = string.Format("<color=white>Available to learn after reaching</color> POWER LEVEL {0}", openLv);
+                t.text = L10n.F("UI.Format.AvailableToLearnAfterReachingPowerLevelValue", openLv);
             }
             else
             {
@@ -354,7 +354,7 @@ public class Popup_SkillSetting : UIPopup
             NotAvailble.gameObject.SetActive(true);
             TextMeshProUGUI t = NotAvailble.transform.Find("Text").GetComponent<TextMeshProUGUI>();
             t.color = KOBUtil.GetRarityColor(CurRarity);
-            t.text = string.Format("<color=white>Available to learn after reaching</color> POWER LEVEL {0}", openLv);
+            t.text = L10n.F("UI.Format.AvailableToLearnAfterReachingPowerLevelValue", openLv);
         }
     }
 

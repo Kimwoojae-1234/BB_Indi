@@ -194,6 +194,7 @@ GameObject:
   - component: {fileID: 1623818387}
   - component: {fileID: 1623818389}
   - component: {fileID: 1623818388}
+  - component: {fileID: 6498925833980423487}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -40369,6 +40370,7 @@ GameObject:
   - component: {fileID: 269861656466243031}
   - component: {fileID: 1980935058761040886}
   - component: {fileID: 3617742480373746570}
+  - component: {fileID: 5744799252502525813}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -70779,6 +70781,7 @@ GameObject:
   - component: {fileID: 5966386236549844128}
   - component: {fileID: 4523433843598460874}
   - component: {fileID: 6969074615743369354}
+  - component: {fileID: 2600920497505350784}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -75775,6 +75778,7 @@ GameObject:
   - component: {fileID: 1968542087468092213}
   - component: {fileID: 1075135395673492251}
   - component: {fileID: 2774827543158203828}
+  - component: {fileID: 3229711263028531221}
   m_Layer: 5
   m_Name: Text_Rewards
   m_TagString: Untagged
@@ -75912,6 +75916,7 @@ GameObject:
   - component: {fileID: 5778342160828310744}
   - component: {fileID: 7971043083413994021}
   - component: {fileID: 7098705854682312881}
+  - component: {fileID: 2108174125651743930}
   m_Layer: 5
   m_Name: Text_Rewards
   m_TagString: Untagged
@@ -81307,6 +81312,7 @@ GameObject:
   - component: {fileID: 6825827864087683076}
   - component: {fileID: 6825827864087683078}
   - component: {fileID: 6825827864087683077}
+  - component: {fileID: 2887761046141462745}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -86443,6 +86449,7 @@ GameObject:
   - component: {fileID: 8079207301629273320}
   - component: {fileID: 7881685387699924468}
   - component: {fileID: 7875585821533890422}
+  - component: {fileID: 2584692241194122798}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -87149,3 +87156,136 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5747fc0ba005f1240ad74dec2afc3f1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6498925833980423487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623818386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: Common.Action.Claim
+  sourceText: Claim
+  tmp: {fileID: 1623818388}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &5744799252502525813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3072502002251602475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.ChallengerLeague.Uppercase
+  sourceText: CHALLENGER LEAGUE
+  tmp: {fileID: 3617742480373746570}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &2600920497505350784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5470043170203566590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.OtherWinners
+  sourceText: OTHER WINNERS
+  tmp: {fileID: 6969074615743369354}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &3229711263028531221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5584863358002938639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.Rewards
+  sourceText: REWARDS
+  tmp: {fileID: 2774827543158203828}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &2108174125651743930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5797852059520847770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.Rewards
+  sourceText: REWARDS
+  tmp: {fileID: 7098705854682312881}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &2887761046141462745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6825827864087683075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: Common.Action.Next
+  sourceText: Next
+  tmp: {fileID: 6825827864087683077}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &2584692241194122798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7744183510504270842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.LeagueChamphion
+  sourceText: LEAGUE CHAMPHION
+  tmp: {fileID: 7875585821533890422}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

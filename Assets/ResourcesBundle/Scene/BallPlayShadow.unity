@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 448191991}
   - component: {fileID: 1891715316452462513}
+  - component: {fileID: 1891715316452462514}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -534,6 +535,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1589297332}
   - component: {fileID: 804016154788040792}
+  - component: {fileID: 804016154788040793}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -1219,6 +1221,7 @@ GameObject:
   m_Component:
   - component: {fileID: 351390098}
   - component: {fileID: 1920390966408242093}
+  - component: {fileID: 1920390966408242094}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -2390,3 +2393,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85167597ccbf486cb16fffcb53693afe, type: 3}
   m_Name: ''
   m_EditorClassIdentifier: ''
+--- !u!114 &804016154788040793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589297331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: Baseball.Result.Win.Ballplay
+  sourceText: "\uC2B9\uB9AC"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 804016154788040792}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &1891715316452462514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448191990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: Baseball.Result.Draw
+  sourceText: "\uBB34\uC2B9\uBD80"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 1891715316452462513}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &1920390966408242094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351390097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.Loss
+  sourceText: "\uD328\uBC30"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 1920390966408242093}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

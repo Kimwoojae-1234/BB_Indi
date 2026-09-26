@@ -83,7 +83,7 @@ public class UI_CardBase : MonoBehaviour
         this.labelPlayerLevel.text = 1.ToString();
         this.spritePlayerLevel_BG.spriteName ="lv_bg";
         this.spriteLock.enabled = false;
-        this.labelPlayerName.text = "테스트";
+        L10n.SetText(this.labelPlayerName, "UI.Label.Test");
         this.spritePlayerName_Bg.spriteName ="name_bg";
         this.spriteNewMark.enabled = false;
         this.spriteTeamLogo.spriteName = WebConnector.TeamCode.SAMSUNG.ToString();

@@ -119,12 +119,12 @@ namespace BaseBall.BallPlay
                 LiveMatch[homeIndex].transform.FindChild("rank").GetComponent<GameUIElement>().text = info.homeTeam.point.ToString();
                 //승무패는 추후
                 string awayText;
-                if (info.awayTeam.wdl == null) awayText = "0승 0무 0패";
-                else awayText = info.awayTeam.wdl[0] + "승 " + info.awayTeam.wdl[1] + "무 " + info.awayTeam.wdl[2] + "패";
+                if (info.awayTeam.wdl == null) awayText = L10n.T("UI.Message.0W0D0L");
+                else awayText = L10n.F("Baseball.Record.WinDrawLoss", info.awayTeam.wdl[0], info.awayTeam.wdl[1], info.awayTeam.wdl[2]);
                 LiveMatch[awayIndex].transform.FindChild("wdl").GetComponent<GameUIElement>().text = awayText;
                 string homeText;
-                if (info.homeTeam.wdl == null) homeText = "0승 0무 0패";
-                else homeText = info.homeTeam.wdl[0] + "승 " + info.homeTeam.wdl[1] + "무 " + info.homeTeam.wdl[2] + "패";
+                if (info.homeTeam.wdl == null) homeText = L10n.T("UI.Message.0W0D0L");
+                else homeText = L10n.F("Baseball.Record.WinDrawLoss", info.homeTeam.wdl[0], info.homeTeam.wdl[1], info.homeTeam.wdl[2]);
                 LiveMatch[homeIndex].transform.FindChild("wdl").GetComponent<GameUIElement>().text = homeText;
                 
 #endif
@@ -166,10 +166,10 @@ namespace BaseBall.BallPlay
 
                     //어웨이
                     SeasonRace[awayIndex].transform.FindChild("rank").GetComponent<GameUIElement>().text = awayTeam.ranking.ToString();
-                    SeasonRace[awayIndex].transform.FindChild("wdl").GetComponent<GameUIElement>().text = info.awayWdl[0] + "승 " + info.awayWdl[1] + "무 " + info.awayWdl[2] + "패";
+                    L10n.SetText(SeasonRace[awayIndex].transform.FindChild("wdl").GetComponent<GameUIElement>(), "Baseball.Record.WinDrawLoss", info.awayWdl[0], info.awayWdl[1], info.awayWdl[2]);
                     //홈
                     SeasonRace[homeIndex].transform.FindChild("rank").GetComponent<GameUIElement>().text = homeTeam.ranking.ToString();
-                    SeasonRace[homeIndex].transform.FindChild("wdl").GetComponent<GameUIElement>().text = info.homeWdl[0] + "승 " + info.homeWdl[1] + "무 " + info.homeWdl[2] + "패";
+                    L10n.SetText(SeasonRace[homeIndex].transform.FindChild("wdl").GetComponent<GameUIElement>(), "Baseball.Record.WinDrawLoss", info.homeWdl[0], info.homeWdl[1], info.homeWdl[2]);
                     //일차
                     if (info.gameType == WebConnector.SeasonGameType.PennantRace)
                     {
@@ -181,10 +181,10 @@ namespace BaseBall.BallPlay
                     else
                     {
                         string title;
-                        if (info.gameType == WebConnector.SeasonGameType.WildCard) title = "와일드카드 ";
-                        else if (info.gameType == WebConnector.SeasonGameType.SemiPlayOff) title = "준플레이오프 ";
-                        else if (info.gameType == WebConnector.SeasonGameType.PlayOff) title = "플레이오프 ";
-                        else title = "한국시리즈 ";
+                        if (info.gameType == WebConnector.SeasonGameType.WildCard) title = L10n.T("UI.Label.WildCard");
+                        else if (info.gameType == WebConnector.SeasonGameType.SemiPlayOff) title = L10n.T("UI.Label.SemiPlayoffs");
+                        else if (info.gameType == WebConnector.SeasonGameType.PlayOff) title = L10n.T("UI.Label.Playoffs");
+                        else title = L10n.T("UI.Label.KoreanSeries");
                         //포스트 시즌
                         center[3].SetActive(true);
                         // DISABLED_MGRS: center[3].transform.FindChild("Label").GetComponent<GameUIElement>().text = title + Mgrs.userData.seasonLobbyInfo.roundNo + "차전";
@@ -212,10 +212,10 @@ namespace BaseBall.BallPlay
 
                     //어웨이
                     SeasonRace[awayIndex].transform.FindChild("rank").GetComponent<GameUIElement>().text = awayTeam.ranking.ToString();
-                    SeasonRace[awayIndex].transform.FindChild("wdl").GetComponent<GameUIElement>().text = awayTeam.win + "승 " + awayTeam.draw + "무 " + awayTeam.lose + "패";
+                    L10n.SetText(SeasonRace[awayIndex].transform.FindChild("wdl").GetComponent<GameUIElement>(), "Baseball.Record.WinDrawLoss", awayTeam.win, awayTeam.draw, awayTeam.lose);
                     //홈
                     SeasonRace[homeIndex].transform.FindChild("rank").GetComponent<GameUIElement>().text = homeTeam.ranking.ToString();
-                    SeasonRace[homeIndex].transform.FindChild("wdl").GetComponent<GameUIElement>().text = homeTeam.win + "승 " + homeTeam.draw + "무 " + homeTeam.lose + "패";
+                    L10n.SetText(SeasonRace[homeIndex].transform.FindChild("wdl").GetComponent<GameUIElement>(), "Baseball.Record.WinDrawLoss", homeTeam.win, homeTeam.draw, homeTeam.lose);
 
                 }
 #endif

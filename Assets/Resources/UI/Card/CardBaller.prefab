@@ -853,6 +853,7 @@ GameObject:
   - component: {fileID: 980921042560407762}
   - component: {fileID: 980921042560407764}
   - component: {fileID: 980921042560407763}
+  - component: {fileID: 2930367045339598930}
   m_Layer: 5
   m_Name: Text_Unlocking
   m_TagString: Untagged
@@ -1184,6 +1185,7 @@ GameObject:
   - component: {fileID: 980921042931571308}
   - component: {fileID: 980921042931571310}
   - component: {fileID: 980921042931571309}
+  - component: {fileID: 6217417009078124833}
   m_Layer: 5
   m_Name: Text_UnlockNow
   m_TagString: Untagged
@@ -2882,3 +2884,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fac2ba66d19b6049ae5ad44c39c4b87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2930367045339598930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 980921042560407761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.UnlockingInThisLeague
+  sourceText: UNLOCKING IN THIS LEAGUE
+  tmp: {fileID: 980921042560407763}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &6217417009078124833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 980921042931571307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.UnlockNow
+  sourceText: 'UNLOCK NOW:'
+  tmp: {fileID: 980921042931571309}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

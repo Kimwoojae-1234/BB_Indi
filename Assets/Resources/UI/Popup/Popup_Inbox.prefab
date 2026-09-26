@@ -260,6 +260,7 @@ GameObject:
   - component: {fileID: 768824996007733229}
   - component: {fileID: 5345237423525418119}
   - component: {fileID: 2086237641635894888}
+  - component: {fileID: 7144684768101836183}
   m_Layer: 5
   m_Name: Text_2,500
   m_TagString: Untagged
@@ -1579,6 +1580,7 @@ GameObject:
   - component: {fileID: 5380122581659328607}
   - component: {fileID: 5380122581659328593}
   - component: {fileID: 5380122581659328606}
+  - component: {fileID: 7951122144886314716}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -1804,6 +1806,7 @@ GameObject:
   - component: {fileID: 5380122582076384071}
   - component: {fileID: 5380122582076382393}
   - component: {fileID: 5380122582076384070}
+  - component: {fileID: 2738754857863086432}
   m_Layer: 5
   m_Name: Text_Title
   m_TagString: Untagged
@@ -2757,6 +2760,7 @@ GameObject:
   - component: {fileID: 5380122583011867733}
   - component: {fileID: 5380122583011867735}
   - component: {fileID: 5380122583011867732}
+  - component: {fileID: 1748178766161796387}
   m_Layer: 5
   m_Name: Text_Info
   m_TagString: Untagged
@@ -3044,6 +3048,7 @@ GameObject:
   - component: {fileID: 5380122583268380529}
   - component: {fileID: 5380122583268380531}
   - component: {fileID: 5380122583268380528}
+  - component: {fileID: 6736088497737381411}
   m_Layer: 5
   m_Name: Text_2,500
   m_TagString: Untagged
@@ -3392,6 +3397,7 @@ GameObject:
   - component: {fileID: 4547961034383875491}
   - component: {fileID: 116454501174248215}
   - component: {fileID: 2729578935437005134}
+  - component: {fileID: 5568394891544868968}
   m_Layer: 5
   m_Name: Text_NoPost
   m_TagString: Untagged
@@ -3592,3 +3598,117 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7144684768101836183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3781450312293150457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: Common.Action.OK
+  sourceText: OK
+  tmp: {fileID: 2086237641635894888}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &7951122144886314716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5380122581659328604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: Common.Action.AcceptAll
+  sourceText: Accept All
+  tmp: {fileID: 5380122581659328606}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &2738754857863086432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5380122582076384068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.Inbox
+  sourceText: Inbox
+  tmp: {fileID: 5380122582076384070}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &1748178766161796387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5380122583011867730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Message.PressingAcceptAllWillClaimAllItems
+  sourceText: Pressing <color=#ffe00d>Accept All</color> will claim all items.
+  tmp: {fileID: 5380122583011867732}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &6736088497737381411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5380122583268380542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: Common.Action.Claim
+  sourceText: Claim
+  tmp: {fileID: 5380122583268380528}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &5568394891544868968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8912926477434775387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Message.ThereIsNoMailInYourInbox
+  sourceText: There is no mail in your inbox.
+  tmp: {fileID: 2729578935437005134}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

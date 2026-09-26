@@ -55,8 +55,10 @@ public class RttsInfo
     public bool isSeries { get; private set; }
     public bool Playoff { get; private set; }
     public bool Open { get; private set; }
-    public string Name { get; private set; }
-    public string Desc { get; private set; }
+    private string nameKey;
+    private string descKey;
+    public string Name => L10n.T(nameKey);
+    public string Desc => L10n.T(descKey);
     public int Win { get; private set; }
     public int Lose { get; private set; }
     public int Draw { get; private set; }
@@ -70,8 +72,8 @@ public class RttsInfo
         isSeries = bool.Parse(json["isSeries"].ToString());
         Playoff = bool.Parse(json["Playoff"].ToString());
         Open = bool.Parse(json["Open"].ToString());
-        Name = json["Name"].ToString();
-        Desc = json["Desc"].ToString();
+        nameKey = json["Name"].ToString();
+        descKey = json["Desc"].ToString();
         Win = int.Parse(json["Win"].ToString());
         Lose = int.Parse(json["Lose"].ToString());
         Draw = int.Parse(json["Draw"].ToString());

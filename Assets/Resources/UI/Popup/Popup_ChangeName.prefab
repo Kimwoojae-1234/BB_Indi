@@ -1153,6 +1153,7 @@ GameObject:
   - component: {fileID: 7833269428166883083}
   - component: {fileID: 4576668118333281892}
   - component: {fileID: 1046839936951736724}
+  - component: {fileID: 6288763810286995809}
   m_Layer: 5
   m_Name: Text_Title
   m_TagString: Untagged
@@ -1364,6 +1365,7 @@ GameObject:
   - component: {fileID: 7919433946533781734}
   - component: {fileID: 1364442056023881049}
   - component: {fileID: 8575078610802922822}
+  - component: {fileID: 2567631626850807255}
   m_Layer: 5
   m_Name: Text_Info
   m_TagString: Untagged
@@ -1758,3 +1760,41 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6288763810286995809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7633944821985334989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: Common.Action.ChangeName
+  sourceText: Change Name
+  tmp: {fileID: 1046839936951736724}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &2567631626850807255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8153982676268548925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Message.PleaseEnterANameToChange
+  sourceText: Please enter a name to change.
+  tmp: {fileID: 8575078610802922822}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

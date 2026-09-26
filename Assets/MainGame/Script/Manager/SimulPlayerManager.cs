@@ -23,24 +23,26 @@ namespace BaseBall.BallPlay
         public static int myTeamSeqNum, cpuTeamSeqNum;
 
 #if GIRL_PLAY
-        public static string[] _teamName = new string[10]
+        public static string[] _teamNameKeys = new string[10]
         {
-            "Beach Breakers",
-            "Sandstorm Sluggers",
-            "Wave Runners",
-            "Sunset Batters",
-            "Coral Pirates",
-            "Tidal Smash",
-            "Blue Lagoon Nine",
-            "Palm Hitters",
-            "Seaside Storm",
-            "Orca Beach Club"
+            "UI.Label.BeachBreakers",
+            "UI.Label.SandstormSluggers",
+            "UI.Label.WaveRunners",
+            "UI.Label.SunsetBatters",
+            "UI.Label.CoralPirates",
+            "UI.Label.TidalSmash",
+            "UI.Label.BlueLagoonNine",
+            "UI.Label.PalmHitters",
+            "UI.Label.SeasideStorm",
+            "UI.Label.OrcaBeachClub"
         };
+        public static string[] _teamName => L10n.Texts(_teamNameKeys);
 #else
-        public static string[] _teamName = new string[10]
+        public static string[] _teamNameKeys = new string[10]
         {
-            "삼성라이온즈","넥센히어로즈","NC다이노스","LG트윈스","SK와이번즈","두산베어즈","롯데자이언츠","기아타이거즈","한화이글스","kt위즈"
+            "UI.Label.SamsungLions","UI.Label.NexenHeroes","UI.Label.NcDinos","UI.Label.LgTwins","UI.Label.SkWyverns","UI.Label.DoosanBears","UI.Label.LotteGiants","UI.Label.KiaTigers","UI.Label.HanwhaEagles","UI.Label.KtWiz"
         };
+        public static string[] _teamName => L10n.Texts(_teamNameKeys);
 #endif
         //
         void Awake()

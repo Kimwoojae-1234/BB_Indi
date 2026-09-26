@@ -92,8 +92,8 @@ namespace BaseBall.BallPlay
 
         private void updateTeam(float curPer, float curGetExp)
         {
-            level.text = "TEAM LEVEL [95E943]" + _curLevel + "[-]";
-            exp.text = "+EXP  " + curGetExp;
+            L10n.SetText(level, "UI.Format.TeamLevelValue", _curLevel);
+            L10n.SetText(exp, "UI.Format.ExpValue", curGetExp);
             percent.text = string.Format("{0:F2}%", curPer);
 
             int w = Mathf.Clamp((int)(maxValue * curPer / 100), 5, maxValue);
@@ -102,16 +102,16 @@ namespace BaseBall.BallPlay
 
         private void setMaxLevel(float curGetExp)
         {
-            level.text = "TEAM LEVEL [95E943]" + MAXLEVEL + "[-]";
+            L10n.SetText(level, "UI.Format.TeamLevelValue", MAXLEVEL);
             if (curGetExp > 0)
             {
-                exp.text = "+EXP  " + curGetExp;
+                L10n.SetText(exp, "UI.Format.ExpValue", curGetExp);
             }
             else
             {
                 exp.gameObject.SetActive(false);
             }
-            percent.text = "MAX";
+            L10n.SetText(percent, "UI.Label.Max");
 
             secondGague.SetDimensions(maxValue, 14);
         }

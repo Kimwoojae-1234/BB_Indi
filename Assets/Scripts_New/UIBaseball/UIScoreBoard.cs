@@ -82,7 +82,7 @@ public class UIScoreBoard : MonoBehaviour
             if (labels[i] == null) continue;
             int value = scores[i];
             labels[i].gameObject.SetActive(value != RttsGameResult.NoPlayInning);
-            labels[i].text = value == RttsGameResult.GameEndInning ? "X" : Mathf.Max(0, value).ToString();
+            labels[i].text = value == RttsGameResult.GameEndInning ? L10n.T("Common.Symbol.CrossMark") : Mathf.Max(0, value).ToString();
         }
     }
 

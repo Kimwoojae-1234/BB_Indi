@@ -7,6 +7,7 @@ public class LocalizationDataRecord
 [System.Serializable]
 public class LocalizationItem
 {
+    public bool allowEmpty;
     
     public string key;
     [UnityEngine.TextArea]

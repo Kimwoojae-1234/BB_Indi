@@ -1938,6 +1938,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4819212983788764}
   - component: {fileID: 5387155944218214192}
+  - component: {fileID: 4716056808803895349}
   m_Layer: 5
   m_Name: SchedulNo_Label
   m_TagString: Untagged
@@ -2292,6 +2293,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4291446401553882}
   - component: {fileID: 7291799696759020268}
+  - component: {fileID: 3690133311673183271}
   m_Layer: 5
   m_Name: gametype
   m_TagString: Untagged
@@ -3834,6 +3836,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4891938461260108}
   - component: {fileID: 8612737300446692115}
+  - component: {fileID: 1104175605371374984}
   m_Layer: 5
   m_Name: label
   m_TagString: Untagged
@@ -4141,6 +4144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4967587568006446}
   - component: {fileID: 1594724652938663246}
+  - component: {fileID: 8371872276765175398}
   m_Layer: 5
   m_Name: WillPlay
   m_TagString: Untagged
@@ -4296,6 +4300,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4358431772522438}
   - component: {fileID: 6803137866477324939}
+  - component: {fileID: 6760250609566719390}
   m_Layer: 5
   m_Name: label
   m_TagString: Untagged
@@ -4854,6 +4859,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4706457810470818}
   - component: {fileID: 5865913192587769626}
+  - component: {fileID: 2181954732851392409}
   m_Layer: 5
   m_Name: gametype
   m_TagString: Untagged
@@ -5776,3 +5782,117 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85167597ccbf486cb16fffcb53693afe, type: 3}
   m_Name: ''
   m_EditorClassIdentifier: ''
+--- !u!114 &6760250609566719390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223738114703926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.WinningTeam
+  sourceText: "\uC2B9\uB9AC\uD300"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 6803137866477324939}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &8371872276765175398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1331477722000916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.Upcoming
+  sourceText: "\uACBD\uAE30\uC608\uC815"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 1594724652938663246}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &4716056808803895349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367911504888394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.Game1
+  sourceText: "1\uCC28\uC804"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 5387155944218214192}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &2181954732851392409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549075634467996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.WildCard.Schedulecell
+  sourceText: "\uC640\uC77C\uB4DC \uCE74\uB4DC"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 5865913192587769626}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &1104175605371374984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1878257886289048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.WinningTeam
+  sourceText: "\uC2B9\uB9AC\uD300"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 8612737300446692115}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &3690133311673183271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953780940482414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.WildCard.Padded
+  sourceText: "\uC640\uC77C\uB4DC \uCE74\uB4DC "
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 7291799696759020268}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

@@ -192,6 +192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4822936429762450}
   - component: {fileID: 1572474234717906151}
+  - component: {fileID: 1727668940205712148}
   m_Layer: 5
   m_Name: get_item_label
   m_TagString: Untagged
@@ -4088,6 +4089,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4235896100866976}
   - component: {fileID: 2557044486063281227}
+  - component: {fileID: 9115998630851149918}
   m_Layer: 5
   m_Name: reward_time_label
   m_TagString: Untagged
@@ -4986,3 +4988,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85167597ccbf486cb16fffcb53693afe, type: 3}
   m_Name: ''
   m_EditorClassIdentifier: ''
+--- !u!114 &1727668940205712148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555724365131728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.3BronzeTrophies
+  sourceText: "\uBE0C\uB860\uC988\uD2B8\uB85C\uD53C 3\uAC1C"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 1572474234717906151}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &9115998630851149918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617726691958208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.For1HourOfTraining
+  sourceText: "\uD6C8\uB828 1\uC2DC\uAC04 \uBCF4\uC0C1\uC73C\uB85C"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 2557044486063281227}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

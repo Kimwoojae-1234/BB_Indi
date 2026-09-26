@@ -536,6 +536,7 @@ GameObject:
   - component: {fileID: 959041969}
   - component: {fileID: 3499598023623819360}
   - component: {fileID: 2345147070752857007}
+  - component: {fileID: 3499598023623819361}
   m_Layer: 5
   m_Name: touchscreen
   m_TagString: Untagged
@@ -662,6 +663,7 @@ GameObject:
   m_Component:
   - component: {fileID: 438472815}
   - component: {fileID: 6852977433652751364}
+  - component: {fileID: 6852977433652751365}
   m_Layer: 5
   m_Name: Disconnected
   m_TagString: Untagged
@@ -869,3 +871,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85167597ccbf486cb16fffcb53693afe, type: 3}
   m_Name: ''
   m_EditorClassIdentifier: ''
+--- !u!114 &3499598023623819361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959041968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.TouchTheScreen
+  sourceText: Touch the screen!
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 3499598023623819360}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &6852977433652751365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 438472814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.Disconnected
+  sourceText: Disconnected!
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 6852977433652751364}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

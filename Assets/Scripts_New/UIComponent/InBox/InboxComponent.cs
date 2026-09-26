@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,9 +22,9 @@ public class InboxComponent : MonoBehaviour
     [SerializeField] private TextMeshProUGUI cardAmount;
 
 
-    [SerializeField] private GameObject btnClaim; //º¸»óÀÖ´Â ¹öÆ°
+    [SerializeField] private GameObject btnClaim; //ë³´ìƒìˆëŠ” ë²„íŠ¼
     [SerializeField] private Image btnIcon;
-    [SerializeField] private GameObject btnOk; //º¸»ó ¾ø´Â ¹öÆ°
+    [SerializeField] private GameObject btnOk; //ë³´ìƒ ì—†ëŠ” ë²„íŠ¼
 
 
     int idx = -1;
@@ -32,7 +32,7 @@ public class InboxComponent : MonoBehaviour
         
     public void Init(PostData postData)
     {
-        //Portrait //ÃßÈÄ
+        //Portrait //ì¶”í›„
         idx = postData.idx;
         gameObject.name = string.Format("Post_idx{0}", idx);
         title.text = postData.title.ToUpper();
@@ -45,16 +45,16 @@ public class InboxComponent : MonoBehaviour
         if (postData.isCanReceive == false ||
            postData.postReward.Count == 0)
         {
-            //³ëº¸»ó            
+            //ë…¸ë³´ìƒ
             btnClaim.gameObject.SetActive(false);
             btnOk.gameObject.SetActive(true);
         }
         else
         {
-            //º¸»ó            
+            //ë³´ìƒ
             setRewardUI(postData.postReward);
             btnClaim.gameObject.SetActive(true);
-            btnIcon.gameObject.SetActive(true); //ÃßÈÄ ±¤°í
+            btnIcon.gameObject.SetActive(true); //ì¶”í›„ ê´‘ê³ 
             btnOk.gameObject.SetActive(false);
         }
     }
@@ -63,15 +63,15 @@ public class InboxComponent : MonoBehaviour
     {
         if (postReward.Count >= 2)
         {
-            //»óÀÚ·Î Ç¥½Ã            
+            //ìƒìë¡œ í‘œì‹œ
             rewardObj.SetActive(true);
             rewardImg.sprite = KOBManager.Atlas.GetSprite(AtlasManager.MyAtlas.RandomBox, "itembox1");
             rewardImg.GetComponent<RectTransform>().sizeDelta = new Vector2(185, 185);
-            rewardAmount.text = "BOX";
+            L10n.SetText(rewardAmount, "UI.Label.Box.Uppercase");
         }
         else
         {
-#if false //ÃßÈÄ ´Ù½Ã ¸¸µé°Í
+#if false //ì¶”í›„ ë‹¤ì‹œ ë§Œë“¤ê²ƒ
             if (postReward[0].reward == KOBReward.Card)
             {
                 cardObj.SetActive(true);
@@ -82,7 +82,7 @@ public class InboxComponent : MonoBehaviour
 #endif
             {
                 rewardObj.SetActive(true);
-                //¾ÆÀÌÄÜ Ç¥½Ã
+                //ì•„ì´ì½˜ í‘œì‹œ
                 if (postReward[0].reward == KOBReward.Gold)
                 {
                     rewardImg.sprite = KOBManager.Atlas.GetSprite(AtlasManager.MyAtlas.UIIcon, "Icon_ShopIcon_Gold0");
@@ -110,14 +110,14 @@ public class InboxComponent : MonoBehaviour
             PostData data = (PostData)obj;
             if(data.isCanReceive == true)
             {
-                //º¸»ó ÆË¾÷
-                Debug.Log("º¸»óÆË¾÷ ³ª¿Â´Ù");
+                //ë³´ìƒ íŒì—…
+                Debug.Log("ë³´ìƒíŒì—… ë‚˜ì˜¨ë‹¤");
                 rewardSetting(data);
             }
             else
             {
-                //¿©±â¼­ ¸¶¹«¸®
-                Debug.Log("±×³É³¡");
+                //ì—¬ê¸°ì„œ ë§ˆë¬´ë¦¬
+                Debug.Log("ê·¸ëƒ¥ë");
             }            
             KOBManager.FrontUI.GetPopup<FrontUI_NetworkLoading>()?.Close();
             KOBManager.Popup.GetPopup<Popup_Inbox>()?.SetClaimAllBtn(KOBManager.Backend.PostList.Count);
@@ -127,7 +127,7 @@ public class InboxComponent : MonoBehaviour
 
     private void rewardSetting(PostData data)
     {
-        //ÇöÀç ÀÌºÎºĞ ¸¸Á·½º·´Áö ¾ÊÀ½
+        //í˜„ì¬ ì´ë¶€ë¶„ ë§Œì¡±ìŠ¤ëŸ½ì§€ ì•ŠìŒ
         KOBManager.FrontUI.OpenPopup<FrontUI_NetworkLoading>();
         List<AdminPostReward> list = new List<AdminPostReward>();
         for (int i = 0; i < data.postReward.Count; i++)
@@ -135,7 +135,7 @@ public class InboxComponent : MonoBehaviour
             list.Add(data.postReward[i]);
         }
 
-        //¿ì¼± ÀÓ½Ã - ÃßÈÄ ¿©·¯°Ô¸¦ ÇÒ¼ö ÀÖ´Â°É·Î
+        //ìš°ì„  ì„ì‹œ - ì¶”í›„ ì—¬ëŸ¬ê²Œë¥¼ í• ìˆ˜ ìˆëŠ”ê±¸ë¡œ
         TRequestRewardInfo req = new TRequestRewardInfo()
         {
             Reward = new KOBRewardInfo()

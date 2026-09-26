@@ -1768,6 +1768,7 @@ GameObject:
   - component: {fileID: 3344196944755865757}
   - component: {fileID: 2627687153255769059}
   - component: {fileID: 6908670881164695201}
+  - component: {fileID: 2755842393402568596}
   m_Layer: 5
   m_Name: Text_Upgrade
   m_TagString: Untagged
@@ -4561,6 +4562,7 @@ GameObject:
   - component: {fileID: 5310551231938765873}
   - component: {fileID: 7229393002526223477}
   - component: {fileID: 6834521527937250904}
+  - component: {fileID: 1311745821447406836}
   m_Layer: 5
   m_Name: Text_Learn
   m_TagString: Untagged
@@ -8205,6 +8207,7 @@ GameObject:
   - component: {fileID: 4880173523341101536}
   - component: {fileID: 4880173523341101550}
   - component: {fileID: 4880173523341101537}
+  - component: {fileID: 2638285638102997229}
   m_Layer: 5
   m_Name: Text_Upgrade
   m_TagString: Untagged
@@ -14854,3 +14857,60 @@ MonoBehaviour:
   optionalScrambleMode: 0
   optionalShakeRandomnessMode: 0
   optionalString: 
+--- !u!114 &2755842393402568596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 324537661024005029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: Common.Action.Upgrade
+  sourceText: UPGRADE
+  tmp: {fileID: 6908670881164695201}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &1311745821447406836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2488096521289754104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.LearnSkill
+  sourceText: LEARN SKILL
+  tmp: {fileID: 6834521527937250904}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &2638285638102997229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4880173523341101539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: Common.Action.Upgrade
+  sourceText: UPGRADE
+  tmp: {fileID: 4880173523341101537}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

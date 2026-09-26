@@ -16,39 +16,40 @@ namespace BaseBall.BallPlay
 
 
         private bool bPview;
-        private string[] ballName = new string[25]
+        private string[] ballNameKeys = new string[25]
         {
-            "Fastball",
-            "Two-Seam",
-            "Rising Fastball",
+            "UI.Label.Fastball",
+            "UI.Label.TwoSeam",
+            "UI.Label.RisingFastball",
 
-            "Curveball",
-            "Power Curve",
-            "Slow Curve",
-            "Drop Curve",
-            "Knuckle Curve",
+            "UI.Label.Curveball",
+            "UI.Label.PowerCurve",
+            "UI.Label.SlowCurve",
+            "UI.Label.DropCurve",
+            "UI.Label.KnuckleCurve",
 
-            "Changeup",
-            "Circle Change",
-            "Vulcan Change",
-            "Palmball",
-            "Knuckleball",
+            "UI.Label.Changeup",
+            "UI.Label.CircleChange",
+            "UI.Label.VulcanChange",
+            "UI.Label.Palmball",
+            "UI.Label.Knuckleball",
 
-            "Slider",
-            "Hard Slider",
-            "Slurve",
-            "Cut Fastball",
-            "Frisbee",
+            "UI.Label.Slider",
+            "UI.Label.HardSlider",
+            "UI.Label.Slurve",
+            "UI.Label.CutFastball",
+            "UI.Label.Frisbee",
 
-            "Forkball",
-            "Sinker",
-            "Splitter",
-            "Hard Sinker",
+            "UI.Label.Forkball",
+            "UI.Label.Sinker",
+            "UI.Label.Splitter",
+            "UI.Label.HardSinker",
 
-            "Gyroball",
-            "Gyroball",
-            "Gyroball"
+            "UI.Label.Gyroball",
+            "UI.Label.Gyroball",
+            "UI.Label.Gyroball"
         };
+        private string[] ballName => L10n.Texts(ballNameKeys);
 
 
 
@@ -89,8 +90,8 @@ namespace BaseBall.BallPlay
 
             callSpr.MakePixelPerfect();
             
-            if (type == 0) ballSpeed.text = "[FFEA00]Fastball[-]   " + spd + "km";
-            else ballSpeed.text = "[FFEA00]" + ballName[type - 1] + "[-]   " + spd + "km";
+            if (type == 0) L10n.SetText(ballSpeed, "UI.Format.FastballValueKmH", spd);
+            else L10n.SetText(ballSpeed, "UI.Format.ValueValueKmH", ballName[type - 1], spd);
 
             GameUIElement bg = stateBG.GetComponent<GameUIElement>();
             bg.spriteName = (bPview ? "call_bg_p" : "call_bg");
@@ -101,33 +102,33 @@ namespace BaseBall.BallPlay
             {                
                 if (batter == null)
                 {
-                    swingComment.text = "Didn't Swing!";
+                    L10n.SetText(swingComment, "UI.Label.DidntSwing");
                 }
                 else
                 {
                     if (batter.bSwing == false) //timing == BattingTiming.NOSWING)
                     {
-                        swingComment.text = "Didn't Swing!";
+                        L10n.SetText(swingComment, "UI.Label.DidntSwing");
                     }
                     else
                     {
                         if (batter.contact == BattingContact.HUT_SWING)
                         {
-                            swingComment.text = "Missed the Ball!";
+                            L10n.SetText(swingComment, "UI.Label.MissedTheBall");
                         }
                         else
                         {
                             if (batter.timing < BattingTiming.JUST_EARLY)
                             {
-                                swingComment.text = "Too Early!";
+                                L10n.SetText(swingComment, "UI.Label.TooEarly");
                             }
                             else if (batter.timing > BattingTiming.JUST_LATE)
                             {
-                                swingComment.text = "Too Late!";
+                                L10n.SetText(swingComment, "UI.Label.TooLate");
                             }
                             else
                             {
-                                swingComment.text = "Missed the Ball!";
+                                L10n.SetText(swingComment, "UI.Label.MissedTheBall");
                             }
                         }
                     }

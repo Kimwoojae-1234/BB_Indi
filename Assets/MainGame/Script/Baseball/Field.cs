@@ -2035,7 +2035,7 @@ namespace BaseBall.BallPlay
                 if (manager.fieldOutCountNum < 2 && bErrorFlag == false)
                 {
                     //더블 플레이가 아닌 경우 타자 타점 가산
-                    manager.strBatterResult += " (타점 " + getAddScore + ")";
+                    manager.strBatterResult += L10n.F("UI.Format.RbiValue", getAddScore);
                     manager.addBatterRecord(Param.ST_RBI, getAddScore);
                 }
 
@@ -3683,7 +3683,7 @@ namespace BaseBall.BallPlay
 
             if (bBuntOut == true)
             {
-                manager.strFieldOutType = "쓰리번트";
+                manager.strFieldOutType = L10n.T("UI.Label.TwoStrikeFoulBunt");
                 int index = FieldParm.FIRSTBASE_INDEX;
                 if (ball.firstAngle > 0) index = FieldParm.THIRDBASE_INDEX;
                 judge.setCall(index, CallType._OUT);
@@ -3702,11 +3702,11 @@ namespace BaseBall.BallPlay
                     {
                         manager.poIndex = flyCatchFielder;      //오직 자살처리
                         manager.setOutFlag(BallPlayManager._PO_FLAG);
-                        manager.strFieldOutType = Util.GetPositionString(flyCatchFielder)+" 뜬공";
+                        manager.strFieldOutType = L10n.F("UI.Format.ValueFlyout", Util.GetPositionString(flyCatchFielder));
                     }
                     else
                     {
-                        manager.strFieldOutType = "뜬공";
+                        manager.strFieldOutType = L10n.T("UI.Label.Flyout");
                     }
                 }
                 else
@@ -3762,7 +3762,7 @@ namespace BaseBall.BallPlay
                         {
                             if (groundCatchFielder != -1)
                             {
-                                manager.strFieldOutType = Util.GetPositionString(groundCatchFielder) + " 땅볼";
+                                manager.strFieldOutType = L10n.F("UI.Format.ValueGroundout", Util.GetPositionString(groundCatchFielder));
                             }
                         }
                     }
@@ -5487,24 +5487,24 @@ namespace BaseBall.BallPlay
             {
                 if (groundCatchFielder < CPlayer._LEFTFIELDER)
                 {
-                    manager.strHitType = Util.GetPositionString(groundCatchFielder) + "앞 내야";
+                    manager.strHitType = L10n.F("UI.Format.InfieldToValue", Util.GetPositionString(groundCatchFielder));
                     return;
                 }                
             }
 
-            if (ball.firstAngle > 25) manager.strHitType = "좌익수앞 ";
-            else if(ball.firstAngle < -25) manager.strHitType = "우익수앞 ";
-            else manager.strHitType = "중견수앞 ";
+            if (ball.firstAngle > 25) manager.strHitType = L10n.T("UI.Label.ToLeftField");
+            else if(ball.firstAngle < -25) manager.strHitType = L10n.T("UI.Label.ToRightField");
+            else manager.strHitType = L10n.T("UI.Label.ToCenterField.Padded");
 
-            if (ball.firstAngle > 40) manager.strHitType2 = "좌익선상 ";
-            else if (ball.firstAngle > 30) manager.strHitType2 = "좌월 ";
-            else if (ball.firstAngle > 10) manager.strHitType2 = "좌중월 ";
+            if (ball.firstAngle > 40) manager.strHitType2 = L10n.T("UI.Label.DownTheLeftFieldLine");
+            else if (ball.firstAngle > 30) manager.strHitType2 = L10n.T("UI.Label.ToLeftField.Padded");
+            else if (ball.firstAngle > 10) manager.strHitType2 = L10n.T("UI.Label.ToLeftCenterField");
             else
             {
-                if (ball.firstAngle < -40) manager.strHitType2 = "우익선상 ";
-                else if (ball.firstAngle < -30) manager.strHitType2 = "우월 ";
-                else if (ball.firstAngle < -10) manager.strHitType2 = "우중월 ";
-                else manager.strHitType2 = "중월 ";
+                if (ball.firstAngle < -40) manager.strHitType2 = L10n.T("UI.Label.DownTheRightFieldLine");
+                else if (ball.firstAngle < -30) manager.strHitType2 = L10n.T("UI.Label.ToRightField.Padded");
+                else if (ball.firstAngle < -10) manager.strHitType2 = L10n.T("UI.Label.ToRightCenterField");
+                else manager.strHitType2 = L10n.T("UI.Label.ToCenterField");
             }
 
         }

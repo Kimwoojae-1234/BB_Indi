@@ -100,25 +100,25 @@ public class Popup_ChangeName : UIPopup
         KOBManager.MyInfo.InitUserInfo();
         buttonAvailable();
         Close();
-        KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init("Name Change Success");
+        KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init(L10n.T("UI.Label.NameChangeSuccess"));
     }
 
     private void Fail()
     {
         Debug.Log("Fail");
-        KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init("Fail", buttonAvailable);
+        KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init(L10n.T("UI.Label.Fail"), buttonAvailable);
     }
 
     private void DuplicateName()
     {
         Debug.Log("DuplicateName");
-        KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init("DuplicateName", buttonAvailable);
+        KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init(L10n.T("UI.Label.Duplicatename"), buttonAvailable);
     }
 
     private void NumberOfCharacters()
     {
         Debug.Log("NumberOfCharacters");
-        KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init("NumberOfCharacters", buttonAvailable);
+        KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init(L10n.T("UI.Label.Numberofcharacters"), buttonAvailable);
     }
 
 

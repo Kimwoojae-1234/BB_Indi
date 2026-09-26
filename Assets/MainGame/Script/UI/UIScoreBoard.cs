@@ -420,7 +420,7 @@ namespace BaseBall.BallPlay
                 int w = (int)(146.0f * curTime / 8.0f);
                 timerGauge.SetDimensions(w, 5);
                 if (curTime < 0) curTime = 0;
-                timerLabel.text = "TIMER   " + string.Format("{0:F2}", curTime); 
+                L10n.SetText(timerLabel, "UI.Format.TimerValue.Uppercase", string.Format("{0:F2}", curTime));
                 yield return new WaitForEndOfFrame();
             }
 
@@ -504,7 +504,7 @@ namespace BaseBall.BallPlay
 
         public void selectPitch()
         {
-            batterTimer.text = "[ff0000]상대가 코스를 선택 중입니다 : " + BatterWait + "초";
+            L10n.SetText(batterTimer, "UI.Format.OpponentIsChoosingALocationValueS", BatterWait);
             bSelectPitch = true;
         }
 
@@ -512,7 +512,7 @@ namespace BaseBall.BallPlay
         {
             BatterWait = 8;
             bSelectPitch = false;
-            batterTimer.text = "[ffffff]상대가 투구선택을 하는 중입니다 : 8초";
+            L10n.SetText(batterTimer, "UI.Message.OpponentIsChoosingAPitch8S");
 
             while (BatterWait > 0)
             {
@@ -520,11 +520,11 @@ namespace BaseBall.BallPlay
                 BatterWait--;
                 if(bSelectPitch == false)
                 {
-                    batterTimer.text = "[ffffff]상대가 투구선택을 하는 중입니다 : " + BatterWait + "초";
+                    L10n.SetText(batterTimer, "UI.Format.OpponentIsChoosingAPitchValueS", BatterWait);
                 }
                 else
                 {
-                    batterTimer.text = "[ff0000]상대가 코스를 선택 중입니다 : " + BatterWait + "초";
+                    L10n.SetText(batterTimer, "UI.Format.OpponentIsChoosingALocationValueS", BatterWait);
                 }
             }
             yield return new WaitForSeconds(1.0f);

@@ -25,24 +25,24 @@ namespace BaseBall.BallPlay
         {
             transform.localScale = Vector3.one;
 
-            if (type == SkillBuffType.BatterDown) label.text = "타격 능력 하락";
-            else if (type == SkillBuffType.BatterUP) label.text = "타격 능력 상승";
+            if (type == SkillBuffType.BatterDown) L10n.SetText(label, "UI.Label.BattingAbilityDown");
+            else if (type == SkillBuffType.BatterUP) L10n.SetText(label, "UI.Label.BattingAbilityUp");
             else if (type == SkillBuffType.BatterSpecial)
             {
-                label.text = "타자 특수 능력";
+                L10n.SetText(label, "UI.Label.BatterSpecialAbility");
                 label.transform.localPosition = Vector3.zero;
             }
-            else if (type == SkillBuffType.DoctorK) label.text = "닥터 K";
-            else if (type == SkillBuffType.PitcherDown) label.text = "투수 구질 하락";
-            else if (type == SkillBuffType.PitcherUP) label.text = "투수 구질 상승";
+            else if (type == SkillBuffType.DoctorK) L10n.SetText(label, "UI.Label.DoctorK");
+            else if (type == SkillBuffType.PitcherDown) L10n.SetText(label, "UI.Label.PitchQualityDown");
+            else if (type == SkillBuffType.PitcherUP) L10n.SetText(label, "UI.Label.PitchQualityUp");
             else if (type == SkillBuffType.PitcherSpecial)
             {
-                label.text = "투수 특수 능력";
+                L10n.SetText(label, "UI.Label.PitcherSpecialAbility");
                 label.transform.localPosition = Vector3.zero;
             }
             else if (type == SkillBuffType.SkillInvalidity)
             {
-                label.text = "스킬 무효화";
+                L10n.SetText(label, "UI.Label.SkillNullified");
                 label.transform.localPosition = Vector3.zero;
             }
             _active.GetComponent<GameUIElement>().spriteName = bMyUI ? "buff_team1" : "buff_team2";

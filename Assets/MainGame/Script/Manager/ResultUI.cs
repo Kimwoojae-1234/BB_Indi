@@ -418,7 +418,7 @@ namespace BaseBall.BallPlay
                 //winBack.SetActive(true);
                 //normalBack.SetActive(true);
                 // DISABLED_MGRS: Mgrs.userData.UserLobbyReason = UserData.EReason.InGame_WalkoffPlay;
-                leftTitleSetting("9회말 2아웃");
+                leftTitleSetting(L10n.T("UI.Message.BottomOfTheNinthTwoOuts"));
                 //lose.SetActive(true);
                 lose.transform.Find("result").GetComponent<GameUIElement>().spriteName = "walkoff_result_title";
                 statButonObj.SetActive(false);
@@ -470,13 +470,13 @@ namespace BaseBall.BallPlay
                 
                     //왼쪽 타이틀
                     string titleName;
-                    if (info.gameType == SeasonGameType.KoreaSeries) titleName = "정규시즌 한국시리즈";
-                    else if (info.gameType == SeasonGameType.PlayOff) titleName = "정규시즌 플레이오프";
-                    else if (info.gameType == SeasonGameType.SemiPlayOff) titleName = "정규시즌 준플레이오프";
-                    else if (info.gameType == SeasonGameType.WildCard) titleName = "정규시즌 와일드카드";
+                    if (info.gameType == SeasonGameType.KoreaSeries) titleName = L10n.T("UI.Label.SeasonKoreanSeries");
+                    else if (info.gameType == SeasonGameType.PlayOff) titleName = L10n.T("UI.Label.SeasonPlayoffs");
+                    else if (info.gameType == SeasonGameType.SemiPlayOff) titleName = L10n.T("UI.Label.SeasonSemiPlayoffs");
+                    else if (info.gameType == SeasonGameType.WildCard) titleName = L10n.T("UI.Label.SeasonWildCard");
                     else
                     {
-                        titleName = "정규시즌 페넌트레이스";
+                        titleName = L10n.T("UI.Label.RegularSeasonPennantRace");
                         //타팀결과
                         otherResultButtonSetting();
                         //오른쪽
@@ -514,7 +514,7 @@ namespace BaseBall.BallPlay
                 else if (mode == DefineEnum.EGameMode.LeagueRace || mode == DefineEnum.EGameMode.LeagueRaceInstant)
                 {
                     //임시
-                    leftTitleSetting("쟁탈전");
+                    leftTitleSetting(L10n.T("UI.Label.LeagueBattle"));
                     
                     //기록정보
                     statButonObj.SetActive(true);
@@ -522,9 +522,9 @@ namespace BaseBall.BallPlay
                 else if (mode == DefineEnum.EGameMode.LiveMatch)
                 {
                     //왼쪽
-                    leftTitleSetting("라이브매치");
+                    leftTitleSetting(L10n.T("UI.Label.LiveMatch"));
                     //오른쪽
-                    rightTitleSetting(string.Format("{0} 포인트 ({1:+0;-0})", liveResultInfo.point, liveResultInfo.chgPoint));
+                    rightTitleSetting(L10n.F("UI.Format.ValuePointsValue", liveResultInfo.point, liveResultInfo.chgPoint));
 
                     //코인정보
                     getCoinSetting(liveResultInfo.coin);

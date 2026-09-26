@@ -1074,6 +1074,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4502645047921496}
   - component: {fileID: 50448000887389709}
+  - component: {fileID: 1739177790586975029}
   m_Layer: 5
   m_Name: SelectMaterialInfo
   m_TagString: Untagged
@@ -11051,6 +11052,7 @@ GameObject:
   - component: {fileID: 4577621551546858}
   - component: {fileID: 947109554279335697}
   - component: {fileID: 4726584990491083491}
+  - component: {fileID: 5578663807046528296}
   m_Layer: 5
   m_Name: desc_label
   m_TagString: Untagged
@@ -34683,3 +34685,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85167597ccbf486cb16fffcb53693afe, type: 3}
   m_Name: ''
   m_EditorClassIdentifier: ''
+--- !u!114 &1739177790586975029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1207505393108580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.SelectMaterialCards
+  sourceText: "\uC7AC\uB8CC\uCE74\uB4DC \uC120\uD0DD"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 50448000887389709}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &5578663807046528296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439734195158640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Message.YouCanUseUpTo10MaterialCards
+  sourceText: "\uCD5C\uB300 10\uC7A5\uC758 \uC7AC\uB8CC\uCE74\uB4DC\uB97C \uC801\uC6A9\uD560
+    \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 947109554279335697}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

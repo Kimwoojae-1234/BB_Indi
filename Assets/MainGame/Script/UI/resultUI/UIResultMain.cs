@@ -65,7 +65,7 @@ namespace BaseBall.BallPlay
                 {
                     upDownObj[i] = stat.Find("updown").Find("even").gameObject;
                 }
-                upDownObj[i].transform.Find("rankLabel").GetComponent<GameUIElement>().text = curRank[i] + "위";
+                L10n.SetText(upDownObj[i].transform.Find("rankLabel").GetComponent<GameUIElement>(), "UI.Format.RankValue", curRank[i]);
 
                 //게이지 세팅
                 setGauge(gauge[i], manager.nHitCount[i], 1);
@@ -114,7 +114,7 @@ namespace BaseBall.BallPlay
                 {
                     upDownObj[i] = stat.FindChild("updown").FindChild("even").gameObject;
                 }
-                upDownObj[i].transform.FindChild("rankLabel").GetComponent<GameUIElement>().text = curRank[i] + "위";
+                L10n.SetText(upDownObj[i].transform.FindChild("rankLabel").GetComponent<GameUIElement>(), "UI.Format.RankValue", curRank[i]);
 
                 //게이지 세팅
                 setGauge(gauge[i], manager.nHitCount[i], 1);
@@ -192,7 +192,7 @@ namespace BaseBall.BallPlay
                 {
                     upDownObj[i] = stat.FindChild("updown").FindChild("even").gameObject;
                 }
-                upDownObj[i].transform.FindChild("rankLabel").GetComponent<GameUIElement>().text = curRank[i] + "위";
+                L10n.SetText(upDownObj[i].transform.FindChild("rankLabel").GetComponent<GameUIElement>(), "UI.Format.RankValue", curRank[i]);
 
                 //게이지 세팅
                 setGauge(gauge[i], manager.nHitCount[i], 1);

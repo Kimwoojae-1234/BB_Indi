@@ -174,7 +174,7 @@ public class Popup_StatUpgrade : UIPopup
         {
             if (bUpgrade == true)
             {
-                TitleTxt.text = string.Format("UPGRADE TO POWER LEVEL {0}?", CurLevel);                
+                TitleTxt.text = L10n.F("UI.Format.UpgradeToPowerLevelValue", CurLevel);
                 for (int i = 0; i < 6; i++)
                 {
                     int count = 0;
@@ -201,7 +201,7 @@ public class Popup_StatUpgrade : UIPopup
             }
             else
             {
-                TitleTxt.text = string.Format("{0}'S STATS", CurName);
+                TitleTxt.text = L10n.F("UI.Format.ValueSStats", CurName);
                 TotalHitUpgrade.gameObject.SetActive(false);
                 TotalFieldingUpgrade.gameObject.SetActive(false);
                 for (int i = 0; i < HittingUpgrade.Length; i++) HittingUpgrade[i].gameObject.SetActive(false);
@@ -228,7 +228,7 @@ public class Popup_StatUpgrade : UIPopup
 
     private void maxStatSetting()
     {
-        TitleTxt.text = string.Format("{0}'S MAX STATS", CurName);
+        TitleTxt.text = L10n.F("UI.Format.ValueSMaxStats", CurName);
 
         //타격쪽
         int totalHitting = MaxValue.power + MaxValue.contact + MaxValue.vision;

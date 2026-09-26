@@ -1361,6 +1361,7 @@ GameObject:
   m_Component:
   - component: {fileID: 412241007}
   - component: {fileID: 6160674520868739882}
+  - component: {fileID: 6160674520868739883}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -1980,6 +1981,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1962492474}
   - component: {fileID: 2290856667765469526}
+  - component: {fileID: 2290856667765469527}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -2060,6 +2062,7 @@ GameObject:
   m_Component:
   - component: {fileID: 711353407}
   - component: {fileID: 585391506861949090}
+  - component: {fileID: 585391506861949091}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -3983,3 +3986,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85167597ccbf486cb16fffcb53693afe, type: 3}
   m_Name: ''
   m_EditorClassIdentifier: ''
+--- !u!114 &585391506861949091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711353406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.StartInNeighborhoodBaseballMode
+  sourceText: "\uB3D9\uB124\uC57C\uAD6C \uBAA8\uB4DC\uB85C \uAC8C\uC784\uC2DC\uC791 "
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 585391506861949090}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &2290856667765469527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1962492473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.StartInMlbLevelMode
+  sourceText: "MLB \uC218\uC900 \uBAA8\uB4DC\uB85C \uAC8C\uC784\uC2DC\uC791 "
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 2290856667765469526}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &6160674520868739883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412241006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.StartInKboLevelMode
+  sourceText: "KBO \uC218\uC900 \uBAA8\uB4DC\uB85C \uAC8C\uC784\uC2DC\uC791 "
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 6160674520868739882}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

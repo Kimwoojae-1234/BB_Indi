@@ -8,10 +8,30 @@ namespace BaseBall.BallPlay.UGUI
         public string key;
         public TextAsset table;
         public GameUIElement element;
-        void OnEnable() { Localize(); }
+        public string CatalogKey => ResolveCatalogKey(key);
+        public static string ResolveCatalogKey(string serializedKey)
+        {
+            // Three old prefabs stored sentences in the key field. Retain their authored meaning.
+            switch (serializedKey)
+            {
+                case "점": return "UI.Label.Points";
+                case "리스트는 오전 06:00에 갱신됩니다.": return "UI.Label.TicketsReplenishDailyAtMidnight";
+                case "난이도에 따라서 골드를 보상으로 받습니다.": return "Legacy.GoldTicketTip";
+                default: return serializedKey;
+            }
+        }
+        void OnEnable() { L10n.LanguageChanged += Localize; Localize(); }
+        void OnDisable() { L10n.LanguageChanged -= Localize; }
         public void Localize()
         {
-            if (element == null || table == null) return;
+            if (element == null) return;
+            if (element.kind != GameUIElement.ElementKind.Sprite)
+            {
+                element.text = L10n.T(CatalogKey);
+                return;
+            }
+            // Sprite identifiers are resource names; retain the sprite table contract.
+            if (table == null) return;
             var rows = Parse(table.text);
             if (rows.Count == 0) return;
             string language = PlayerPrefs.GetString("Language", rows[0].Count > 1 ? rows[0][1] : "");

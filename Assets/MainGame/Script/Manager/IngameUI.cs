@@ -362,7 +362,7 @@ namespace BaseBall.BallPlay
         public static void SetConfirmPopupTwobutton(string title, string message, System.Action callBack_Left = null, System.Action callBack_Right = null)
         {
             Instance_.confirmPopup.SetIngameMode();
-            Instance_.confirmPopup.SetPopup_TwoBtn(title, message, "확인", "취소", callBack_Left, callBack_Right);
+            Instance_.confirmPopup.SetPopup_TwoBtn(title, message, L10n.T("Common.Action.OK"), L10n.T("Common.Action.Cancel"), callBack_Left, callBack_Right);
             Instance_.confirmPopup.gameObject.SetActive(true);
         }
 

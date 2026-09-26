@@ -435,6 +435,7 @@ GameObject:
   - component: {fileID: 65460977407771458}
   - component: {fileID: 8881076048294927230}
   - component: {fileID: 4828551677649112881}
+  - component: {fileID: 2515208735782660947}
   m_Layer: 5
   m_Name: noticeInfo
   m_TagString: Untagged
@@ -4578,6 +4579,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4152078292140232}
   - component: {fileID: 8047749077036479389}
+  - component: {fileID: 2577945263520165391}
   m_Layer: 5
   m_Name: title_label
   m_TagString: Untagged
@@ -4868,6 +4870,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4340166920047122}
   - component: {fileID: 1110084008464840690}
+  - component: {fileID: 1208039768624050972}
   m_Layer: 5
   m_Name: Context_label
   m_TagString: Untagged
@@ -6459,6 +6462,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4106093171373030}
   - component: {fileID: 3230290411366150567}
+  - component: {fileID: 8443473273189270472}
   m_Layer: 5
   m_Name: SubContext_label
   m_TagString: Untagged
@@ -6846,6 +6850,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4505959843481580}
   - component: {fileID: 1655062103353579763}
+  - component: {fileID: 5814186852728935546}
   m_Layer: 5
   m_Name: noticelabel
   m_TagString: Untagged
@@ -8356,3 +8361,103 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85167597ccbf486cb16fffcb53693afe, type: 3}
   m_Name: ''
   m_EditorClassIdentifier: ''
+--- !u!114 &2577945263520165391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1221549474098788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.DownloadFiles
+  sourceText: "\uD30C\uC77C \uB2E4\uC6B4\uB85C\uB4DC \uC548\uB0B4"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 8047749077036479389}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &1208039768624050972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1262625830192046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Message.Download353MbOfUpdateFilesContinue
+  sourceText: "\uC5C5\uB370\uC774\uD2B8\uB97C \uC704\uD574 353MB\uC758 \uD30C\uC77C\uC744
+    \uB2E4\uC6B4\uB85C\uB4DC \uD569\uB2C8\uB2E4.\n\uC9C4\uD589\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 1110084008464840690}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &2515208735782660947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1510023250380248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.ViewDetails
+  sourceText: "[\uC790\uC138\uD788\uBCF4\uAE30]"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 8881076048294927230}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &5814186852728935546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921862249527384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Message.UnusedPurchasesMayBeCanceledWithin7DaysTransactionsByMinorsWithout
+  sourceText: "\uAD6C\uB9E4 \uD6C4, \uBBF8\uC0AC\uC6A9\uC2DC 7\uC77C \uC774\uB0B4
+    \uCCAD\uC57D\uCCA0\uD68C\uAC00 \uAC00\uB2A5\uD558\uBA70,\n\uBC95\uC815\uB300\uB9AC\uC778
+    \uB3D9\uC758\uB97C \uBC1B\uC9C0 \uC54A\uC740 \uBBF8\uC131\uB144\uC790\uC758 \uAC70\uB798\uB294
+    \uCDE8\uC18C\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 1655062103353579763}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &8443473273189270472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1978757017993252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Message.MobileDataWillBeUsedWhenWiFiIsUnavailable
+  sourceText: "(wifi\uAC00 \uC544\uB2D0 \uACBD\uC6B0 3G/LTE \uB370\uC774\uD130\uAC00
+    \uC18C\uBAA8\uB429\uB2C8\uB2E4.)"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 3230290411366150567}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

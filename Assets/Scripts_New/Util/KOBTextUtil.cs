@@ -1,4 +1,4 @@
-using JetBrains.Annotations;
+Ôªøusing JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,16 +6,17 @@ using UnityEngine;
 public static class KOBTextUtil
 {
 
-    public static string[] _RecordTypeName = new string[] { "Home Run", "Batting\nAverage", "Run Batted In", "Number of\nHits", "On-base\nPlus Slugging" };
+    public static string[] _RecordTypeNameKeys = new string[] { "Baseball.Result.HomeRun", "UI.Label.BattingAverage", "UI.Label.RunBattedIn", "UI.Label.NumberOfHits", "UI.Label.OnBasePlusSlugging" };
+        public static string[] _RecordTypeName => L10n.Texts(_RecordTypeNameKeys);
 
     public static string GetMyTeamName()
     {
-        return "<color=#ffff00>MY TEAM</color>";
+        return L10n.T("UI.Label.MyTeam");
     }
 
     public static string GetMyPlayerName(int idx)
     {
-        return "<color=#ffff00>MY PLAYER</color>";
+        return L10n.T("UI.Label.MyPlayer");
     }
 
 
@@ -23,11 +24,11 @@ public static class KOBTextUtil
     {
         if (rank <= 0)
         {
-            return "<color=#ffff00>RANK</color> - ";
+            return L10n.T("UI.Label.Rank.RichText");
         }
         else
         {
-            return string.Format("<color=#ffff00>RANK</color> {0} ", ToOrdinal(rank));
+            return L10n.F("UI.Format.RankValue.RichText", ToOrdinal(rank));
         }
     }
 
@@ -45,7 +46,7 @@ public static class KOBTextUtil
 
         if (isDetailShow)
         {
-            return string.Format("{0} (W{1} D{2} L{3})", per, w, d, l);
+            return L10n.F("UI.Format.ValueWValueDValueLValue", per, w, d, l);
         }
         else
         {
@@ -62,15 +63,15 @@ public static class KOBTextUtil
 
         if (lastTwo >= 11 && lastTwo <= 13)
         {
-            return number + "th";
+            return L10n.F("UI.OrdinalOther", number);
         }
 
         switch (number % 10)
         {
-            case 1: return number + "st";
-            case 2: return number + "nd";
-            case 3: return number + "rd";
-            default: return number + "th";
+            case 1: return L10n.F("UI.OrdinalFirst", number);
+            case 2: return L10n.F("UI.OrdinalSecond", number);
+            case 3: return L10n.F("UI.OrdinalThird", number);
+            default: return L10n.F("UI.OrdinalOther", number);
         }
     }
 
@@ -79,15 +80,15 @@ public static class KOBTextUtil
     {
         if (score1 == score2)
         {
-            return "TIE";
+            return L10n.T("UI.Label.Tie");
         }
         else if (score1 > score2)
         {
-            return "WIN";
+            return L10n.T("Baseball.Result.Win");
         }
         else
         {
-            return "LOSS";
+            return L10n.T("UI.Label.Loss.Uppercase");
         }
     }
 
@@ -95,15 +96,15 @@ public static class KOBTextUtil
     {
         if (score1 == score2)
         {
-            return new Color32(149, 165, 166, 255); // #95A5A6 »∏ªˆ
+            return new Color32(149, 165, 166, 255); // #95A5A6 ÌöåÏÉâ
         }
         else if (score1 > score2)
         {
-            return new Color32(76, 175, 80, 255);   // #4CAF50 √ ∑œ
+            return new Color32(76, 175, 80, 255);   // #4CAF50 Ï¥àÎ°ù
         }
         else
         {
-            return new Color32(231, 76, 60, 255);   // #E74C3C ª°∞≠
+            return new Color32(231, 76, 60, 255);   // #E74C3C Îπ®Í∞ï
         }
     }
 
@@ -122,15 +123,15 @@ public static class KOBTextUtil
         switch (reward)
         {
             case KOBReward.Card_Black:
-                return "Black Card";
+                return L10n.T("UI.Label.BlackCard");
             case KOBReward.Card_Legend:
-                return "Legend Card";
+                return L10n.T("UI.Label.LegendCard");
             case KOBReward.Card_Epic:
-                return "Epic Card";
+                return L10n.T("UI.Label.EpicCard");
             case KOBReward.Card_Rare:
-                return "Rare Card";
+                return L10n.T("UI.Label.RareCard");
             default:
-                return "Common Card";
+                return L10n.T("UI.Label.CommonCard");
         }
     }
 }

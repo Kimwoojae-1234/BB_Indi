@@ -63,19 +63,19 @@ public class Popup_Promotion : UIPopup
 
     private void SetAccountTier()
     {
-        textTitle.text = "Your Tier has increased!";
+        L10n.SetText(textTitle, "UI.Label.YourTierHasIncreased");
     }
 
 
     private void SetBallerReputation()
     {
-        textTitle.text = "Baller's Reputation has increased!";
+        L10n.SetText(textTitle, "UI.Label.BallersReputationHasIncreased");
     }
 
 
     private void SetLeaguePromotion()
     {
-        textTitle.text = "League Promotion achieved!";
+        L10n.SetText(textTitle, "UI.Label.LeaguePromotionAchieved");
     }
 
 

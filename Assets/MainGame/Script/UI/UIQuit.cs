@@ -18,11 +18,11 @@ namespace BaseBall.BallPlay
 
             if (Mode.gameMode == Mode.GamePlayMode.Season)
             {
-                Label.text = "게임을 나가시겠습니까?\n\n[ffff00]경기를 나가실 경우\n플레이볼은 복구가 안 되며,\n해당 경기는 취소됩니다.";     
+                L10n.SetText(Label, "UI.Message.LeaveTheGameYourPlayBallWillNotBeRefundedAndThis");
             }
             else
             {
-                Label.text = "게임을 나가시겠습니까?\n\n[ffff00]경기를 나가실 경우\n도전권은 복구가 안 되며,\n해당 경기는 취소됩니다.";     
+                L10n.SetText(Label, "UI.Message.LeaveTheGameYourChallengeTicketWillNotBeRefundedAndThis");
             }
 
         }

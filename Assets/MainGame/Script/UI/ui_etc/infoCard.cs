@@ -159,7 +159,7 @@ namespace BaseBall.BallPlay
         /// <param name="player"></param>
         private void setPitcherRecord(CPlayer player)
         {
-            todayStat.transform.Find("Label1").GetComponent<GameUIElement>().text = "[75ACEAFF]자책 [ffffff]" + player.getStat(Param.ST_PER) + "[75ACEAFF]   피안 [ffffff]" + player.getStat(Param.ST_PH) + "[75ACEAFF]   삼진 [ffffff]" + player.getStat(Param.ST_PSO) + "[-]";
+            L10n.SetText(todayStat.transform.Find("Label1").GetComponent<GameUIElement>(), "UI.Format.ErValueHAllowedValueStrikeoutValue", player.getStat(Param.ST_PER), player.getStat(Param.ST_PH), player.getStat(Param.ST_PSO));
             setStamina(player.getCurrentStamina());
         }
 
@@ -178,7 +178,7 @@ namespace BaseBall.BallPlay
             pTodayObj.SetActive(false);
             todayStat = bTodayObj;
             todayStat.transform.localPosition = new Vector3(0, -303, 0);
-            todayStat.transform.Find("Label1").GetComponent<GameUIElement>().text = "[75ACEAFF]안타 [FFFFFF]" + player.getStat(Param.ST_H) + "/" + (player.getStat(Param.ST_AB) - 1) + "   [75ACEAFF]홈런 [FFFFFF]" + player.getStat(Param.ST_HR) + "   [75ACEAFF]타점 [FFFFFF]" + player.getStat(Param.ST_RBI) + "   [75ACEAFF]도루 [FFFFFF]" + player.getStat(Param.ST_SBS) + "[-]";
+            L10n.SetText(todayStat.transform.Find("Label1").GetComponent<GameUIElement>(), "UI.Format.HitValueValueHomeRunValueRbiValueStealValue", player.getStat(Param.ST_H), (player.getStat(Param.ST_AB) - 1), player.getStat(Param.ST_HR), player.getStat(Param.ST_RBI), player.getStat(Param.ST_SBS));
 
             origin.SetActive(false);
             init(player, team);

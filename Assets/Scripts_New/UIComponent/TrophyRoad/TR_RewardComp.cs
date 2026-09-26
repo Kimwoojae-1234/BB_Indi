@@ -185,7 +185,7 @@ public class TR_RewardComp : MonoBehaviour
     {
         //10/50/100/300/1000
         item[0].gameObject.SetActive(true);
-        txtName.text = "Gold";
+        L10n.SetText(txtName, "UI.Label.Gold");
         txtMount.gameObject.SetActive(true);
         txtMount.text = rewardInfo.amount.ToString();
         Image goldImage = item[0].GetComponent<Image>();
@@ -198,7 +198,7 @@ public class TR_RewardComp : MonoBehaviour
     private void setGem()
     {
         item[1].gameObject.SetActive(true);
-        txtName.text = "Gem";
+        L10n.SetText(txtName, "UI.Label.Gem.TrRewardcomp");
         txtMount.gameObject.SetActive(true);
         txtMount.text = rewardInfo.amount.ToString();
         Image gemImage = item[1].GetComponent<Image>();
@@ -212,7 +212,7 @@ public class TR_RewardComp : MonoBehaviour
     private void setEnergy()
     {
         item[2].gameObject.SetActive(true);
-        txtName.text = "Energy";
+        L10n.SetText(txtName, "UI.Label.Energy.TrRewardcomp");
         txtMount.gameObject.SetActive(true);
         txtMount.text = rewardInfo.amount.ToString();
     }
@@ -220,9 +220,9 @@ public class TR_RewardComp : MonoBehaviour
     private void setBat()
     {
         item[3].gameObject.SetActive(true);
-        txtName.text =  string.Format("Bat{0}", rewardInfo.pindex);
+        txtName.text =  L10n.F("UI.Format.BatValue", rewardInfo.pindex);
         txtMount2.gameObject.SetActive(true);
-        txtMount2.text = string.Format("X{0}", rewardInfo.amount);
+        txtMount2.text = L10n.F("Common.Format.ItemQuantityUppercase", rewardInfo.amount);
     }
 
     private void setCard()
@@ -236,7 +236,7 @@ public class TR_RewardComp : MonoBehaviour
         Image Portrait = item[4].transform.Find("Item").GetComponent<Image>();
         if (ballerData != null) 
         {
-            txtName.text = ballerData.name_id;// KOBManager.Localization.GetUILocalizedValue2(ballerData.name_id);
+            L10n.SetText(txtName, ballerData.name_id);
             KOBManager.Resource.LoadBallerPortrait(Portrait, ballerData.char_idx);
         }
         else
@@ -245,7 +245,7 @@ public class TR_RewardComp : MonoBehaviour
             KOBManager.Resource.LoadBallerPortrait(Portrait, pIndex);
         }
         txtMount2.gameObject.SetActive(true);
-        txtMount2.text = string.Format("X{0}", rewardInfo.amount);
+        txtMount2.text = L10n.F("Common.Format.ItemQuantityUppercase", rewardInfo.amount);
     }
 
     private void setPCard()
@@ -260,7 +260,7 @@ public class TR_RewardComp : MonoBehaviour
         if (spr != null)
         {
             spr.sprite = KOBManager.Atlas.GetRewarBox(rarity);
-            txtName.text = "Box";
+            L10n.SetText(txtName, "UI.Label.Box");
             spr.SetNativeSize();
         }
     }
@@ -283,7 +283,7 @@ public class TR_RewardComp : MonoBehaviour
         Debug.Log("OnClickTouch");
         if(State == TrophyRewartState.NotAvailable)
         {
-            KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init(string.Format("Requires {0} trophies to collect this reward", trophy));
+            KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init(L10n.F("UI.Format.RequiresValueTrophiesToCollectThisReward", trophy));
             isTouched = false;
         }
         else if (State == TrophyRewartState.Available)
@@ -303,7 +303,7 @@ public class TR_RewardComp : MonoBehaviour
         }
         else if (State == TrophyRewartState.Acquired)
         {
-            KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init("This reward has already been obtained.");//
+            KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init(L10n.T("UI.Message.ThisRewardHasAlreadyBeenObtained"));//
             isTouched = false;
         }
     }

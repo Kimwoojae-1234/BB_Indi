@@ -241,33 +241,35 @@ namespace BaseBall.BallPlay
         "어센시오 14"
     };*/
 #if GIRL_PLAY
-        public static string[,] _batterName = new string[10, 14]
+        public static string[,] _batterNameKeys = new string[10, 14]
         {
-            {"Kai Wave","Luna Tide","Rex Splash","Mina Coral","Jake Sunny","Rio Drift","Nami Blue","Terry Sand","Lika Shell","Dean Surf","Yuna Breeze","Coco Palm","Finn Coast","Rina Bay"},
-            {"Ace Harbor","Sia Lagoon","Leo Current","Momo Tide","Zane Reef","Nina Wave","Haru Salt","Bella Foam","Ken Splash","Yuki Shore","Noah Breeze","Lily Coast","Aiden Surf","Mia Coral"},
-            {"Riku Ocean","Sara Pearl","Toma Wave","Lena Drift","Kira Blue","Evan Bay","Nora Shell","Kai Reef","Sena Splash","Luca Sand","Rin Sunny","Theo Harbor","Amy Tide","Dino Palm"},
-            {"Rex Coral","Yui Splash","Milo Surf","Nami Coast","Dean Lagoon","Lina Wave","Toby Reef","Hana Drift","Kyle Breeze","Mina Harbor","Ryo Blue","Sora Palm","Finn Tide","Ruby Shell"},
-            {"Jett Sand","Luna Foam","Kai Current","Rika Surf","Noel Splash","Yuna Bay","Ares Coral","Sia Drift","Toma Breeze","Lio Reef","Nina Harbor","Ken Tide","Rex Coast","Mika Palm"},
-            {"Leo Blue","Rin Wave","Cody Lagoon","Yuri Shell","Jake Drift","Nami Coral","Finn Breeze","Aki Surf","Lina Bay","Dean Reef","Sora Splash","Theo Palm","Amy Harbor","Kai Sunny"},
-            {"Terry Tide","Mina Coast","Rio Splash","Nora Surf","Riku Harbor","Yui Drift","Jett Wave","Momo Bay","Noah Shell","Kira Breeze","Aiden Reef","Ruby Coral","Luca Palm","Haru Foam"},
-            {"Sena Lagoon","Leo Surf","Lina Splash","Finn Current","Ryo Coast","Mika Tide","Kai Reef","Amy Drift","Dean Coral","Nina Harbor","Toby Breeze","Lily Palm","Rex Wave","Yuna Bay"},
-            {"Noel Splash","Sora Surf","Kira Tide","Jake Coast","Rin Reef","Luca Harbor","Yui Drift","Theo Breeze","Momo Shell","Finn Palm","Riku Wave","Sara Coral","Dean Bay","Amy Lagoon"},
-            {"Kai Splash","Lina Surf","Noah Tide","Ruby Coast","Ares Reef","Nami Drift","Leo Breeze","Mika Coral","Toma Harbor","Sia Palm","Rin Bay","Dean Foam","Finn Current","Yuna Wave"},
+            {"UI.Label.KaiWave","UI.Label.LunaTide","UI.Label.RexSplash","UI.Label.MinaCoral","UI.Label.JakeSunny","UI.Label.RioDrift","UI.Label.NamiBlue","UI.Label.TerrySand","UI.Label.LikaShell","UI.Label.DeanSurf","UI.Label.YunaBreeze","UI.Label.CocoPalm","UI.Label.FinnCoast","UI.Label.RinaBay"},
+            {"UI.Label.AceHarbor","UI.Label.SiaLagoon","UI.Label.LeoCurrent","UI.Label.MomoTide","UI.Label.ZaneReef","UI.Label.NinaWave","UI.Label.HaruSalt","UI.Label.BellaFoam","UI.Label.KenSplash","UI.Label.YukiShore","UI.Label.NoahBreeze","UI.Label.LilyCoast","UI.Label.AidenSurf","UI.Label.MiaCoral"},
+            {"UI.Label.RikuOcean","UI.Label.SaraPearl","UI.Label.TomaWave","UI.Label.LenaDrift","UI.Label.KiraBlue","UI.Label.EvanBay","UI.Label.NoraShell","UI.Label.KaiReef","UI.Label.SenaSplash","UI.Label.LucaSand","UI.Label.RinSunny","UI.Label.TheoHarbor","UI.Label.AmyTide","UI.Label.DinoPalm"},
+            {"UI.Label.RexCoral","UI.Label.YuiSplash","UI.Label.MiloSurf","UI.Label.NamiCoast","UI.Label.DeanLagoon","UI.Label.LinaWave","UI.Label.TobyReef","UI.Label.HanaDrift","UI.Label.KyleBreeze","UI.Label.MinaHarbor","UI.Label.RyoBlue","UI.Label.SoraPalm","UI.Label.FinnTide","UI.Label.RubyShell"},
+            {"UI.Label.JettSand","UI.Label.LunaFoam","UI.Label.KaiCurrent","UI.Label.RikaSurf","UI.Label.NoelSplash","UI.Label.YunaBay","UI.Label.AresCoral","UI.Label.SiaDrift","UI.Label.TomaBreeze","UI.Label.LioReef","UI.Label.NinaHarbor","UI.Label.KenTide","UI.Label.RexCoast","UI.Label.MikaPalm"},
+            {"UI.Label.LeoBlue","UI.Label.RinWave","UI.Label.CodyLagoon","UI.Label.YuriShell","UI.Label.JakeDrift","UI.Label.NamiCoral","UI.Label.FinnBreeze","UI.Label.AkiSurf","UI.Label.LinaBay","UI.Label.DeanReef","UI.Label.SoraSplash","UI.Label.TheoPalm","UI.Label.AmyHarbor","UI.Label.KaiSunny"},
+            {"UI.Label.TerryTide","UI.Label.MinaCoast","UI.Label.RioSplash","UI.Label.NoraSurf","UI.Label.RikuHarbor","UI.Label.YuiDrift","UI.Label.JettWave","UI.Label.MomoBay","UI.Label.NoahShell","UI.Label.KiraBreeze","UI.Label.AidenReef","UI.Label.RubyCoral","UI.Label.LucaPalm","UI.Label.HaruFoam"},
+            {"UI.Label.SenaLagoon","UI.Label.LeoSurf","UI.Label.LinaSplash","UI.Label.FinnCurrent","UI.Label.RyoCoast","UI.Label.MikaTide","UI.Label.KaiReef","UI.Label.AmyDrift","UI.Label.DeanCoral","UI.Label.NinaHarbor","UI.Label.TobyBreeze","UI.Label.LilyPalm","UI.Label.RexWave","UI.Label.YunaBay"},
+            {"UI.Label.NoelSplash","UI.Label.SoraSurf","UI.Label.KiraTide","UI.Label.JakeCoast","UI.Label.RinReef","UI.Label.LucaHarbor","UI.Label.YuiDrift","UI.Label.TheoBreeze","UI.Label.MomoShell","UI.Label.FinnPalm","UI.Label.RikuWave","UI.Label.SaraCoral","UI.Label.DeanBay","UI.Label.AmyLagoon"},
+            {"UI.Label.KaiSplash","UI.Label.LinaSurf","UI.Label.NoahTide","UI.Label.RubyCoast","UI.Label.AresReef","UI.Label.NamiDrift","UI.Label.LeoBreeze","UI.Label.MikaCoral","UI.Label.TomaHarbor","UI.Label.SiaPalm","UI.Label.RinBay","UI.Label.DeanFoam","UI.Label.FinnCurrent","UI.Label.YunaWave"},
         };
+        public static string[,] _batterName => L10n.Texts(_batterNameKeys);
 
-        public static string[,] _pitcherName = new string[10, 11]
+        public static string[,] _pitcherNameKeys = new string[10, 11]
         {
-            {"Storm Kai","Wave Rex","Tide Dean","Coral Finn","Splash Rio","Drift Leo","Surf Jake","Blue Noah","Reef Ares","Harbor Theo","Palm Cody"},
-            {"Lagoon Riku","Foam Terry","Bay Luca","Sunny Milo","Coast Jett","Current Noel","Shell Toma","Breeze Dean","Coral Rex","Wave Finn","Surf Kai"},
-            {"Tide Leo","Drift Noah","Splash Theo","Reef Jake","Palm Luca","Harbor Cody","Bay Terry","Wave Milo","Foam Riku","Sunny Dean","Surf Jett"},
-            {"Coral Kai","Blue Finn","Lagoon Rex","Current Leo","Tide Jake","Shell Noah","Wave Cody","Palm Theo","Drift Terry","Harbor Milo","Splash Luca"},
-            {"Surf Dean","Reef Kai","Bay Finn","Foam Jake","Coral Theo","Wave Noah","Sunny Rex","Palm Leo","Lagoon Terry","Tide Cody","Drift Luca"},
-            {"Splash Milo","Harbor Dean","Current Kai","Reef Noah","Blue Jake","Shell Finn","Palm Terry","Surf Theo","Wave Cody","Coral Luca","Tide Rex"},
-            {"Foam Leo","Drift Kai","Bay Noah","Lagoon Jake","Splash Finn","Palm Cody","Current Theo","Surf Terry","Reef Milo","Harbor Luca","Wave Dean"},
-            {"Sunny Kai","Coral Noah","Wave Leo","Tide Finn","Surf Jake","Palm Rex","Drift Theo","Shell Cody","Harbor Terry","Reef Dean","Splash Luca"},
-            {"Blue Milo","Foam Kai","Lagoon Noah","Current Finn","Wave Jake","Palm Dean","Tide Terry","Surf Cody","Coral Theo","Reef Luca","Harbor Rex"},
-            {"Drift Leo","Splash Kai","Bay Finn","Palm Noah","Sunny Jake","Wave Terry","Surf Luca","Coral Cody","Reef Theo","Lagoon Dean","Tide Milo"}
+            {"UI.Label.StormKai","UI.Label.WaveRex","UI.Label.TideDean","UI.Label.CoralFinn","UI.Label.SplashRio","UI.Label.DriftLeo","UI.Label.SurfJake","UI.Label.BlueNoah","UI.Label.ReefAres","UI.Label.HarborTheo","UI.Label.PalmCody"},
+            {"UI.Label.LagoonRiku","UI.Label.FoamTerry","UI.Label.BayLuca","UI.Label.SunnyMilo","UI.Label.CoastJett","UI.Label.CurrentNoel","UI.Label.ShellToma","UI.Label.BreezeDean","UI.Label.CoralRex","UI.Label.WaveFinn","UI.Label.SurfKai"},
+            {"UI.Label.TideLeo","UI.Label.DriftNoah","UI.Label.SplashTheo","UI.Label.ReefJake","UI.Label.PalmLuca","UI.Label.HarborCody","UI.Label.BayTerry","UI.Label.WaveMilo","UI.Label.FoamRiku","UI.Label.SunnyDean","UI.Label.SurfJett"},
+            {"UI.Label.CoralKai","UI.Label.BlueFinn","UI.Label.LagoonRex","UI.Label.CurrentLeo","UI.Label.TideJake","UI.Label.ShellNoah","UI.Label.WaveCody","UI.Label.PalmTheo","UI.Label.DriftTerry","UI.Label.HarborMilo","UI.Label.SplashLuca"},
+            {"UI.Label.SurfDean","UI.Label.ReefKai","UI.Label.BayFinn","UI.Label.FoamJake","UI.Label.CoralTheo","UI.Label.WaveNoah","UI.Label.SunnyRex","UI.Label.PalmLeo","UI.Label.LagoonTerry","UI.Label.TideCody","UI.Label.DriftLuca"},
+            {"UI.Label.SplashMilo","UI.Label.HarborDean","UI.Label.CurrentKai","UI.Label.ReefNoah","UI.Label.BlueJake","UI.Label.ShellFinn","UI.Label.PalmTerry","UI.Label.SurfTheo","UI.Label.WaveCody","UI.Label.CoralLuca","UI.Label.TideRex"},
+            {"UI.Label.FoamLeo","UI.Label.DriftKai","UI.Label.BayNoah","UI.Label.LagoonJake","UI.Label.SplashFinn","UI.Label.PalmCody","UI.Label.CurrentTheo","UI.Label.SurfTerry","UI.Label.ReefMilo","UI.Label.HarborLuca","UI.Label.WaveDean"},
+            {"UI.Label.SunnyKai","UI.Label.CoralNoah","UI.Label.WaveLeo","UI.Label.TideFinn","UI.Label.SurfJake","UI.Label.PalmRex","UI.Label.DriftTheo","UI.Label.ShellCody","UI.Label.HarborTerry","UI.Label.ReefDean","UI.Label.SplashLuca"},
+            {"UI.Label.BlueMilo","UI.Label.FoamKai","UI.Label.LagoonNoah","UI.Label.CurrentFinn","UI.Label.WaveJake","UI.Label.PalmDean","UI.Label.TideTerry","UI.Label.SurfCody","UI.Label.CoralTheo","UI.Label.ReefLuca","UI.Label.HarborRex"},
+            {"UI.Label.DriftLeo","UI.Label.SplashKai","UI.Label.BayFinn","UI.Label.PalmNoah","UI.Label.SunnyJake","UI.Label.WaveTerry","UI.Label.SurfLuca","UI.Label.CoralCody","UI.Label.ReefTheo","UI.Label.LagoonDean","UI.Label.TideMilo"}
         };
+        public static string[,] _pitcherName => L10n.Texts(_pitcherNameKeys);
 #else
 
         public static string[,] _batterName = new string[10, 14]
@@ -393,11 +395,12 @@ namespace BaseBall.BallPlay
         
 
         //임시 이름
-        public static string[,] _name = new string[2, 10] 
+        public static string[,] _nameKeys = new string[2, 10]
         {
-            {"이대형 14","김주찬 14","이범호 14","나지완 14","브렛필 14","안치홍 14","신종길 14","차일목 14","김선빈 14","양현종 14"},
-            {"나바로 14","박한이 14","박석민 14","최형우 14","이승엽 14","채태인 14","진갑용 14","박해민 14","김상수 14","벤덴헐크 14"},
+            {"UI.Label.LeeDaeHyung14","UI.Label.KimJooChan14","UI.Label.LeeBumHo14","UI.Label.NaJiWan14","UI.Label.BrettPill14","UI.Label.AnChiHong14","UI.Label.ShinJongGil14","UI.Label.ChaIlMok14","UI.Label.KimSunBin14","UI.Label.YangHyeonJong14"},
+            {"UI.Label.Navarro14","UI.Label.ParkHanYi14","UI.Label.ParkSukMin14","UI.Label.ChoiHyoungWoo14","UI.Label.LeeSeungYuop14","UI.Label.ChaeTaeIn14","UI.Label.JinKabYong14","UI.Label.ParkHaeMin14","UI.Label.KimSangSu14","UI.Label.VanDenHurk14"},
         };
+        public static string[,] _name => L10n.Texts(_nameKeys);
 
         //임시 사용손
         public static int[,] _hand = new int[2, 10] 
@@ -414,19 +417,20 @@ namespace BaseBall.BallPlay
         };
 
 #if GIRL_PLAY
-        public static string[] _teamName = new string[10]
+        public static string[] _teamNameKeys = new string[10]
         {
-            "Beach Breakers",
-            "Sandstorm Sluggers",
-            "Wave Runners",
-            "Sunset Batters",
-            "Coral Pirates",
-            "Tidal Smash",
-            "Blue Lagoon Nine",
-            "Palm Hitters",
-            "Seaside Storm",
-            "Orca Beach Club"
+            "UI.Label.BeachBreakers",
+            "UI.Label.SandstormSluggers",
+            "UI.Label.WaveRunners",
+            "UI.Label.SunsetBatters",
+            "UI.Label.CoralPirates",
+            "UI.Label.TidalSmash",
+            "UI.Label.BlueLagoonNine",
+            "UI.Label.PalmHitters",
+            "UI.Label.SeasideStorm",
+            "UI.Label.OrcaBeachClub"
         };
+        public static string[] _teamName => L10n.Texts(_teamNameKeys);
 #else
         public static string[] _teamName = new string[10]
         {

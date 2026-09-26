@@ -70,7 +70,7 @@ namespace BaseBall.BallPlay
 
         private void updatePlayer(float curPer)
         {
-            level.text = "LV " + _curLevel;
+            L10n.SetText(level, "UI.Format.LvValue.Uppercase", _curLevel);
             //percent.text = string.Format("{0:F2}%", curPer);
             int w = (int)(maxValue * curPer / 100);
             secondGague.SetDimensions(w, 14);

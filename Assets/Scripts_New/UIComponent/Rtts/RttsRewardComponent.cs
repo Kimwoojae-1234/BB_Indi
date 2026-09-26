@@ -43,7 +43,7 @@ public class RttsRewardComponent : MonoBehaviour
         {       
             //몇경기 남음
             RemainObj.gameObject.SetActive(true);
-            ReaminWinText.text = string.Format("{0} More Point(s)", remain);
+            ReaminWinText.text = L10n.F("UI.Format.ValueMorePointS", remain);
                         
             //슬라이더 
             int lower = 0;

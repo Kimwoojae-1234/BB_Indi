@@ -2371,7 +2371,7 @@ namespace BaseBall.BallPlay
                     {
                         //Debug.Log("=========================================>>>스트라이크 아웃 낫아웃");
                         field.chanceResult = SimulResultState.StrikeOut;
-                        field.manager.strBatterResult = "삼진 (낫아웃)";
+                        field.manager.strBatterResult = L10n.T("UI.Label.DroppedThirdStrike");
                     }
                     else
                     {

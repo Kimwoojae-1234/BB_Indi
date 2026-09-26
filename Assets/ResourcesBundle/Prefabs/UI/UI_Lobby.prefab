@@ -7382,6 +7382,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4000013340841952}
   - component: {fileID: 9032079878313629969}
+  - component: {fileID: 5181271023019229322}
   m_Layer: 5
   m_Name: LimitHour_Label
   m_TagString: Untagged
@@ -8108,6 +8109,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4645593981496552}
   - component: {fileID: 4875828361943112871}
+  - component: {fileID: 1895052870830845971}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -9959,6 +9961,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4000010863189182}
   - component: {fileID: 504145427812183332}
+  - component: {fileID: 6930438587059196004}
   m_Layer: 5
   m_Name: SeasonCurRanking_Label
   m_TagString: Untagged
@@ -43335,6 +43338,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4000013046206372}
   - component: {fileID: 9120132256283065740}
+  - component: {fileID: 2709384365343336573}
   m_Layer: 5
   m_Name: TraningCount_Label
   m_TagString: Untagged
@@ -56215,6 +56219,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4369848185499984}
   - component: {fileID: 1651092770568108338}
+  - component: {fileID: 2516086317792884179}
   m_Layer: 5
   m_Name: Lineup
   m_TagString: Untagged
@@ -59116,6 +59121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4219818103578520}
   - component: {fileID: 6899014238948697679}
+  - component: {fileID: 4952866640964530517}
   m_Layer: 5
   m_Name: SelectLineup
   m_TagString: Untagged
@@ -64966,6 +64972,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4000012171190588}
   - component: {fileID: 2730283483628796443}
+  - component: {fileID: 537251773666698228}
   m_Layer: 5
   m_Name: SomeGame_Label
   m_TagString: Untagged
@@ -73636,3 +73643,136 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85167597ccbf486cb16fffcb53693afe, type: 3}
   m_Name: ''
   m_EditorClassIdentifier: ''
+--- !u!114 &2709384365343336573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011128318888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.6PlayersTraining
+  sourceText: "6\uBA85 \uD6C8\uB828\uC911..."
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 9120132256283065740}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &5181271023019229322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011756821956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.TimeRemaining.UiLobby
+  sourceText: "\uB0A8\uC740 \uC2DC\uAC04"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 9032079878313629969}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &537251773666698228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013165602420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.SeasonGame23
+  sourceText: "\uC2DC\uC98C 23\uCC28\uC804"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 2730283483628796443}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &6930438587059196004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013895872070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.CurrentRank8
+  sourceText: "\uD604\uC7AC 8\uC704"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 504145427812183332}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &4952866640964530517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367791632646910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.A
+  sourceText: A
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 6899014238948697679}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &2516086317792884179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583772359512050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.Lineup
+  sourceText: LINEUP
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 1651092770568108338}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &1895052870830845971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650549065056134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.Point
+  sourceText: POINT
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 4875828361943112871}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

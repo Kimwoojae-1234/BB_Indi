@@ -499,6 +499,7 @@ GameObject:
   - component: {fileID: 5431622779385599129}
   - component: {fileID: 1823355738698351392}
   - component: {fileID: 246135652312545786}
+  - component: {fileID: 6180820938920683195}
   m_Layer: 5
   m_Name: Text_Battle
   m_TagString: Untagged
@@ -1172,6 +1173,7 @@ GameObject:
   - component: {fileID: 1600764909902040083}
   - component: {fileID: 7969126375753784016}
   - component: {fileID: 4855151891579442432}
+  - component: {fileID: 7631286294056076699}
   m_Layer: 5
   m_Name: Text_Battle
   m_TagString: Untagged
@@ -1332,3 +1334,41 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6180820938920683195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3615423642702369258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.Setting
+  sourceText: SETTING
+  tmp: {fileID: 246135652312545786}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &7631286294056076699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7820982280776481470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.Update
+  sourceText: UPDATE
+  tmp: {fileID: 4855151891579442432}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

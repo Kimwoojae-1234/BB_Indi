@@ -15,7 +15,7 @@ public class TR_PointComp2 : MonoBehaviour
         transform.parent = par;
         transform.localScale = Vector3.one;
         KOBManager.Atlas.SetBallerTierSprite(Tier, data.idx);
-        Title.text = string.Format("ballertier{0}", data.idx); //임시
+        L10n.SetText(Title, string.Format("ballertier{0}", data.idx));
         Count.text = data.trophy.ToString();
     }
 }

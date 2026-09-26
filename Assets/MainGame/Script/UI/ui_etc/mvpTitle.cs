@@ -54,11 +54,11 @@ namespace BaseBall.BallPlay
             info1[4].text = mvpInfo.dpRec5;
 
             //기록의 리그내 순위
-            info2[0].text = mvpInfo.rec1Rank + "위";
-            info2[1].text = mvpInfo.rec2Rank + "위";
-            info2[2].text = mvpInfo.rec3Rank + "위";
-            info2[3].text = mvpInfo.rec4Rank + "위";
-            info2[4].text = mvpInfo.rec5Rank + "위";
+            L10n.SetText(info2[0], "UI.Format.RankValue", mvpInfo.rec1Rank);
+            L10n.SetText(info2[1], "UI.Format.RankValue", mvpInfo.rec2Rank);
+            L10n.SetText(info2[2], "UI.Format.RankValue", mvpInfo.rec3Rank);
+            L10n.SetText(info2[3], "UI.Format.RankValue", mvpInfo.rec4Rank);
+            L10n.SetText(info2[4], "UI.Format.RankValue", mvpInfo.rec5Rank);
 
             //1등인 경우 별표 체크
             winnner[0].gameObject.SetActive(mvpInfo.rec1Rank == 1 ? true : false);

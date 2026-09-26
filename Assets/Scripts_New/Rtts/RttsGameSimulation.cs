@@ -614,7 +614,7 @@ public sealed class RttsGameSimulation
         var team = new SimTeam
         {
             TeamIndex = teamIndex,
-            Name = chart?.Name ?? ("TEAM " + teamIndex),
+            Name = chart?.Name ?? L10n.F("UI.TeamNumber", teamIndex),
             Pitching = DefaultAbility
         };
         if (chart == null) return team;
@@ -683,7 +683,7 @@ public sealed class RttsGameSimulation
     private static string GetPlayerName(int playerIndex)
     {
         CharacterData character = KOBManager.Backend.Chart.CharacterData.GetData(playerIndex);
-        if (character == null) return "PLAYER " + playerIndex;
+        if (character == null) return L10n.F("UI.PlayerNumber", playerIndex);
         string localized = KOBManager.Localization.GetUILocalizedValue2(character.name_id);
         return string.IsNullOrEmpty(localized) ? character.name_id : localized;
     }

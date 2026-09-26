@@ -250,7 +250,7 @@ public class Popup_GearSetting : UIPopup
         }
         else
         {
-            GearNameTxt.text = string.Format("{0} LV{1}", KOBManager.Localization.GetUILocalizedValue2(name_id), CurLevel);
+            GearNameTxt.text = L10n.F("UI.Format.ValueLvValue", KOBManager.Localization.GetUILocalizedValue2(name_id), CurLevel);
         }
 
         int value = Random.Range(10, 15);
@@ -279,7 +279,7 @@ public class Popup_GearSetting : UIPopup
                 NotAvailble.gameObject.SetActive(true);
                 TextMeshProUGUI t = NotAvailble.transform.Find("Text").GetComponent<TextMeshProUGUI>();
                 t.color = KOBUtil.GetRarityColor(CurRarity);
-                t.text = string.Format("<color=white>Available to learn after reaching</color> POWER LEVEL {0}", openLv);
+                t.text = L10n.F("UI.Format.AvailableToLearnAfterReachingPowerLevelValue", openLv);
             }
             else
             {
@@ -291,7 +291,7 @@ public class Popup_GearSetting : UIPopup
             NotAvailble.gameObject.SetActive(true);
             TextMeshProUGUI t = NotAvailble.transform.Find("Text").GetComponent<TextMeshProUGUI>();
             t.color = KOBUtil.GetRarityColor(CurRarity);
-            t.text = string.Format("<color=white>Available to learn after reaching</color> POWER LEVEL {0}", openLv);
+            t.text = L10n.F("UI.Format.AvailableToLearnAfterReachingPowerLevelValue", openLv);
         }
     }
 

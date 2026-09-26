@@ -2806,7 +2806,7 @@ namespace BaseBall.BallPlay
                                 //fIndex = poIndex;
                                 grounderThrowBase = SimulParm.FIRSTBASE_INDEX;
                                 doublePlaySuccess = true;                                
-                                strBatterResult = Util.getBatterResult(fIndex, true, 0, "병살"); //땅볼을 병살로 바꿈
+                                strBatterResult = Util.getBatterResult(fIndex, true, 0, L10n.T("Baseball.Result.DoublePlay")); //땅볼을 병살로 바꿈
                                 return 1;   //아웃카운트 하나 추가
                             }
                         }
@@ -3741,7 +3741,7 @@ namespace BaseBall.BallPlay
                 removeRunner(hitterRunnerIndex, RunnerState.StrikeOut, -1);
                 gameInfo.addStrkeOutCount(curIndex, batter, pitcher, fielder[CPlayer._CATCHER].getFielder());
                 //UnityEngine.Debug.Log("[배팅 결과] ==============>> 삼진아웃 |  Out: " + gameInfo.outCount);
-                strBatterResult = "삼진 아웃";
+                strBatterResult = L10n.T("Baseball.Result.Strikeout.Ballplaymanager");
             }
             else if (state == SimulResultState.Grounder)      //땅볼
             {
@@ -3777,17 +3777,17 @@ namespace BaseBall.BallPlay
                         if (buntType != SimulBuntType.NONE && (buntResultType == SpecificBuntType.SQUEEZ_FAIL || buntResultType == SpecificBuntType.SAC_FAIL))
                         {
                             //번트 실패의 경우
-                            strBatterResult = Util.getBatterResult(fIndex, true, 0, "땅볼 (야수선택)");
+                            strBatterResult = Util.getBatterResult(fIndex, true, 0, L10n.T("UI.Label.GroundBallFieldersChoice"));
                         }
                         else
                         {
-                            strBatterResult = Util.getBatterResult(fIndex, true, 0, "땅볼 아웃");
+                            strBatterResult = Util.getBatterResult(fIndex, true, 0, L10n.T("UI.Label.Groundout"));
                         }
                     }
                     else
                     {
                         gameInfo.setFieldOut(state, hitType, batter, pitcher, null, null, true);
-                        strBatterResult = (buntSuccessType == SimulBuntType.SQUEEZE ? "스퀴즈 번트" : "희생 번트");
+                        strBatterResult = (buntSuccessType == SimulBuntType.SQUEEZE ? L10n.T("UI.Label.SqueezeBunt") : L10n.T("UI.Label.SacrificeBunt"));
                     }
                 }
                 ////UnityEngine.//Debug.Log("==========================================>>grounderThrowBase = " + grounderThrowBase);
@@ -3816,7 +3816,7 @@ namespace BaseBall.BallPlay
             {
                 gameInfo.addFourBall(curIndex,  batter, pitcher,false);
                 //UnityEngine.Debug.Log("[배팅 결과] ==============>> 볼넷 |  Out: " + gameInfo.outCount);
-                strBatterResult = "베이스 온 볼";
+                strBatterResult = L10n.T("Baseball.Result.Walk");
             }
             else if (state == SimulResultState.InfieldSingle || //내안
                      state == SimulResultState.BuntSingle || //내안
@@ -3879,7 +3879,7 @@ namespace BaseBall.BallPlay
                 //UnityEngine.Debug.Log("[배팅 결과] ==============>> " + state + " |  Out: " + gameInfo.outCount);
                 fIndex2 = fIndex = resetCatchFielder(fIndex);   //타구 처리 야수 재설정
                 //UnityEngine.Debug.Log("[야수 재설정]======================>> fIndex = " + fIndex);
-                strBatterResult = "에러로 출루";
+                strBatterResult = L10n.T("UI.Label.ReachedOnError");
 #if HITBALLTYPE_RECORD
                 if (hitType == SimulHitType.Fly) flyOut[curIndex]++;
                 else if (hitType == SimulHitType.Grounder) grounderOut[curIndex]++;
@@ -3925,7 +3925,7 @@ namespace BaseBall.BallPlay
             }*/
             else if (state == SimulResultState.FielderChoice)
             {
-                strBatterResult = "야수 선택";
+                strBatterResult = L10n.T("UI.Label.FieldersChoice");
             }
             else
             {
@@ -4047,7 +4047,7 @@ namespace BaseBall.BallPlay
                 {
                     if (run > 0)
                     {
-                        strBatterResult += " (타점 " + run + ")";
+                        strBatterResult += L10n.F("UI.Format.RbiValue", run);
                     }
                 }
 

@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 178042483}
   - component: {fileID: 178042485}
   - component: {fileID: 178042484}
+  - component: {fileID: 6801775130260991737}
   m_Layer: 5
   m_Name: Amount
   m_TagString: Untagged
@@ -524,6 +525,7 @@ GameObject:
   - component: {fileID: 1707977252}
   - component: {fileID: 1707977254}
   - component: {fileID: 1707977253}
+  - component: {fileID: 5828155579181940113}
   m_Layer: 5
   m_Name: Text_Rewards
   m_TagString: Untagged
@@ -2423,3 +2425,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5747fc0ba005f1240ad74dec2afc3f1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6801775130260991737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178042482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.Box.Uppercase
+  sourceText: BOX
+  tmp: {fileID: 178042484}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &5828155579181940113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707977251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.Rewards
+  sourceText: REWARDS
+  tmp: {fileID: 1707977253}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

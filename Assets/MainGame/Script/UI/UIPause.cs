@@ -146,7 +146,7 @@ namespace BaseBall.BallPlay
 
             while (time >= 0)
             {
-                waitTimeLabel.text = "대기시간 " + time + "초";
+                L10n.SetText(waitTimeLabel, "UI.Format.WaitingValueS", time);
                 yield return new WaitForSeconds(1.0f);
                 time--;
             }

@@ -40,12 +40,12 @@ public class tempSelectPage : MonoBehaviour {
         if (button1 != null)
         {
             button1.color = new Color(0, 0, 0);
-            button1.transform.Find("Label").GetComponent<GameUIElement>().text = "[aaaaaa]투수 모드 OFF";
+            L10n.SetText(button1.transform.Find("Label").GetComponent<GameUIElement>(), "UI.Label.PitcherModeOff");
         }
         if (button2 != null)
         {
             button2.color = new Color(0, 0, 0);
-            button2.transform.Find("Label").GetComponent<GameUIElement>().text = "[aaaaaa]특수 능력 OFF";
+            L10n.SetText(button2.transform.Find("Label").GetComponent<GameUIElement>(), "UI.Label.SpecialAbilityOff");
         }
 
     }
@@ -56,13 +56,13 @@ public class tempSelectPage : MonoBehaviour {
         if (Mode.bPitchingViewActive == true)
         {
             button1.color = new Color(0, 0, 0);
-            button1.transform.Find("Label").GetComponent<GameUIElement>().text = "[aaaaaa]투수 모드 OFF";
+            L10n.SetText(button1.transform.Find("Label").GetComponent<GameUIElement>(), "UI.Label.PitcherModeOff");
             Mode.bPitchingViewActive = false;
         }
         else
         {
             button1.color = new Color(1, 1, 1);
-            button1.transform.Find("Label").GetComponent<GameUIElement>().text = "[ffffff]투수 모드 ON";
+            L10n.SetText(button1.transform.Find("Label").GetComponent<GameUIElement>(), "UI.Label.PitcherModeOn");
             Mode.bPitchingViewActive = true;
         }
     }
@@ -73,13 +73,13 @@ public class tempSelectPage : MonoBehaviour {
         if (Mode.bBattingSPMode == true)
         {
             button2.color = new Color(0, 0, 0);
-            button2.transform.Find("Label").GetComponent<GameUIElement>().text = "[aaaaaa]특수 능력 OFF";
+            L10n.SetText(button2.transform.Find("Label").GetComponent<GameUIElement>(), "UI.Label.SpecialAbilityOff");
             Mode.bBattingSPMode = false;
         }
         else
         {
             button2.color = new Color(1, 1, 1);
-            button2.transform.Find("Label").GetComponent<GameUIElement>().text = "[ffffff]특수 능력 ON";
+            L10n.SetText(button2.transform.Find("Label").GetComponent<GameUIElement>(), "UI.Label.SpecialAbilityOn");
             Mode.bBattingSPMode = true;
         }
     }

@@ -25,7 +25,8 @@ public class Popup_UserInfo : UIPopup
     [SerializeField] private GameObject[] AlarmObj = null;
 
 
-    private string[] __title = new string[] { "RTTS STATS", "TOURNAMENT STATS", "LEAGUE STATS" };
+    private string[] __titleKeys = new string[] { "UI.Label.RttsStats", "UI.Label.TournamentStats", "UI.Label.LeagueStats" };
+        private string[] __title => L10n.Texts(__titleKeys);
 
     private enum UserInfoMode
     {

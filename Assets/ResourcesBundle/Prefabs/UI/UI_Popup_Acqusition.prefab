@@ -6163,6 +6163,7 @@ GameObject:
   m_Component:
   - component: {fileID: 496070}
   - component: {fileID: 2094888642550131728}
+  - component: {fileID: 2794127791133179269}
   m_Layer: 5
   m_Name: labelItemAcquistion
   m_TagString: Untagged
@@ -22427,6 +22428,7 @@ GameObject:
   m_Component:
   - component: {fileID: 487272}
   - component: {fileID: 7479995797844118309}
+  - component: {fileID: 8026090229647153398}
   m_Layer: 5
   m_Name: labelTitle
   m_TagString: Untagged
@@ -65524,6 +65526,7 @@ GameObject:
   m_Component:
   - component: {fileID: 413604}
   - component: {fileID: 4242064514561144442}
+  - component: {fileID: 5779340811289526432}
   m_Layer: 5
   m_Name: NoticeLabel
   m_TagString: Untagged
@@ -67726,3 +67729,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85167597ccbf486cb16fffcb53693afe, type: 3}
   m_Name: ''
   m_EditorClassIdentifier: ''
+--- !u!114 &5779340811289526432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Message.YourMissionRewardHasBeenSentToYourInbox
+  sourceText: "\uBBF8\uC158 \uB2EC\uC131 \uBCF4\uC0C1\uC774 \uC6B0\uD3B8\uD568\uC73C\uB85C
+    \uC9C0\uAE09\uB418\uC5C8\uC2B5\uB2C8\uB2E4."
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 4242064514561144442}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &2794127791133179269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.RubiesReceived
+  sourceText: "\uB8E8\uBE44\uB97C \uBC1B\uC558\uC2B5\uB2C8\uB2E4."
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 2094888642550131728}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &8026090229647153398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 197818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.ItemAcquired
+  sourceText: "\uC544\uC774\uD15C \uD68D\uB4DD"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 7479995797844118309}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

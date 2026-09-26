@@ -41,7 +41,7 @@ public class SkillSlotBaller : MonoBehaviour
         TypeSetting(skillIndex, slot, type, 3);
         Level = skillLv;
         SkillFrame.sprite = KOBManager.Atlas.GetSprite(AtlasManager.MyAtlas.UISkill, "skilltype" + type);
-        SkillLvTxt.text = "LV" + skillLv;
+        L10n.SetText(SkillLvTxt, "UI.Format.LvValue", skillLv);
         SkillIcon.sprite = KOBManager.Atlas.GetSprite(AtlasManager.MyAtlas.UISkill, "s" + skillIndex);
     }
 
@@ -57,7 +57,7 @@ public class SkillSlotBaller : MonoBehaviour
         if(SkillTypeTxt != null)
         {
             SkillTypeTxt.color = (state == 3 ? Color.white : Color.gray);
-            SkillTypeTxt.text = (type == 1 ? "H SKILL" : "F SKILL");
+            SkillTypeTxt.text = (type == 1 ? L10n.T("UI.Label.HSkill") : L10n.T("UI.Label.FSkill"));
         }
     }
 
@@ -83,7 +83,7 @@ public class SkillSlotBaller : MonoBehaviour
             SkillFrame.color = Color.white;
             Select.gameObject.SetActive(false);
             SkillLvTxt.gameObject.SetActive(true);
-            SkillLvTxt.text = "LV" + skillLv;
+            L10n.SetText(SkillLvTxt, "UI.Format.LvValue", skillLv);
         }
     }
 

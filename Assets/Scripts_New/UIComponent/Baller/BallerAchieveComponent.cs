@@ -99,8 +99,8 @@ public class BallerAchieveComponent : MonoBehaviour
         AchiveIcon.sprite = KOBManager.Atlas.GetSprite(AtlasManager.MyAtlas.UITier, string.Format("achieve_icon_{0}", idx));
         AchiveIcon.SetNativeSize();
         //언어팩
-        AchiveName.text = data.name_id + " Lv" + (Lv + 1);
-        AchiveDesc.text = data.desc_id + " " + achiveMount;
+        L10n.SetText(AchiveName, "UI.LevelName", L10n.T(data.name_id), Lv + 1);
+        L10n.SetText(AchiveDesc, data.desc_id, achiveMount);
     }
 
 

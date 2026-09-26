@@ -48,7 +48,7 @@ namespace BaseBall.BallPlay
 
             int index = Mathf.Clamp(ranking - 1, 0, 10);
             RacePlayTeamRecordInfo teamRecordInfo = info.annInfo.finalTeamRanks[index];
-            wdlLabel.text = "(" + teamRecordInfo.win + "승 " + teamRecordInfo.draw + "무 " + teamRecordInfo.lose + "패)";
+            L10n.SetText(wdlLabel, "UI.Format.ValueWValueDValueL", teamRecordInfo.win, teamRecordInfo.draw, teamRecordInfo.lose);
 
             StartCoroutine(init(lgItems, ranking, teamPower, coin, leagueLevel));
         }

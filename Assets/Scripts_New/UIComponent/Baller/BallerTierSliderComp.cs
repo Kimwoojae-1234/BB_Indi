@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,13 +23,13 @@ public class BallerTierSliderComp : MonoBehaviour
         //Debug.Log("curTrophy : " + tierInfo.CurTrophy + "          nextTrophy : " + tierInfo.NextTrophy);
         if (tierInfo.isMax == true)
         {
-            trophyTxt.text = "MAX";
+            L10n.SetText(trophyTxt, "UI.Label.Max");
         }
         else
         {
             if (isMaxShow)
             {
-                trophyTxt.text = string.Format("{0}/{1}", baller.baller_trophy, tierInfo.NextTrophy);// ballerInfo.baller_trophy.ToString(); //Æ®·ÎÇÇÅØ½ºÆ®
+                trophyTxt.text = string.Format("{0}/{1}", baller.baller_trophy, tierInfo.NextTrophy);// ballerInfo.baller_trophy.ToString(); //íŠ¸ë¡œí”¼í…ìŠ¤íŠ¸
             }
             else
             {
@@ -55,7 +55,7 @@ public class BallerTierSliderComp : MonoBehaviour
         KOBManager.Atlas.SetBallerTierSprite(TierImg, tierInfo.CurTier);
         if (tierInfo.isMax == true)
         {
-            trophyTxt.text = "MAX";
+            L10n.SetText(trophyTxt, "UI.Label.Max");
             TierSlider.value = 1;
         }
         else
@@ -71,7 +71,7 @@ public class BallerTierSliderComp : MonoBehaviour
                 curValue = x;
                 if (tierInfo.isMax == true)
                 {
-                    trophyTxt.text = "MAX";
+                    L10n.SetText(trophyTxt, "UI.Label.Max");
                     TierSlider.value = 1;
                 }
                 else
@@ -82,7 +82,7 @@ public class BallerTierSliderComp : MonoBehaviour
 
                 if(curValue > tierInfo.NextTrophy)
                 {
-                    Debug.Log("Æ¼¾î : ¿¬Ãâ µµÁß Æ¼¾î ¹Ù²ï °æ¿ì!!");
+                    Debug.Log("í‹°ì–´ : ì—°ì¶œ ë„ì¤‘ í‹°ì–´ ë°”ë€ ê²½ìš°!!");
                     isTierUpgrade = true;
                     tierInfo = KOBManager.Backend.Chart.BallerTrophyRoadData.GetTierInfo(curValue + 10);
                     KOBManager.Atlas.SetBallerTierSprite(TierImg, tierInfo.CurTier);
@@ -92,7 +92,7 @@ public class BallerTierSliderComp : MonoBehaviour
             .SetDelay(delay)
             .OnComplete(() =>
             {
-                //Debug.Log("¾Ö´Ï¸ÞÀÌ¼Ç ¿Ï·á!");
+                //Debug.Log("ì• ë‹ˆë©”ì´ì…˜ ì™„ë£Œ!");
                 if (baller.baller_trophy >= tierInfo.NextTrophy ||
                     isTierUpgrade == true)
                 {

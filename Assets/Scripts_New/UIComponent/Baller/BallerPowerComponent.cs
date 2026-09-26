@@ -52,7 +52,7 @@ public class BallerPowerComponent : MonoBehaviour
         }
 
         SetCard(ballerData);
-        BallerLv.text = string.Format("Power <size=65>{0}</size>           <size=40><color=#FFB200>MAX13</size></color>", ballerInfo.level);
+        BallerLv.text = L10n.F("UI.Format.PowerValueMax13", ballerInfo.level);
         CurIdx = ballerData.char_idx;
         CurLevel = ballerInfo.level;        
         int CardNeed = KOBManager.Backend.Chart.UpgradeData.UpgradeCard(ballerInfo.level + 1, ballerData.rarity);
@@ -99,7 +99,7 @@ public class BallerPowerComponent : MonoBehaviour
         SetCard(ballerData);
         CurIdx = ballerData.char_idx;
         CurLevel = 1;
-        BallerLv.text = string.Format("Power <size=65>{0}</size>              <size=40><color=#FFFF00>MAX13</size></color>", 1);
+        BallerLv.text = L10n.F("UI.Format.PowerValueMax13.RichText", 1);
         CardSlider.value = 0;
         CardTxt.text = string.Empty;
         State = UpgradeState.UnlockNow;
@@ -183,15 +183,15 @@ public class BallerPowerComponent : MonoBehaviour
 
             if (level < activateLevel) //비활성화
             {
-                SpSkillTxt[0].text = "Skill" + key;   //이름 임시
+                L10n.SetText(SpSkillTxt[0], "UI.Format.SkillValue", key);   //이름 임시
                 SpSkillTxt[0].color = Color.gray;
                 SpSkillTxt[1].gameObject.SetActive(false);
                 SpSkillTxt[2].gameObject.SetActive(true);
-                SpSkillTxt[2].text = string.Format("AVAILABLE AT\n<size=30>POWER{0}</size>", activateLevel);
+                SpSkillTxt[2].text = L10n.F("UI.Format.AvailableAtPowerValue", activateLevel);
             }
             else //활성화
             {
-                SpSkillTxt[0].text = "Skill" + key + " LV " + skLv;   //이름 임시
+                L10n.SetText(SpSkillTxt[0], "UI.Format.SkillValueLvValue", key, skLv);   //이름 임시
                 SpSkillTxt[0].color = Color.white;
                 if (level == nextLevel) //업글 가능
                 {
@@ -200,7 +200,7 @@ public class BallerPowerComponent : MonoBehaviour
                 else //업글은 불가능
                 {
                     SpSkillTxt[2].gameObject.SetActive(true);
-                    SpSkillTxt[2].text = string.Format("UPGRADE AT\n<size=30>POWER{0}</size>", nextLevel);
+                    SpSkillTxt[2].text = L10n.F("UI.Format.UpgradeAtPowerValue", nextLevel);
                 }
             }
             //"AVAILABLE AT\nPOWER{0}"
@@ -209,7 +209,7 @@ public class BallerPowerComponent : MonoBehaviour
         }
         else
         {
-            SpSkillTxt[0].text = "No special skill";
+            L10n.SetText(SpSkillTxt[0], "UI.Label.NoSpecialSkill");
             SpSkillTxt[0].color = Color.gray;
             SpSkillIcon.gameObject.SetActive(false);
             SpSkillTxt[1].gameObject.SetActive(false);
@@ -243,8 +243,8 @@ public class BallerPowerComponent : MonoBehaviour
             //SpSkillTxt[1].gameObject.SetActive(true);
             int hittinigMax = maxLevelData.power + maxLevelData.contact + maxLevelData.vision;
             int PhysicMax = maxLevelData.fielding + maxLevelData.throwing + maxLevelData.speed;
-            HittingTxt[2].text = string.Format("MAX\n<size=45>{0}</size>", hittinigMax);
-            PhisicalTxt[2].text = string.Format("MAX\n<size=45>{0}</size>", PhysicMax);
+            HittingTxt[2].text = L10n.F("UI.Format.MaxValue", hittinigMax);
+            PhisicalTxt[2].text = L10n.F("UI.Format.MaxValue", PhysicMax);
         }
         else
         {

@@ -60,36 +60,36 @@ public class UI_Loading : MonoBehaviour
     {
         _initializeStep.Clear();
         // 트랜잭션으로 불러온 후, 안불러질 경우 각자 Get 함수로 불러오는 함수 *중요*
-        _initializeStep.Enqueue(() => { ShowDataName("Loading User Data"); TransactionRead(NextStep); });
+        _initializeStep.Enqueue(() => { ShowDataName(L10n.T("UI.Label.LoadingUserData")); TransactionRead(NextStep); });
 
         // 차트정보 불러오기 함수 Insert
-        _initializeStep.Enqueue(() => { ShowDataName("Loading All Chart Data"); KOBManager.Backend.Chart.ChartInfo.BackendLoad(NextStep); }); //모든 차트 정보 수집
+        _initializeStep.Enqueue(() => { ShowDataName(L10n.T("UI.Label.LoadingAllChartData")); KOBManager.Backend.Chart.ChartInfo.BackendLoad(NextStep); }); //모든 차트 정보 수집
         //기본 차트 정보 -> 버전업이 아닌경우 로컬에 저장하여 사용
-        _initializeStep.Enqueue(() => { ShowDataName("Loading Character Data Info"); KOBManager.Backend.Chart.CharacterData.BackendChartAndSave(NextStep); }); //선수데이터
-        _initializeStep.Enqueue(() => { ShowDataName("Loading Hitter Level Data Info"); KOBManager.Backend.Chart.HitterLevelData.BackendChartAndSave(NextStep); }); //선수레벨별 능력치
-        _initializeStep.Enqueue(() => { ShowDataName("Loading Pitcher Level Data Info"); KOBManager.Backend.Chart.PitcherLevelData.BackendChartAndSave(NextStep); }); //투수레벨별 능력치
-        _initializeStep.Enqueue(() => { ShowDataName("Loading Character Skill Info"); KOBManager.Backend.Chart.HitterSkillData.BackendChartAndSave(NextStep); }); //선수 스킬 정보
-        _initializeStep.Enqueue(() => { ShowDataName("Loading Skill Data Info"); KOBManager.Backend.Chart.SkillData.BackendChartAndSave(NextStep); }); //스킬데이터
-        _initializeStep.Enqueue(() => { ShowDataName("Loading Gear Data Info"); KOBManager.Backend.Chart.GearData.BackendChartAndSave(NextStep); }); //장비데이터
-        _initializeStep.Enqueue(() => { ShowDataName("Loading Gear Attribute"); KOBManager.Backend.Chart.GearAttributes.BackendChartAndSave(NextStep); }); //장비능력치
-        _initializeStep.Enqueue(() => { ShowDataName("Loading Data Info"); KOBManager.Backend.Chart.UpgradeData.BackendChartAndSave(NextStep); }); //업글데이터
-        _initializeStep.Enqueue(() => { ShowDataName("Loading Trophy Data"); KOBManager.Backend.Chart.TrophyRoadData.BackendChartAndSave(NextStep); }); //트로피로드데이터
-        _initializeStep.Enqueue(() => { ShowDataName("Loading Baller Reputation Data"); KOBManager.Backend.Chart.BallerTrophyRoadData.BackendChartAndSave(NextStep); }); //볼러트로피로드데이터
-        _initializeStep.Enqueue(() => { ShowDataName("Loading Baller Achevement Data"); KOBManager.Backend.Chart.AchievementData.BackendChartAndSave(NextStep); }); //볼러업적데이터
-        _initializeStep.Enqueue(() => { ShowDataName("Loading Reward Data"); KOBManager.Backend.Chart.RewardData.BackendChartAndSave(NextStep); }); //보상정보
+        _initializeStep.Enqueue(() => { ShowDataName(L10n.T("UI.Label.LoadingCharacterDataInfo")); KOBManager.Backend.Chart.CharacterData.BackendChartAndSave(NextStep); }); //선수데이터
+        _initializeStep.Enqueue(() => { ShowDataName(L10n.T("UI.Label.LoadingHitterLevelDataInfo")); KOBManager.Backend.Chart.HitterLevelData.BackendChartAndSave(NextStep); }); //선수레벨별 능력치
+        _initializeStep.Enqueue(() => { ShowDataName(L10n.T("UI.Label.LoadingPitcherLevelDataInfo")); KOBManager.Backend.Chart.PitcherLevelData.BackendChartAndSave(NextStep); }); //투수레벨별 능력치
+        _initializeStep.Enqueue(() => { ShowDataName(L10n.T("UI.Label.LoadingCharacterSkillInfo")); KOBManager.Backend.Chart.HitterSkillData.BackendChartAndSave(NextStep); }); //선수 스킬 정보
+        _initializeStep.Enqueue(() => { ShowDataName(L10n.T("UI.Label.LoadingSkillDataInfo")); KOBManager.Backend.Chart.SkillData.BackendChartAndSave(NextStep); }); //스킬데이터
+        _initializeStep.Enqueue(() => { ShowDataName(L10n.T("UI.Label.LoadingGearDataInfo")); KOBManager.Backend.Chart.GearData.BackendChartAndSave(NextStep); }); //장비데이터
+        _initializeStep.Enqueue(() => { ShowDataName(L10n.T("UI.Label.LoadingGearAttribute")); KOBManager.Backend.Chart.GearAttributes.BackendChartAndSave(NextStep); }); //장비능력치
+        _initializeStep.Enqueue(() => { ShowDataName(L10n.T("UI.Label.LoadingDataInfo")); KOBManager.Backend.Chart.UpgradeData.BackendChartAndSave(NextStep); }); //업글데이터
+        _initializeStep.Enqueue(() => { ShowDataName(L10n.T("UI.Label.LoadingTrophyData")); KOBManager.Backend.Chart.TrophyRoadData.BackendChartAndSave(NextStep); }); //트로피로드데이터
+        _initializeStep.Enqueue(() => { ShowDataName(L10n.T("UI.Label.LoadingBallerReputationData")); KOBManager.Backend.Chart.BallerTrophyRoadData.BackendChartAndSave(NextStep); }); //볼러트로피로드데이터
+        _initializeStep.Enqueue(() => { ShowDataName(L10n.T("UI.Label.LoadingBallerAchevementData")); KOBManager.Backend.Chart.AchievementData.BackendChartAndSave(NextStep); }); //볼러업적데이터
+        _initializeStep.Enqueue(() => { ShowDataName(L10n.T("UI.Label.LoadingRewardData")); KOBManager.Backend.Chart.RewardData.BackendChartAndSave(NextStep); }); //보상정보
         //이 위로 확정
 
 
         //이 밑으로 뺄수도 있음
-        _initializeStep.Enqueue(() => { ShowDataName("Loading Consume Item Info"); KOBManager.Backend.Chart.ConsumeItem.BackendChartAndSave(NextStep); }); //소비성데이터
-        _initializeStep.Enqueue(() => { ShowDataName("Loading Season Pass Info"); KOBManager.Backend.Chart.SeasonPassBase.BackendChartAndSave(NextStep); }); //시즌패스
-        _initializeStep.Enqueue(() => { ShowDataName("Loading Season Reward Info"); KOBManager.Backend.Chart.SeasonPassReward.BackendChartAndSave(NextStep); }); //시즌패스보상
+        _initializeStep.Enqueue(() => { ShowDataName(L10n.T("UI.Label.LoadingConsumeItemInfo")); KOBManager.Backend.Chart.ConsumeItem.BackendChartAndSave(NextStep); }); //소비성데이터
+        _initializeStep.Enqueue(() => { ShowDataName(L10n.T("UI.Label.LoadingSeasonPassInfo")); KOBManager.Backend.Chart.SeasonPassBase.BackendChartAndSave(NextStep); }); //시즌패스
+        _initializeStep.Enqueue(() => { ShowDataName(L10n.T("UI.Label.LoadingSeasonRewardInfo")); KOBManager.Backend.Chart.SeasonPassReward.BackendChartAndSave(NextStep); }); //시즌패스보상
         //Rtts
-        _initializeStep.Enqueue(() => { ShowDataName("Loading Rtts Schedule Info"); KOBManager.Backend.Chart.RttsSchedule.BackendChartAndSave(NextStep); }); //Rtts 스케쥴
-        _initializeStep.Enqueue(() => { ShowDataName("Loading Rtts Data Info"); KOBManager.Backend.Chart.RttsInfo.BackendChartAndSave(NextStep); }); //Rtts 인포
-        _initializeStep.Enqueue(() => { ShowDataName("Loading Rtts Team Info"); KOBManager.Backend.Chart.RttsTeam.BackendChartAndSave(NextStep); }); //Rtts 팀
-        _initializeStep.Enqueue(() => { ShowDataName("Loading Rtts Reward"); KOBManager.Backend.Chart.RttsReward.BackendChartAndSave(NextStep); }); //Rtts 리그보상
-        _initializeStep.Enqueue(() => { ShowDataName("Loading Rtts Result Reward"); KOBManager.Backend.Chart.RttsResultReward.BackendChartAndSave(NextStep); }); //Rtts 리그 종료후보상
+        _initializeStep.Enqueue(() => { ShowDataName(L10n.T("UI.Label.LoadingRttsScheduleInfo")); KOBManager.Backend.Chart.RttsSchedule.BackendChartAndSave(NextStep); }); //Rtts 스케쥴
+        _initializeStep.Enqueue(() => { ShowDataName(L10n.T("UI.Label.LoadingRttsDataInfo")); KOBManager.Backend.Chart.RttsInfo.BackendChartAndSave(NextStep); }); //Rtts 인포
+        _initializeStep.Enqueue(() => { ShowDataName(L10n.T("UI.Label.LoadingRttsTeamInfo")); KOBManager.Backend.Chart.RttsTeam.BackendChartAndSave(NextStep); }); //Rtts 팀
+        _initializeStep.Enqueue(() => { ShowDataName(L10n.T("UI.Label.LoadingRttsReward")); KOBManager.Backend.Chart.RttsReward.BackendChartAndSave(NextStep); }); //Rtts 리그보상
+        _initializeStep.Enqueue(() => { ShowDataName(L10n.T("UI.Label.LoadingRttsResultReward")); KOBManager.Backend.Chart.RttsResultReward.BackendChartAndSave(NextStep); }); //Rtts 리그 종료후보상
 
 
         // 랭킹 정보 불러오기 함수 Insert
@@ -283,7 +283,7 @@ public class UI_Loading : MonoBehaviour
         }
         else*/
         {
-            ShowDataName("Entering the Main Lobby");
+            ShowDataName(L10n.T("UI.Label.EnteringTheMainLobby"));
             //신로딩
             async = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("MainLobby");
         }
@@ -319,7 +319,7 @@ public class UI_Loading : MonoBehaviour
     /// <returns></returns>
     private IEnumerator backToLobbyProcess()
     { 
-        ShowDataName("Entering the Main Lobby");
+        ShowDataName(L10n.T("UI.Label.EnteringTheMainLobby"));
         Slider.value = 0;
         yield return new WaitForSeconds(0.25f);
         //신로딩

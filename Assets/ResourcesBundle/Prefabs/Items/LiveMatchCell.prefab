@@ -719,6 +719,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4737865862002514}
   - component: {fileID: 397544594320463429}
+  - component: {fileID: 45906100376110531}
   m_Layer: 5
   m_Name: MatchNumber
   m_TagString: Untagged
@@ -4350,6 +4351,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4353495008897222}
   - component: {fileID: 4300540804269421812}
+  - component: {fileID: 4975838295559693608}
   m_Layer: 5
   m_Name: MatchNumber_Label
   m_TagString: Untagged
@@ -5609,6 +5611,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4141481715800794}
   - component: {fileID: 6972576460990051909}
+  - component: {fileID: 7810389451402836467}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -6384,6 +6387,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4872591058333080}
   - component: {fileID: 2336536177951811522}
+  - component: {fileID: 2974460587400331679}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -6650,6 +6654,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4691242500631378}
   - component: {fileID: 8602279948705476246}
+  - component: {fileID: 1037056955221712604}
   m_Layer: 5
   m_Name: VS
   m_TagString: Untagged
@@ -8030,3 +8035,98 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85167597ccbf486cb16fffcb53693afe, type: 3}
   m_Name: ''
   m_EditorClassIdentifier: ''
+--- !u!114 &2974460587400331679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148224985472374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.NextMatch
+  sourceText: NEXT MATCH
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 2336536177951811522}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &7810389451402836467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191650921463202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.K
+  sourceText: K
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 6972576460990051909}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &1037056955221712604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1484790321309498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.Vs
+  sourceText: VS
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 8602279948705476246}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &45906100376110531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1515337044944352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.Game128
+  sourceText: "128\uCC28\uC804"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 397544594320463429}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &4975838295559693608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841265122489348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.Game123
+  sourceText: "123\uCC28\uC804"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 4300540804269421812}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

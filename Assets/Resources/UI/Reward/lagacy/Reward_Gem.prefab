@@ -5028,6 +5028,7 @@ GameObject:
   - component: {fileID: 1324272941524714832}
   - component: {fileID: 2981160207466973766}
   - component: {fileID: 3141127098550855216}
+  - component: {fileID: 6906892197092339754}
   m_Layer: 5
   m_Name: Text_Value
   m_TagString: Untagged
@@ -5163,6 +5164,7 @@ GameObject:
   - component: {fileID: 4697858879173911535}
   - component: {fileID: 703807663851617577}
   - component: {fileID: 3665534944855955763}
+  - component: {fileID: 3079561879739763469}
   m_Layer: 5
   m_Name: Text_Type
   m_TagString: Untagged
@@ -5287,3 +5289,41 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6906892197092339754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6650829473824947267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.X200
+  sourceText: X 200
+  tmp: {fileID: 3141127098550855216}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &3079561879739763469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8018807143427488810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.Gem
+  sourceText: GEM
+  tmp: {fileID: 3665534944855955763}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

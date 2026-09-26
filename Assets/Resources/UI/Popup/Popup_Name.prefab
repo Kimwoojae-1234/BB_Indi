@@ -1266,6 +1266,7 @@ GameObject:
   - component: {fileID: 5731615218457162558}
   - component: {fileID: 1447378657767707949}
   - component: {fileID: 7415094183485648510}
+  - component: {fileID: 1878765191945194018}
   m_Layer: 5
   m_Name: Text_Ok
   m_TagString: Untagged
@@ -1477,6 +1478,7 @@ GameObject:
   - component: {fileID: 8284099518077814945}
   - component: {fileID: 4887354737892092731}
   - component: {fileID: 2961165345314258931}
+  - component: {fileID: 7618733939303596286}
   m_Layer: 5
   m_Name: Text_Ok
   m_TagString: Untagged
@@ -1975,3 +1977,41 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -0.5}
   m_SizeDelta: {x: -60.459045, y: -34.6745}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1878765191945194018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6550037803741529099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: Common.Action.OK.PopupError
+  sourceText: Ok
+  tmp: {fileID: 7415094183485648510}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &7618733939303596286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7415391224005144130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: Common.Action.OK.PopupError
+  sourceText: Ok
+  tmp: {fileID: 2961165345314258931}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

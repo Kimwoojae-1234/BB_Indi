@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2154544872649679188}
   - component: {fileID: 3225189241391563470}
   - component: {fileID: 5046669907132421638}
+  - component: {fileID: 1179364551091352254}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -445,6 +446,7 @@ GameObject:
   - component: {fileID: 2349676242387835595}
   - component: {fileID: 8865173705263086808}
   - component: {fileID: 717980426803939211}
+  - component: {fileID: 4160421349015886356}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -812,6 +814,7 @@ GameObject:
   - component: {fileID: 6734351218999166785}
   - component: {fileID: 8625599709235774697}
   - component: {fileID: 6154141422245155902}
+  - component: {fileID: 5542110304504096962}
   m_Layer: 5
   m_Name: Text_Info
   m_TagString: Untagged
@@ -1000,6 +1003,7 @@ GameObject:
   - component: {fileID: 8214014867841028109}
   - component: {fileID: 5470445976192342119}
   - component: {fileID: 2763254904812730068}
+  - component: {fileID: 849749466822799957}
   m_Layer: 5
   m_Name: Text_Title
   m_TagString: Untagged
@@ -1547,3 +1551,80 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1179364551091352254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 718799937991542711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: Common.Action.OK.PopupError
+  sourceText: Ok
+  tmp: {fileID: 5046669907132421638}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &4160421349015886356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3888606585979399678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: Common.Action.No
+  sourceText: No
+  tmp: {fileID: 717980426803939211}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &5542110304504096962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5316685739884796704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Message.MeetJacksonTheConfidentYetNaiveBaseballPlayerWithACharminglyRustic
+  sourceText: 'Meet Jackson, the confident yet naive baseball player with a charmingly
+    rustic demeanor. '
+  tmp: {fileID: 6154141422245155902}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &849749466822799957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6423587836194449133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.Error.PopupError
+  sourceText: Error!
+  tmp: {fileID: 2763254904812730068}
+  legacy: {fileID: 0}
+  element: {fileID: 0}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}

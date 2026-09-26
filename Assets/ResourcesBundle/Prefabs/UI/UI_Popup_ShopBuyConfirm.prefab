@@ -2076,6 +2076,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400538}
   - component: {fileID: 327588770994706341}
+  - component: {fileID: 7640243325399947242}
   m_Layer: 5
   m_Name: labelItemName
   m_TagString: Untagged
@@ -2721,6 +2722,7 @@ GameObject:
   m_Component:
   - component: {fileID: 494438}
   - component: {fileID: 4791104800570749588}
+  - component: {fileID: 7472832036021105215}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -3377,6 +3379,7 @@ GameObject:
   m_Component:
   - component: {fileID: 435816}
   - component: {fileID: 2449984610259862433}
+  - component: {fileID: 4667734002443162307}
   m_Layer: 5
   m_Name: labelBuyNotice
   m_TagString: Untagged
@@ -3492,3 +3495,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85167597ccbf486cb16fffcb53693afe, type: 3}
   m_Name: ''
   m_EditorClassIdentifier: ''
+--- !u!114 &4667734002443162307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.ItemAcquired
+  sourceText: "\uC544\uC774\uD15C \uD68D\uB4DD"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 2449984610259862433}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &7640243325399947242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 179106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.ItemName
+  sourceText: "\uC544\uC774\uD15C \uC774\uB984"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 327588770994706341}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
+--- !u!114 &7472832036021105215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: UI.Label.BuyItem
+  sourceText: "\uC544\uC774\uD15C \uAD6C\uC785"
+  tmp: {fileID: 0}
+  legacy: {fileID: 0}
+  element: {fileID: 4791104800570749588}
+  mesh: {fileID: 0}
+  spriteText: {fileID: 0}
