@@ -39,6 +39,8 @@ public static class CanvasIntegrationChecks
 
     public static void Command(string action)
     {
+        if (action == "check-gameplay-batches") { CanvasBatchPlayChecks.StartGameplay(); return; }
+        if (action == "check-gameplay-controls") { RemainingUGUIControlChecks.StartGameplay(); return; }
         if (action == "check-result") { CheckResultScoreboard(); return; }
         if (action == "start" || action.StartsWith("start:"))
         {
@@ -75,6 +77,7 @@ public static class CanvasIntegrationChecks
         }
         if (action == "quick-pause") { Quick().pauseGame(); Log("FIXTURE Quick pause API."); return; }
         if (action == "skip-regression") { CheckSkip(); return; }
+        if (action.StartsWith("gameplay-assist:")) { FullGameplayPlayChecks.Command(action.Substring(16)); return; }
         if (action == "speed8") { Time.timeScale = 8; Log("FIXTURE timeScale=8; game rules and outcomes unchanged."); return; }
         if (action == "speed1") { Time.timeScale = 1; return; }
         if (action.StartsWith("click:")) { IntegratedUGUIPlayChecks.ClickAction(action.Substring(6)); return; }
@@ -157,6 +160,8 @@ public static class CanvasIntegrationChecks
         var result = Object.FindFirstObjectByType<ResultUI>();
         if (result != null && result.resultMain.board != null)
         {
+            for (int team = 0; team < 2; team++)
+                text.AppendLine("RECORD_DATA team=" + team + " batters=" + SimulPlayerManager.GetBatterChangeList(team).Count + " pitchers=" + SimulPlayerManager.GetPitcherChangeList(team).Count);
             foreach (var row in result.resultMain.board.teamObj)
                 text.AppendLine("RESULT_ROW " + row.transform.Find("teamLabel").GetComponent<GameUIElement>().text + " scores=" + string.Join(",", row.transform.Find("score").GetComponentsInChildren<GameUIElement>().Select(l => l.text)) + " stats=" + string.Join(",", row.transform.Find("stat").GetComponentsInChildren<GameUIElement>().Select(l => l.text)));
         }

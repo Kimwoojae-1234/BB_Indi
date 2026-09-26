@@ -18,6 +18,7 @@ namespace BaseBall.BallPlay.UGUI
         private bool hovering;
         private int? releasedPointer;
         public GameUIScroll scroll;
+        private GameUIScroll dragScroll;
         public GameUIProgress progress;
         public GameUIToggle toggle;
         public GameUIInput input;
@@ -93,34 +94,38 @@ namespace BaseBall.BallPlay.UGUI
         }
         public void OnPointerEnter(PointerEventData data) { hovering = data.pointerId < 0; if (Available) { if (!pointer.HasValue) AnimateScale(hovering ? hoverScale : Vector3.one); GameUIAction.InvokeAll(onHoverOver); } }
         public void OnPointerExit(PointerEventData data) { hovering = false; if (Available) { if (!pointer.HasValue) AnimateScale(Vector3.one); GameUIAction.InvokeAll(onHoverOut); } }
-        public void OnInitializePotentialDrag(PointerEventData data) { if (Available && scroll != null) scroll.OnInitializePotentialDrag(data); }
+        // Runtime row prefabs cannot serialize a reference to their host list.
+        // Resolve the nearest list at input time, preserving any explicit binding.
+        private GameUIScroll ResolveScroll() { return scroll != null ? scroll : GetComponentInParent<GameUIScroll>(true); }
+        public void OnInitializePotentialDrag(PointerEventData data) { if (Available) ResolveScroll()?.OnInitializePotentialDrag(data); }
         public void OnBeginDrag(PointerEventData data)
         {
             if (!Available || pointer != data.pointerId || data.button != PointerEventData.InputButton.Left || dragPointer.HasValue) return;
             dragging = true; dragPointer = data.pointerId;
-            if (scroll != null) scroll.OnBeginDrag(data);
+            dragScroll = ResolveScroll();
+            if (dragScroll != null) dragScroll.OnBeginDrag(data);
             GameUIAction.InvokeAll(onDragStart);
         }
         public void OnDrag(PointerEventData data)
         {
             if (dragPointer != data.pointerId) return;
-            if (!Available) { CancelDrag(); pointer = releasedPointer = null; RestoreScale(); return; }
-            if (scroll != null) scroll.OnDrag(data);
+            if (!Available || dragScroll != ResolveScroll()) { CancelDrag(); pointer = releasedPointer = null; RestoreScale(); return; }
+            if (dragScroll != null) dragScroll.OnDrag(data);
             if (progress != null) progress.Drag(data);
             GameUIAction.InvokeAll(onDrag);
         }
         public void OnEndDrag(PointerEventData data)
         {
             if (dragPointer != data.pointerId) return;
-            if (scroll != null) scroll.OnEndDrag(data);
+            if (dragScroll != null) dragScroll.OnEndDrag(data);
             GameUIAction.InvokeAll(onDragEnd);
-            dragPointer = null;
+            dragPointer = null; dragScroll = null;
         }
-        public void OnScroll(PointerEventData data) { if (Available && scroll != null) scroll.OnScroll(data); }
+        public void OnScroll(PointerEventData data) { if (Available) ResolveScroll()?.OnScroll(data); }
         private void CancelDrag()
         {
-            if (dragPointer.HasValue && scroll != null) scroll.CancelDrag(dragPointer.Value);
-            dragPointer = null;
+            if (dragPointer.HasValue && dragScroll != null) dragScroll.CancelDrag(dragPointer.Value);
+            dragPointer = null; dragScroll = null;
         }
     }
 }

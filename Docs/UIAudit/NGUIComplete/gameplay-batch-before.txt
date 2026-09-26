@@ -1,0 +1,12 @@
+2026-09-26T12:31:19.8435255Z isolated UGUI Play Mode fixture
+PASS shared Canvas renders both widgets.
+PASS manual capture synchronizes source movement before LateUpdate.
+PASS RectTransform edits and size API persist; shared presentation follows translation, rotation and nonuniform scale exactly.
+PASS GameObject/component disable and root hide/show remove and restore graphics; EventSystem survives.
+PASS changing depth releases the whole batch, preserves rendering and updates order.
+PASS reparenting releases the batch and retains the new parent transform.
+PASS destroying a widget removes its detached presentation without affecting its sibling.
+System.InvalidOperationException: Initially inactive widget leaked its serialized graphic into the visible sibling Canvas
+  at CanvasBatchPlayChecks.Require (System.Boolean value, System.String message) [0x00009] in D:\PROJECTS\Git\BB_Indi\Assets\Editor\CanvasBatchPlayChecks.cs:243 
+  at CanvasBatchPlayChecks.Tick () [0x008be] in D:\PROJECTS\Git\BB_Indi\Assets\Editor\CanvasBatchPlayChecks.cs:142 
+FAILED

@@ -1,0 +1,81 @@
+STATE scene=BallPlay mode=Manual quick=False paused=False size=1918x999 inning=1 top=False score=0,0 B/S/O=0/0/0 phase=PLAY_BATTING_VIEW boardVisible=True display=0:0 eventSystems=1
+DATA batterCard=False pitcherCard=False
+CHANGE_BINDING changePlayer (3) overRoll=True nameLabel=True
+CHANGE_BINDING changePlayer (6) overRoll=True nameLabel=True
+CHANGE_BINDING changePlayer (2) overRoll=True nameLabel=True
+CHANGE_BINDING changePlayer overRoll=True nameLabel=True
+CHANGE_BINDING changePlayer (1) overRoll=True nameLabel=True
+CHANGE_BINDING changePlayer (4) overRoll=True nameLabel=True
+CHANGE_BINDING changePlayer (1) overRoll=True nameLabel=True
+CHANGE_BINDING changePlayer (3) overRoll=True nameLabel=True
+CHANGE_BINDING changePlayer (8) overRoll=True nameLabel=True
+CHANGE_BINDING changePlayer (7) overRoll=True nameLabel=True
+CHANGE_BINDING changePlayer (5) overRoll=True nameLabel=True
+CHANGE_BINDING changePlayer (2) overRoll=True nameLabel=True
+CHANGE_BINDING changePlayer overRoll=True nameLabel=True
+ROOT IngameUIPrefab camera=Camera (UnityEngine.Camera) canvases=7
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/bullpen UGUI Viewport/bullpen/changePlayerPrefab (5) active=False available=False methods=Select
+INPUT IngameUIPrefab/Canvas/Popups/Chatting/origin/obj/5 active=False available=False methods=selectIcon
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/bench UGUI Viewport/bench/changePlayerPrefab (2) active=False available=False methods=Select
+INPUT IngameUIPrefab/Canvas/Popups/Chatting/origin/obj/6 active=False available=False methods=selectIcon
+INPUT QuickSimulatorPrefab/Canvas/Popups/Chatting/origin/obj/2 active=False available=False methods=selectIcon
+INPUT QuickSimulatorPrefab/Canvas/Popups/Chatting/origin/obj/4 active=False available=False methods=selectIcon
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/offense/changePlayer (2) active=False available=False methods=Select
+INPUT IngameUIPrefab/Canvas/Popups/UI_PopupConfirm/MainWidget/BtnSetTwo/ButtonOK active=False available=False methods=Click_OK
+INPUT IngameUIPrefab/Canvas/Popups/Chatting/button active=False available=False methods=selectChattingToggle
+INPUT QuickSimulatorPrefab/Canvas/HUD/Panel/topUI/speed active=False available=False methods=goToGame
+INPUT IngameUIPrefab/Canvas/Popups/UI_PopupConfirm/MainWidget/BtnSetFour/Button_Content_four active=False available=False methods=Click_FourMode_Four
+INPUT QuickSimulatorPrefab/Canvas/Popups/Popup/no active=False available=False methods=setContinueAutoMode
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIPause/_active/continue active=False available=False methods=Init,release
+INPUT QuickSimulatorPrefab/Canvas/Popups/Chatting/origin/obj/5 active=False available=False methods=selectIcon
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/offense/changePlayer active=False available=False methods=Select
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/defense/changePlayer (1) active=False available=False methods=Select
+INPUT IngameUIPrefab/Canvas/Popups/UI_PopupConfirm/MainWidget/BtnSetOne/Button_OK active=False available=False methods=Init,release
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIPause/_active/change active=False available=False methods=Init,release
+INPUT QuickSimulatorPrefab/Canvas/Popups/Chatting/button active=False available=False methods=selectChattingToggle
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/defense/changePlayer (5) active=False available=False methods=Select
+INPUT QuickSimulatorPrefab/Canvas/HUD/Panel/consective/quit active=False available=False methods=pushConsectiveQuit
+INPUT IngameUIPrefab/Canvas/HUD/Panel/battingview/scoreboard/_active/consective/quit active=False available=False methods=pushConsectiveQuit
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/offense/changePlayer (3) active=False available=False methods=Select
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/bullpen UGUI Viewport/bullpen/changePlayerPrefab (6) active=False available=False methods=Select
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/bench UGUI Viewport/bench/changePlayerPrefab (4) active=False available=False methods=Select
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/defense/changePlayer (6) active=False available=False methods=Select
+INPUT IngameUIPrefab/Canvas/Popups/Chatting/origin/obj/4 active=False available=False methods=selectIcon
+INPUT QuickSimulatorPrefab/Canvas/Popups/ReconnectPopup/bg/back active=False available=False methods=setContinueAutoMode
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/bench UGUI Viewport/bench/changePlayerPrefab (1) active=False available=False methods=Select
+INPUT QuickSimulatorPrefab/Canvas/Popups/Popup/yes active=False available=False methods=setActionPlay
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/bench UGUI Viewport/bench/changePlayerPrefab active=False available=False methods=Select
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/bullpen UGUI Viewport/bullpen/changePlayerPrefab (2) active=False available=False methods=Select
+INPUT IngameUIPrefab/Canvas/Popups/Chatting/origin/obj/2 active=False available=False methods=selectIcon
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/defense/changePlayer (4) active=False available=False methods=Select
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/defense/changePlayer (3) active=False available=False methods=Select
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/defense/changePlayer (2) active=False available=False methods=Select
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/changebar/changeButton active=False available=False methods=Init,release
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/defense/changePlayer (8) active=False available=False methods=Select
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/bench UGUI Viewport/bench/changePlayerPrefab (5) active=False available=False methods=Select
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/defense/changePlayer active=False available=False methods=Select
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/changebar/inPlayer active=False available=False methods=
+INPUT IngameUIPrefab/Canvas/Popups/Chatting/origin/obj/1 active=False available=False methods=selectIcon
+INPUT IngameUIPrefab/Canvas/HUD/Panel/battingview/scoreboard/_active/topUI/speed active=False available=False methods=setGameSpeedControl
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/bullpen UGUI Viewport/bullpen/changePlayerPrefab (3) active=False available=False methods=Select
+INPUT QuickSimulatorPrefab/Canvas/Popups/ReconnectPopup/yes active=False available=False methods=setReconnect
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/bullpen UGUI Viewport/bullpen/changePlayerPrefab (4) active=False available=False methods=Select
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/bench UGUI Viewport/bench/changePlayerPrefab (3) active=False available=False methods=Select
+INPUT QuickSimulatorPrefab/Canvas/Popups/Chatting/origin/obj/6 active=False available=False methods=selectIcon
+INPUT IngameUIPrefab/Canvas/Popups/UI_PopupConfirm/MainWidget/BtnSetFour/Button_Content_one active=False available=False methods=Click_FourMode_One
+INPUT QuickSimulatorPrefab/Canvas/HUD/Panel/topUI/pause active=False available=False methods=
+INPUT IngameUIPrefab/Canvas/Popups/UI_PopupConfirm/MainWidget/BtnSetFour/Button_Content_three active=False available=False methods=Click_FourMode_Three
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/bullpen UGUI Viewport/bullpen/changePlayerPrefab active=False available=False methods=Select
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/defense/changePlayer (7) active=False available=False methods=Select
+INPUT IngameUIPrefab/Canvas/Popups/UI_PopupConfirm/MainWidget/BtnSetTwo/ButtonCancel active=False available=False methods=Click_Cancel
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIPause/_active/exit active=False available=False methods=Init,release
+INPUT QuickSimulatorPrefab/Canvas/Popups/Chatting/origin/obj/3 active=False available=False methods=selectIcon
+INPUT IngameUIPrefab/Canvas/Popups/UI_PopupConfirm/MainWidget/BtnSetFour/Button_Content_two active=False available=False methods=Click_FourMode_Two
+INPUT QuickSimulatorPrefab/Canvas/Popups/Chatting/origin/obj/1 active=False available=False methods=selectIcon
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/bg/quit active=False available=False methods=deactive
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/bullpen UGUI Viewport/bullpen/changePlayerPrefab (1) active=False available=False methods=Select
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/offense/changePlayer (1) active=False available=False methods=Select
+INPUT IngameUIPrefab/Canvas/HUD/Panel/battingview/scoreboard/_active/topUI/pause active=False available=False methods=setPause
+INPUT QuickSimulatorPrefab/Canvas/Popups/ReconnectPopup/no active=False available=False methods=setQuit
+INPUT IngameUIPrefab/Canvas/Popups/Chatting/origin/obj/3 active=False available=False methods=selectIcon
+ACTIVE_NGUI 

@@ -39,7 +39,12 @@ namespace BaseBall.BallPlay.UGUI
             int first = int.MaxValue, last = int.MinValue, count = 0;
             foreach (var element in members)
             {
-                if (element == null || element.canvasBatch != this || !element.isActiveAndEnabled) continue;
+                if (element == null || element.canvasBatch != this) continue;
+                // Initially inactive owners have never received OnDisable. Their
+                // serialized graphics still live under this active sibling Canvas.
+                if (element.presentationRoot != null)
+                    element.presentationRoot.gameObject.SetActive(element.isActiveAndEnabled);
+                if (!element.isActiveAndEnabled) continue;
                 int order = GameUIRenderOrder.Get(element);
                 first = Mathf.Min(first, order); last = Mathf.Max(last, order); count++;
             }

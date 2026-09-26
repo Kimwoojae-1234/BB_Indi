@@ -78,10 +78,9 @@ namespace BaseBall.BallPlay
                     }
                 }
 
-                if (count < 10)
-                {
-                    batterView[team].GetComponent<GameUIScroll>().enabled = false;
-                }
+                var scroll = batterView[team].GetComponent<GameUIScroll>();
+                scroll.RefreshContentBounds();
+                scroll.SetScrollingEnabled(count >= 10);
             }
         }
 
@@ -106,10 +105,9 @@ namespace BaseBall.BallPlay
                     }
                 }
 
-                if (count < 10)
-                {
-                    pitcherView[team].GetComponent<GameUIScroll>().enabled = false;
-                }
+                var scroll = pitcherView[team].GetComponent<GameUIScroll>();
+                scroll.RefreshContentBounds();
+                scroll.SetScrollingEnabled(count >= 10);
 
             }
 

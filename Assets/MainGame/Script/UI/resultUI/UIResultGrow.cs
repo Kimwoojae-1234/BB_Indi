@@ -69,7 +69,7 @@ namespace BaseBall.BallPlay
 
             if (count < 8)
             {
-                batterGrow.GetComponent<GameUIScroll>().enabled = false;
+                batterGrow.GetComponent<GameUIScroll>().SetScrollingEnabled(false);
             }
 
 
@@ -117,7 +117,7 @@ namespace BaseBall.BallPlay
 
             if (count < 8)
             {
-                pitcherGrow.GetComponent<GameUIScroll>().enabled = false;
+                pitcherGrow.GetComponent<GameUIScroll>().SetScrollingEnabled(false);
             }
 
             gameObject.GetComponent<GameUIPanel>().alpha = 1;

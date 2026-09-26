@@ -19,12 +19,18 @@ namespace BaseBall.BallPlay.UGUI
         {
             var content = scrollRect != null ? scrollRect.content : null;
             if (content == null) return;
-            content.GetComponentsInChildren(false, elements);
+            content.GetComponentsInChildren(true, elements);
             Vector2 min = new Vector2(float.PositiveInfinity, float.PositiveInfinity);
             Vector2 max = new Vector2(float.NegativeInfinity, float.NegativeInfinity);
             foreach (var element in elements)
             {
-                if (!element.enabled || element.transform == content || element.GetComponentInParent<GameUIScroll>() != this) continue;
+                if (!element.enabled || element.transform == content || element.GetComponentInParent<GameUIScroll>(true) != this) continue;
+                // Hidden tabs still need valid bounds before their first activation.
+                // Exclude rows hidden inside the list, independently of its ancestors.
+                bool visibleInContent = true;
+                for (var parent = element.transform; parent != content; parent = parent.parent)
+                    if (!parent.gameObject.activeSelf) { visibleInContent = false; break; }
+                if (!visibleInContent) continue;
                 var pivot = element.pivotOffset;
                 var matrix = content.worldToLocalMatrix * element.transform.localToWorldMatrix;
                 for (int corner = 0; corner < 4; corner++)
@@ -87,7 +93,13 @@ namespace BaseBall.BallPlay.UGUI
             RefreshContentBounds();
             if (scrollRect != null) { scrollRect.StopMovement(); scrollRect.normalizedPosition = new Vector2(0, 1); }
         }
-        private void OnEnable() { if (scrollRect != null) scrollRect.enabled = true; }
+        public void SetScrollingEnabled(bool value)
+        {
+            enabled = value;
+            // Disabling a component beneath an inactive tab does not call OnDisable.
+            if (scrollRect != null) { scrollRect.StopMovement(); scrollRect.enabled = isActiveAndEnabled; }
+        }
+        private void OnEnable() { RefreshContentBounds(); if (scrollRect != null) scrollRect.enabled = true; }
         private void OnDisable()
         {
             if (drag != null) CancelDrag(drag.pointerId);

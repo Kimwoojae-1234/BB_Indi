@@ -56,7 +56,7 @@ namespace BaseBall.BallPlay.UGUI
                     canvas.overrideSorting = true;
             }
             GameUIRenderOrder.Invalidate();
-            var scroll = GetComponentInParent<GameUIScroll>();
+            var scroll = GetComponentInParent<GameUIScroll>(true);
             if (scroll != null) scroll.RefreshContentBounds();
         }
         private static void EnsureClipping(GameUIElement element)

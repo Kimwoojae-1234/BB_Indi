@@ -29,6 +29,7 @@ public static class CanvasBatchPlayChecks
     public static void Start() { StartWithReport("Docs/UIAudit/CanvasRestructure/Step3/play-checks.txt"); }
     public static void StartStep4() { StartWithReport("Docs/UIAudit/CanvasRestructure/Step4/batch-regression-checks.txt"); }
     public static void StartStep5() { StartWithReport("Docs/UIAudit/CanvasRestructure/Step5/batch-regression-checks.txt"); }
+    public static void StartGameplay() { StartWithReport("Docs/UIAudit/NGUIComplete/gameplay-batch-checks.txt"); }
     private static void StartWithReport(string report)
     {
         if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Stop Play Mode first.");
@@ -134,6 +135,20 @@ public static class CanvasBatchPlayChecks
                 case 9:
                     Require(removedPresentation == null && right.canvasBatch == batch && ColorAt(right).b > .95f, "Destroy left orphaned graphics or removed the other member");
                     results.Add("PASS destroying a widget removes its detached presentation without affecting its sibling.");
+                    Object.Destroy(root.gameObject);
+                    Build(true);
+                    break;
+                case 10:
+                    Require(!left.presentationRoot.gameObject.activeInHierarchy && ColorAt(left).maxColorComponent < .05f,
+                        "Initially inactive widget leaked its serialized graphic into the visible sibling Canvas");
+                    Require(right.canvasBatch == batch && ColorAt(right).b > .95f, "Initially inactive member hid the visible sibling");
+                    results.Add("PASS initially inactive widget stays invisible before its first OnEnable; active sibling still renders.");
+                    left.gameObject.SetActive(true);
+                    break;
+                case 11:
+                    Require(left.presentationRoot.gameObject.activeInHierarchy && ColorAt(left).r > .95f,
+                        "Initially inactive widget failed to render when first activated");
+                    results.Add("PASS first activation restores an initially inactive batched widget.");
                     Finish(0);
                     return;
             }
@@ -142,7 +157,7 @@ public static class CanvasBatchPlayChecks
         catch (Exception error) { results.Add(error.ToString()); Finish(1); }
     }
 
-    private static void Build()
+    private static void Build(bool initiallyHidden = false)
     {
         Application.runInBackground = true;
         EditorApplication.isPaused = false;
@@ -164,6 +179,15 @@ public static class CanvasBatchPlayChecks
         batch.panel = panel; batch.sourceParent = content; batch.depth = 5;
         left = Element("Left", -60, Color.red, batchRect); right = Element("Right", 60, Color.blue, batchRect);
         batch.members = new[] { left, right };
+        if (initiallyHidden)
+        {
+            // Match a serialized prefab: the source starts inactive, but its
+            // preconfigured Graphic lives under the active shared Canvas.
+            left.gameObject.SetActive(false);
+            left.presentationRoot.localPosition = left.transform.localPosition;
+            left.graphic.rectTransform.sizeDelta = new Vector2(100, 100);
+            left.graphic.color = Color.red;
+        }
         owner.SetActive(true);
     }
 

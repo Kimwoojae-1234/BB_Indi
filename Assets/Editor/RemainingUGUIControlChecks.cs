@@ -22,14 +22,18 @@ public static class RemainingUGUIControlChecks
     static GameObject fixture;
     static Camera camera;
     static string report;
+    static Action checkDynamicRowInput;
     static RemainingUGUIControlChecks() { EditorApplication.update += Tick; }
-    public static void Start()
+    public static void Start() { StartWithReport(RemainingUGUIMigration.Output+"/control-play-checks.txt"); }
+    public static void StartGameplay() { StartWithReport(RemainingUGUIMigration.Output+"/gameplay-control-checks.txt"); }
+    static void StartWithReport(string path)
     {
         if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Edit Mode required.");
         for (int i=0;i<SceneManager.sceneCount;i++) if (SceneManager.GetSceneAt(i).isDirty) throw new InvalidOperationException("Save scene changes first.");
         SessionState.SetString(Key, JsonUtility.ToJson(new Setup { scenes = EditorSceneManager.GetSceneManagerSetup() }));
         SessionState.SetBool(Key+"Done",false); SessionState.SetBool(Key+"Background",Application.runInBackground);
         SessionState.SetString(Key+"Start",DateTime.UtcNow.ToString("O"));
+        SessionState.SetString(Key+"Report",path);
         EditorSceneManager.NewScene(NewSceneSetup.EmptyScene,NewSceneMode.Single);
         phase = nextFrame = 0; EditorApplication.EnterPlaymode();
     }
@@ -50,7 +54,8 @@ public static class RemainingUGUIControlChecks
             if ((DateTime.UtcNow-DateTime.Parse(SessionState.GetString(Key+"Start",""))).TotalSeconds >= 120) throw new TimeoutException("Control fixture timed out");
             EditorApplication.QueuePlayerLoopUpdate();
             if (!EditorApplication.isPlaying || Time.frameCount < nextFrame) return;
-            if (phase++ == 0) BuildAndCheck();
+            if (phase == 0) { BuildAndCheck(); phase=1; }
+            else if (phase == 1) { checkDynamicRowInput(); Click(input.GetComponent<GameUIPointer>()); phase=2; }
             else
             {
                 Require(input.input.isFocused,"InputField receives focus through migrated hit surface");
@@ -119,7 +124,6 @@ public static class RemainingUGUIControlChecks
         anchors.SendMessage("LateUpdate"); Require(anchored.width==180 && anchored.height==90,"Anchors retain edge offsets");
         target.SetDimensions(400,200); anchors.SendMessage("LateUpdate"); Require(anchored.width==380 && anchored.height==190,"Anchors respond to resizing");
         CheckDynamicScroll();
-        Click(input.GetComponent<GameUIPointer>());
     }
     static void CheckDynamicScroll()
     {
@@ -142,20 +146,66 @@ public static class RemainingUGUIControlChecks
         scroll.RefreshContentBounds();
         Require(Mathf.Abs(content.rect.height-460)<.001f,"Dynamic list bounds include all 11 instantiated rows");
         Require(rows[10].transform.localPosition==new Vector3(0,-270,0),"Bounds refresh preserves anchored child positions");
+        canvas.gameObject.SetActive(false);
+        scroll.RefreshContentBounds();
+        Require(Mathf.Abs(content.rect.height-460)<.001f,"Inactive tab retains all authored row bounds before activation");
+        scroll.SetScrollingEnabled(false);
+        native.enabled=true; // Serialized native state beneath a never-active tab.
+        scroll.SetScrollingEnabled(false);
+        Require(!native.enabled,"Disabling an already inactive list also disables its native ScrollRect");
+        rows[10].gameObject.SetActive(false); scroll.RefreshContentBounds();
+        Require(Mathf.Abs(content.rect.height-418)<.001f,"Hidden tab bounds exclude a locally inactive row");
+        rows[10].gameObject.SetActive(true); scroll.SetScrollingEnabled(true);
+        canvas.gameObject.SetActive(true);
+        Require(native.enabled && Mathf.Abs(content.rect.height-460)<.001f,"First tab activation enables scrolling with current bounds");
         scroll.ResetPosition(); Canvas.ForceUpdateCanvases(); var start=content.anchoredPosition;
         Vector2 point=RectTransformUtility.WorldToScreenPoint(null,viewport.position);
         var data=new PointerEventData(EventSystem.current){pointerId=-1,button=PointerEventData.InputButton.Left,position=point};
         data.pointerPressRaycast=new RaycastResult{gameObject=viewport.gameObject,module=canvas.GetComponent<GraphicRaycaster>(),screenPosition=point};
         scroll.OnBeginDrag(data); data.position+=new Vector2(0,60); scroll.OnDrag(data); scroll.OnEndDrag(data);
         Require(content.anchoredPosition.y>start.y+1,"Native ScrollRect drag reaches dynamically added rows");
-        rows[10].gameObject.SetActive(false); scroll.RefreshContentBounds();
-        Require(Mathf.Abs(content.rect.height-418)<.001f,"Dynamic list bounds shrink when a row is removed");
-        var nested=new GameObject("Nested scroll").AddComponent<GameUIScroll>(); nested.transform.SetParent(content,false);
-        var nestedRow=new GameObject("Nested row").AddComponent<GameUIElement>(); nestedRow.transform.SetParent(nested.transform,false);
-        nestedRow.SetDimensions(200,2000); scroll.RefreshContentBounds();
-        Require(Mathf.Abs(content.rect.height-418)<.001f,"Outer list bounds exclude nested scroll content");
-        foreach(var row in rows) row.gameObject.SetActive(false);
-        scroll.RefreshContentBounds(); Require(content.rect.size==Vector2.zero,"Empty dynamic list clears stale scroll bounds");
+        // Match result rows: a prefab hit surface has no serialized host scroll.
+        var rowPointer=rows[3].gameObject.AddComponent<GameUIPointer>();
+        var shape=rows[3].gameObject.AddComponent<BoxCollider>(); shape.size=new Vector3(200,40,1); rowPointer.inputCollider=shape;
+        var surface=new GameObject("Runtime row hit",typeof(RectTransform),typeof(CanvasRenderer)).AddComponent<GameUIHitTarget>();
+        surface.transform.SetParent(rows[3].transform,false); surface.pointer=rowPointer; surface.shape=shape;
+        surface.Synchronize(); canvas.sortingOrder=32767; scroll.ResetPosition(); Canvas.ForceUpdateCanvases();
+        // Newly added Graphics need a player-loop render before they are raycastable.
+        checkDynamicRowInput=()=>
+        {
+            surface.Synchronize(); canvas.sortingOrder=32767; Canvas.ForceUpdateCanvases();
+            point=RectTransformUtility.WorldToScreenPoint(null,surface.transform.position);
+            data=new PointerEventData(EventSystem.current){pointerId=-1,button=PointerEventData.InputButton.Left,position=point};
+            var hits=new System.Collections.Generic.List<RaycastResult>(); EventSystem.current.RaycastAll(data,hits);
+            Require(hits.Count>0 && hits[0].gameObject==surface.gameObject,"EventSystem raycast reaches an unbound dynamic row hit surface (hits="+string.Join(",",hits.Select(h=>h.gameObject.name))+")");
+            data.pointerPressRaycast=data.pointerCurrentRaycast=hits[0];
+            start=content.anchoredPosition;
+            ExecuteEvents.ExecuteHierarchy(surface.gameObject,data,ExecuteEvents.pointerDownHandler);
+            ExecuteEvents.ExecuteHierarchy(surface.gameObject,data,ExecuteEvents.initializePotentialDrag);
+            ExecuteEvents.ExecuteHierarchy(surface.gameObject,data,ExecuteEvents.beginDragHandler);
+            data.position+=new Vector2(0,60);
+            ExecuteEvents.ExecuteHierarchy(surface.gameObject,data,ExecuteEvents.dragHandler);
+            ExecuteEvents.ExecuteHierarchy(surface.gameObject,data,ExecuteEvents.pointerUpHandler);
+            ExecuteEvents.ExecuteHierarchy(surface.gameObject,data,ExecuteEvents.endDragHandler);
+            Require(content.anchoredPosition.y>start.y+1 && rowPointer.scroll==null,"Unbound dynamic row forwards drag to its current parent list");
+            scroll.ResetPosition(); start=content.anchoredPosition; data.scrollDelta=new Vector2(0,-5);
+            ExecuteEvents.ExecuteHierarchy(surface.gameObject,data,ExecuteEvents.scrollHandler);
+            Require(content.anchoredPosition.y>start.y+1,"Unbound dynamic row forwards mouse wheel to its parent list");
+            var disabledList=new GameObject("Explicit disabled scroll").AddComponent<GameUIScroll>(); disabledList.transform.SetParent(fixture.transform,false);
+            rowPointer.scroll=disabledList; scroll.ResetPosition(); start=content.anchoredPosition;
+            ExecuteEvents.ExecuteHierarchy(surface.gameObject,data,ExecuteEvents.scrollHandler);
+            Require(content.anchoredPosition==start,"Explicit scroll binding takes precedence over inherited list");
+            rowPointer.scroll=null;
+            rows[10].gameObject.SetActive(false); scroll.RefreshContentBounds();
+            Require(Mathf.Abs(content.rect.height-418)<.001f,"Dynamic list bounds shrink when a row is removed");
+            var nested=new GameObject("Nested scroll").AddComponent<GameUIScroll>(); nested.transform.SetParent(content,false);
+            var nestedRow=new GameObject("Nested row").AddComponent<GameUIElement>(); nestedRow.transform.SetParent(nested.transform,false);
+            nestedRow.SetDimensions(200,2000); scroll.RefreshContentBounds();
+            Require(Mathf.Abs(content.rect.height-418)<.001f,"Outer list bounds exclude nested scroll content");
+            foreach(var row in rows) row.gameObject.SetActive(false);
+            scroll.RefreshContentBounds(); Require(content.rect.size==Vector2.zero,"Empty dynamic list clears stale scroll bounds");
+            canvas.gameObject.SetActive(false);
+        };
     }
     static T CloneControl<T>(string[] paths,string name,Func<T,bool> extra=null) where T:MonoBehaviour
     {
@@ -188,7 +238,7 @@ public static class RemainingUGUIControlChecks
     static void Require(bool condition,string label) { if(!condition) throw new InvalidOperationException(label); report+="PASS "+label+"\n"; }
     static void Finish(Exception error)
     {
-        File.WriteAllText(RemainingUGUIMigration.Output+"/control-play-checks.txt",(error==null?"PASS":"FAIL")+"\n"+report+(error==null?"":error.ToString()));
+        File.WriteAllText(SessionState.GetString(Key+"Report",RemainingUGUIMigration.Output+"/control-play-checks.txt"),(error==null?"PASS":"FAIL")+"\n"+report+(error==null?"":error.ToString()));
         SessionState.SetBool(Key+"Done",true); EditorApplication.ExitPlaymode();
     }
 }
