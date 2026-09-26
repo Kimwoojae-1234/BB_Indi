@@ -516,7 +516,8 @@ namespace BaseBall.BallPlay
         /// <param name="uiName"></param>
         private void LoadDynamicUI(string uiName, float scale, float timeRemain , Vector3 pos)
         {
-            GameObject uiObj = Util.Load("MainGame/prefabs/dynamicUI/" + uiName, Panel.transform, pos);
+            var root = GetComponent<GameUIRoot>();
+            GameObject uiObj = Util.Load("MainGame/prefabs/dynamicUI/" + uiName, root != null ? root.EffectsParent : Panel.transform, pos);
             uiObj.transform.localScale = new Vector3(scale, scale, scale);
             Destroy(uiObj, timeRemain);
         }
@@ -1921,7 +1922,8 @@ namespace BaseBall.BallPlay
             {
                 setHoldFastForward(false);
                 StopCoroutine("updater");
-                Util.Load("MainGame/prefabs/gameUI/QuitPopupPrefab", transform, Vector3.zero).GetComponent<UIQuit>().init(manager);            
+                var root = GetComponent<GameUIRoot>();
+                Util.Load("MainGame/prefabs/gameUI/QuitPopupPrefab", root != null ? root.PopupParent : transform, Vector3.zero).GetComponent<UIQuit>().init(manager);
                 bPausePopup = true;
             }
         }

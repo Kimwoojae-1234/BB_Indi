@@ -28,6 +28,7 @@ public static class CanvasBatchPlayChecks
     static CanvasBatchPlayChecks() { EditorApplication.update += Tick; }
     public static void Start() { StartWithReport("Docs/UIAudit/CanvasRestructure/Step3/play-checks.txt"); }
     public static void StartStep4() { StartWithReport("Docs/UIAudit/CanvasRestructure/Step4/batch-regression-checks.txt"); }
+    public static void StartStep5() { StartWithReport("Docs/UIAudit/CanvasRestructure/Step5/batch-regression-checks.txt"); }
     private static void StartWithReport(string report)
     {
         if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Stop Play Mode first.");

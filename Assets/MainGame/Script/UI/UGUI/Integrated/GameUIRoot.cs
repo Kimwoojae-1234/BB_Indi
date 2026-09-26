@@ -51,6 +51,7 @@ namespace BaseBall.BallPlay.UGUI
             transform.localScale = Vector3.one * (2 / Mathf.Max(1, height));
         }
         public Transform EffectsParent => effectsLayer != null ? effectsLayer : transform;
+        public Transform PopupParent => popupLayer != null ? popupLayer : transform;
 
         public static void RenderForCapture(Camera camera)
         {
@@ -83,6 +84,7 @@ namespace BaseBall.BallPlay.UGUI
         public void SynchronizePresentation()
         {
             Canvas.ForceUpdateCanvases();
+            foreach (var dynamicUI in GetComponentsInChildren<GameUIDynamicUI>()) dynamicUI.RefreshUGUIHierarchy();
             // Alpha tweens and scroll changes also affect unbatched/clipped widgets.
             // Only active owners may expose detached presentation objects during capture.
             foreach (var element in GetComponentsInChildren<GameUIElement>())

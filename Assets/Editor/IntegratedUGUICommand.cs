@@ -25,6 +25,11 @@ public static class IntegratedUGUICommand
             else if (command == "check-connections") CanvasStructureChecks.CheckStep4();
             else if (command == "play-connections") CanvasConnectionPlayChecks.Start();
             else if (command == "play-batch-regression") CanvasBatchPlayChecks.StartStep4();
+            else if (command == "capture-expansion") CanvasExpansionChecks.CaptureBaseline();
+            else if (command == "check-expansion") CanvasExpansionChecks.Check();
+            else if (command == "play-expansion") CanvasExpansionPlayChecks.Start();
+            else if (command == "play-expansion-batches") CanvasBatchPlayChecks.StartStep5();
+            else if (command == "play-expansion-connections") CanvasConnectionPlayChecks.StartStep5();
             else if (command == "check-candidates") IntegratedUGUIChecks.Run();
             else if (command == "capture-references") IntegratedUGUIChecks.CaptureReferences();
             else if (command == "check-applied") IntegratedUGUIChecks.CheckApplied();

@@ -42,6 +42,13 @@ public static class CanvasStructureChecks
     public static void CheckStep4() { Step4(); Run(true); }
     private static void Step4() { step3 = false; step4 = true; Output = "Docs/UIAudit/CanvasRestructure/Step4"; Baseline = "Library/UGUIMigration/CanvasConnections"; }
 
+    public static void CaptureStep5Baseline()
+    {
+        Step5(); Require(!Directory.Exists(Baseline), "Step-5 main baseline already exists."); Run(false);
+    }
+    public static void CheckStep5() { Step5(); Run(true); }
+    private static void Step5() { step3 = false; step4 = true; Output = "Docs/UIAudit/CanvasRestructure/Step5/Main"; Baseline = "Library/UGUIMigration/CanvasExpansionMain"; }
+
     private static void Run(bool compare)
     {
         Require(!EditorApplication.isPlayingOrWillChangePlaymode, "Stop Play Mode before running canvas checks.");

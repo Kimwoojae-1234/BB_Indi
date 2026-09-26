@@ -17,7 +17,7 @@ using Object = UnityEngine.Object;
 public static class CanvasConnectionPlayChecks
 {
     private const string Key = "CanvasConnectionPlayChecks";
-    private const string Report = "Docs/UIAudit/CanvasRestructure/Step4/play-checks.txt";
+    private static string Report => SessionState.GetString(Key + "Report", "Docs/UIAudit/CanvasRestructure/Step4/play-checks.txt");
     [Serializable] private class SavedSetup { public SceneSetup[] scenes; }
     private static readonly List<string> results = new List<string>();
     private static GameUIRoot root;
@@ -34,8 +34,11 @@ public static class CanvasConnectionPlayChecks
     private static Texture2D maskTexture;
     private static int phase, nextFrame;
     static CanvasConnectionPlayChecks() { EditorApplication.update += Tick; }
-    public static void Start()
+    public static void Start() { StartWithReport("Docs/UIAudit/CanvasRestructure/Step4/play-checks.txt"); }
+    public static void StartStep5() { StartWithReport("Docs/UIAudit/CanvasRestructure/Step5/connection-regression-checks.txt"); }
+    private static void StartWithReport(string report)
     {
+        SessionState.SetString(Key + "Report", report);
         if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Stop Play Mode first.");
         for (int i = 0; i < SceneManager.sceneCount; i++)
             Require(!SceneManager.GetSceneAt(i).isDirty, "Save scene changes before starting the fixture.");

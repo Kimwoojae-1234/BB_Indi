@@ -1,0 +1,8 @@
+2026-09-26T09:22:30.6937277Z isolated dynamic UI fixture; resources loaded with the production Util.Load path.
+PASS 14 resource prefabs, 42 RectTransform widgets, 5 live batches: parent panel/camera/rectangular clip inherited after Util.Load; other root camera not selected.
+PASS actual skill background renders through texture mask, disappears through transparent mask, mirrors horizontally and follows clip mode changes.
+PASS ancestor reparent between UI roots refreshes camera, panel alpha, clip chain and shared batch before immediate capture.
+PASS dynamic member hide/show and depth fallback keep sibling visibility and the correct camera.
+PASS dynamic subtree destruction removes detached presentations; one independent EventSystem remains.
+PASS production Quick pause/effect and manual pause popup paths use Popups/Effects; real popup GraphicRaycaster hit succeeds. Destructive quit callback not invoked.
+OVERALL PASS (isolated dynamic UI fixture; full match and device validation are step 6)

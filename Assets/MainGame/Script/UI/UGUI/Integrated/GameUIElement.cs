@@ -86,7 +86,8 @@ namespace BaseBall.BallPlay.UGUI
         }
 
         private void OnEnable() { GameUIRenderOrder.Register(this); appliedText = appliedSprite = null; Apply(); }
-        private void OnTransformParentChanged() { panel = null; GameUIRenderOrder.Invalidate(); }
+        private void OnTransformParentChanged() { RefreshHierarchy(); }
+        public void RefreshHierarchy() { panel = null; GameUIRenderOrder.Invalidate(); }
         private void OnDisable() { GameUIRenderOrder.Remove(this); if (canvasBatch != null && presentationRoot != null) presentationRoot.gameObject.SetActive(false); if (graphic != null) graphic.enabled = false; foreach (var shadow in shadows) if (shadow != null) shadow.enabled = false; }
         private void OnDestroy()
         {

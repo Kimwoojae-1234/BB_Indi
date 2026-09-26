@@ -30,7 +30,8 @@ namespace BaseBall.BallPlay
         {
             if (Mode.gameMode == Mode.GamePlayMode.NineInningTwoOut)
             {
-                Util.Load("MainGame/prefabs/gameUI/QuitPopupPrefab", transform.parent, Vector3.zero).GetComponent<UIQuit>().init(_manager);
+                var root = GetComponentInParent<GameUIRoot>();
+                Util.Load("MainGame/prefabs/gameUI/QuitPopupPrefab", root != null ? root.PopupParent : transform.parent, Vector3.zero).GetComponent<UIQuit>().init(_manager);
             }
             else
             {
