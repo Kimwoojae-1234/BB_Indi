@@ -14,6 +14,7 @@ using Object = UnityEngine.Object;
 [InitializeOnLoad]
 public static class IntegratedUGUIPlayChecks
 {
+    private static string Output => SessionState.GetString("BB.Integrated.Output", IntegratedUGUIConverter.Output);
     private static float nextInput;
     private static int inputFrame;
     static IntegratedUGUIPlayChecks()
@@ -27,7 +28,7 @@ public static class IntegratedUGUIPlayChecks
         if (!EditorApplication.isPlaying) throw new InvalidOperationException("Play Mode required");
         if (automatic) IngameUI.GetScoreBoard().setGameSpeedControl();
         else Object.FindFirstObjectByType<QuickSimulator>(FindObjectsInactive.Include).goToGame();
-        File.AppendAllText(IntegratedUGUIConverter.Output + "/input-checks.txt", "FIXTURE " + Time.time + " existing mode API; automatic=" + automatic + "; mode=" + Mode.PlayTypeFlag + "; input visibility unchanged\n");
+        File.AppendAllText(Output + "/input-checks.txt", "FIXTURE " + Time.time + " existing mode API; automatic=" + automatic + "; mode=" + Mode.PlayTypeFlag + "; input visibility unchanged\n");
     }
     private static void Assist()
     {
@@ -35,7 +36,7 @@ public static class IntegratedUGUIPlayChecks
         if (inputFrame != Time.frameCount && (Input.GetMouseButtonDown(0) || Input.GetMouseButtonUp(0)))
         {
             inputFrame = Time.frameCount;
-            File.AppendAllText(IntegratedUGUIConverter.Output + "/input-checks.txt", "DEVICE_INPUT " + Time.time + " down=" + Input.GetMouseButtonDown(0) + " up=" + Input.GetMouseButtonUp(0) + " screen=" + Input.mousePosition + "\n");
+            File.AppendAllText(Output + "/input-checks.txt", "DEVICE_INPUT " + Time.time + " down=" + Input.GetMouseButtonDown(0) + " up=" + Input.GetMouseButtonUp(0) + " screen=" + Input.mousePosition + "\n");
         }
         var manager = Object.FindFirstObjectByType<BallPlayManager>();
         if (manager == null || manager.bMyTurn || Mode.bPauseGame || Mode.PlayTypeFlag != Mode.ModeFlag.Manual || Time.unscaledTime < nextInput) return;
@@ -47,7 +48,7 @@ public static class IntegratedUGUIPlayChecks
             var data = new PointerEventData(EventSystem.current) { pointerId = -1, button = PointerEventData.InputButton.Left };
             ExecuteEvents.Execute(row.gameObject, data, ExecuteEvents.pointerDownHandler);
             ExecuteEvents.Execute(row.gameObject, data, ExecuteEvents.pointerUpHandler);
-            File.AppendAllText(IntegratedUGUIConverter.Output + "/input-checks.txt", "TEST_INPUT pitch selection through Unity pointer events at " + Time.time + "\n");
+            File.AppendAllText(Output + "/input-checks.txt", "TEST_INPUT pitch selection through Unity pointer events at " + Time.time + "\n");
             nextInput = Time.unscaledTime + 2;
         }
         else if (manager.playState == PlayState.PLAY_BATTING_VIEW && manager.pitcher.pState == PitcherState._GET_SIGN && !manager.pitcher.bRelease)
@@ -55,7 +56,7 @@ public static class IntegratedUGUIPlayChecks
             var control = Object.FindFirstObjectByType<ControlPitchingUI>();
             if (control == null || !control._active.activeInHierarchy) return;
             control.setRelease(); nextInput = Time.unscaledTime + 4;
-            File.AppendAllText(IntegratedUGUIConverter.Output + "/input-checks.txt", "TEST_INPUT existing pitch-release API at " + Time.time + "\n");
+            File.AppendAllText(Output + "/input-checks.txt", "TEST_INPUT existing pitch-release API at " + Time.time + "\n");
         }
     }
     public static void ClickFixture(string method)
@@ -65,7 +66,7 @@ public static class IntegratedUGUIPlayChecks
         pointer.inputCollider.enabled = true;
         try { ClickAction(method); }
         finally { if (pointer != null) pointer.inputCollider.enabled = enabled; }
-        File.AppendAllText(IntegratedUGUIConverter.Output + "/input-checks.txt", "FIXTURE collider temporarily enabled for " + method + "; original enabled=" + enabled + "; asset unchanged\n");
+        File.AppendAllText(Output + "/input-checks.txt", "FIXTURE collider temporarily enabled for " + method + "; original enabled=" + enabled + "; asset unchanged\n");
     }
     private static GameUIPointer FindAction(string method)
     {
@@ -87,7 +88,7 @@ public static class IntegratedUGUIPlayChecks
         ExecuteEvents.Execute(pointer.gameObject, data, ExecuteEvents.pointerDownHandler);
         ExecuteEvents.Execute(pointer.gameObject, data, ExecuteEvents.pointerUpHandler);
         ExecuteEvents.Execute(pointer.gameObject, data, ExecuteEvents.pointerClickHandler);
-        File.AppendAllText(IntegratedUGUIConverter.Output + "/input-checks.txt", "TEST_INPUT " + Time.time + " " + method + " through EventSystem.RaycastAll + Unity pointer events; paused=" + Mode.bPauseGame + " mode=" + Mode.PlayTypeFlag + "\n");
+        File.AppendAllText(Output + "/input-checks.txt", "TEST_INPUT " + Time.time + " " + method + " through EventSystem.RaycastAll + Unity pointer events; paused=" + Mode.bPauseGame + " mode=" + Mode.PlayTypeFlag + "\n");
         Snapshot();
     }
     public static void Snapshot()
@@ -108,8 +109,8 @@ public static class IntegratedUGUIPlayChecks
         }
         var ngui = Object.FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).Where(c => c != null && c.enabled && AssetDatabase.GetAssetPath(MonoScript.FromMonoBehaviour(c)).StartsWith("Assets/NGUI/")).ToArray();
         text.AppendLine("ACTIVE_NGUI " + string.Join(",", ngui.Select(c => c.name + ":" + c.GetType().Name)));
-        File.WriteAllText(IntegratedUGUIConverter.Output + "/runtime-snapshot.txt", text.ToString());
-        ScreenCapture.CaptureScreenshot(IntegratedUGUIConverter.Output + "/gameplay-current.png");
+        File.WriteAllText(Output + "/runtime-snapshot.txt", text.ToString());
+        ScreenCapture.CaptureScreenshot(Output + "/gameplay-current.png");
     }
     public static void RepairRenderers()
     {

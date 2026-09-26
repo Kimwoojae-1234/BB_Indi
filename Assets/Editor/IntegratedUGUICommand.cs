@@ -21,6 +21,7 @@ public static class IntegratedUGUICommand
         {
             if (command == "build-candidates") IntegratedUGUIConverter.BuildCandidates();
             else if (command == "refresh") AssetDatabase.Refresh();
+            else if (command.StartsWith("integration:")) CanvasIntegrationChecks.Command(command.Substring(12));
             else if (command == "capture-connections") CanvasStructureChecks.CaptureStep4Baseline();
             else if (command == "check-connections") CanvasStructureChecks.CheckStep4();
             else if (command == "play-connections") CanvasConnectionPlayChecks.Start();

@@ -1,0 +1,26 @@
+Offline _Test_Local entry, 2026-09-26T10:06:43.8754711Z
+0.0 Scene=Logo manager=False board=False
+4.2 Scene=MainLobby manager=False board=False
+5.6 Scene=MainLoading manager=False board=False
+ERROR tk2dCamera.GetGameViewSize - has a Unity update broken this?
+This is not a fatal error, but a warning that you've probably not got the latest 2D Toolkit update.
+
+System.NullReferenceException: Object reference not set to an instance of an object
+  at tk2dCamera.Editor__GetGameViewSize (System.Single& width, System.Single& height, System.Single& aspect) [0x00021] in D:\PROJECTS\Git\BB_Indi\Assets\TK2DROOT\tk2d\Code\Camera\tk2dCamera.cs:371 
+UnityEngine.Debug:LogError (object)
+tk2dCamera:Editor__GetGameViewSize (single&,single&,single&) (at Assets/TK2DROOT/tk2d/Code/Camera/tk2dCamera.cs:430)
+tk2dCamera:GetScreenPixelDimensions (tk2dCamera) (at Assets/TK2DROOT/tk2d/Code/Camera/tk2dCamera.cs:701)
+tk2dCamera:UpdateCameraMatrix () (at Assets/TK2DROOT/tk2d/Code/Camera/tk2dCamera.cs:774)
+tk2dCamera:OnEnable () (at Assets/TK2DROOT/tk2d/Code/Camera/tk2dCamera.cs:275)
+
+5.9 Scene=BallPlay manager=True board=True ugui=True visible=False phase=PLAY_INIT_INNING update=False inning=0 top=False home=False score=0,0 count=0/0/0 display=0:0 alpha=1
+8.7 Scene=BallPlay manager=True board=True ugui=True visible=False phase=NONE update=False inning=1 top=True home=False score=0,0 count=0/0/0 display=0:0 alpha=1
+13.7 Scene=BallPlay manager=True board=True ugui=True visible=False phase=NONE update=True inning=1 top=True home=False score=0,0 count=0/0/0 display=0:0 alpha=1
+15.4 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW_INFO update=True inning=1 top=True home=False score=0,0 count=0/0/0 display=0:0 alpha=1
+17.7 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW update=True inning=1 top=True home=False score=0,0 count=0/0/0 display=0:0 alpha=1
+22.7 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW update=True inning=1 top=True home=False score=0,0 count=0/1/0 display=0:0 alpha=1
+23.5 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW_READY update=True inning=1 top=True home=False score=0,0 count=0/1/0 display=0:0 alpha=1
+24.8 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_FAST_INNING_SIMUL update=True inning=1 top=True home=False score=0,0 count=0/1/0 display=0:0 alpha=1
+25.8 Scene=BallPlay manager=True board=True ugui=True visible=False phase=PLAY_FAST_INNING_SIMUL update=True inning=1 top=True home=False score=0,0 count=0/1/0 display=0:0 alpha=1
+207.5 Scene=BallPlay manager=True board=True ugui=True visible=False phase=NONE update=True inning=9 top=False home=False score=6,2 count=0/0/3 display=0:0 alpha=1
+1095.2 Scene=MainLobby manager=False board=False

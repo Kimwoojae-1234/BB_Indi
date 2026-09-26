@@ -9,7 +9,7 @@ namespace BaseBall.BallPlay
         public GameObject _active;
 
         //게임 정보
-        public scoreboard board;
+        public LegacyResultScoreboard board;
 
         public GameObject[] teamStat;
         public GameObject[] gauge;
