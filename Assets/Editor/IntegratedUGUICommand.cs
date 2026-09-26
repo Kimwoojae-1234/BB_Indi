@@ -20,6 +20,8 @@ public static class IntegratedUGUICommand
         try
         {
             if (command == "refresh") AssetDatabase.Refresh();
+            else if (command == "check-lobby-settings") LobbySettingsChecks.Run();
+            else if (command == "check-language-settings") LanguageSettingsChecks.Run();
             else if (command.StartsWith("remaining:")) RemainingUGUIMigration.Command(command.Substring(10));
             else if (command.StartsWith("integration:")) CanvasIntegrationChecks.Command(command.Substring(12));
             else if (command == "capture-connections") CanvasStructureChecks.CaptureStep4Baseline();

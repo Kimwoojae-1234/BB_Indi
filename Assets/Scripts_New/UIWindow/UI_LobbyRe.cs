@@ -298,6 +298,11 @@ public class UI_LobbyRe : UIWindow
     }
 
 
+    public void OnClickSetting()
+    {
+        KOBManager.Popup.OpenPopup<Popup_Setting>();
+    }
+
     public void OnClickInBox()
     {
         KOBManager.Popup.OpenPopup<Popup_Inbox>();

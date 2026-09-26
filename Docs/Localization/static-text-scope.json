@@ -7258,12 +7258,6 @@
     },
     {
       "asset": "Assets/Resources/UI/Popup/Popup_Setting.prefab",
-      "path": "Popup_Setting[0]/Popup[1]/Group_Right[4]/Button_List[0]/Button_Language[0]/Text_Laguage[0]",
-      "kind": "LocalizedText",
-      "key": "UI.Label.English"
-    },
-    {
-      "asset": "Assets/Resources/UI/Popup/Popup_Setting.prefab",
       "path": "Popup_Setting[0]/Popup[1]/Group_Right[4]/Button_List[0]/Button_UserID[1]/Text_Laguage[0]",
       "kind": "LocalizedText",
       "key": "UI.Label.UserId"
@@ -18191,6 +18185,14 @@
       "controller": "SkillSlotBaller",
       "field": "SkillTypeTxt",
       "source": "Assets/Scripts_New/UIComponent/Baller/SkillSlotBaller.cs:60"
+    },
+    {
+      "asset": "Assets/Resources/UI/Popup/Popup_Setting.prefab",
+      "path": "Popup_Setting[0]/Popup[1]/Group_Right[4]/Button_List[0]/Button_Language[0]/Text_Laguage[0]",
+      "reason": "Current selected language name is written by Popup_Setting.RefreshLanguage.",
+      "controller": "Popup_Setting",
+      "field": "languageLabel",
+      "source": "Assets/Scripts_New/UIPopup/Popup_Setting.cs"
     }
   ]
 }

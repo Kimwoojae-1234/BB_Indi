@@ -8989,6 +8989,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BackToPrevPopup: 0
+  languageLabel: {fileID: 3150390660784912404}
+  languageFlag: {fileID: 1100987012912311286}
+  languageDisplays:
+  - language: 0
+    nativeName: "English"
+    flag: {fileID: 21300000, guid: 09a17b3899e8141edb6e0745ab518a12, type: 3}
+  - language: 7
+    nativeName: "日本語"
+    flag: {fileID: 21300000, guid: 67f6a783fcaae4fe6b192bb9c0b305bc, type: 3}
+  - language: 8
+    nativeName: "한국어"
+    flag: {fileID: 21300000, guid: 4daa02b47ce2e4ad89de1dcdacc0e2b5, type: 3}
+  - language: 11
+    nativeName: "Español"
+    flag: {fileID: 21300000, guid: 18482cef099ba4c6fbf3d0d9b169dec6, type: 3}
+  - language: 4
+    nativeName: "繁體中文"
+    flag: {fileID: 21300000, guid: 97a5d3e4798ee40fd88365eb180d2b46, type: 3}
 --- !u!1 &7973229378769170959
 GameObject:
   m_ObjectHideFlags: 0
@@ -9803,7 +9821,6 @@ GameObject:
   - component: {fileID: 8710339612543894762}
   - component: {fileID: 1934418100125876098}
   - component: {fileID: 3150390660784912404}
-  - component: {fileID: 986667342166677749}
   m_Layer: 5
   m_Name: Text_Laguage
   m_TagString: Untagged
@@ -11120,25 +11137,6 @@ MonoBehaviour:
   key: UI.Label.Support
   sourceText: Support
   tmp: {fileID: 4892592115412274648}
-  legacy: {fileID: 0}
-  element: {fileID: 0}
-  mesh: {fileID: 0}
-  spriteText: {fileID: 0}
---- !u!114 &986667342166677749
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8665378149954842132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 684b4f96b39b19946ab9f84bbd340d86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
-  key: UI.Label.English
-  sourceText: English
-  tmp: {fileID: 3150390660784912404}
   legacy: {fileID: 0}
   element: {fileID: 0}
   mesh: {fileID: 0}
