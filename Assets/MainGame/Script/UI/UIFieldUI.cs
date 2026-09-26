@@ -210,7 +210,7 @@ namespace BaseBall.BallPlay
         //모두 파괴
         public void DestroyAllMinimapRunner()
         {
-            minimap.transform.DestroyChildren();
+            Util.DestroyChildren(minimap.transform);
         }
 
 

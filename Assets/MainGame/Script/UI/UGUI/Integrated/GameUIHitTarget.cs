@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 namespace BaseBall.BallPlay.UGUI
 {
@@ -7,10 +8,22 @@ namespace BaseBall.BallPlay.UGUI
     /// No physics raycaster or NGUI input dispatcher participates in UI events.</summary>
     [DefaultExecutionOrder(75)]
     [RequireComponent(typeof(CanvasRenderer))]
-    public sealed class GameUIHitTarget : Graphic, ICanvasRaycastFilter
+    public sealed class GameUIHitTarget : Graphic, ICanvasRaycastFilter,
+        IPointerDownHandler, IPointerUpHandler, IPointerClickHandler,
+        IInitializePotentialDragHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IScrollHandler
     {
         public Collider shape;
         public GameUIPointer pointer;
+        // Consume events at the hit surface. Native controls on its parent are driven
+        // by the pointer proxy, so a single click must not also toggle them a second time.
+        public void OnPointerDown(PointerEventData e) { pointer.OnPointerDown(e); }
+        public void OnPointerUp(PointerEventData e) { pointer.OnPointerUp(e); }
+        public void OnPointerClick(PointerEventData e) { pointer.OnPointerClick(e); }
+        public void OnInitializePotentialDrag(PointerEventData e) { pointer.OnInitializePotentialDrag(e); }
+        public void OnBeginDrag(PointerEventData e) { pointer.OnBeginDrag(e); }
+        public void OnDrag(PointerEventData e) { pointer.OnDrag(e); }
+        public void OnEndDrag(PointerEventData e) { pointer.OnEndDrag(e); }
+        public void OnScroll(PointerEventData e) { pointer.OnScroll(e); }
         private void LateUpdate() { Synchronize(); }
         public void Synchronize()
         {

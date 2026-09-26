@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -7,7 +8,7 @@ public class UI_WindowBase : MonoBehaviour
     public LinkedListNode<UI_WindowBase> windowNode;
     public bool IsPopup = false;
     public WindowID windowID {get; protected set;}
-    public UIPanel uiPanel = null;
+    public GameUIPanel uiPanel = null;
     [SerializeField]
     protected Animation anim;
 
@@ -20,7 +21,7 @@ public class UI_WindowBase : MonoBehaviour
         if(windowNode == null)
             windowNode = new LinkedListNode<UI_WindowBase>(this);
         if (uiPanel == null)
-            uiPanel = this.GetComponent<UIPanel>();
+            uiPanel = this.GetComponent<GameUIPanel>();
         
     }   
 

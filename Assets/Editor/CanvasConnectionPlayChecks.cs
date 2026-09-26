@@ -36,6 +36,7 @@ public static class CanvasConnectionPlayChecks
     static CanvasConnectionPlayChecks() { EditorApplication.update += Tick; }
     public static void Start() { StartWithReport("Docs/UIAudit/CanvasRestructure/Step4/play-checks.txt"); }
     public static void StartStep5() { StartWithReport("Docs/UIAudit/CanvasRestructure/Step5/connection-regression-checks.txt"); }
+    public static void StartComplete() { StartWithReport("Docs/UIAudit/NGUIComplete/connection-regression-checks.txt"); }
     private static void StartWithReport(string report)
     {
         SessionState.SetString(Key + "Report", report);

@@ -1,17 +1,18 @@
+using BaseBall.BallPlay.UGUI;
 using UnityEngine;
 
 namespace BaseBall.BallPlay
 {
-    // The legacy result prefab still renders with NGUI. Keep its bindings separate
-    // from the UGUI scoreboard used by QuickSimulator and inning transitions.
+    // Twelve-inning result layout backed by native UGUI elements. Its hierarchy
+    // differs from the scoreboard used by QuickSimulator and inning transitions.
     public sealed class LegacyResultScoreboard : MonoBehaviour
     {
         private const int MaxInnings = 12;
         public GameObject[] teamObj;
         public GameObject cur;
 
-        private readonly UILabel[,] scores = new UILabel[2, MaxInnings];
-        private readonly UILabel[,] stats = new UILabel[2, 3];
+        private readonly GameUIElement[,] scores = new GameUIElement[2, MaxInnings];
+        private readonly GameUIElement[,] stats = new GameUIElement[2, 3];
         private readonly GameObject[] indicators = new GameObject[2];
 
         public void initScoreBoard(string awayTeam, string homeTeam, int awayIndex, int homeIndex)
@@ -22,7 +23,7 @@ namespace BaseBall.BallPlay
                 int index = 0;
                 foreach (Transform child in row.Find("score"))
                 {
-                    var label = child.GetComponent<UILabel>();
+                    var label = child.GetComponent<GameUIElement>();
                     if (label == null) continue;
                     scores[team, index++] = label;
                     label.text = "0";
@@ -31,15 +32,15 @@ namespace BaseBall.BallPlay
                 index = 0;
                 foreach (Transform child in row.Find("stat"))
                 {
-                    var label = child.GetComponent<UILabel>();
+                    var label = child.GetComponent<GameUIElement>();
                     if (label == null) continue;
                     stats[team, index++] = label;
                     label.text = "0";
                 }
-                var logo = row.Find("logo").GetComponent<UISprite>();
+                var logo = row.Find("logo").GetComponent<GameUIElement>();
                 Util.SetSpritePixelPerfect(logo, "logo_" + (team == 0 ? awayIndex : homeIndex));
                 logo.transform.localScale = new Vector2(.75f, .75f);
-                row.Find("teamLabel").GetComponent<UILabel>().text = team == 0 ? awayTeam : homeTeam;
+                row.Find("teamLabel").GetComponent<GameUIElement>().text = team == 0 ? awayTeam : homeTeam;
                 indicators[team] = row.Find("indicator").gameObject;
             }
             scores[0, 0].gameObject.SetActive(true);

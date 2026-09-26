@@ -1,0 +1,4000 @@
+[
+  {
+    "path": "Assets/Editor/CanvasIntegrationChecks.cs",
+    "editor": true,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 161,
+        "types": [
+          "UILabel"
+        ],
+        "code": "text.AppendLine( + row.transform.Find().GetComponent<UILabel>().text +  + string.Join(, row.transform.Find().GetComponentsInChildren<UILabel>().Select(l => l.text)) +  + string.Join(, row.transform.Find().GetComponentsInChildren<UILabel>().Select(l => l.text)));"
+      },
+      {
+        "line": 202,
+        "types": [
+          "UILabel"
+        ],
+        "code": "var labels = board.teamObj[team].transform.Find().GetComponentsInChildren<UILabel>(true);"
+      },
+      {
+        "line": 206,
+        "types": [
+          "UILabel"
+        ],
+        "code": "var stat = board.teamObj[team].transform.Find().GetComponentsInChildren<UILabel>(true);"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Editor/FieldMinimapMigrationChecks.cs",
+    "editor": true,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 62,
+        "types": [
+          "UITweener",
+          "UIWidget"
+        ],
+        "code": "Require(root.GetComponentsInChildren<UIWidget>(true).Length == 0 && root.GetComponentsInChildren<UITweener>(true).Length == 0, );"
+      },
+      {
+        "line": 89,
+        "types": [
+          "UIPanel"
+        ],
+        "code": "var panel = root.AddComponent<UIPanel>();"
+      },
+      {
+        "line": 127,
+        "types": [
+          "UIWidget"
+        ],
+        "code": "foreach (var widget in root.GetComponentsInChildren<UIWidget>(true)) { StartRect(widget); widget.CreatePanel(); }"
+      },
+      {
+        "line": 147,
+        "types": [
+          "UIRect"
+        ],
+        "code": "private static void StartRect(UIRect rect)"
+      },
+      {
+        "line": 150,
+        "types": [
+          "UIRect"
+        ],
+        "code": "typeof(UIRect).GetMethod(, BindingFlags.Instance | BindingFlags.NonPublic).Invoke(rect, null);"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Editor/FieldMinimapPlayChecks.cs",
+    "editor": true,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 176,
+        "types": [
+          "UIWidget"
+        ],
+        "code": "Require(view.GetComponentsInChildren<UIWidget>(true).Length == 0 && view.GetComponentsInChildren<GraphicRaycaster>(true).Length == 0 &&"
+      },
+      {
+        "line": 191,
+        "types": [
+          "UITweener"
+        ],
+        "code": "Require(Mathf.Abs(marker.UguiView.namebar.color.a - alpha) < .01f && Mathf.Abs(marker.UguiView.playerName.color.a - alpha) < .01f && marker.GetComponent<UITweener>() == null,"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Editor/FieldMinimapUGUIConverter.cs",
+    "editor": true,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 50,
+        "types": [
+          "UILabel",
+          "UISprite"
+        ],
+        "code": "if (!(component is Transform) && !(component is UISprite) && !(component is UILabel) && !(component is miniRunner))"
+      },
+      {
+        "line": 52,
+        "types": [
+          "UISprite"
+        ],
+        "code": "var sprites = ScoreboardUGUIConverter.BuildSprites(source.minimap.GetComponent<UISprite>().atlas, Folder,"
+      },
+      {
+        "line": 54,
+        "types": [
+          "UIFont"
+        ],
+        "code": "var fonts = new Dictionary<UIFont, TMP_FontAsset> { { marker._name.bitmapFont, ScoreboardUGUIConverter.BuildFont(marker._name.bitmapFont, Folder) } };"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Editor/IntegratedUGUIChecks.cs",
+    "editor": true,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 90,
+        "types": [
+          "UIPanel",
+          "UIWidget"
+        ],
+        "code": "Require(!AnimationUtility.GetCurveBindings(clip).Any(b => typeof(UIWidget).IsAssignableFrom(b.type) || b.type == typeof(UIPanel)), asset.source +  + clip.name);"
+      },
+      {
+        "line": 111,
+        "types": [
+          "UIWidget"
+        ],
+        "code": "foreach (var original in root.GetComponentsInChildren<UIWidget>(true))"
+      },
+      {
+        "line": 119,
+        "types": [
+          "UISprite"
+        ],
+        "code": "if (original is UISprite sprite)"
+      },
+      {
+        "line": 135,
+        "types": [
+          "UILabel"
+        ],
+        "code": "if (original is UILabel label)"
+      },
+      {
+        "line": 148,
+        "types": [
+          "UITweener"
+        ],
+        "code": "foreach (var original in root.GetComponentsInChildren<UITweener>(true))"
+      },
+      {
+        "line": 150,
+        "types": [
+          "TweenAlpha",
+          "TweenPosition"
+        ],
+        "code": "Type type = original is TweenAlpha ? typeof(GameUITweenAlpha) : original is TweenPosition ? typeof(GameUITweenPosition)"
+      },
+      {
+        "line": 151,
+        "types": [
+          "TweenScale"
+        ],
+        "code": ": original is TweenScale ? typeof(GameUITweenScale) : typeof(GameUITweenRotation);"
+      },
+      {
+        "line": 190,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "if (tween is TweenAlpha oldAlpha) return new Vector4(oldAlpha.value, 0, 0, 0);"
+      },
+      {
+        "line": 192,
+        "types": [
+          "TweenPosition"
+        ],
+        "code": "if (tween is TweenPosition || tween is GameUITweenPosition) return tween.transform.localPosition;"
+      },
+      {
+        "line": 193,
+        "types": [
+          "TweenScale"
+        ],
+        "code": "if (tween is TweenScale || tween is GameUITweenScale) return tween.transform.localScale;"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Editor/IntegratedUGUIConverter.cs",
+    "editor": true,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 22,
+        "types": [
+          "UIAtlas"
+        ],
+        "code": "private static readonly Dictionary<UIAtlas, GameUISpriteCatalog> catalogs = new Dictionary<UIAtlas, GameUISpriteCatalog>();"
+      },
+      {
+        "line": 23,
+        "types": [
+          "UIFont"
+        ],
+        "code": "private static readonly Dictionary<UIFont, TMP_FontAsset> fonts = new Dictionary<UIFont, TMP_FontAsset>();"
+      },
+      {
+        "line": 58,
+        "types": [
+          "UIPanel",
+          "UIRoot",
+          "UITweener",
+          "UIWidget"
+        ],
+        "code": "if (prefab.GetComponentsInChildren<MonoBehaviour>(true).Any(c => c is UIWidget || c is UITweener || c is UIRoot || c is UIPanel))"
+      },
+      {
+        "line": 97,
+        "types": [
+          "UICamera",
+          "UILabel",
+          "UIPanel",
+          "UIRoot",
+          "UISprite",
+          "UITexture",
+          "UIWidget"
+        ],
+        "code": "var supported = new HashSet<Type> { typeof(UISprite), typeof(UILabel), typeof(UITexture), typeof(UIWidget), typeof(UIPanel), typeof(UIRoot), typeof(UICamera),"
+      },
+      {
+        "line": 98,
+        "types": [
+          "TweenAlpha",
+          "TweenPosition",
+          "TweenRotation",
+          "TweenScale",
+          "UIButton",
+          "UIButtonScale",
+          "UIEventTrigger"
+        ],
+        "code": "typeof(TweenAlpha), typeof(TweenPosition), typeof(TweenScale), typeof(TweenRotation), typeof(UIEventTrigger), typeof(UIButtonScale), typeof(UIButton),"
+      },
+      {
+        "line": 99,
+        "types": [
+          "UIDragScrollView",
+          "UIGrid",
+          "UIPlaySound",
+          "UIScrollView",
+          "UISpriteAnimation"
+        ],
+        "code": "typeof(UIPlaySound), typeof(UIDragScrollView), typeof(UIScrollView), typeof(UIGrid), typeof(UISpriteAnimation) };"
+      },
+      {
+        "line": 104,
+        "types": [
+          "UIPanel"
+        ],
+        "code": "foreach (var panel in root.GetComponentsInChildren<UIPanel>(true))"
+      },
+      {
+        "line": 112,
+        "types": [
+          "UIRoot"
+        ],
+        "code": "foreach (var oldRoot in root.GetComponentsInChildren<UIRoot>(true))"
+      },
+      {
+        "line": 114,
+        "types": [
+          "UIRoot"
+        ],
+        "code": "if (oldRoot.activeScaling != UIRoot.Scaling.Constrained || oldRoot.adjustByDPI)"
+      },
+      {
+        "line": 119,
+        "types": [
+          "UICamera"
+        ],
+        "code": "target.uiCamera = oldRoot.GetComponentInChildren<UICamera>(true)?.GetComponent<Camera>();"
+      },
+      {
+        "line": 122,
+        "types": [
+          "UIWidget"
+        ],
+        "code": "foreach (var widget in root.GetComponentsInChildren<UIWidget>(true)) pairs.Add(widget, ConvertWidget(widget));"
+      },
+      {
+        "line": 123,
+        "types": [
+          "UITweener"
+        ],
+        "code": "foreach (var tween in root.GetComponentsInChildren<UITweener>(true)) pairs.Add(tween, ConvertTween(tween));"
+      },
+      {
+        "line": 124,
+        "types": [
+          "UISpriteAnimation"
+        ],
+        "code": "foreach (var animation in root.GetComponentsInChildren<UISpriteAnimation>(true))"
+      },
+      {
+        "line": 132,
+        "types": [
+          "UIGrid"
+        ],
+        "code": "foreach (var grid in root.GetComponentsInChildren<UIGrid>(true))"
+      },
+      {
+        "line": 134,
+        "types": [
+          "UIGrid",
+          "UIWidget"
+        ],
+        "code": "if (grid.sorting != UIGrid.Sorting.None || grid.animateSmoothly || grid.pivot != UIWidget.Pivot.TopLeft)"
+      },
+      {
+        "line": 141,
+        "types": [
+          "UIScrollView"
+        ],
+        "code": "foreach (var scroll in root.GetComponentsInChildren<UIScrollView>(true)) pairs.Add(scroll, ConvertScroll(scroll));"
+      },
+      {
+        "line": 144,
+        "types": [
+          "UIEventTrigger"
+        ],
+        "code": "if (component is UIEventTrigger trigger)"
+      },
+      {
+        "line": 154,
+        "types": [
+          "UIButtonScale"
+        ],
+        "code": "else if (component is UIButtonScale scale)"
+      },
+      {
+        "line": 161,
+        "types": [
+          "UIButton"
+        ],
+        "code": "else if (component is UIButton button)"
+      },
+      {
+        "line": 167,
+        "types": [
+          "UIDragScrollView"
+        ],
+        "code": "else if (component is UIDragScrollView drag)"
+      },
+      {
+        "line": 173,
+        "types": [
+          "UIPlaySound"
+        ],
+        "code": "else if (component is UIPlaySound sound)"
+      },
+      {
+        "line": 179,
+        "types": [
+          "UICamera"
+        ],
+        "code": "else if (component is UICamera) pairs.Add(component, null);"
+      },
+      {
+        "line": 240,
+        "types": [
+          "UIPanel",
+          "UIWidget"
+        ],
+        "code": "if (!bindings.Any(b => typeof(UIWidget).IsAssignableFrom(b.type) || b.type == typeof(UIPanel))) continue;"
+      },
+      {
+        "line": 245,
+        "types": [
+          "UIWidget"
+        ],
+        "code": "if (typeof(UIWidget).IsAssignableFrom(binding.type)) replacement.type = typeof(GameUIElement);"
+      },
+      {
+        "line": 246,
+        "types": [
+          "UIPanel"
+        ],
+        "code": "else if (binding.type == typeof(UIPanel)) replacement.type = typeof(GameUIPanel);"
+      },
+      {
+        "line": 278,
+        "types": [
+          "UIWidget"
+        ],
+        "code": "private static GameUIElement ConvertWidget(UIWidget source)"
+      },
+      {
+        "line": 284,
+        "types": [
+          "UIWidget"
+        ],
+        "code": "if (source.GetType() == typeof(UIWidget))"
+      },
+      {
+        "line": 293,
+        "types": [
+          "UISprite"
+        ],
+        "code": "if (source is UISprite sprite)"
+      },
+      {
+        "line": 295,
+        "types": [
+          "UIBasicSprite"
+        ],
+        "code": "if (sprite.type == UIBasicSprite.Type.Advanced) throw new NotSupportedException( + sprite.name);"
+      },
+      {
+        "line": 302,
+        "types": [
+          "UIBasicSprite"
+        ],
+        "code": "image.type = sprite.type == UIBasicSprite.Type.Sliced ? Image.Type.Sliced : sprite.type == UIBasicSprite.Type.Tiled ? Image.Type.Tiled"
+      },
+      {
+        "line": 303,
+        "types": [
+          "UIBasicSprite"
+        ],
+        "code": ": sprite.type == UIBasicSprite.Type.Filled ? Image.Type.Filled : Image.Type.Simple;"
+      },
+      {
+        "line": 306,
+        "types": [
+          "UIBasicSprite"
+        ],
+        "code": "rect.localScale = new Vector3((sprite.flip == UIBasicSprite.Flip.Horizontally || sprite.flip == UIBasicSprite.Flip.Both) ? -1 : 1,"
+      },
+      {
+        "line": 307,
+        "types": [
+          "UIBasicSprite"
+        ],
+        "code": "(sprite.flip == UIBasicSprite.Flip.Vertically || sprite.flip == UIBasicSprite.Flip.Both) ? -1 : 1, 1);"
+      },
+      {
+        "line": 310,
+        "types": [
+          "UILabel"
+        ],
+        "code": "else if (source is UILabel label)"
+      },
+      {
+        "line": 312,
+        "types": [
+          "NGUIText"
+        ],
+        "code": "var alignment = label.alignment == NGUIText.Alignment.Automatic"
+      },
+      {
+        "line": 313,
+        "types": [
+          "NGUIText"
+        ],
+        "code": "? (label.pivotOffset.x == 0 ? NGUIText.Alignment.Left : label.pivotOffset.x == 1 ? NGUIText.Alignment.Right : NGUIText.Alignment.Center)"
+      },
+      {
+        "line": 321,
+        "types": [
+          "UILabel"
+        ],
+        "code": "text.enableAutoSizing = label.overflowMethod == UILabel.Overflow.ShrinkContent;"
+      },
+      {
+        "line": 324,
+        "types": [
+          "NGUIText"
+        ],
+        "code": "text.alignment = alignment == NGUIText.Alignment.Left ? TextAlignmentOptions.MidlineLeft"
+      },
+      {
+        "line": 325,
+        "types": [
+          "NGUIText"
+        ],
+        "code": ": alignment == NGUIText.Alignment.Right ? TextAlignmentOptions.MidlineRight : TextAlignmentOptions.Midline;"
+      },
+      {
+        "line": 334,
+        "types": [
+          "UILabel"
+        ],
+        "code": "text.resizeTextForBestFit = label.overflowMethod == UILabel.Overflow.ShrinkContent;"
+      },
+      {
+        "line": 338,
+        "types": [
+          "NGUIText"
+        ],
+        "code": "text.alignment = alignment == NGUIText.Alignment.Left ? TextAnchor.MiddleLeft"
+      },
+      {
+        "line": 339,
+        "types": [
+          "NGUIText"
+        ],
+        "code": ": alignment == NGUIText.Alignment.Right ? TextAnchor.MiddleRight : TextAnchor.MiddleCenter;"
+      },
+      {
+        "line": 342,
+        "types": [
+          "UILabel"
+        ],
+        "code": "if (label.effectStyle != UILabel.Effect.None)"
+      },
+      {
+        "line": 344,
+        "types": [
+          "UILabel"
+        ],
+        "code": "if (label.effectStyle != UILabel.Effect.Outline && label.effectStyle != UILabel.Effect.Shadow && label.effectStyle != UILabel.Effect.Outline8)"
+      },
+      {
+        "line": 348,
+        "types": [
+          "UILabel"
+        ],
+        "code": "if (label.effectStyle != UILabel.Effect.Shadow)"
+      },
+      {
+        "line": 350,
+        "types": [
+          "UILabel"
+        ],
+        "code": "if (label.effectStyle == UILabel.Effect.Outline8)"
+      },
+      {
+        "line": 361,
+        "types": [
+          "UITexture"
+        ],
+        "code": "else if (source is UITexture texture)"
+      },
+      {
+        "line": 363,
+        "types": [
+          "UIBasicSprite"
+        ],
+        "code": "if (texture.type == UIBasicSprite.Type.Advanced || texture.flip != UIBasicSprite.Flip.Nothing)"
+      },
+      {
+        "line": 366,
+        "types": [
+          "UIBasicSprite"
+        ],
+        "code": "if (texture.type == UIBasicSprite.Type.Simple || (texture.type == UIBasicSprite.Type.Sliced && texture.border == Vector4.zero))"
+      },
+      {
+        "line": 374,
+        "types": [
+          "UIBasicSprite"
+        ],
+        "code": "image.type = texture.type == UIBasicSprite.Type.Sliced ? Image.Type.Sliced : texture.type == UIBasicSprite.Type.Tiled ? Image.Type.Tiled : Image.Type.Filled;"
+      },
+      {
+        "line": 394,
+        "types": [
+          "UIAtlas"
+        ],
+        "code": "private static GameUISpriteCatalog Catalog(UIAtlas atlas)"
+      },
+      {
+        "line": 423,
+        "types": [
+          "UIAtlas"
+        ],
+        "code": "public static Material NativeAtlasMaterial(UIAtlas atlas)"
+      },
+      {
+        "line": 452,
+        "types": [
+          "UITweener"
+        ],
+        "code": "private static GameUITween ConvertTween(UITweener source)"
+      },
+      {
+        "line": 455,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "if (source is TweenAlpha a) { var t = source.gameObject.AddComponent<GameUITweenAlpha>(); t.from = a.from; t.to = a.to; target = t; }"
+      },
+      {
+        "line": 456,
+        "types": [
+          "TweenPosition"
+        ],
+        "code": "else if (source is TweenPosition p) { var t = source.gameObject.AddComponent<GameUITweenPosition>(); t.from = p.from; t.to = p.to; t.worldSpace = p.worldSpace; target = t; }"
+      },
+      {
+        "line": 457,
+        "types": [
+          "TweenScale"
+        ],
+        "code": "else if (source is TweenScale s) { var t = source.gameObject.AddComponent<GameUITweenScale>(); t.from = s.from; t.to = s.to; target = t; }"
+      },
+      {
+        "line": 458,
+        "types": [
+          "TweenRotation"
+        ],
+        "code": "else if (source is TweenRotation r) { var t = source.gameObject.AddComponent<GameUITweenRotation>(); t.from = r.from; t.to = r.to; t.quaternionLerp = r.quaternionLerp; target = t; }"
+      },
+      {
+        "line": 466,
+        "types": [
+          "EventDelegate"
+        ],
+        "code": "private static IEnumerable<GameUIAction> Actions(List<EventDelegate> source)"
+      },
+      {
+        "line": 519,
+        "types": [
+          "UIScrollView"
+        ],
+        "code": "private static GameUIScroll ConvertScroll(UIScrollView source)"
+      },
+      {
+        "line": 521,
+        "types": [
+          "UIPanel"
+        ],
+        "code": "var panel = source.GetComponent<UIPanel>();"
+      },
+      {
+        "line": 522,
+        "types": [
+          "UIDrawCall"
+        ],
+        "code": "if (panel == null || panel.clipping == UIDrawCall.Clipping.None) throw new NotSupportedException( + source.name);"
+      },
+      {
+        "line": 523,
+        "types": [
+          "NGUIMath"
+        ],
+        "code": "Bounds bounds = NGUIMath.CalculateRelativeWidgetBounds(source.transform);"
+      },
+      {
+        "line": 540,
+        "types": [
+          "UIScrollView"
+        ],
+        "code": "scroll.horizontal = source.movement == UIScrollView.Movement.Horizontal; scroll.vertical = source.movement == UIScrollView.Movement.Vertical;"
+      },
+      {
+        "line": 541,
+        "types": [
+          "UIScrollView"
+        ],
+        "code": "scroll.movementType = source.dragEffect == UIScrollView.DragEffect.MomentumAndSpring ? ScrollRect.MovementType.Elastic : ScrollRect.MovementType.Clamped;"
+      },
+      {
+        "line": 542,
+        "types": [
+          "UIScrollView"
+        ],
+        "code": "scroll.inertia = source.dragEffect != UIScrollView.DragEffect.None; scroll.scrollSensitivity = source.scrollWheelFactor * 100;"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Editor/IntegratedUGUIPlayChecks.cs",
+    "editor": true,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 122,
+        "types": [
+          "UIAtlas"
+        ],
+        "code": "var atlas = AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(guid)).GetComponent<UIAtlas>();"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Editor/PitchSelectionMigrationChecks.cs",
+    "editor": true,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 38,
+        "types": [
+          "UITweener",
+          "UIWidget"
+        ],
+        "code": "Require(root.GetComponentsInChildren<UIWidget>(true).Length == 0 && root.GetComponentsInChildren<UITweener>(true).Length == 0 &&"
+      },
+      {
+        "line": 39,
+        "types": [
+          "UIEventTrigger"
+        ],
+        "code": "root.GetComponentsInChildren<UIEventTrigger>(true).Length == 0 && root.GetComponentsInChildren<Collider>(true).Length == 0, );"
+      },
+      {
+        "line": 139,
+        "types": [
+          "UIPanel"
+        ],
+        "code": "var panel = root.AddComponent<UIPanel>();"
+      },
+      {
+        "line": 145,
+        "types": [
+          "UITweener"
+        ],
+        "code": "foreach (var tween in board.GetComponentsInChildren<UITweener>(true))"
+      },
+      {
+        "line": 196,
+        "types": [
+          "UIWidget"
+        ],
+        "code": "foreach (var widget in board.GetComponentsInChildren<UIWidget>(true))"
+      },
+      {
+        "line": 208,
+        "types": [
+          "UIWidget"
+        ],
+        "code": "string.Join(, board.GetComponentsInChildren<UIWidget>(true).Select(w =>"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Editor/PitchSelectionUGUIConverter.cs",
+    "editor": true,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 30,
+        "types": [
+          "UILabel",
+          "UISprite",
+          "UITexture"
+        ],
+        "code": "if (!(component is Transform) && !(component is UISprite) && !(component is UILabel) && !(component is UITexture) &&"
+      },
+      {
+        "line": 31,
+        "types": [
+          "UIButtonScale",
+          "UIEventTrigger"
+        ],
+        "code": "!(component is pitchingSelectButton) && !(component is UIEventTrigger) && !(component is UIButtonScale) && !(component is BoxCollider))"
+      },
+      {
+        "line": 37,
+        "types": [
+          "UIFont"
+        ],
+        "code": "var fonts = new Dictionary<UIFont, TMP_FontAsset>();"
+      },
+      {
+        "line": 38,
+        "types": [
+          "UILabel"
+        ],
+        "code": "foreach (var label in controller._active.GetComponentsInChildren<UILabel>(true))"
+      },
+      {
+        "line": 57,
+        "types": [
+          "UIWidget"
+        ],
+        "code": "foreach (var widget in original.GetComponentsInChildren<UIWidget>(true).Where(w => w.gameObject != original.gameObject).OrderBy(w => w.depth))"
+      },
+      {
+        "line": 92,
+        "types": [
+          "UIEventTrigger"
+        ],
+        "code": "var trigger = button.GetComponent<UIEventTrigger>();"
+      },
+      {
+        "line": 98,
+        "types": [
+          "UIButtonScale"
+        ],
+        "code": "var scale = button.GetComponent<UIButtonScale>();"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Editor/RunnerControlMigrationChecks.cs",
+    "editor": true,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 36,
+        "types": [
+          "UITweener",
+          "UIWidget"
+        ],
+        "code": "Require(root.GetComponentsInChildren<UIWidget>(true).Length == 0 && root.GetComponentsInChildren<UITweener>(true).Length == 0 &&"
+      },
+      {
+        "line": 37,
+        "types": [
+          "UIEventTrigger"
+        ],
+        "code": "root.GetComponentsInChildren<UIEventTrigger>(true).Length == 0 && root.GetComponentsInChildren<Collider>(true).Length == 0, );"
+      },
+      {
+        "line": 146,
+        "types": [
+          "UIPanel"
+        ],
+        "code": "var panel = root.AddComponent<UIPanel>();"
+      },
+      {
+        "line": 164,
+        "types": [
+          "UISprite"
+        ],
+        "code": "onbase.GetComponent<UISprite>().spriteName = selected ?  : ;"
+      },
+      {
+        "line": 166,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "onbase.Find().GetComponent<TweenAlpha>().enabled = false;"
+      },
+      {
+        "line": 167,
+        "types": [
+          "UISprite"
+        ],
+        "code": "onbase.Find().GetComponent<UISprite>().alpha = 1;"
+      },
+      {
+        "line": 169,
+        "types": [
+          "UISprite"
+        ],
+        "code": "onbase.Find().GetComponent<UISprite>().spriteName = selected ?  : ;"
+      },
+      {
+        "line": 170,
+        "types": [
+          "UILabel"
+        ],
+        "code": "var label = onbase.Find().GetComponent<UILabel>();"
+      },
+      {
+        "line": 182,
+        "types": [
+          "UIWidget"
+        ],
+        "code": "foreach (var widget in board.GetComponentsInChildren<UIWidget>(true)) { widget.SendMessage(); widget.CreatePanel(); }"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Editor/RunnerControlPlayChecks.cs",
+    "editor": true,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 191,
+        "types": [
+          "UIPanel"
+        ],
+        "code": "+ control.GetComponent<UIPanel>().alpha +  + control.UguiView.canvas.opacity.alpha + );"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Editor/RunnerControlUGUIConverter.cs",
+    "editor": true,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 32,
+        "types": [
+          "TweenAlpha",
+          "UILabel",
+          "UISprite"
+        ],
+        "code": "if (!(component is Transform) && !(component is UISprite) && !(component is UILabel) && !(component is TweenAlpha) &&"
+      },
+      {
+        "line": 33,
+        "types": [
+          "UIButtonScale",
+          "UIEventTrigger"
+        ],
+        "code": "!(component is UIEventTrigger) && !(component is UIButtonScale) && !(component is Collider))"
+      },
+      {
+        "line": 35,
+        "types": [
+          "UISprite"
+        ],
+        "code": "var controls = ScoreboardUGUIConverter.BuildSprites(source.baseObj[0].GetComponent<UISprite>().atlas,"
+      },
+      {
+        "line": 37,
+        "types": [
+          "UISprite"
+        ],
+        "code": "var skills = ScoreboardUGUIConverter.BuildSprites(source.baseObj[0].transform.Find().GetComponent<UISprite>().atlas,"
+      },
+      {
+        "line": 43,
+        "types": [
+          "UIFont"
+        ],
+        "code": "new Dictionary<UIFont, TMP_FontAsset>(), objects, true);"
+      },
+      {
+        "line": 59,
+        "types": [
+          "UIWidget"
+        ],
+        "code": "foreach (var widget in source._active.GetComponentsInChildren<UIWidget>(true).OrderBy(w => w.depth))"
+      },
+      {
+        "line": 99,
+        "types": [
+          "UIEventTrigger"
+        ],
+        "code": "var trigger = original.GetComponent<UIEventTrigger>();"
+      },
+      {
+        "line": 105,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "var tween = original.transform.Find().GetComponent<TweenAlpha>();"
+      },
+      {
+        "line": 106,
+        "types": [
+          "UITweener"
+        ],
+        "code": "if (tween.from != 1 || tween.to != 0 || tween.duration != .3f || !tween.ignoreTimeScale || tween.style != UITweener.Style.PingPong ||"
+      },
+      {
+        "line": 107,
+        "types": [
+          "UITweener"
+        ],
+        "code": "tween.method != UITweener.Method.Linear || tween.delay != 0 || tween.onFinished.Count != 0)"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Editor/ScoreboardMigrationChecks.cs",
+    "editor": true,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 39,
+        "types": [
+          "UIWidget"
+        ],
+        "code": "Require(instance.GetComponentsInChildren<UIWidget>(true).Length == 0 &&"
+      },
+      {
+        "line": 40,
+        "types": [
+          "UITweener"
+        ],
+        "code": "instance.GetComponentsInChildren<UITweener>(true).Length == 0, );"
+      },
+      {
+        "line": 123,
+        "types": [
+          "UIPanel"
+        ],
+        "code": "var panel = root.AddComponent<UIPanel>();"
+      },
+      {
+        "line": 129,
+        "types": [
+          "UITweener"
+        ],
+        "code": "foreach (var tween in board.GetComponentsInChildren<UITweener>(true))"
+      },
+      {
+        "line": 155,
+        "types": [
+          "UIWidget"
+        ],
+        "code": "foreach (var widget in board.GetComponentsInChildren<UIWidget>(true))"
+      },
+      {
+        "line": 167,
+        "types": [
+          "UIWidget"
+        ],
+        "code": "string.Join(, board.GetComponentsInChildren<UIWidget>(true).Select(w =>"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Editor/ScoreboardUGUIConverter.cs",
+    "editor": true,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 62,
+        "types": [
+          "UISprite"
+        ],
+        "code": "owner.ballCount = owner.strikeCount = owner.outCount = owner.baseOn = new UISprite[0];"
+      },
+      {
+        "line": 81,
+        "types": [
+          "UIFont"
+        ],
+        "code": "var fonts = new Dictionary<UIFont, TMP_FontAsset>();"
+      },
+      {
+        "line": 82,
+        "types": [
+          "UILabel"
+        ],
+        "code": "foreach (var label in source.board.GetComponentsInChildren<UILabel>(true))"
+      },
+      {
+        "line": 126,
+        "types": [
+          "UIFont"
+        ],
+        "code": "Dictionary<UIFont, TMP_FontAsset> fonts, Dictionary<GameObject, GameObject> objects, bool presentationOnly = false)"
+      },
+      {
+        "line": 129,
+        "types": [
+          "TweenPosition",
+          "UILabel",
+          "UISprite"
+        ],
+        "code": "if (!presentationOnly && !(component is Transform) && !(component is UISprite) && !(component is UILabel) && !(component is TweenPosition))"
+      },
+      {
+        "line": 137,
+        "types": [
+          "UIWidget"
+        ],
+        "code": "var widget = source.GetComponent<UIWidget>();"
+      },
+      {
+        "line": 148,
+        "types": [
+          "UISprite"
+        ],
+        "code": "var sprite = source.GetComponent<UISprite>();"
+      },
+      {
+        "line": 151,
+        "types": [
+          "UIBasicSprite"
+        ],
+        "code": "if (sprite.type != UIBasicSprite.Type.Simple && sprite.type != UIBasicSprite.Type.Sliced)"
+      },
+      {
+        "line": 156,
+        "types": [
+          "UIBasicSprite"
+        ],
+        "code": "image.type = sprite.type == UIBasicSprite.Type.Sliced ? Image.Type.Sliced : Image.Type.Simple;"
+      },
+      {
+        "line": 163,
+        "types": [
+          "UIBasicSprite"
+        ],
+        "code": "if (sprite.type == UIBasicSprite.Type.Simple && ((nativeWidth & 1) != 0 || (nativeHeight & 1) != 0))"
+      },
+      {
+        "line": 173,
+        "types": [
+          "UILabel"
+        ],
+        "code": "var label = source.GetComponent<UILabel>();"
+      },
+      {
+        "line": 181,
+        "types": [
+          "UILabel"
+        ],
+        "code": "text.resizeTextForBestFit = label.overflowMethod == UILabel.Overflow.ShrinkContent;"
+      },
+      {
+        "line": 191,
+        "types": [
+          "UILabel"
+        ],
+        "code": "if (label.effectStyle == UILabel.Effect.Outline)"
+      },
+      {
+        "line": 197,
+        "types": [
+          "UILabel"
+        ],
+        "code": "else if (label.effectStyle != UILabel.Effect.None) throw new InvalidOperationException( + label.name);"
+      },
+      {
+        "line": 206,
+        "types": [
+          "UILabel"
+        ],
+        "code": "text.enableAutoSizing = label.overflowMethod == UILabel.Overflow.ShrinkContent;"
+      },
+      {
+        "line": 216,
+        "types": [
+          "UITexture"
+        ],
+        "code": "var texture = source.GetComponent<UITexture>();"
+      },
+      {
+        "line": 219,
+        "types": [
+          "UIBasicSprite"
+        ],
+        "code": "if (texture.type != UIBasicSprite.Type.Simple || texture.flip != UIBasicSprite.Flip.Nothing)"
+      },
+      {
+        "line": 228,
+        "types": [
+          "TweenPosition"
+        ],
+        "code": "var oldTween = source.GetComponent<TweenPosition>();"
+      },
+      {
+        "line": 231,
+        "types": [
+          "UITweener"
+        ],
+        "code": "if (oldTween.method != UITweener.Method.Linear || oldTween.delay != 0 || oldTween.worldSpace ||"
+      },
+      {
+        "line": 232,
+        "types": [
+          "UITweener"
+        ],
+        "code": "oldTween.onFinished.Count != 0 || (oldTween.style != UITweener.Style.Once && oldTween.style != UITweener.Style.PingPong))"
+      },
+      {
+        "line": 239,
+        "types": [
+          "UITweener"
+        ],
+        "code": "tween.pingPong = oldTween.style == UITweener.Style.PingPong;"
+      },
+      {
+        "line": 265,
+        "types": [
+          "UIAtlas"
+        ],
+        "code": "private static ScoreboardSpriteCatalog BuildSprites(UIAtlas atlas)"
+      },
+      {
+        "line": 271,
+        "types": [
+          "UIAtlas"
+        ],
+        "code": "public static ScoreboardSpriteCatalog BuildSprites(UIAtlas atlas, string folder, Func<string, bool> include)"
+      },
+      {
+        "line": 318,
+        "types": [
+          "UIFont"
+        ],
+        "code": "public static TMP_FontAsset BuildFont(UIFont source, string folder = AssetFolder)"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Scripts/buttonActionSmall.cs",
+    "editor": false,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 8,
+        "types": [
+          "UITweener"
+        ],
+        "code": "public UITweener[] tween;"
+      },
+      {
+        "line": 16,
+        "types": [
+          "UIPanel"
+        ],
+        "code": "public UIPanel[] panels;"
+      },
+      {
+        "line": 27,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "TweenAlpha alpha = tween[i].GetComponent<TweenAlpha>();"
+      },
+      {
+        "line": 30,
+        "types": [
+          "UISprite"
+        ],
+        "code": "tween[i].GetComponent<UISprite>().alpha = 0;"
+      },
+      {
+        "line": 44,
+        "types": [
+          "UIPanel"
+        ],
+        "code": "panels[i].depth = mainController.GetComponent<UIPanel>().depth + i + 1000;"
+      },
+      {
+        "line": 97,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "TweenAlpha alpha = tween[i].GetComponent<TweenAlpha>();"
+      },
+      {
+        "line": 118,
+        "types": [
+          "UIPanel"
+        ],
+        "code": "sizeObj[0].GetComponent<UIPanel>().baseClipRegion = new Vector4(0,0,width-2, height);"
+      },
+      {
+        "line": 119,
+        "types": [
+          "UISprite"
+        ],
+        "code": "sizeObj[1].GetComponent<UISprite>().SetDimensions(width, height);"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Scripts/GearSlot.cs",
+    "editor": false,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 7,
+        "types": [
+          "UISprite"
+        ],
+        "code": "private UISprite bg_sprite;"
+      },
+      {
+        "line": 9,
+        "types": [
+          "UISprite"
+        ],
+        "code": "private UISprite icon_sprite;"
+      },
+      {
+        "line": 11,
+        "types": [
+          "UISprite"
+        ],
+        "code": "private UISprite gradeBg_sprite;"
+      },
+      {
+        "line": 13,
+        "types": [
+          "UILabel"
+        ],
+        "code": "private UILabel grade_label;"
+      },
+      {
+        "line": 15,
+        "types": [
+          "UILabel"
+        ],
+        "code": "private UILabel reinforce_label;"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Scripts/ItemSlot.cs",
+    "editor": false,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 26,
+        "types": [
+          "UISprite"
+        ],
+        "code": "private UISprite bg;"
+      },
+      {
+        "line": 28,
+        "types": [
+          "UISprite"
+        ],
+        "code": "private UISprite icon;"
+      },
+      {
+        "line": 30,
+        "types": [
+          "UILabel"
+        ],
+        "code": "private UILabel have_count_label;"
+      },
+      {
+        "line": 32,
+        "types": [
+          "UILabel"
+        ],
+        "code": "private UILabel itemName;"
+      },
+      {
+        "line": 38,
+        "types": [
+          "UISprite"
+        ],
+        "code": "private UISprite gearPlayerType;"
+      },
+      {
+        "line": 40,
+        "types": [
+          "UILabel"
+        ],
+        "code": "private UILabel gearReinforce_label;"
+      },
+      {
+        "line": 42,
+        "types": [
+          "UISprite"
+        ],
+        "code": "private UISprite GearGradeStar;"
+      },
+      {
+        "line": 44,
+        "types": [
+          "UILabel"
+        ],
+        "code": "private UILabel GearGradeLabel;"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Scripts/SkillSlot.cs",
+    "editor": false,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 7,
+        "types": [
+          "UISprite"
+        ],
+        "code": "private UISprite icon_sprite;"
+      },
+      {
+        "line": 9,
+        "types": [
+          "UISprite"
+        ],
+        "code": "private UISprite rank_sprite;"
+      },
+      {
+        "line": 11,
+        "types": [
+          "UISprite"
+        ],
+        "code": "private UISprite lock_sprite;"
+      },
+      {
+        "line": 13,
+        "types": [
+          "UISprite"
+        ],
+        "code": "private UISprite circle_sprite;"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Scripts/UI_CardBase.cs",
+    "editor": false,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 8,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite spriteBackground;"
+      },
+      {
+        "line": 9,
+        "types": [
+          "UISpriteAnimation"
+        ],
+        "code": "private UISpriteAnimation spriteani;"
+      },
+      {
+        "line": 11,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite legendLine;"
+      },
+      {
+        "line": 14,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite spriteTeamLogo;"
+      },
+      {
+        "line": 16,
+        "types": [
+          "UITexture"
+        ],
+        "code": "public UITexture texturePlayer;"
+      },
+      {
+        "line": 18,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel labelPlayerName;"
+      },
+      {
+        "line": 20,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite spritePlayerName_Bg;"
+      },
+      {
+        "line": 22,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel labelPlayerLevel;"
+      },
+      {
+        "line": 24,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite spritePlayerLevel_BG;"
+      },
+      {
+        "line": 26,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite spritePlayerPosition;"
+      },
+      {
+        "line": 28,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite spritePlayerPosition_bg;"
+      },
+      {
+        "line": 30,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite spriteReinforce;"
+      },
+      {
+        "line": 32,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite spriteReinforce_bg;"
+      },
+      {
+        "line": 34,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel labelPower;"
+      },
+      {
+        "line": 36,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite spriteLock;"
+      },
+      {
+        "line": 38,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite Grade_sprite;"
+      },
+      {
+        "line": 40,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel Grade_label;"
+      },
+      {
+        "line": 42,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite spriteNewMark;"
+      },
+      {
+        "line": 44,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite new_get_mark;"
+      },
+      {
+        "line": 46,
+        "types": [
+          "UISprite"
+        ],
+        "code": "private UISprite goldenGlove_sprite;"
+      },
+      {
+        "line": 49,
+        "types": [
+          "UIFont"
+        ],
+        "code": "protected UIFont overallFont;"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Scripts/UI_PopupConfirm.cs",
+    "editor": false,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 17,
+        "types": [
+          "UILabel"
+        ],
+        "code": "private UILabel label_Title;"
+      },
+      {
+        "line": 19,
+        "types": [
+          "UILabel"
+        ],
+        "code": "private UILabel label_Message;"
+      },
+      {
+        "line": 22,
+        "types": [
+          "UILabel"
+        ],
+        "code": "private UILabel label_BtnOne_OK;"
+      },
+      {
+        "line": 24,
+        "types": [
+          "UISprite"
+        ],
+        "code": "private UISprite sprite_BtnTwo_OK;"
+      },
+      {
+        "line": 26,
+        "types": [
+          "UISprite"
+        ],
+        "code": "private UISprite sprite_BtnTwo_Cancel;"
+      },
+      {
+        "line": 32,
+        "types": [
+          "UILabel"
+        ],
+        "code": "private List<UILabel> list_label_BtnFour;"
+      },
+      {
+        "line": 36,
+        "types": [
+          "EventDelegate"
+        ],
+        "code": "private List<EventDelegate.Callback> list_callBack_Four;"
+      },
+      {
+        "line": 39,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "private TweenAlpha bgTween;"
+      },
+      {
+        "line": 41,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "private TweenAlpha mainWidgetTween;"
+      },
+      {
+        "line": 47,
+        "types": [
+          "UILabel"
+        ],
+        "code": "private UILabel retry_txt;"
+      },
+      {
+        "line": 52,
+        "types": [
+          "EventDelegate"
+        ],
+        "code": "private EventDelegate.Callback callBack_OK;"
+      },
+      {
+        "line": 53,
+        "types": [
+          "EventDelegate"
+        ],
+        "code": "private EventDelegate.Callback callBack_Cancel;"
+      },
+      {
+        "line": 76,
+        "types": [
+          "EventDelegate"
+        ],
+        "code": "public void SetPopup(EPOPUP ePopupType, string title = , string message = , string text_ok = , string text_cancel = ,  EventDelegate.Callback okCallBack = null, EventDelegate.Callback cancelCallBack = null, string[] list_text_four = null, EventDelegate.Callback[] list_callback_four = null)"
+      },
+      {
+        "line": 133,
+        "types": [
+          "EventDelegate"
+        ],
+        "code": "this.list_callBack_Four = new List<EventDelegate.Callback>();"
+      },
+      {
+        "line": 145,
+        "types": [
+          "EventDelegate"
+        ],
+        "code": "public void SetPopup_OneBtn(string title, string message, EventDelegate.Callback callBack = null)"
+      },
+      {
+        "line": 151,
+        "types": [
+          "EventDelegate"
+        ],
+        "code": "public void SetPopup_OneBtn(string title, string message, string text_Btn, EventDelegate.Callback callBack = null)"
+      },
+      {
+        "line": 175,
+        "types": [
+          "EventDelegate"
+        ],
+        "code": "public void SetPopup_TwoBtn(string title, string message, EventDelegate.Callback callBack_Left = null, EventDelegate.Callback callBack_Right = null)"
+      },
+      {
+        "line": 180,
+        "types": [
+          "EventDelegate"
+        ],
+        "code": "public void SetPopup_TwoBtn(string title, string message, string text_BtnLeft, string text_BtnRight, EventDelegate.Callback callBack_Left = null, EventDelegate.Callback callBack_Right = null)"
+      },
+      {
+        "line": 215,
+        "types": [
+          "EventDelegate"
+        ],
+        "code": "EventDelegate.Callback callback = callBack_OK;"
+      },
+      {
+        "line": 231,
+        "types": [
+          "EventDelegate"
+        ],
+        "code": "EventDelegate.Callback callback = callBack_Cancel;"
+      },
+      {
+        "line": 250,
+        "types": [
+          "EventDelegate"
+        ],
+        "code": "EventDelegate.Callback callBack = this.list_callBack_Four[btnIndex];"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Scripts/UI_WindowBase.cs",
+    "editor": false,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 10,
+        "types": [
+          "UIPanel"
+        ],
+        "code": "public UIPanel uiPanel = null;"
+      },
+      {
+        "line": 23,
+        "types": [
+          "UIPanel"
+        ],
+        "code": "uiPanel = this.GetComponent<UIPanel>();"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/PVP_Tester/Scripts/lobbyManager.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/MainGame/PVP_Tester/Scene/Login.unity"
+    ],
+    "hits": [
+      {
+        "line": 13,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel idLabel;"
+      },
+      {
+        "line": 14,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel connectingLabel;"
+      },
+      {
+        "line": 15,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel roomLabel;"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/PVP_Tester/Scripts/UI_pvpwaiting.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/MainGame/PVP_Tester/Scene/Login.unity"
+    ],
+    "hits": [
+      {
+        "line": 13,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel myName, otherName;"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/Control/ControlRunner.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/Resources/MainGame/prefabs/gameUI/IngameUIPrefab.prefab"
+    ],
+    "hits": [
+      {
+        "line": 74,
+        "types": [
+          "UISprite"
+        ],
+        "code": "UISprite cur = onBaseObj[i].transform.Find().gameObject.GetComponent<UISprite>();"
+      },
+      {
+        "line": 188,
+        "types": [
+          "UISprite"
+        ],
+        "code": "runnerObj.GetComponent<UISprite>().spriteName = ;"
+      },
+      {
+        "line": 192,
+        "types": [
+          "UILabel"
+        ],
+        "code": "UILabel overRallLabel = runnerObj.transform.Find().gameObject.GetComponent<UILabel>();"
+      },
+      {
+        "line": 199,
+        "types": [
+          "UISprite"
+        ],
+        "code": "runnerObj.transform.Find().gameObject.GetComponent<UISprite>().spriteName = (manager.bMyTurn == true ?  : );"
+      },
+      {
+        "line": 217,
+        "types": [
+          "UISprite"
+        ],
+        "code": "runnerObj.GetComponent<UISprite>().spriteName = ;"
+      },
+      {
+        "line": 219,
+        "types": [
+          "UISprite"
+        ],
+        "code": "runnerObj.transform.Find().gameObject.GetComponent<UISprite>().spriteName = (manager.bMyTurn == true ?  : );"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/etc/localBalance.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/MainGame/Scene/BallPlay.unity",
+      "Assets/MainGame/Scene/TestScele/BallPlay_Temp.unity",
+      "Assets/MainGame/Scene/TestScele/skillDisplayBallPlay.unity"
+    ],
+    "hits": [
+      {
+        "line": 174,
+        "types": [
+          "EventDelegate"
+        ],
+        "code": "private List<EventDelegate.Callback> list_callBack = new List<EventDelegate.Callback>();"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/etc/tempSelectPage.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/MainGame/Scene/Scene1.unity",
+      "Assets/Resources/UI/Window/UI_LobbyRe.prefab",
+      "Assets/Resources/UI/Window/UI_RTTS.prefab"
+    ],
+    "hits": [
+      {
+        "line": 29,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite button1, button2;"
+      },
+      {
+        "line": 42,
+        "types": [
+          "UILabel"
+        ],
+        "code": "button1.transform.Find().GetComponent<UILabel>().text = ;"
+      },
+      {
+        "line": 47,
+        "types": [
+          "UILabel"
+        ],
+        "code": "button2.transform.Find().GetComponent<UILabel>().text = ;"
+      },
+      {
+        "line": 53,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public void pitcherMode(UILabel label)"
+      },
+      {
+        "line": 58,
+        "types": [
+          "UILabel"
+        ],
+        "code": "button1.transform.Find().GetComponent<UILabel>().text = ;"
+      },
+      {
+        "line": 64,
+        "types": [
+          "UILabel"
+        ],
+        "code": "button1.transform.Find().GetComponent<UILabel>().text = ;"
+      },
+      {
+        "line": 70,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public void spMode(UILabel label)"
+      },
+      {
+        "line": 75,
+        "types": [
+          "UILabel"
+        ],
+        "code": "button2.transform.Find().GetComponent<UILabel>().text = ;"
+      },
+      {
+        "line": 81,
+        "types": [
+          "UILabel"
+        ],
+        "code": "button2.transform.Find().GetComponent<UILabel>().text = ;"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/Manager/FinalResultUI.cs",
+    "editor": false,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 211,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "TweenAlpha.Begin(front, 0.5f, 1);"
+      },
+      {
+        "line": 225,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "TweenAlpha.Begin(front, 0.2f, 0);"
+      },
+      {
+        "line": 235,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "TweenAlpha.Begin(back.gameObject, 0.5f, 0);"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/Manager/IngameUI.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/Resources/MainGame/prefabs/gameUI/IngameUIPrefab.prefab"
+    ],
+    "hits": [
+      {
+        "line": 348,
+        "types": [
+          "EventDelegate"
+        ],
+        "code": "public static void SetConfirmPopupOnebutton(string title, string message, EventDelegate.Callback callBack = null)"
+      },
+      {
+        "line": 362,
+        "types": [
+          "EventDelegate"
+        ],
+        "code": "public static void SetConfirmPopupTwobutton(string title, string message, EventDelegate.Callback callBack_Left = null, EventDelegate.Callback callBack_Right = null)"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/Manager/ResultUI.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/Resources/MainGame/prefabs/resultUI/resultPrefab.prefab"
+    ],
+    "hits": [
+      {
+        "line": 110,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "TweenAlpha.Begin(front, 0.3f, 1);"
+      },
+      {
+        "line": 117,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "TweenAlpha.Begin(walkOffResult.gameObject, 1, 1);"
+      },
+      {
+        "line": 123,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "TweenAlpha.Begin(resultMain.gameObject, 1, 1);"
+      },
+      {
+        "line": 410,
+        "types": [
+          "UIPanel"
+        ],
+        "code": "front.GetComponent<UIPanel>().alpha = 1;"
+      },
+      {
+        "line": 411,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "TweenAlpha.Begin(front, 0.5f, 0);"
+      },
+      {
+        "line": 422,
+        "types": [
+          "UISprite"
+        ],
+        "code": "lose.transform.Find().GetComponent<UISprite>().spriteName = ;"
+      },
+      {
+        "line": 544,
+        "types": [
+          "UILabel"
+        ],
+        "code": "UILabel leftLabel = leftTitle.transform.Find().GetComponent<UILabel>();"
+      },
+      {
+        "line": 552,
+        "types": [
+          "UILabel"
+        ],
+        "code": "UILabel rightLabel = rightTitle.transform.Find().GetComponent<UILabel>();"
+      },
+      {
+        "line": 567,
+        "types": [
+          "UILabel"
+        ],
+        "code": "getCoinObj.transform.Find().GetComponent<UILabel>().text = string.Format(, coin);"
+      },
+      {
+        "line": 636,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "TweenAlpha.Begin(front, 0.5f, 1);"
+      },
+      {
+        "line": 646,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "TweenAlpha.Begin(front, 0.5f, 1);"
+      },
+      {
+        "line": 654,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "TweenAlpha.Begin(back.gameObject, 0.5f, 0);"
+      },
+      {
+        "line": 663,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "TweenAlpha.Begin(back.gameObject, 0.5f, 0);"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/QuickGame/InstantSimulator.cs",
+    "editor": false,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 42,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel[] awayScore;"
+      },
+      {
+        "line": 43,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel[] homeScore;"
+      },
+      {
+        "line": 45,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel[] awayRecord;"
+      },
+      {
+        "line": 46,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel[] homeRecord;"
+      },
+      {
+        "line": 48,
+        "types": [
+          "UITexture"
+        ],
+        "code": "public UITexture[] logo;"
+      },
+      {
+        "line": 49,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel[] teamName;"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UIScoreBoard.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/Resources/MainGame/prefabs/gameUI/IngameUIPrefab.prefab"
+    ],
+    "hits": [
+      {
+        "line": 38,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite homeLogo, awayLogo;"
+      },
+      {
+        "line": 39,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel homeName, awayName;"
+      },
+      {
+        "line": 40,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel homeScore, awayScore;"
+      },
+      {
+        "line": 43,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite[] baseOn;"
+      },
+      {
+        "line": 46,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel inningInfo;"
+      },
+      {
+        "line": 47,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite topBottom;"
+      },
+      {
+        "line": 48,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite[] ballCount;"
+      },
+      {
+        "line": 49,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite[] strikeCount;"
+      },
+      {
+        "line": 50,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite[] outCount;"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/UISkillShow.cs",
+    "editor": false,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 15,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite[] teamText;"
+      },
+      {
+        "line": 16,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite[] teamBG;"
+      },
+      {
+        "line": 17,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite[] logo;"
+      },
+      {
+        "line": 18,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel[] playerName;"
+      },
+      {
+        "line": 19,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel[] skillName;"
+      },
+      {
+        "line": 21,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite[] skillIcon;"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/util/Util.cs",
+    "editor": false,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 114,
+        "types": [
+          "UISprite"
+        ],
+        "code": "UISprite uiSpr = t.GetComponent<UISprite>();"
+      },
+      {
+        "line": 120,
+        "types": [
+          "UIWidget"
+        ],
+        "code": "UIWidget widget = t.GetComponent<UIWidget>();"
+      },
+      {
+        "line": 209,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public static void SetUILabelColor(UILabel label, int value)"
+      },
+      {
+        "line": 574,
+        "types": [
+          "UITweener"
+        ],
+        "code": "UITweener tween = obj.GetComponent<UITweener>();"
+      },
+      {
+        "line": 581,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public static void SetSpritePixelPerfect(UISprite spr, string sprName, bool bPixelPerfect = true)"
+      },
+      {
+        "line": 588,
+        "types": [
+          "UIFont"
+        ],
+        "code": "public static UIFont GetOverallFont(int overallNum)"
+      },
+      {
+        "line": 607,
+        "types": [
+          "UITweener"
+        ],
+        "code": "UITweener tween = obj.GetComponent<UITweener>();"
+      },
+      {
+        "line": 617,
+        "types": [
+          "UITweener"
+        ],
+        "code": "UITweener tween = obj.GetComponent<UITweener>();"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UIFinalStanding.cs",
+    "editor": false,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 14,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel teamPowerLabel;"
+      },
+      {
+        "line": 15,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite teamLogoSpr;"
+      },
+      {
+        "line": 88,
+        "types": [
+          "UISprite"
+        ],
+        "code": "col.GetComponent<UISprite>().spriteName = bMyColumn ?  : ;"
+      },
+      {
+        "line": 91,
+        "types": [
+          "UILabel"
+        ],
+        "code": "col.Find().GetComponent<UILabel>().color = Color.white;"
+      },
+      {
+        "line": 96,
+        "types": [
+          "UISprite"
+        ],
+        "code": "Util.SetSpritePixelPerfect(col.Find().GetComponent<UISprite>(),  + (int)teamInfo.team);"
+      },
+      {
+        "line": 98,
+        "types": [
+          "UILabel"
+        ],
+        "code": "UILabel[] label = new UILabel[11];"
+      },
+      {
+        "line": 101,
+        "types": [
+          "UILabel"
+        ],
+        "code": "label[i] = col.Find( + i).GetComponent<UILabel>();"
+      },
+      {
+        "line": 125,
+        "types": [
+          "UISprite"
+        ],
+        "code": "col.GetComponent<UISprite>().spriteName = bMyColumn ?  : ;"
+      },
+      {
+        "line": 128,
+        "types": [
+          "UILabel"
+        ],
+        "code": "col.Find().GetComponent<UILabel>().color = Color.white;"
+      },
+      {
+        "line": 133,
+        "types": [
+          "UISprite"
+        ],
+        "code": "Util.SetSpritePixelPerfect(col.Find().GetComponent<UISprite>(),  + (int)teamRecordInfo.team);"
+      },
+      {
+        "line": 135,
+        "types": [
+          "UILabel"
+        ],
+        "code": "UILabel[] label = new UILabel[11];"
+      },
+      {
+        "line": 138,
+        "types": [
+          "UILabel"
+        ],
+        "code": "label[i] = col.Find( + i).GetComponent<UILabel>();"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UILeagueFinalReward.cs",
+    "editor": false,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 16,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel rankLabel;"
+      },
+      {
+        "line": 17,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel teamPowerLabel;"
+      },
+      {
+        "line": 18,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel wdlLabel;"
+      },
+      {
+        "line": 19,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel coinLabel;"
+      },
+      {
+        "line": 20,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite leagueLogoSpr;"
+      },
+      {
+        "line": 156,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "TweenAlpha.Begin(gameObject, 0.5f, 0);"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UILeagueFinalTitle.cs",
+    "editor": false,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 14,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite leagueLogo;"
+      },
+      {
+        "line": 18,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite[] pLabel;"
+      },
+      {
+        "line": 19,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite[] bLabel;"
+      },
+      {
+        "line": 21,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite cursor;"
+      },
+      {
+        "line": 119,
+        "types": [
+          "UITweener"
+        ],
+        "code": "UITweener tween = light.GetComponent<UITweener>();"
+      },
+      {
+        "line": 126,
+        "types": [
+          "UIPanel"
+        ],
+        "code": "mvp.GetComponent<UIPanel>().alpha = 0;"
+      },
+      {
+        "line": 131,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "TweenAlpha.Begin(mvp, 0.2f, 1.0f);"
+      },
+      {
+        "line": 132,
+        "types": [
+          "TweenPosition"
+        ],
+        "code": "TweenPosition.Begin(mvp, 0.2f, Vector3.zero);"
+      },
+      {
+        "line": 150,
+        "types": [
+          "UISprite"
+        ],
+        "code": "curTitle.GetComponent<UISprite>().alpha = 0;"
+      },
+      {
+        "line": 170,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "TweenAlpha.Begin(obj, 0.2f, 1.0f);"
+      },
+      {
+        "line": 171,
+        "types": [
+          "TweenPosition"
+        ],
+        "code": "TweenPosition.Begin(obj, 0.2f, new Vector3((-230 + count * 218), 200, 0));"
+      },
+      {
+        "line": 177,
+        "types": [
+          "UISprite"
+        ],
+        "code": "UISprite[] card = new UISprite[3];"
+      },
+      {
+        "line": 180,
+        "types": [
+          "UISprite"
+        ],
+        "code": "card[count] = child.GetComponent<UISprite>();"
+      },
+      {
+        "line": 251,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "TweenAlpha.Begin(gameObject, 0.5f, 0);"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UILeagueUpDown.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/Resources/MainGame/prefabs/resultUI/resultPrefab.prefab"
+    ],
+    "hits": [
+      {
+        "line": 17,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite leagueLogo, leagueLogoUp, leagueLogoDown;"
+      },
+      {
+        "line": 18,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel leagueRank;"
+      },
+      {
+        "line": 42,
+        "types": [
+          "UIPanel"
+        ],
+        "code": "finalRewardMain.front.GetComponent<UIPanel>().alpha = 0;"
+      },
+      {
+        "line": 71,
+        "types": [
+          "UIPanel"
+        ],
+        "code": "finalRewardMain.front.GetComponent<UIPanel>().alpha = 0;"
+      },
+      {
+        "line": 115,
+        "types": [
+          "UIPanel"
+        ],
+        "code": "finalRewardMain.front.GetComponent<UIPanel>().alpha = 0;"
+      },
+      {
+        "line": 184,
+        "types": [
+          "UIPanel"
+        ],
+        "code": "gameObject.GetComponent<UIPanel>().alpha = 0;"
+      },
+      {
+        "line": 186,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "TweenAlpha.Begin(gameObject, 0.15f, 1);"
+      },
+      {
+        "line": 200,
+        "types": [
+          "TweenPosition"
+        ],
+        "code": "TweenPosition.Begin(leagueLogo.gameObject, 0.5f, new Vector3(0,200,0));"
+      },
+      {
+        "line": 201,
+        "types": [
+          "UITweener"
+        ],
+        "code": "UITweener tween = leagueLogoUp.gameObject.GetComponent<UITweener>();"
+      },
+      {
+        "line": 207,
+        "types": [
+          "TweenPosition"
+        ],
+        "code": "TweenPosition.Begin(leagueLogo.gameObject, 0.5f, new Vector3(0, -200, 0));"
+      },
+      {
+        "line": 208,
+        "types": [
+          "UITweener"
+        ],
+        "code": "UITweener tween = leagueLogoDown.gameObject.GetComponent<UITweener>();"
+      },
+      {
+        "line": 263,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "TweenAlpha.Begin(gameObject, 0.5f, 0);"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UIPostSeasonSchedule.cs",
+    "editor": false,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 15,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel[] teamName;"
+      },
+      {
+        "line": 17,
+        "types": [
+          "UITexture"
+        ],
+        "code": "public UITexture[] teamLogo;"
+      },
+      {
+        "line": 23,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite leagueLogo;"
+      },
+      {
+        "line": 83,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "TweenAlpha.Begin(gameObject, 0.5f, 0);"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/finalRewardUI/UITotalReward.cs",
+    "editor": false,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 24,
+        "types": [
+          "UILabel"
+        ],
+        "code": "private UILabel goldLabel;"
+      },
+      {
+        "line": 39,
+        "types": [
+          "UILabel"
+        ],
+        "code": "goldLabel = goldUI.transform.Find().GetComponent<UILabel>();"
+      },
+      {
+        "line": 101,
+        "types": [
+          "UILabel"
+        ],
+        "code": "race.transform.Find().GetComponent<UILabel>().text = string.Format(, annInfo.weekRanking);"
+      },
+      {
+        "line": 133,
+        "types": [
+          "UILabel"
+        ],
+        "code": "walkoff.transform.Find().GetComponent<UILabel>().text = string.Format(, annInfo.weekRanking);"
+      },
+      {
+        "line": 169,
+        "types": [
+          "UILabel"
+        ],
+        "code": "livematch.transform.Find().GetComponent<UILabel>().text = string.Format(, annInfo.finalRank);"
+      },
+      {
+        "line": 174,
+        "types": [
+          "UILabel"
+        ],
+        "code": "goldLabel = coinUI.transform.Find().GetComponent<UILabel>();"
+      },
+      {
+        "line": 276,
+        "types": [
+          "UIGrid"
+        ],
+        "code": "grid.GetComponent<UIGrid>().enabled = true;"
+      },
+      {
+        "line": 339,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "TweenAlpha.Begin(gameObject, 0.5f, 0);"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/resultUI/LegacyResultScoreboard.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/Resources/MainGame/prefabs/resultUI/resultPrefab.prefab"
+    ],
+    "hits": [
+      {
+        "line": 13,
+        "types": [
+          "UILabel"
+        ],
+        "code": "private readonly UILabel[,] scores = new UILabel[2, MaxInnings];"
+      },
+      {
+        "line": 14,
+        "types": [
+          "UILabel"
+        ],
+        "code": "private readonly UILabel[,] stats = new UILabel[2, 3];"
+      },
+      {
+        "line": 25,
+        "types": [
+          "UILabel"
+        ],
+        "code": "var label = child.GetComponent<UILabel>();"
+      },
+      {
+        "line": 34,
+        "types": [
+          "UILabel"
+        ],
+        "code": "var label = child.GetComponent<UILabel>();"
+      },
+      {
+        "line": 39,
+        "types": [
+          "UISprite"
+        ],
+        "code": "var logo = row.Find().GetComponent<UISprite>();"
+      },
+      {
+        "line": 42,
+        "types": [
+          "UILabel"
+        ],
+        "code": "row.Find().GetComponent<UILabel>().text = team == 0 ? awayTeam : homeTeam;"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/resultUI/UIResultGrow.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/Resources/MainGame/prefabs/resultUI/resultPrefab.prefab"
+    ],
+    "hits": [
+      {
+        "line": 71,
+        "types": [
+          "UIScrollView"
+        ],
+        "code": "batterGrow.GetComponent<UIScrollView>().enabled = false;"
+      },
+      {
+        "line": 119,
+        "types": [
+          "UIScrollView"
+        ],
+        "code": "pitcherGrow.GetComponent<UIScrollView>().enabled = false;"
+      },
+      {
+        "line": 122,
+        "types": [
+          "UIPanel"
+        ],
+        "code": "gameObject.GetComponent<UIPanel>().alpha = 1;"
+      },
+      {
+        "line": 148,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "TweenAlpha.Begin(gameObject, 0.5f, 0);"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/resultUI/UIResultMain.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/Resources/MainGame/prefabs/resultUI/resultPrefab.prefab"
+    ],
+    "hits": [
+      {
+        "line": 20,
+        "types": [
+          "UITexture"
+        ],
+        "code": "public UITexture myLogo;"
+      },
+      {
+        "line": 21,
+        "types": [
+          "UITexture"
+        ],
+        "code": "public UITexture cpuLogo;"
+      },
+      {
+        "line": 46,
+        "types": [
+          "UILabel"
+        ],
+        "code": "stat.Find().GetComponent<UILabel>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);"
+      },
+      {
+        "line": 47,
+        "types": [
+          "UILabel"
+        ],
+        "code": "stat.Find().GetComponent<UILabel>().text = manager.nGameScore[i].ToString();"
+      },
+      {
+        "line": 67,
+        "types": [
+          "UILabel"
+        ],
+        "code": "upDownObj[i].transform.Find().GetComponent<UILabel>().text = curRank[i] + ;"
+      },
+      {
+        "line": 95,
+        "types": [
+          "UILabel"
+        ],
+        "code": "stat.FindChild().GetComponent<UILabel>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);"
+      },
+      {
+        "line": 96,
+        "types": [
+          "UILabel"
+        ],
+        "code": "stat.FindChild().GetComponent<UILabel>().text = manager.nGameScore[i].ToString();"
+      },
+      {
+        "line": 116,
+        "types": [
+          "UILabel"
+        ],
+        "code": "upDownObj[i].transform.FindChild().GetComponent<UILabel>().text = curRank[i] + ;"
+      },
+      {
+        "line": 172,
+        "types": [
+          "UILabel"
+        ],
+        "code": "stat.FindChild().GetComponent<UILabel>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);"
+      },
+      {
+        "line": 173,
+        "types": [
+          "UILabel"
+        ],
+        "code": "stat.FindChild().GetComponent<UILabel>().text = manager.nGameScore[i].ToString();"
+      },
+      {
+        "line": 194,
+        "types": [
+          "UILabel"
+        ],
+        "code": "upDownObj[i].transform.FindChild().GetComponent<UILabel>().text = curRank[i] + ;"
+      },
+      {
+        "line": 264,
+        "types": [
+          "UILabel"
+        ],
+        "code": "stat.FindChild().GetComponent<UILabel>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);"
+      },
+      {
+        "line": 265,
+        "types": [
+          "UILabel"
+        ],
+        "code": "stat.FindChild().GetComponent<UILabel>().text = manager.nGameScore[i].ToString();"
+      },
+      {
+        "line": 288,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "TweenAlpha.Begin(gameObject, 0.5f, 0);"
+      },
+      {
+        "line": 323,
+        "types": [
+          "UILabel"
+        ],
+        "code": "value5.GetComponent<UILabel>().text = value.ToString();"
+      },
+      {
+        "line": 325,
+        "types": [
+          "UISprite"
+        ],
+        "code": "UISprite gaugeSpr = value5.Find().GetComponent<UISprite>();"
+      },
+      {
+        "line": 348,
+        "types": [
+          "TweenPosition"
+        ],
+        "code": "if(leftObj.activeSelf) TweenPosition.Begin(leftObj, 0.15f, new Vector3(-437, 0, 0));"
+      },
+      {
+        "line": 349,
+        "types": [
+          "TweenPosition"
+        ],
+        "code": "if (rightObj.activeSelf) TweenPosition.Begin(rightObj, 0.15f, new Vector3(437, 0, 0));"
+      },
+      {
+        "line": 351,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "TweenAlpha.Begin(effectObj.transform.Find().gameObject, 0.2f, 0);"
+      },
+      {
+        "line": 352,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "TweenAlpha.Begin(effectObj.transform.Find().gameObject, 0.2f, 0);"
+      },
+      {
+        "line": 365,
+        "types": [
+          "UISprite"
+        ],
+        "code": "private IEnumerator gagueAnim(UISprite gaugeSpr, int size)"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/resultUI/UIResultPlayerRecord.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/Resources/MainGame/prefabs/resultUI/resultPrefab.prefab"
+    ],
+    "hits": [
+      {
+        "line": 19,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite batterTab, pitcherTab;"
+      },
+      {
+        "line": 20,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite myTeamTab, cpuTeamTab;"
+      },
+      {
+        "line": 82,
+        "types": [
+          "UIScrollView"
+        ],
+        "code": "batterView[team].GetComponent<UIScrollView>().enabled = false;"
+      },
+      {
+        "line": 110,
+        "types": [
+          "UIScrollView"
+        ],
+        "code": "pitcherView[team].GetComponent<UIScrollView>().enabled = false;"
+      },
+      {
+        "line": 124,
+        "types": [
+          "UISprite"
+        ],
+        "code": "batterTab.transform.Find().GetComponent<UISprite>().spriteName = ;"
+      },
+      {
+        "line": 126,
+        "types": [
+          "UISprite"
+        ],
+        "code": "pitcherTab.transform.Find().GetComponent<UISprite>().spriteName = ;"
+      },
+      {
+        "line": 141,
+        "types": [
+          "UISprite"
+        ],
+        "code": "batterTab.transform.Find().GetComponent<UISprite>().spriteName = ;"
+      },
+      {
+        "line": 143,
+        "types": [
+          "UISprite"
+        ],
+        "code": "pitcherTab.transform.Find().GetComponent<UISprite>().spriteName = ;"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/resultUI/UIResultReward.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/Resources/MainGame/prefabs/resultUI/resultPrefab.prefab"
+    ],
+    "hits": [
+      {
+        "line": 15,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel gold;"
+      },
+      {
+        "line": 34,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "TweenAlpha.Begin(gameObject, 0.3f, 0);"
+      },
+      {
+        "line": 54,
+        "types": [
+          "UILabel"
+        ],
+        "code": "private IEnumerator setGold(UILabel label, int getgold)"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/resultUI/UIWalkOffResult.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/Resources/MainGame/prefabs/resultUI/resultPrefab.prefab"
+    ],
+    "hits": [
+      {
+        "line": 12,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite logo;"
+      },
+      {
+        "line": 13,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel teamLabel;"
+      },
+      {
+        "line": 15,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel totalScore;"
+      },
+      {
+        "line": 19,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel gold;"
+      },
+      {
+        "line": 20,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel rank;"
+      },
+      {
+        "line": 21,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel percent;"
+      },
+      {
+        "line": 22,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel finalScore;"
+      },
+      {
+        "line": 23,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel finalRound;"
+      },
+      {
+        "line": 24,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel goldPerRun;"
+      },
+      {
+        "line": 41,
+        "types": [
+          "UILabel"
+        ],
+        "code": "UILabel roundScore = child.GetComponent<UILabel>();"
+      },
+      {
+        "line": 90,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "TweenAlpha.Begin(gameObject, 0.5f, 0);"
+      },
+      {
+        "line": 111,
+        "types": [
+          "TweenPosition"
+        ],
+        "code": "if (leftObj.activeSelf) TweenPosition.Begin(leftObj, 0.15f, new Vector3(-437, 0, 0));"
+      },
+      {
+        "line": 112,
+        "types": [
+          "TweenPosition"
+        ],
+        "code": "if (rightObj.activeSelf) TweenPosition.Begin(rightObj, 0.15f, new Vector3(437, 0, 0));"
+      },
+      {
+        "line": 114,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "TweenAlpha.Begin(effectObj.transform.Find().gameObject, 0.2f, 0);"
+      },
+      {
+        "line": 115,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "TweenAlpha.Begin(effectObj.transform.Find().gameObject, 0.2f, 0);"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/CardSmall.cs",
+    "editor": false,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 8,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite spriteBackground;"
+      },
+      {
+        "line": 9,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite spriteNameBackground;"
+      },
+      {
+        "line": 10,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite spriteTeamLogo;"
+      },
+      {
+        "line": 11,
+        "types": [
+          "UITexture"
+        ],
+        "code": "public UITexture texturePlayer;"
+      },
+      {
+        "line": 12,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel labelPlayerName;"
+      },
+      {
+        "line": 13,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel labelPlayerLevel;"
+      },
+      {
+        "line": 14,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite spritePlayerPosition;"
+      },
+      {
+        "line": 15,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite spritePlayerEnhance;"
+      },
+      {
+        "line": 16,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel labelOverRoll;"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/gaugeMove.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/Resources/MainGame/prefabs/resultUI/resultPrefab.prefab"
+    ],
+    "hits": [
+      {
+        "line": 12,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite firstGauge, secondGague;"
+      },
+      {
+        "line": 13,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel percent, exp, level;"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/gaugePlayerMove.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/Resources/MainGame/prefabs/resultUI/resultPlayerGrowPrefab.prefab"
+    ],
+    "hits": [
+      {
+        "line": 10,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite firstGauge, secondGague;"
+      },
+      {
+        "line": 11,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel level;"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/individualTitle.cs",
+    "editor": false,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 10,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel teamNameLabel;"
+      },
+      {
+        "line": 11,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite myTeamSpr, myTealLogoSpr;"
+      },
+      {
+        "line": 12,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel goldLabel;"
+      },
+      {
+        "line": 14,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel info;"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/levelupGauge.cs",
+    "editor": false,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 7,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite gauge, txt;"
+      },
+      {
+        "line": 8,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel per;"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/miniRunner.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/MainGame/UI/FieldMinimapUGUI/MinimapRunner.prefab",
+      "Assets/Resources/MainGame/prefabs/ControlUI/miniRunner2.prefab"
+    ],
+    "hits": [
+      {
+        "line": 12,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite _team;"
+      },
+      {
+        "line": 13,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel _name;"
+      },
+      {
+        "line": 90,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "else TweenAlpha.Begin(gameObject, duration, 0);"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/mvpTitle.cs",
+    "editor": false,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 10,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel teamNameLabel;"
+      },
+      {
+        "line": 11,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite myTeamSpr, myTealLogoSpr;"
+      },
+      {
+        "line": 12,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel goldLabel;"
+      },
+      {
+        "line": 14,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel[] info1;"
+      },
+      {
+        "line": 15,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel[] info2;"
+      },
+      {
+        "line": 16,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite[] winnner;"
+      },
+      {
+        "line": 20,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite cardLight;"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/otherResultSetting.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/Resources/MainGame/prefabs/resultUI/resultPrefab.prefab"
+    ],
+    "hits": [
+      {
+        "line": 10,
+        "types": [
+          "UITexture"
+        ],
+        "code": "public UITexture[] logo;"
+      },
+      {
+        "line": 11,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel[] teamLabel;"
+      },
+      {
+        "line": 12,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel[] rankLabel;"
+      },
+      {
+        "line": 13,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel[] scoreLabel;"
+      },
+      {
+        "line": 14,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite[] updown;"
+      },
+      {
+        "line": 17,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel[] pitcherLabel;"
+      },
+      {
+        "line": 18,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel[] pitcherOverall;"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/pitchingSelectButton.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/MainGame/UI/PitchSelectionUGUI/PitchSelection.prefab",
+      "Assets/Resources/MainGame/prefabs/gameUI/IngameUIPrefab.prefab"
+    ],
+    "hits": [
+      {
+        "line": 9,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite back, text;"
+      },
+      {
+        "line": 11,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel num;"
+      },
+      {
+        "line": 12,
+        "types": [
+          "UITexture"
+        ],
+        "code": "public UITexture effect;"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/postScheduleInfo.cs",
+    "editor": false,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 10,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite[] leftLine;"
+      },
+      {
+        "line": 11,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite[] rightLine;"
+      },
+      {
+        "line": 13,
+        "types": [
+          "UITexture"
+        ],
+        "code": "public UITexture challergerLogo;"
+      },
+      {
+        "line": 25,
+        "types": [
+          "UILabel"
+        ],
+        "code": "UILabel away = curBox.Find().GetComponent<UILabel>();"
+      },
+      {
+        "line": 26,
+        "types": [
+          "UILabel"
+        ],
+        "code": "UILabel home = curBox.Find().GetComponent<UILabel>();"
+      },
+      {
+        "line": 58,
+        "types": [
+          "UISprite"
+        ],
+        "code": "GetComponent<UISprite>().spriteName = ;"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/resultGrowBar.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/Resources/MainGame/prefabs/resultUI/resultPlayerGrowPrefab.prefab"
+    ],
+    "hits": [
+      {
+        "line": 11,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite pos1, pos2;"
+      },
+      {
+        "line": 12,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel name, overall;"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/resultLeagueLeader.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/Resources/MainGame/prefabs/resultUI/resultLeagueReaderPrefab.prefab"
+    ],
+    "hits": [
+      {
+        "line": 8,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel teamName, result;"
+      },
+      {
+        "line": 9,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite logo;"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/resultSeasonRewardBar.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/Resources/MainGame/prefabs/resultUI/resultSeasonRewardBarPrefab.prefab"
+    ],
+    "hits": [
+      {
+        "line": 8,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel label, rank, gold;"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/resultStatBar.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/Resources/MainGame/prefabs/resultUI/resultBatterRecordBarPrefab.prefab",
+      "Assets/Resources/MainGame/prefabs/resultUI/resultPitcherRecordBarPrefab.prefab"
+    ],
+    "hits": [
+      {
+        "line": 9,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite logo;"
+      },
+      {
+        "line": 10,
+        "types": [
+          "UISprite"
+        ],
+        "code": "public UISprite pos;"
+      },
+      {
+        "line": 11,
+        "types": [
+          "UILabel"
+        ],
+        "code": "public UILabel[] label;"
+      }
+    ]
+  },
+  {
+    "path": "Assets/MainGame/Script/UI/ui_etc/rewardObj.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/Resources/MainGame/prefabs/resultUI/rewardObjPrefab.prefab"
+    ],
+    "hits": [
+      {
+        "line": 29,
+        "types": [
+          "TweenAlpha"
+        ],
+        "code": "TweenAlpha.Begin(light, 0.4f, 0.65f);"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Scripts_New/Manager/KOBManager.cs",
+    "editor": false,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 93,
+        "types": [
+          "Localization"
+        ],
+        "code": "public static LocalizationManager Localization"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Scripts_New/Rtts/RttsGameSimulation.cs",
+    "editor": false,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 687,
+        "types": [
+          "Localization"
+        ],
+        "code": "string localized = KOBManager.Localization.GetUILocalizedValue2(character.name_id);"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Scripts_New/TestScript/DebugPanel.cs",
+    "editor": false,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 182,
+        "types": [
+          "Localization"
+        ],
+        "code": "CardTxt.text = KOBManager.Localization.GetUILocalizedValue2(data.name_id);"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_GearSetting.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/Resources/UI/Popup/Popup_GearSetting.prefab"
+    ],
+    "hits": [
+      {
+        "line": 249,
+        "types": [
+          "Localization"
+        ],
+        "code": "GearNameTxt.text = KOBManager.Localization.GetUILocalizedValue2(name_id);"
+      },
+      {
+        "line": 253,
+        "types": [
+          "Localization"
+        ],
+        "code": "GearNameTxt.text = string.Format(, KOBManager.Localization.GetUILocalizedValue2(name_id), CurLevel);"
+      },
+      {
+        "line": 263,
+        "types": [
+          "Localization"
+        ],
+        "code": "GearDescTxt.text = string.Format(KOBManager.Localization.GetUILocalizedValue2(desc_id), value, Per, value2, Per2, value3, Per3);"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_Name.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/Resources/UI/Popup/Popup_Name.prefab"
+    ],
+    "hits": [
+      {
+        "line": 42,
+        "types": [
+          "Localization"
+        ],
+        "code": "Title.text = KOBManager.Localization.GetUILocalizedValue2();"
+      },
+      {
+        "line": 43,
+        "types": [
+          "Localization"
+        ],
+        "code": "Title2.text = KOBManager.Localization.GetUILocalizedValue2();"
+      },
+      {
+        "line": 57,
+        "types": [
+          "Localization"
+        ],
+        "code": "Title.text = KOBManager.Localization.GetUILocalizedValue2();"
+      },
+      {
+        "line": 58,
+        "types": [
+          "Localization"
+        ],
+        "code": "Title2.text = KOBManager.Localization.GetUILocalizedValue2();"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_SkillSetting.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/Resources/UI/Popup/Popup_SkillSetting.prefab"
+    ],
+    "hits": [
+      {
+        "line": 310,
+        "types": [
+          "Localization"
+        ],
+        "code": "SkillNameTxt.text = KOBManager.Localization.GetUILocalizedValue2(skillData.name_id);"
+      },
+      {
+        "line": 314,
+        "types": [
+          "Localization"
+        ],
+        "code": "SkillNameTxt.text = string.Format(, KOBManager.Localization.GetUILocalizedValue2(skillData.name_id), CurLevel);"
+      },
+      {
+        "line": 326,
+        "types": [
+          "Localization"
+        ],
+        "code": "SkillDescTxt.text = string.Format(KOBManager.Localization.GetUILocalizedValue2(skillData.desc_id), value[0], Per[0], value[1], Per[1], value[2], Per[2]);"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Scripts_New/UIPopup/Popup_StatUpgrade.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/Resources/UI/Popup/Popup_StatUpgrade.prefab"
+    ],
+    "hits": [
+      {
+        "line": 132,
+        "types": [
+          "Localization"
+        ],
+        "code": "CurName = KOBManager.Localization.GetUILocalizedValue2(ballerData.name_id);"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Scripts_New/UIWindow/UI_BallersList.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/Resources/UI/Window/UI_BallersList.prefab"
+    ],
+    "hits": [
+      {
+        "line": 92,
+        "types": [
+          "Localization"
+        ],
+        "code": "titleTxt.text = string.Format(KOBManager.Localization.GetUILocalizedValue2(), baller, total);"
+      },
+      {
+        "line": 95,
+        "types": [
+          "Localization"
+        ],
+        "code": "sortTxt.text = KOBManager.Localization.GetUILocalizedValue2( + (int)sortType);"
+      },
+      {
+        "line": 139,
+        "types": [
+          "Localization"
+        ],
+        "code": "sortTxt.text = KOBManager.Localization.GetUILocalizedValue2( + (int)sortType);"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Scripts_New/Util/KOBUtil.cs",
+    "editor": false,
+    "serialized_owners": [],
+    "hits": [
+      {
+        "line": 93,
+        "types": [
+          "Localization"
+        ],
+        "code": "return KOBManager.Localization.GetUILocalizedValue2(_id);"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Baller/BallerInfoComponent2.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/Resources/UI/Window/UI_Ballers.prefab"
+    ],
+    "hits": [
+      {
+        "line": 31,
+        "types": [
+          "Localization"
+        ],
+        "code": "ballerNameTxt.text = KOBManager.Localization.GetUILocalizedValue2(ballerData.name_id);"
+      },
+      {
+        "line": 32,
+        "types": [
+          "Localization"
+        ],
+        "code": "ballerDescTxt.text = KOBManager.Localization.GetUILocalizedValue2(ballerData.desc_id);"
+      },
+      {
+        "line": 35,
+        "types": [
+          "Localization"
+        ],
+        "code": "string char_type = KOBManager.Localization.GetUILocalizedValue2(string.Format(, (int)ballerData.char_type));"
+      },
+      {
+        "line": 37,
+        "types": [
+          "Localization"
+        ],
+        "code": "rarityTxt.text = KOBManager.Localization.GetUILocalizedValue2(string.Format(, ballerData.rarity.ToString()));"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Baller/BallerTrophyComponent.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/Resources/UI/Window/UI_Ballers.prefab"
+    ],
+    "hits": [
+      {
+        "line": 92,
+        "types": [
+          "Localization"
+        ],
+        "code": "typeTxt.text = KOBManager.Localization.GetUILocalizedValue2(string.Format(, (int)ballerData.char_type));"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Baller/CardBaller.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/Resources/UI/Card/CardBaller.prefab"
+    ],
+    "hits": [
+      {
+        "line": 124,
+        "types": [
+          "Localization"
+        ],
+        "code": "BallerName.text = KOBManager.Localization.GetUILocalizedValue2(data.name_id);"
+      }
+    ]
+  },
+  {
+    "path": "Assets/Scripts_New/UIComponent/Baller/CardReward.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/Resources/UI/Card/CardReward.prefab",
+      "Assets/Resources/UI/Popup/Popup_RewardGet.prefab"
+    ],
+    "hits": [
+      {
+        "line": 31,
+        "types": [
+          "Localization"
+        ],
+        "code": "Name.text = KOBManager.Localization.GetUILocalizedValue2(data.name_id);"
+      }
+    ]
+  },
+  {
+    "path": "Assets/TK2DROOT/tk2dUI/Code/Core/tk2dUIManager.cs",
+    "editor": false,
+    "serialized_owners": [
+      "Assets/Resources/MainGame/prefabs/ControlUI/ControlUIPrefab.prefab"
+    ],
+    "hits": [
+      {
+        "line": 49,
+        "types": [
+          "UICamera"
+        ],
+        "code": "public Camera UICamera"
+      }
+    ]
+  }
+]

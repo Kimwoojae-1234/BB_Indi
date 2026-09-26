@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -16,8 +17,8 @@ namespace BaseBall.BallPlay
         public GameObject [] batterView, pitcherView;
 
 
-        public UISprite batterTab, pitcherTab;
-        public UISprite myTeamTab, cpuTeamTab;
+        public GameUIElement batterTab, pitcherTab;
+        public GameUIElement myTeamTab, cpuTeamTab;
 
 
         private resultStatBar[] batterBar;
@@ -79,7 +80,7 @@ namespace BaseBall.BallPlay
 
                 if (count < 10)
                 {
-                    batterView[team].GetComponent<UIScrollView>().enabled = false;
+                    batterView[team].GetComponent<GameUIScroll>().enabled = false;
                 }
             }
         }
@@ -107,7 +108,7 @@ namespace BaseBall.BallPlay
 
                 if (count < 10)
                 {
-                    pitcherView[team].GetComponent<UIScrollView>().enabled = false;
+                    pitcherView[team].GetComponent<GameUIScroll>().enabled = false;
                 }
 
             }
@@ -121,9 +122,9 @@ namespace BaseBall.BallPlay
             if (bBatterState == false)
             {                
                 batterTab.spriteName = "stat_tab_on";
-                batterTab.transform.Find("spr").GetComponent<UISprite>().spriteName = "stat_batter_on";
+                batterTab.transform.Find("spr").GetComponent<GameUIElement>().spriteName = "stat_batter_on";
                 pitcherTab.spriteName = "stat_tab_off";
-                pitcherTab.transform.Find("spr").GetComponent<UISprite>().spriteName = "stat_pitcher_off";
+                pitcherTab.transform.Find("spr").GetComponent<GameUIElement>().spriteName = "stat_pitcher_off";
 
                 batterObj.SetActive(true);
                 pitcherObj.SetActive(false);
@@ -138,9 +139,9 @@ namespace BaseBall.BallPlay
             if (bBatterState == true)
             {
                 batterTab.spriteName = "stat_tab_off";
-                batterTab.transform.Find("spr").GetComponent<UISprite>().spriteName = "stat_batter_off";
+                batterTab.transform.Find("spr").GetComponent<GameUIElement>().spriteName = "stat_batter_off";
                 pitcherTab.spriteName = "stat_tab_on";
-                pitcherTab.transform.Find("spr").GetComponent<UISprite>().spriteName = "stat_pitcher_on";
+                pitcherTab.transform.Find("spr").GetComponent<GameUIElement>().spriteName = "stat_pitcher_on";
 
                 batterObj.SetActive(false);
                 pitcherObj.SetActive(true);

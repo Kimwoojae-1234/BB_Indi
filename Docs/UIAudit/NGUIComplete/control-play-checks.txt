@@ -1,0 +1,26 @@
+PASS
+SOURCE Toggle A Assets/Resources/Prefab/UI/UI_Title.prefab / CheckBox
+SOURCE Toggle B Assets/Resources/Prefab/UI/UI_Title.prefab / CheckBox
+SOURCE Slider Assets/Resources/Prefab/UI/UI_Download.prefab / Slider
+SOURCE Input Assets/Resources/Prefab/UI/UI_Login.prefab / InputUserID
+PASS One pointer click toggles once and invokes one callback
+PASS Radio group deselects peer
+PASS Radio group cannot become empty
+PASS Slider quantizes to original step count
+PASS Slider fill geometry=0
+PASS Slider fill geometry=0.5
+PASS Slider fill geometry=1
+PASS Slider pointer position maps to 75 percent
+PASS Dynamically loaded slider retains its fill area inside the host mask
+PASS Clipped dynamic slider still renders 50 percent
+PASS Anchors retain edge offsets
+PASS Anchors respond to resizing
+PASS Dynamic list bounds include all 11 instantiated rows
+PASS Bounds refresh preserves anchored child positions
+PASS Native ScrollRect drag reaches dynamically added rows
+PASS Dynamic list bounds shrink when a row is removed
+PASS Outer list bounds exclude nested scroll content
+PASS Empty dynamic list clears stale scroll bounds
+PASS InputField receives focus through migrated hit surface
+PASS InputField synchronizes Korean/Latin text
+PASS Input submit callback once

@@ -1,4 +1,4 @@
-﻿using BaseBall.BallPlay.UGUI;
+using BaseBall.BallPlay.UGUI;
 using UnityEngine;
 using System.Collections;
 
@@ -6,10 +6,10 @@ namespace BaseBall.BallPlay
 {
     public class pitchingSelectButton : MonoBehaviour
     {
-        public UISprite back, text;
+        public GameUIElement back, text;
         //public overallNumber num;
-        public UILabel num;
-        public UITexture effect;
+        public GameUIElement num;
+        public GameUIElement effect;
         public GameObject _light;
 
         [SerializeField] private PitchSelectionButtonView uguiView;

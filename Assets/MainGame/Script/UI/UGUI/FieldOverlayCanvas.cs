@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace BaseBall.BallPlay
 {
-    // Display-only bridge while the rest of the field HUD still uses NGUI.
+    // Synchronizes the field overlay's canvas with its owning UI panel.
     public sealed class FieldOverlayCanvas : MonoBehaviour
     {
         public Canvas displayCanvas;

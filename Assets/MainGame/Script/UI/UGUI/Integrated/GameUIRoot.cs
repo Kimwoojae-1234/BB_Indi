@@ -8,6 +8,8 @@ namespace BaseBall.BallPlay.UGUI
     {
         public int manualWidth = 1280, manualHeight = 720;
         public bool fitWidth, fitHeight = true;
+        public int scalingStyle = 1, minimumHeight = 320, maximumHeight = 1536;
+        public bool shrinkPortraitUI;
         public Camera uiCamera;
         public Canvas rootCanvas;
         public RectTransform hudLayer, effectsLayer, popupLayer;
@@ -48,6 +50,15 @@ namespace BaseBall.BallPlay.UGUI
             float aspect = Screen.width / (float)Mathf.Max(1, Screen.height);
             float height = fitWidth ? (fitHeight ? Mathf.Max(manualHeight, manualWidth / aspect) : manualWidth / aspect)
                 : (fitHeight ? manualHeight : Mathf.Min(manualHeight, manualWidth / aspect));
+            bool flexible = scalingStyle == 0;
+#if !UNITY_EDITOR && !UNITY_ANDROID && !UNITY_IOS
+            flexible |= scalingStyle == 2;
+#endif
+            if (flexible)
+            {
+                height = Mathf.Clamp(Screen.height, minimumHeight, maximumHeight);
+                if (shrinkPortraitUI && aspect < 1) height /= aspect;
+            }
             transform.localScale = Vector3.one * (2 / Mathf.Max(1, height));
         }
         public Transform EffectsParent => effectsLayer != null ? effectsLayer : transform;

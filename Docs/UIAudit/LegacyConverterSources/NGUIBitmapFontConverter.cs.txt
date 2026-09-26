@@ -1,0 +1,53 @@
+#if UNITY_EDITOR
+using TMPro;
+using UnityEngine;
+using UnityEditor;
+using UnityEngine.TextCore;
+using UnityEngine.TextCore.LowLevel;
+public static class NGUIBitmapFontConverter
+{
+    public static TMP_FontAsset BuildFont(UIFont source, string folder = "Assets/MainGame/UI/ScoreboardUGUI")
+    {
+        string path = folder + "/" + source.name + " TMP.asset";
+        var existing = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(path);
+        if (existing != null) return existing;
+        var uv = source.uvRect;
+        var bitmap = source.bmFont;
+        var font = ScriptableObject.CreateInstance<TMP_FontAsset>();
+        font.name = source.name + " TMP";
+        font.atlasPopulationMode = AtlasPopulationMode.Static;
+        font.atlasTextures = new[] { source.texture };
+        font.faceInfo = new FaceInfo { familyName = source.name, styleName = "Regular", pointSize = bitmap.charSize,
+            scale = 1, lineHeight = bitmap.charSize, ascentLine = bitmap.charSize, capLine = bitmap.charSize,
+            meanLine = bitmap.charSize * .5f, baseline = 0, descentLine = 0, underlineThickness = 1, tabWidth = bitmap.charSize };
+        var serialized = new SerializedObject(font);
+        serialized.FindProperty("m_Version").stringValue = "1.1.0";
+        serialized.FindProperty("m_AtlasWidth").intValue = source.texture.width;
+        serialized.FindProperty("m_AtlasHeight").intValue = source.texture.height;
+        serialized.FindProperty("m_AtlasRenderMode").intValue = (int)GlyphRenderMode.SMOOTH;
+        serialized.ApplyModifiedPropertiesWithoutUndo();
+        foreach (var item in bitmap.glyphs)
+        {
+            var glyph = new Glyph((uint)item.index,
+                new GlyphMetrics(item.width, item.height, item.offsetX, bitmap.charSize - item.offsetY, item.advance),
+                new GlyphRect(Mathf.RoundToInt(uv.xMin * source.texture.width) + item.x,
+                    Mathf.RoundToInt(uv.yMax * source.texture.height) - item.y - item.height, item.width, item.height), 1, 0);
+            font.glyphTable.Add(glyph);
+            font.characterTable.Add(new TMP_Character((uint)item.index, glyph));
+            if (item.kerning == null) continue;
+            for (int i = 0; i < item.kerning.Count; i += 2)
+                font.fontFeatureTable.glyphPairAdjustmentRecords.Add(new GlyphPairAdjustmentRecord(
+                    new GlyphAdjustmentRecord((uint)item.kerning[i], new GlyphValueRecord(0, 0, item.kerning[i + 1], 0)),
+                    new GlyphAdjustmentRecord((uint)item.index, new GlyphValueRecord())));
+        }
+        var material = new Material(Shader.Find("TextMeshPro/Bitmap Custom Atlas")) { name = font.name + " Material" };
+        material.mainTexture = source.texture;
+        font.material = material;
+        AssetDatabase.CreateAsset(font, path);
+        AssetDatabase.AddObjectToAsset(material, font);
+        font.ReadFontAssetDefinition();
+        EditorUtility.SetDirty(font);
+        return font;
+    }
+}
+#endif

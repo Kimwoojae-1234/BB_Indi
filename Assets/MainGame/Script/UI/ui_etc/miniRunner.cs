@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 
 namespace BaseBall.BallPlay
@@ -9,8 +10,8 @@ namespace BaseBall.BallPlay
         bool bInitPos;
         public Runner runner;
 
-        public UISprite _team;
-        public UILabel _name;
+        public GameUIElement _team;
+        public GameUIElement _name;
         [SerializeField] private MinimapRunnerView uguiView;
         public MinimapRunnerView UguiView => uguiView;
 
@@ -87,7 +88,7 @@ namespace BaseBall.BallPlay
         public void FadeOut(float duration)
         {
             if (uguiView != null) uguiView.FadeOut(duration);
-            else TweenAlpha.Begin(gameObject, duration, 0);
+            else GameUITweenAlpha.Begin(gameObject, duration, 0);
         }
 
         public void move()

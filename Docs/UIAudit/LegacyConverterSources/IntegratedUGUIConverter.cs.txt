@@ -1,0 +1,568 @@
+#if UNITY_EDITOR
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using BaseBall.BallPlay.UGUI;
+using TMPro;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.UI;
+using Object = UnityEngine.Object;
+
+/// <summary>Builds reviewable copies. Applying them and updating controller types is a separate step.
+/// Originals, source atlases and animation clips are never edited by BuildCandidates.</summary>
+public static partial class IntegratedUGUIConverter
+{
+    public const string Folder = "Assets/MainGame/UI/IntegratedUGUI";
+    public const string Output = "Docs/UIAudit/Integrated";
+    public static bool CompleteMigration;
+    private static string currentSourceGuid;
+    private static string ResourceFolder => CompleteMigration ? "Assets/MainGame/UI/CompleteUGUI" : Folder;
+    [Serializable] public sealed class Replacement { public long original, replacement; public string originalType, replacementType; }
+    [Serializable] public sealed class AssetPlan { public string source, candidate; public Replacement[] components; public string[] controllers; public Replacement[] identities; public long[] synthetic; }
+    [Serializable] public sealed class Plan { public AssetPlan[] assets; }
+    private static readonly Dictionary<UIAtlas, GameUISpriteCatalog> catalogs = new Dictionary<UIAtlas, GameUISpriteCatalog>();
+    private static readonly Dictionary<UIFont, TMP_FontAsset> fonts = new Dictionary<UIFont, TMP_FontAsset>();
+    private static readonly List<string> baselineIssues = new List<string>();
+
+    [MenuItem("Tools/UI Migration/Integrated/Build Candidates")]
+    public static void BuildCandidates()
+    {
+        if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Stop Play Mode before building candidates.");
+        Directory.CreateDirectory(Folder); Directory.CreateDirectory(Output); AssetDatabase.Refresh();
+        catalogs.Clear(); fonts.Clear(); baselineIssues.Clear();
+        var roots = new List<string> {
+            UGUIMigrationPaths.PrefabPath,
+            "Assets/Resources/MainGame/prefabs/QuickUI/QuickSimulatorPrefab.prefab",
+            "Assets/Resources/MainGame/prefabs/ControlUI/ControlUIPrefab.prefab",
+            "Assets/Resources/MainGame/prefabs/Camera/MainCamera.prefab",
+            "Assets/Resources/MainGame/prefabs/ballplayPrefab/loadingPagePrefab.prefab",
+            "Assets/Resources/MainGame/prefabs/QuickUI/quickBuffPrefab.prefab",
+            "Assets/Resources/MainGame/prefabs/QuickUI/actionBuffPrefab.prefab",
+            "Assets/Resources/MainGame/prefabs/gameUI/QuitPopupPrefab.prefab",
+            "Assets/Resources/MainGame/prefabs/gameUI/consectiveGamePrefab.prefab",
+            "Assets/Resources/MainGame/prefabs/gameUI/tracePrefab_h.prefab",
+            "Assets/Resources/MainGame/prefabs/gameUI/tracePrefab_p.prefab",
+            "Assets/Resources/MainGame/prefabs/gameUI/traceZoneHitPrefab.prefab",
+            "Assets/Resources/MainGame/prefabs/gameUI/traceKPrefab.prefab"
+        };
+        foreach (string folder in new[] { "Assets/Resources/MainGame/prefabs/dynamicUI", "Assets/Resources/MainGame/prefabs/skillUI" })
+            roots.AddRange(Directory.GetFiles(folder, "*.prefab", SearchOption.AllDirectories).Select(p => p.Replace('\\', '/')));
+        roots.AddRange(AssetDatabase.GetDependencies(roots.Concat(new[] { "Assets/MainGame/Scene/BallPlay.unity", "Assets/MainGame/Scene/MainLoading.unity" }).ToArray(), true)
+            .Where(p => p.EndsWith(".prefab", StringComparison.Ordinal)));
+        var plans = File.Exists(Output + "/candidate-plan.json")
+            ? JsonUtility.FromJson<Plan>(File.ReadAllText(Output + "/candidate-plan.json")).assets.ToList() : new List<AssetPlan>();
+        var added = new List<string>();
+        foreach (string path in roots.Distinct())
+        {
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            if (prefab == null) throw new FileNotFoundException(path);
+            if (prefab.GetComponentsInChildren<MonoBehaviour>(true).Any(c => c is UIWidget || c is UITweener || c is UIRoot || c is UIPanel))
+            {
+                plans.RemoveAll(p => p.source == path); plans.Add(Build(path)); added.Add(path);
+            }
+        }
+        AssetDatabase.SaveAssets();
+        File.WriteAllText(Output + "/candidate-plan.json", JsonUtility.ToJson(new Plan { assets = plans.ToArray() }, true));
+        File.AppendAllLines(Output + "/source-issues.txt", baselineIssues);
+        File.WriteAllLines(Output + "/additional-assets.txt", added);
+    }
+
+    public static AssetPlan Build(string path, string destination = null)
+    {
+        currentSourceGuid = AssetDatabase.AssetPathToGUID(path);
+        string candidate = destination ?? Folder + "/" + Path.GetFileName(path);
+        var root = PrefabUtility.LoadPrefabContents(path);
+        try
+        {
+            foreach (var instance in root.GetComponentsInChildren<Transform>(true).Select(t => t.gameObject)
+                .Where(go => go != root && PrefabUtility.IsOutermostPrefabInstanceRoot(go)).ToArray())
+                PrefabUtility.UnpackPrefabInstance(instance, PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
+            var persistent = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            var identities = new List<(GameObject node, Type type, int index, long id)>();
+            foreach (var node in root.GetComponentsInChildren<Transform>(true))
+            {
+                var savedNode = FindIndexPath(persistent.transform, IndexPath(node, root.transform));
+                AssetDatabase.TryGetGUIDAndLocalFileIdentifier(savedNode.gameObject, out string _, out long goId);
+                identities.Add((node.gameObject, null, 0, goId));
+                foreach (var component in node.GetComponents<Component>())
+                {
+                    if (component == null) continue;
+                    var type = component.GetType(); int index = Array.IndexOf(node.GetComponents(type), component);
+                    var savedComponent = savedNode.GetComponents(type)[index];
+                    AssetDatabase.TryGetGUIDAndLocalFileIdentifier(savedComponent, out string _, out long componentId);
+                    identities.Add((node.gameObject, type, index, componentId));
+                }
+            }
+            var sourcePaths = root.GetComponentsInChildren<Transform>(true).GroupBy(t => AnimationUtility.CalculateTransformPath(t, root.transform)).ToDictionary(g => g.Key, g => g.First());
+            var originals = root.GetComponentsInChildren<MonoBehaviour>(true)
+                .Where(c => c != null && AssetDatabase.GetAssetPath(MonoScript.FromMonoBehaviour(c)).StartsWith("Assets/NGUI/", StringComparison.Ordinal)).ToArray();
+            var supported = new HashSet<Type> { typeof(UISprite), typeof(UILabel), typeof(UITexture), typeof(UIWidget), typeof(UIPanel), typeof(UIRoot), typeof(UICamera),
+                typeof(TweenAlpha), typeof(TweenPosition), typeof(TweenScale), typeof(TweenRotation), typeof(UIEventTrigger), typeof(UIButtonScale), typeof(UIButton),
+                typeof(UIPlaySound), typeof(UIDragScrollView), typeof(UIScrollView), typeof(UIGrid), typeof(UISpriteAnimation) };
+            if (CompleteMigration) supported.UnionWith(new[] { typeof(UIAtlas), typeof(UIFont), typeof(UIAnchor), typeof(UISlider), typeof(UIProgressBar), typeof(UIToggle), typeof(UIToggledComponents), typeof(UIInput), typeof(UILocalize), typeof(UIEventListener), typeof(TweenColor) });
+            foreach (var component in originals)
+                if (!supported.Contains(component.GetType())) throw new NotSupportedException(path + ": " + component.GetType().Name);
+
+            var pairs = new Dictionary<Component, Component>();
+            foreach (var panel in root.GetComponentsInChildren<UIPanel>(true))
+            {
+                var target = panel.gameObject.AddComponent<GameUIPanel>();
+                target.mAlpha = panel.alpha; target.mDepth = panel.depth;
+                target.clipRegion = panel.baseClipRegion; target.clipSoftness = panel.clipSoftness; target.clipTexture = panel.clipTexture; target.clipping = (int)panel.clipping;
+                target.opacity = panel.GetComponent<CanvasGroup>() ?? panel.gameObject.AddComponent<CanvasGroup>();
+                pairs.Add(panel, target);
+            }
+            foreach (var oldRoot in root.GetComponentsInChildren<UIRoot>(true))
+            {
+                if ((!CompleteMigration && oldRoot.activeScaling != UIRoot.Scaling.Constrained) || oldRoot.adjustByDPI)
+                    throw new NotSupportedException("Root scaling requires explicit conversion: " + oldRoot.name);
+                var target = oldRoot.gameObject.AddComponent<GameUIRoot>();
+                target.manualWidth = oldRoot.manualWidth; target.manualHeight = oldRoot.manualHeight;
+                target.fitWidth = oldRoot.fitWidth; target.fitHeight = oldRoot.fitHeight;
+                target.scalingStyle = (int)oldRoot.scalingStyle; target.minimumHeight = oldRoot.minimumHeight; target.maximumHeight = oldRoot.maximumHeight; target.shrinkPortraitUI = oldRoot.shrinkPortraitUI;
+                target.uiCamera = oldRoot.GetComponentInChildren<UICamera>(true)?.GetComponent<Camera>();
+                pairs.Add(oldRoot, target);
+            }
+            foreach (var widget in root.GetComponentsInChildren<UIWidget>(true)) pairs.Add(widget, ConvertWidget(widget));
+            foreach (var tween in root.GetComponentsInChildren<UITweener>(true)) pairs.Add(tween, ConvertTween(tween));
+            foreach (var animation in root.GetComponentsInChildren<UISpriteAnimation>(true))
+            {
+                var target = animation.gameObject.AddComponent<GameUISpriteAnimation>();
+                JsonUtility.FromJsonOverwrite(JsonUtility.ToJson(animation), target);
+                target.element = animation.GetComponent<GameUIElement>();
+                target.RebuildSpriteList(); target.enabled = animation.enabled;
+                pairs.Add(animation, target);
+            }
+            foreach (var grid in root.GetComponentsInChildren<UIGrid>(true))
+            {
+                if ((!CompleteMigration && (grid.sorting != UIGrid.Sorting.None || grid.pivot != UIWidget.Pivot.TopLeft)) || grid.animateSmoothly)
+                    throw new NotSupportedException("Grid layout requires explicit conversion: " + grid.name);
+                var target = grid.gameObject.AddComponent<GameUIGrid>();
+                target.arrangement = (int)grid.arrangement; target.maxPerLine = grid.maxPerLine;
+                target.cellWidth = grid.cellWidth; target.cellHeight = grid.cellHeight; target.hideInactive = grid.hideInactive;
+                target.pivot = (int)grid.pivot; target.sorting = (int)grid.sorting;
+                target.enabled = grid.enabled; pairs.Add(grid, target);
+            }
+            foreach (var scroll in root.GetComponentsInChildren<UIScrollView>(true)) pairs.Add(scroll, ConvertScroll(scroll));
+            foreach (var component in originals)
+            {
+                if (component is UIEventTrigger trigger)
+                {
+                    if (!CompleteMigration && (trigger.onDrag.Count != 0 || trigger.onDragStart.Count != 0 || trigger.onDragEnd.Count != 0 || trigger.onDoubleClick.Count != 0))
+                        throw new NotSupportedException("Nonstandard input callbacks: " + trigger.name);
+                    var pointer = Pointer(component.gameObject);
+                    pointer.onPress.AddRange(Actions(trigger.onPress)); pointer.onRelease.AddRange(Actions(trigger.onRelease));
+                    pointer.onClick.AddRange(Actions(trigger.onClick)); pointer.onHoverOver.AddRange(Actions(trigger.onHoverOver));
+                    pointer.onHoverOut.AddRange(Actions(trigger.onHoverOut));
+                    pointer.onDrag.AddRange(Actions(trigger.onDrag)); pointer.onDragStart.AddRange(Actions(trigger.onDragStart)); pointer.onDragEnd.AddRange(Actions(trigger.onDragEnd)); pointer.onDoubleClick.AddRange(Actions(trigger.onDoubleClick));
+                    pairs.Add(component, pointer);
+                }
+                else if (component is UIButtonScale scale)
+                {
+                    var pointer = Pointer(component.gameObject); pointer.scaleTarget = scale.tweenTarget;
+                    pointer.usesScale = scale.enabled; pointer.pressedScale = scale.pressed; pointer.hoverScale = scale.hover; pointer.scaleDuration = scale.duration;
+                    if (pointer.scaleTarget == null) pointer.scaleTarget = scale.transform;
+                    pairs.Add(component, pointer);
+                }
+                else if (component is UIButton button)
+                {
+                    var pointer = Pointer(component.gameObject);
+                    if (button.enabled) pointer.onClick.AddRange(Actions(button.onClick));
+                    if (CompleteMigration) pointer.buttonFeedback.Add(new GameUIButtonFeedback {
+                        target = button.tweenTarget != null ? button.tweenTarget : button.gameObject, enabled = button.enabled,
+                        hover = button.hover, pressed = button.pressed, disabledColor = button.disabledColor, duration = button.duration,
+                        hoverSprite = button.hoverSprite, pressedSprite = button.pressedSprite, disabledSprite = button.disabledSprite, pixelSnap = button.pixelSnap });
+                    if (CompleteMigration && button.ClickOtherSprite != null) pointer.buttonFeedback.Last().clickOtherSprite = button.ClickOtherSprite.GetComponent<GameUIElement>();
+                    pairs.Add(component, pointer);
+                }
+                else if (component is UIDragScrollView drag)
+                {
+                    var pointer = Pointer(component.gameObject);
+                    pointer.scroll = drag.scrollView != null ? drag.scrollView.GetComponent<GameUIScroll>() : drag.GetComponentInParent<GameUIScroll>();
+                    pairs.Add(component, pointer);
+                }
+                else if (component is UIPlaySound sound)
+                {
+                    // Existing disabled/empty sound components have no behavior to migrate.
+                    if (sound.enabled && sound.audioClip != null) throw new NotSupportedException("UI sound requires conversion: " + sound.name);
+                    pairs.Add(component, null);
+                }
+                else if (component is UICamera) pairs.Add(component, null);
+            }
+            if (CompleteMigration) ConvertAdditional(root, originals, pairs);
+            foreach (var pointer in root.GetComponentsInChildren<GameUIPointer>(true)) ConfigureInput(pointer);
+            ConvertAnimations(root, path, sourcePaths);
+            if (CompleteMigration && !path.StartsWith("Assets/Editor/RemainingSources/") && root.GetComponent<GameUIDynamicUI>() == null && root.GetComponentInChildren<GameUIElement>(true) != null)
+                root.AddComponent<GameUIDynamicUI>();
+
+            // Encode identity before saving, then resolve IDs on the saved asset by structural path.
+            var records = pairs.Select(pair => new { path = IndexPath(pair.Key.transform, root.transform), oldType = pair.Key.GetType(),
+                oldIndex = Array.IndexOf(pair.Key.GetComponents(pair.Key.GetType()), pair.Key),
+                newType = pair.Value != null ? pair.Value.GetType() : null,
+                newIndex = pair.Value != null ? Array.IndexOf(pair.Value.GetComponents(pair.Value.GetType()), pair.Value) : 0 }).ToArray();
+            var controllers = root.GetComponentsInChildren<MonoBehaviour>(true).Where(c => c != null)
+                .Select(c => AssetDatabase.GetAssetPath(MonoScript.FromMonoBehaviour(c)))
+                .Where(p => p.StartsWith("Assets/MainGame/Script/", StringComparison.Ordinal) || p.StartsWith("Assets/Scripts/", StringComparison.Ordinal))
+                .Where(p => !p.Contains("/UGUI/")).Distinct().OrderBy(p => p).ToArray();
+            if (CompleteMigration)
+                foreach (var node in root.GetComponentsInChildren<Transform>(true)) GameObjectUtility.RemoveMonoBehavioursWithMissingScript(node.gameObject);
+            var saved = PrefabUtility.SaveAsPrefabAsset(root, candidate);
+            var replacements = new List<Replacement>();
+            foreach (var record in records)
+            {
+                var node = FindIndexPath(saved.transform, record.path);
+                var old = node.GetComponents(record.oldType)[record.oldIndex];
+                var replacement = record.newType != null ? node.GetComponents(record.newType)[record.newIndex] : null;
+                AssetDatabase.TryGetGUIDAndLocalFileIdentifier(old, out string _, out long oldId);
+                long newId = 0;
+                if (replacement != null) AssetDatabase.TryGetGUIDAndLocalFileIdentifier(replacement, out string _, out newId);
+                replacements.Add(new Replacement { original = oldId, replacement = newId, originalType = record.oldType.Name, replacementType = record.newType?.FullName });
+            }
+            var identityMap = new List<Replacement>();
+            foreach (var record in identities)
+            {
+                var node = FindIndexPath(saved.transform, IndexPath(record.node.transform, root.transform));
+                Object value = record.type == null ? (Object)node.gameObject : typeof(Transform).IsAssignableFrom(record.type) ? node : node.GetComponents(record.type)[record.index];
+                AssetDatabase.TryGetGUIDAndLocalFileIdentifier(value, out string _, out long id);
+                identityMap.Add(new Replacement { original = record.id, replacement = id, originalType = record.type?.Name ?? "GameObject" });
+            }
+            return new AssetPlan { source = path, candidate = candidate, components = replacements.ToArray(), controllers = controllers, identities = identityMap.ToArray() };
+        }
+        finally { PrefabUtility.UnloadPrefabContents(root); }
+    }
+
+    private static int[] IndexPath(Transform node, Transform root)
+    {
+        var result = new List<int>();
+        while (node != root) { result.Add(node.GetSiblingIndex()); node = node.parent; }
+        result.Reverse(); return result.ToArray();
+    }
+    private static Transform FindIndexPath(Transform root, int[] path) { foreach (int index in path) root = root.GetChild(index); return root; }
+    private static void ConvertAnimations(GameObject root, string sourceAsset, Dictionary<string, Transform> sourcePaths)
+    {
+        int ordinal = 0;
+        string sourceGuid = AssetDatabase.AssetPathToGUID(sourceAsset);
+        foreach (var animator in root.GetComponentsInChildren<Animator>(true))
+        {
+            if (animator.runtimeAnimatorController == null) continue;
+            string key = sourceGuid + "-" + ordinal++;
+            string prefix = sourcePaths.First(p => p.Value == animator.transform).Key;
+            var controller = new AnimatorOverrideController(animator.runtimeAnimatorController);
+            var overrides = new List<KeyValuePair<AnimationClip, AnimationClip>>(); controller.GetOverrides(overrides);
+            for (int i = 0; i < overrides.Count; i++)
+            {
+                var clip = overrides[i].Value != null ? overrides[i].Value : overrides[i].Key;
+                var bindings = AnimationUtility.GetCurveBindings(clip);
+                if (!bindings.Any(b => typeof(UIWidget).IsAssignableFrom(b.type) || b.type == typeof(UIPanel))) continue;
+                var copy = Object.Instantiate(clip); copy.name = clip.name;
+                foreach (var binding in bindings)
+                {
+                    var replacement = binding;
+                    if (typeof(UIWidget).IsAssignableFrom(binding.type)) replacement.type = typeof(GameUIElement);
+                    else if (binding.type == typeof(UIPanel)) replacement.type = typeof(GameUIPanel);
+                    string oldPath = string.IsNullOrEmpty(prefix) ? binding.path : prefix + (string.IsNullOrEmpty(binding.path) ? "" : "/" + binding.path);
+                    if (sourcePaths.TryGetValue(oldPath, out var node)) replacement.path = AnimationUtility.CalculateTransformPath(node, animator.transform);
+                    if (replacement.type == binding.type && replacement.path == binding.path) continue;
+                    var curve = AnimationUtility.GetEditorCurve(clip, binding);
+                    AnimationUtility.SetEditorCurve(copy, binding, null); AnimationUtility.SetEditorCurve(copy, replacement, curve);
+                }
+                string clipPath = Folder + "/Anim-" + key + "-" + AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(clip)) + ".anim";
+                var savedClip = SaveGenerated(copy, clipPath);
+                overrides[i] = new KeyValuePair<AnimationClip, AnimationClip>(overrides[i].Key, savedClip);
+            }
+            controller.ApplyOverrides(overrides);
+            animator.runtimeAnimatorController = SaveGenerated(controller, Folder + "/Animator-" + key + ".overrideController");
+        }
+    }
+    private static T SaveGenerated<T>(T generated, string path) where T : Object
+    {
+        var existing = AssetDatabase.LoadAssetAtPath<T>(path);
+        if (existing == null) { AssetDatabase.CreateAsset(generated, path); return generated; }
+        EditorUtility.CopySerialized(generated, existing); Object.DestroyImmediate(generated); EditorUtility.SetDirty(existing); return existing;
+    }
+    private static RectTransform Child(Transform parent, string name)
+    {
+        var go = new GameObject(name, typeof(RectTransform)) { layer = parent.gameObject.layer };
+        var rect = (RectTransform)go.transform; rect.SetParent(parent, false); rect.sizeDelta = Vector2.zero; return rect;
+    }
+    private static Canvas Canvas(RectTransform rect)
+    {
+        var canvas = rect.gameObject.AddComponent<Canvas>(); canvas.renderMode = RenderMode.WorldSpace; canvas.overrideSorting = true;
+        return canvas;
+    }
+
+    private static GameUIElement ConvertWidget(UIWidget source)
+    {
+        if (source.isAnchored && !CompleteMigration) throw new NotSupportedException("Anchored widget: " + source.name);
+        var target = source.gameObject.AddComponent<GameUIElement>();
+        target.mColor = source.color; target.mWidth = source.width; target.mHeight = source.height;
+        target.mPivot = (int)source.pivot; target.mDepth = source.depth;
+        if (source.isAnchored) ConvertAnchors(source, target);
+        if (source.GetType() == typeof(UIWidget))
+        {
+            target.kind = GameUIElement.ElementKind.Widget;
+            target.ConfigureWidgetOpacity(source.GetComponent<CanvasGroup>() ?? source.gameObject.AddComponent<CanvasGroup>());
+            return target;
+        }
+        var canvasRect = Child(source.transform, "UGUI Canvas");
+        target.displayCanvas = Canvas(canvasRect);
+        var rect = Child(canvasRect, "Graphic");
+        if (source is UISprite sprite)
+        {
+            if (sprite.type == UIBasicSprite.Type.Advanced) throw new NotSupportedException("Advanced sprite: " + sprite.name);
+            target.kind = GameUIElement.ElementKind.Sprite; target.sprites = Catalog(sprite.atlas);
+            if (sprite.atlas == null) baselineIssues.Add("Existing missing sprite atlas (preserved): " + AnimationUtility.CalculateTransformPath(source.transform, null));
+            target.mSpriteName = sprite.spriteName; target.mType = (int)sprite.type;
+            target.mFillAmount = sprite.fillAmount; target.mFillDirection = (int)sprite.fillDirection;
+            target.mInvert = sprite.invert; target.mFlip = (int)sprite.flip;
+            var image = rect.gameObject.AddComponent<Image>();
+            image.type = sprite.type == UIBasicSprite.Type.Sliced ? Image.Type.Sliced : sprite.type == UIBasicSprite.Type.Tiled ? Image.Type.Tiled
+                : sprite.type == UIBasicSprite.Type.Filled ? Image.Type.Filled : Image.Type.Simple;
+            image.fillMethod = (Image.FillMethod)(int)sprite.fillDirection;
+            image.fillClockwise = !sprite.invert; image.fillOrigin = 0;
+            rect.localScale = new Vector3((sprite.flip == UIBasicSprite.Flip.Horizontally || sprite.flip == UIBasicSprite.Flip.Both) ? -1 : 1,
+                (sprite.flip == UIBasicSprite.Flip.Vertically || sprite.flip == UIBasicSprite.Flip.Both) ? -1 : 1, 1);
+            target.graphic = image;
+        }
+        else if (source is UILabel label)
+        {
+            var alignment = label.alignment == NGUIText.Alignment.Automatic
+                ? (label.pivotOffset.x == 0 ? NGUIText.Alignment.Left : label.pivotOffset.x == 1 ? NGUIText.Alignment.Right : NGUIText.Alignment.Center)
+                : label.alignment;
+            target.kind = GameUIElement.ElementKind.Label; target.mText = label.text; target.mFontSize = label.fontSize; target.mEncoding = label.supportEncoding;
+            if (label.bitmapFont != null && !label.bitmapFont.isDynamic)
+            {
+                if (!fonts.TryGetValue(label.bitmapFont, out var font)) { font = BuildNativeFont(label.bitmapFont); fonts.Add(label.bitmapFont, font); }
+                var text = rect.gameObject.AddComponent<TextMeshProUGUI>(); text.font = font;
+                text.fontSize = label.fontSize; text.fontSizeMax = label.fontSize; text.fontSizeMin = 1;
+                text.enableAutoSizing = label.overflowMethod == UILabel.Overflow.ShrinkContent;
+                text.textWrappingMode = label.multiLine ? TextWrappingModes.Normal : TextWrappingModes.NoWrap;
+                text.overflowMode = TextOverflowModes.Overflow;
+                text.alignment = alignment == NGUIText.Alignment.Left ? TextAlignmentOptions.MidlineLeft
+                    : alignment == NGUIText.Alignment.Right ? TextAlignmentOptions.MidlineRight : TextAlignmentOptions.Midline;
+                text.richText = label.supportEncoding; text.characterSpacing = label.spacingX; text.lineSpacing = label.spacingY;
+                target.graphic = text;
+            }
+            else
+            {
+                var font = label.trueTypeFont != null ? label.trueTypeFont : label.bitmapFont?.dynamicFont;
+                if (font == null) baselineIssues.Add("Existing missing font (preserved): " + AnimationUtility.CalculateTransformPath(source.transform, null));
+                var text = rect.gameObject.AddComponent<Text>(); text.font = font; text.fontSize = label.fontSize; text.fontStyle = label.fontStyle;
+                text.resizeTextForBestFit = label.overflowMethod == UILabel.Overflow.ShrinkContent;
+                text.resizeTextMinSize = 1; text.resizeTextMaxSize = label.fontSize;
+                text.horizontalOverflow = label.multiLine ? HorizontalWrapMode.Wrap : HorizontalWrapMode.Overflow;
+                text.verticalOverflow = VerticalWrapMode.Overflow; text.supportRichText = label.supportEncoding;
+                text.alignment = alignment == NGUIText.Alignment.Left ? TextAnchor.MiddleLeft
+                    : alignment == NGUIText.Alignment.Right ? TextAnchor.MiddleRight : TextAnchor.MiddleCenter;
+                target.graphic = text;
+            }
+            if (label.effectStyle != UILabel.Effect.None)
+            {
+                if (label.effectStyle != UILabel.Effect.Outline && label.effectStyle != UILabel.Effect.Shadow && label.effectStyle != UILabel.Effect.Outline8)
+                    throw new NotSupportedException("Text effect: " + label.effectStyle);
+                var distance = label.effectDistance;
+                var offsets = new List<Vector2> { new Vector2(distance.x, -distance.y) };
+                if (label.effectStyle != UILabel.Effect.Shadow)
+                    offsets.AddRange(new[] { new Vector2(-distance.x, distance.y), new Vector2(distance.x, distance.y), new Vector2(-distance.x, -distance.y) });
+                if (label.effectStyle == UILabel.Effect.Outline8)
+                    offsets.AddRange(new[] { new Vector2(distance.x, 0), new Vector2(-distance.x, 0), new Vector2(0, distance.y), new Vector2(0, -distance.y) });
+                target.shadowColor = label.effectColor; target.shadowOffsets = offsets.ToArray();
+                target.shadows = offsets.Select((offset, i) =>
+                {
+                    var copy = Object.Instantiate(rect.gameObject, canvasRect, false);
+                    copy.name = "Text effect " + i; copy.transform.SetAsFirstSibling();
+                    var graphic = copy.GetComponent<Graphic>(); graphic.raycastTarget = false; return graphic;
+                }).ToArray();
+            }
+        }
+        else if (source is UITexture texture)
+        {
+            if (texture.type == UIBasicSprite.Type.Advanced || (!CompleteMigration && texture.flip != UIBasicSprite.Flip.Nothing))
+                throw new NotSupportedException("Texture geometry: " + AnimationUtility.CalculateTransformPath(source.transform, null) + " type=" + texture.type + " flip=" + texture.flip + " border=" + texture.border);
+            target.kind = GameUIElement.ElementKind.Texture; target.mTexture = texture.mainTexture; target.mRect = texture.uvRect;
+            rect.localScale = new Vector3(texture.flip == UIBasicSprite.Flip.Horizontally || texture.flip == UIBasicSprite.Flip.Both ? -1 : 1, texture.flip == UIBasicSprite.Flip.Vertically || texture.flip == UIBasicSprite.Flip.Both ? -1 : 1, 1);
+            if (texture.type == UIBasicSprite.Type.Simple || (texture.type == UIBasicSprite.Type.Sliced && texture.border == Vector4.zero))
+            {
+                var raw = rect.gameObject.AddComponent<RawImage>(); raw.texture = texture.mainTexture; raw.uvRect = texture.uvRect;
+                raw.material = texture.material; target.graphic = raw;
+            }
+            else
+            {
+                var image = rect.gameObject.AddComponent<GameUITextureGraphic>();
+                image.type = texture.type == UIBasicSprite.Type.Sliced ? Image.Type.Sliced : texture.type == UIBasicSprite.Type.Tiled ? Image.Type.Tiled : Image.Type.Filled;
+                image.fillMethod = (Image.FillMethod)(int)texture.fillDirection; image.fillAmount = texture.fillAmount; image.fillClockwise = !texture.invert;
+                target.mFillAmount = texture.fillAmount;
+                if (!(texture.mainTexture is Texture2D bitmap)) throw new NotSupportedException("Non-bitmap texture geometry: " + texture.name);
+                string spritePath = ResourceFolder + "/Texture-" + AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(bitmap)) + "-" + texture.border.GetHashCode().ToString("X8") + ".asset";
+                image.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(spritePath);
+                if (image.sprite == null)
+                {
+                    image.sprite = Sprite.Create(bitmap, new Rect(0, 0, bitmap.width, bitmap.height), Vector2.one * .5f, 100, 0, SpriteMeshType.FullRect, texture.border);
+                    AssetDatabase.CreateAsset(image.sprite, spritePath);
+                }
+                image.material = texture.material; image.SetTexture(texture.mainTexture, texture.uvRect); target.graphic = image;
+            }
+        }
+        target.graphic.material = NativeMaterial(target.graphic.material);
+        ConfigureClipping(target, canvasRect);
+        target.graphic.raycastTarget = false; target.enabled = source.enabled; target.Apply();
+        return target;
+    }
+
+    public static GameUISpriteCatalog Catalog(UIAtlas atlas, string originalGuid = null)
+    {
+        if (atlas == null)
+        {
+            string emptyPath = ResourceFolder + "/EmptySpriteCatalog.asset";
+            var empty = AssetDatabase.LoadAssetAtPath<GameUISpriteCatalog>(emptyPath);
+            if (empty == null) { empty = ScriptableObject.CreateInstance<GameUISpriteCatalog>(); empty.entries = Array.Empty<GameUISpriteCatalog.Entry>(); AssetDatabase.CreateAsset(empty, emptyPath); }
+            return empty;
+        }
+        if (catalogs.TryGetValue(atlas, out var result)) return result;
+        string atlasPath = AssetDatabase.GetAssetPath(atlas);
+        string atlasGuid = AssetDatabase.AssetPathToGUID(atlasPath);
+        string path = ResourceFolder + "/Atlas-" + (originalGuid ?? (string.IsNullOrEmpty(atlasGuid) ? currentSourceGuid : atlasGuid)) + ".asset";
+        result = AssetDatabase.LoadAssetAtPath<GameUISpriteCatalog>(path);
+        if (result != null) { result.material = NativeAtlasMaterial(atlas); EditorUtility.SetDirty(result); catalogs.Add(atlas, result); return result; }
+        result = ScriptableObject.CreateInstance<GameUISpriteCatalog>(); AssetDatabase.CreateAsset(result, path);
+        result.material = NativeAtlasMaterial(atlas);
+        var entries = new List<GameUISpriteCatalog.Entry>();
+        foreach (var item in atlas.spriteList)
+        {
+            var sprite = Sprite.Create((Texture2D)atlas.texture, new Rect(item.x, atlas.texture.height - item.y - item.height, item.width, item.height),
+                Vector2.one * .5f, 100, 0, SpriteMeshType.FullRect, new Vector4(item.borderLeft, item.borderBottom, item.borderRight, item.borderTop));
+            sprite.name = item.name; AssetDatabase.AddObjectToAsset(sprite, result);
+            entries.Add(new GameUISpriteCatalog.Entry { name = item.name, sprite = sprite,
+                size = new Vector2(item.width + item.paddingLeft + item.paddingRight, item.height + item.paddingBottom + item.paddingTop),
+                padding = new Vector4(item.paddingLeft, item.paddingBottom, item.paddingRight, item.paddingTop) });
+        }
+        result.entries = entries.ToArray(); EditorUtility.SetDirty(result); catalogs.Add(atlas, result); return result;
+    }
+
+    public static Material NativeAtlasMaterial(UIAtlas atlas)
+    {
+        var source = atlas.spriteMaterial;
+        var target = NativeMaterial(source);
+        // Ordinary NGUI vertex-color atlases use Unity's default UI blend and clipping.
+        if (source == target && source != null && source.shader.name != "Unlit/Transparent Colored" && source.shader.name != "Game/UI/Transparent Vertex Color")
+            throw new NotSupportedException("Atlas material: " + source.name + " / " + source.shader.name);
+        return source == target ? null : target;
+    }
+
+    public static Material NativeMaterial(Material source)
+    {
+        if (source == null) return null;
+        bool particle = source.shader.name.EndsWith("Particles/Additive", StringComparison.Ordinal);
+        bool atlas = source.shader.name == "Unlit/Transparent Colored Additive 1";
+        if (!particle && !atlas) return source;
+        string path = ResourceFolder + "/Material-" + AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(source)) + ".mat";
+        var target = AssetDatabase.LoadAssetAtPath<Material>(path);
+        if (target == null)
+        {
+            target = new Material(Shader.Find("Game/UI/Additive")) { name = source.name + " UGUI" };
+            target.SetColor("_TintColor", particle ? source.GetColor("_TintColor") : new Color(.5f, .5f, .5f, .5f));
+            if (atlas) target.SetFloat("_ColorMask", 7);
+            target.mainTexture = source.mainTexture;
+            AssetDatabase.CreateAsset(target, path);
+        }
+        return target;
+    }
+
+    private static GameUITween ConvertTween(UITweener source)
+    {
+        GameUITween target;
+        if (source is TweenAlpha a) { var t = source.gameObject.AddComponent<GameUITweenAlpha>(); t.from = a.from; t.to = a.to; target = t; }
+        else if (source is TweenPosition p) { var t = source.gameObject.AddComponent<GameUITweenPosition>(); t.from = p.from; t.to = p.to; t.worldSpace = p.worldSpace; target = t; }
+        else if (source is TweenScale s) { var t = source.gameObject.AddComponent<GameUITweenScale>(); t.from = s.from; t.to = s.to; target = t; }
+        else if (source is TweenRotation r) { var t = source.gameObject.AddComponent<GameUITweenRotation>(); t.from = r.from; t.to = r.to; t.quaternionLerp = r.quaternionLerp; target = t; }
+        else if (CompleteMigration && source is TweenColor c) { var t = source.gameObject.AddComponent<GameUITweenColor>(); t.from = c.from; t.to = c.to; target = t; }
+        else throw new NotSupportedException(source.GetType().Name);
+        target.method = (GameUITween.Method)(int)source.method; target.style = (GameUITween.Style)(int)source.style;
+        target.duration = source.duration; target.delay = source.delay; target.ignoreTimeScale = source.ignoreTimeScale;
+        target.steeperCurves = source.steeperCurves; target.tweenGroup = source.tweenGroup;
+        target.animationCurve = new AnimationCurve(source.animationCurve.keys) { preWrapMode = source.animationCurve.preWrapMode, postWrapMode = source.animationCurve.postWrapMode };
+        target.onFinished.AddRange(Actions(source.onFinished)); target.enabled = source.enabled; return target;
+    }
+    private static IEnumerable<GameUIAction> Actions(List<EventDelegate> source)
+    {
+        foreach (var callback in source)
+        {
+            // Null targets already existed in the source and are inert in both versions.
+            var action = new GameUIAction(); JsonUtility.FromJsonOverwrite(JsonUtility.ToJson(callback), action);
+            // A legacy YAML import left this method name hex-encoded on blink2.
+            if (action.mMethodName == "506c6179") action.mMethodName = "Play";
+            yield return action;
+        }
+    }
+    private static GameUIPointer Pointer(GameObject go) { return go.GetComponent<GameUIPointer>() ?? go.AddComponent<GameUIPointer>(); }
+    private static void ConfigureInput(GameUIPointer target)
+    {
+        var shape = target.GetComponent<Collider>();
+        if (shape == null) { if (CompleteMigration) { target.enabled = false; return; } throw new InvalidOperationException("Input has no collider shape: " + target.name); }
+        if (!(shape is BoxCollider) && !(shape is CapsuleCollider)) throw new NotSupportedException("Input shape: " + shape.GetType().Name);
+        target.inputCollider = shape;
+        var rect = Child(target.transform, "UGUI Hit Target");
+        var canvas = Canvas(rect); canvas.sortingOrder = (target.GetComponentInParent<GameUIPanel>()?.Order ?? 0) + (target.GetComponent<GameUIElement>()?.depth ?? 0);
+        rect.gameObject.AddComponent<GraphicRaycaster>();
+        rect.gameObject.AddComponent<CanvasRenderer>();
+        var hit = rect.gameObject.AddComponent<GameUIHitTarget>(); hit.shape = shape; hit.pointer = target; hit.raycastTarget = true;
+        if (shape is BoxCollider box) { rect.localPosition = box.center; rect.sizeDelta = new Vector2(box.size.x, box.size.y); }
+        else if (shape is CapsuleCollider capsule) { rect.localPosition = capsule.center; rect.sizeDelta = new Vector2(capsule.radius * 2, capsule.direction == 1 ? capsule.height : capsule.radius * 2); }
+    }
+    private static void ConfigureClipping(GameUIElement target, RectTransform canvas)
+    {
+        var panels = target.GetComponentsInParent<GameUIPanel>(true).Where(p => p.clipping == 1 || p.clipping == 3).Reverse().ToArray();
+        if (panels.Length == 0) return;
+        var originalChildren = canvas.Cast<Transform>().ToArray();
+        Transform parent = canvas; var masks = new List<RectTransform>();
+        foreach (var panel in panels)
+        {
+            var mask = Child(parent, "Clip " + panel.name); mask.sizeDelta = new Vector2(panel.clipRegion.z, panel.clipRegion.w);
+            if (panel.clipping == 1 && panel.clipTexture != null)
+            {
+                var image = mask.gameObject.AddComponent<RawImage>(); image.texture = panel.clipTexture; image.raycastTarget = false;
+                mask.gameObject.AddComponent<Mask>().showMaskGraphic = false;
+            }
+            else
+            {
+                var rectMask = mask.gameObject.AddComponent<RectMask2D>();
+                rectMask.softness = Vector2Int.RoundToInt(panel.clipSoftness);
+            }
+            masks.Add(mask); parent = mask;
+        }
+        var presentation = Child(parent, "Presentation");
+        foreach (var child in originalChildren) child.SetParent(presentation, false);
+        target.clipping = canvas.gameObject.AddComponent<GameUIClip>();
+        target.clipping.source = target.transform; target.clipping.presentation = presentation;
+        target.clipping.panels = panels; target.clipping.masks = masks.ToArray(); target.clipping.Apply();
+    }
+    private static GameUIScroll ConvertScroll(UIScrollView source)
+    {
+        var panel = source.GetComponent<UIPanel>();
+        if (panel == null || panel.clipping == UIDrawCall.Clipping.None) throw new NotSupportedException("Scroll without a clip viewport: " + source.name);
+        Bounds bounds = NGUIMath.CalculateRelativeWidgetBounds(source.transform);
+        var rect = source.gameObject.GetComponent<RectTransform>();
+        if (rect == null) rect = source.gameObject.AddComponent<RectTransform>();
+        var parent = source.transform.parent;
+        int sibling = source.transform.GetSiblingIndex();
+        var viewport = Child(parent, source.name + " UGUI Viewport"); viewport.SetSiblingIndex(sibling);
+        var clip = panel.baseClipRegion;
+        viewport.SetPositionAndRotation(source.transform.TransformPoint(new Vector3(clip.x, clip.y, 0)), source.transform.rotation);
+        viewport.localScale = source.transform.localScale; viewport.sizeDelta = new Vector2(clip.z, clip.w);
+        source.transform.SetParent(viewport, true);
+        rect.sizeDelta = new Vector2(bounds.size.x, bounds.size.y);
+        rect.pivot = new Vector2(bounds.size.x > 0 ? -bounds.min.x / bounds.size.x : .5f, bounds.size.y > 0 ? -bounds.min.y / bounds.size.y : .5f);
+        // The native masks stay anchored to the viewport while the content moves.
+        var convertedPanel = source.GetComponent<GameUIPanel>();
+        convertedPanel.clipAnchor = viewport;
+        convertedPanel.clipRegion = new Vector4(0, 0, clip.z, clip.w);
+        var scroll = viewport.gameObject.AddComponent<ScrollRect>(); scroll.content = rect; scroll.viewport = viewport;
+        scroll.horizontal = source.movement == UIScrollView.Movement.Horizontal; scroll.vertical = source.movement == UIScrollView.Movement.Vertical;
+        scroll.movementType = source.dragEffect == UIScrollView.DragEffect.MomentumAndSpring ? ScrollRect.MovementType.Elastic : ScrollRect.MovementType.Clamped;
+        scroll.inertia = source.dragEffect != UIScrollView.DragEffect.None; scroll.scrollSensitivity = source.scrollWheelFactor * 100;
+        var target = source.gameObject.AddComponent<GameUIScroll>(); target.scrollRect = scroll; target.enabled = source.enabled; return target;
+    }
+}
+#endif

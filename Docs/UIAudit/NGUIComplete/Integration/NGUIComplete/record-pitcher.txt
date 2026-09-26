@@ -1,0 +1,131 @@
+STATE scene=BallPlay mode=Auto quick=True paused=False size=905x461 inning=9 top=False score=14,1 B/S/O=0/0/3 phase=NONE boardVisible=False display=0:0 eventSystems=1
+DATA batterCard=False pitcherCard=False
+CHANGE_BINDING changePlayer (2) overRoll=True nameLabel=True
+CHANGE_BINDING changePlayer (3) overRoll=True nameLabel=True
+CHANGE_BINDING changePlayer (5) overRoll=True nameLabel=True
+CHANGE_BINDING changePlayer (3) overRoll=True nameLabel=True
+CHANGE_BINDING changePlayer (1) overRoll=True nameLabel=True
+CHANGE_BINDING changePlayer (7) overRoll=True nameLabel=True
+CHANGE_BINDING changePlayer overRoll=True nameLabel=True
+CHANGE_BINDING changePlayer overRoll=True nameLabel=True
+CHANGE_BINDING changePlayer (6) overRoll=True nameLabel=True
+CHANGE_BINDING changePlayer (8) overRoll=True nameLabel=True
+CHANGE_BINDING changePlayer (4) overRoll=True nameLabel=True
+CHANGE_BINDING changePlayer (1) overRoll=True nameLabel=True
+CHANGE_BINDING changePlayer (2) overRoll=True nameLabel=True
+RESULT_ROW Tidal Smash scores=0,0,0,1,4,0,1,2,6 stats=14,19,0
+RESULT_ROW Orca Beach Club scores=0,0,0,1,0,0,0,0,0 stats=1,11,1
+ROOT resultPrefab(Clone) camera=Camera (UnityEngine.Camera) canvases=171
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/layout/mybatter/batterScrollView1 UGUI Viewport/batterScrollView1/resultBatterRecordBarPrefab(Clone) active=False available=False methods=
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/bullpen UGUI Viewport/bullpen/changePlayerPrefab (3) active=False available=False methods=Select
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/changebar/changeButton active=False available=False methods=Init,release
+INPUT IngameUIPrefab/Canvas/Popups/UI_PopupConfirm/MainWidget/BtnSetFour/Button_Content_four active=False available=False methods=Click_FourMode_Four
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/layout/mybatter/batterScrollView1 UGUI Viewport/batterScrollView1/resultBatterRecordBarPrefab(Clone) active=False available=False methods=
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/layout/mybatter/batterScrollView1 UGUI Viewport/batterScrollView1/resultBatterRecordBarPrefab(Clone) active=False available=False methods=
+INPUT IngameUIPrefab/Canvas/Popups/Chatting/origin/obj/5 active=False available=False methods=selectIcon
+INPUT resultPrefab(Clone)/Camera/back/button/outherResultButton active=False available=False methods=pressOtherTeamResult
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/offense/changePlayer active=False available=False methods=Select
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/layout/mybatter/batterScrollView1 UGUI Viewport/batterScrollView1/resultBatterRecordBarPrefab(Clone) active=False available=False methods=
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/layout/mypitcher/pitcherScrollView2 UGUI Viewport/pitcherScrollView2/resultPitcherRecordBarPrefab(Clone) active=False available=False methods=
+INPUT IngameUIPrefab/Canvas/Popups/Chatting/origin/obj/2 active=False available=False methods=selectIcon
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/defense/changePlayer (3) active=False available=False methods=Select
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/tab/bar/myteam/focus active=True available=True methods=pressMyTeamTab
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/layout/mypitcher/pitcherScrollView1 UGUI Viewport/pitcherScrollView1/resultPitcherRecordBarPrefab(Clone) active=True available=True methods=
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/defense/changePlayer (4) active=False available=False methods=Select
+INPUT resultPrefab(Clone)/Camera/UI_PopupConfirm/MainWidget/BtnSetFour/Button_Content_one active=False available=False methods=Click_FourMode_One
+INPUT resultPrefab(Clone)/Camera/LeagueUpDown/_active/info/next active=False available=False methods=Init,release
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/bullpen UGUI Viewport/bullpen/changePlayerPrefab (5) active=False available=False methods=Select
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/defense/changePlayer (5) active=False available=False methods=Select
+INPUT QuickSimulatorPrefab/Canvas/Popups/Popup/yes active=False available=False methods=setActionPlay
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/layout/mybatter/batterScrollView2 UGUI Viewport/batterScrollView2/resultBatterRecordBarPrefab(Clone) active=False available=False methods=
+INPUT IngameUIPrefab/Canvas/HUD/Panel/battingview/scoreboard/_active/topUI/speed active=False available=False methods=setGameSpeedControl
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/defense/changePlayer (6) active=False available=False methods=Select
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/offense/changePlayer (2) active=False available=False methods=Select
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/layout/mybatter/batterScrollView2 UGUI Viewport/batterScrollView2/resultBatterRecordBarPrefab(Clone) active=False available=False methods=
+INPUT QuickSimulatorPrefab/Canvas/Popups/Chatting/origin/obj/2 active=False available=False methods=selectIcon
+INPUT QuickSimulatorPrefab/Canvas/Popups/Chatting/origin/obj/6 active=False available=False methods=selectIcon
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/layout/mypitcher/pitcherScrollView2 UGUI Viewport/pitcherScrollView2/resultPitcherRecordBarPrefab(Clone) active=False available=False methods=
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/defense/changePlayer active=False available=False methods=Select
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/layout/mybatter/batterScrollView2 UGUI Viewport/batterScrollView2/resultBatterRecordBarPrefab(Clone) active=False available=False methods=
+INPUT QuickSimulatorPrefab/Canvas/HUD/Panel/topUI/pause active=False available=False methods=
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/offense/changePlayer (1) active=False available=False methods=Select
+INPUT resultPrefab(Clone)/Camera/back/button/statButton active=True available=True methods=pressStat
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIPause/_active/change active=False available=False methods=Init,release
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/defense/changePlayer (8) active=False available=False methods=Select
+INPUT IngameUIPrefab/Canvas/Popups/UI_PopupConfirm/MainWidget/BtnSetFour/Button_Content_one active=False available=False methods=Click_FourMode_One
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/layout/mybatter/batterScrollView1 UGUI Viewport/batterScrollView1/resultBatterRecordBarPrefab(Clone) active=False available=False methods=
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/bench UGUI Viewport/bench/changePlayerPrefab (4) active=False available=False methods=Select
+INPUT QuickSimulatorPrefab/Canvas/Popups/ReconnectPopup/bg/back active=False available=False methods=setContinueAutoMode
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/bench UGUI Viewport/bench/changePlayerPrefab (1) active=False available=False methods=Select
+INPUT IngameUIPrefab/Canvas/HUD/Panel/battingview/scoreboard/_active/consective/quit active=False available=False methods=pushConsectiveQuit
+INPUT IngameUIPrefab/Canvas/Popups/UI_PopupConfirm/MainWidget/BtnSetTwo/ButtonCancel active=False available=False methods=Click_Cancel
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/defense/changePlayer (1) active=False available=False methods=Select
+INPUT QuickSimulatorPrefab/Canvas/Popups/Chatting/button active=False available=False methods=selectChattingToggle
+INPUT IngameUIPrefab/Canvas/HUD/Panel/battingview/scoreboard/_active/topUI/pause active=False available=False methods=setPause
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/layout/mybatter/batterScrollView1 UGUI Viewport/batterScrollView1/resultBatterRecordBarPrefab(Clone) active=False available=False methods=
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/layout/mybatter/batterScrollView2 UGUI Viewport/batterScrollView2/resultBatterRecordBarPrefab(Clone) active=False available=False methods=
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/bullpen UGUI Viewport/bullpen/changePlayerPrefab (4) active=False available=False methods=Select
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/bench UGUI Viewport/bench/changePlayerPrefab (3) active=False available=False methods=Select
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/layout/mypitcher/pitcherScrollView2 UGUI Viewport/pitcherScrollView2/resultPitcherRecordBarPrefab(Clone) active=False available=False methods=
+INPUT IngameUIPrefab/Canvas/Popups/Chatting/origin/obj/4 active=False available=False methods=selectIcon
+INPUT IngameUIPrefab/Canvas/Popups/UI_PopupConfirm/MainWidget/BtnSetFour/Button_Content_three active=False available=False methods=Click_FourMode_Three
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/layout/mypitcher/pitcherScrollView2 UGUI Viewport/pitcherScrollView2/resultPitcherRecordBarPrefab(Clone) active=False available=False methods=
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/changebar/inPlayer active=False available=False methods=
+INPUT resultPrefab(Clone)/Camera/back/button/next active=True available=True methods=Init,release,OnClickBacktoLobby
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/offense/changePlayer (3) active=False available=False methods=Select
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/layout/mypitcher/pitcherScrollView1 UGUI Viewport/pitcherScrollView1/resultPitcherRecordBarPrefab(Clone) active=True available=True methods=
+INPUT QuickSimulatorPrefab/Canvas/HUD/Panel/consective/quit active=False available=False methods=pushConsectiveQuit
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/bench UGUI Viewport/bench/changePlayerPrefab (5) active=False available=False methods=Select
+INPUT QuickSimulatorPrefab/Canvas/Popups/Chatting/origin/obj/1 active=False available=False methods=selectIcon
+INPUT resultPrefab(Clone)/Camera/UI_PopupConfirm/MainWidget/BtnSetTwo/ButtonOK active=False available=False methods=Click_OK
+INPUT QuickSimulatorPrefab/Canvas/Popups/Chatting/origin/obj/5 active=False available=False methods=selectIcon
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/layout/mybatter/batterScrollView1 UGUI Viewport/batterScrollView1/resultBatterRecordBarPrefab(Clone) active=False available=False methods=
+INPUT IngameUIPrefab/Canvas/Popups/UI_PopupConfirm/MainWidget/BtnSetTwo/ButtonOK active=False available=False methods=Click_OK
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/tab/tab_batter active=True available=True methods=pressBatterTab
+INPUT IngameUIPrefab/Canvas/Popups/Chatting/button active=False available=False methods=selectChattingToggle
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/layout/mybatter/batterScrollView1 UGUI Viewport/batterScrollView1/resultBatterRecordBarPrefab(Clone) active=False available=False methods=
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/defense/changePlayer (2) active=False available=False methods=Select
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/layout/mybatter/batterScrollView2 UGUI Viewport/batterScrollView2/resultBatterRecordBarPrefab(Clone) active=False available=False methods=
+INPUT QuickSimulatorPrefab/Canvas/Popups/ReconnectPopup/yes active=False available=False methods=setReconnect
+INPUT QuickSimulatorPrefab/Canvas/Popups/ReconnectPopup/no active=False available=False methods=setQuit
+INPUT IngameUIPrefab/Canvas/Popups/UI_PopupConfirm/MainWidget/BtnSetFour/Button_Content_two active=False available=False methods=Click_FourMode_Two
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/bullpen UGUI Viewport/bullpen/changePlayerPrefab (6) active=False available=False methods=Select
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/tab/tab_pitcher active=True available=True methods=pressPitcherTab
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/layout/mybatter/batterScrollView2 UGUI Viewport/batterScrollView2/resultBatterRecordBarPrefab(Clone) active=False available=False methods=
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/bench UGUI Viewport/bench/changePlayerPrefab active=False available=False methods=Select
+INPUT resultPrefab(Clone)/Camera/UI_PopupConfirm/MainWidget/BtnSetFour/Button_Content_three active=False available=False methods=Click_FourMode_Three
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/bg/quit active=False available=False methods=deactive
+INPUT QuickSimulatorPrefab/Canvas/Popups/Popup/no active=False available=False methods=setContinueAutoMode
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/layout/mybatter/batterScrollView2 UGUI Viewport/batterScrollView2/resultBatterRecordBarPrefab(Clone) active=False available=False methods=
+INPUT IngameUIPrefab/Canvas/Popups/UI_PopupConfirm/MainWidget/BtnSetOne/Button_OK active=False available=False methods=Init,release
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/tab/bar/cputeam active=True available=True methods=pressCpuTeamTab
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/bench UGUI Viewport/bench/changePlayerPrefab (2) active=False available=False methods=Select
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/layout/mybatter/batterScrollView2 UGUI Viewport/batterScrollView2/resultBatterRecordBarPrefab(Clone) active=False available=False methods=
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/bullpen UGUI Viewport/bullpen/changePlayerPrefab (1) active=False available=False methods=Select
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIPause/_active/continue active=False available=False methods=Init,release
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/quit active=True available=True methods=quit
+INPUT resultPrefab(Clone)/Camera/UI_PopupConfirm/MainWidget/BtnSetFour/Button_Content_two active=False available=False methods=Click_FourMode_Two
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/tab/bar/cputeam/focus active=False available=False methods=pressMyTeamTab
+INPUT resultPrefab(Clone)/Camera/UI_PopupConfirm/MainWidget/BtnSetFour/Button_Content_four active=False available=False methods=Click_FourMode_Four
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/bullpen UGUI Viewport/bullpen/changePlayerPrefab active=False available=False methods=Select
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/defense/changePlayer (7) active=False available=False methods=Select
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/tab/bar/myteam active=True available=True methods=pressMyTeamTab
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/layout/mybatter/batterScrollView1 UGUI Viewport/batterScrollView1/resultBatterRecordBarPrefab(Clone) active=False available=False methods=
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/layout/mybatter/batterScrollView2 UGUI Viewport/batterScrollView2/resultBatterRecordBarPrefab(Clone) active=False available=False methods=
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIPause/_active/exit active=False available=False methods=Init,release
+INPUT QuickSimulatorPrefab/Canvas/Popups/Chatting/origin/obj/3 active=False available=False methods=selectIcon
+INPUT QuickSimulatorPrefab/Canvas/HUD/Panel/topUI/speed active=False available=False methods=goToGame
+INPUT resultPrefab(Clone)/Camera/otherResult/_active/quit active=False available=False methods=quit
+INPUT IngameUIPrefab/Canvas/HUD/Panel/playerChange/UIChangePlayer/_active/bullpen UGUI Viewport/bullpen/changePlayerPrefab (2) active=False available=False methods=Select
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/layout/mybatter/batterScrollView2 UGUI Viewport/batterScrollView2/resultBatterRecordBarPrefab(Clone) active=False available=False methods=
+INPUT resultPrefab(Clone)/Camera/UI_PopupConfirm/MainWidget/BtnSetOne/Button_OK active=False available=False methods=Init,release
+INPUT IngameUIPrefab/Canvas/Popups/Chatting/origin/obj/1 active=False available=False methods=selectIcon
+INPUT IngameUIPrefab/Canvas/Popups/Chatting/origin/obj/3 active=False available=False methods=selectIcon
+INPUT IngameUIPrefab/Canvas/Popups/Chatting/origin/obj/6 active=False available=False methods=selectIcon
+INPUT QuickSimulatorPrefab/Canvas/Popups/Chatting/origin/obj/4 active=False available=False methods=selectIcon
+INPUT resultPrefab(Clone)/Camera/playerRecord/_active/layout/mybatter/batterScrollView2 UGUI Viewport/batterScrollView2/resultBatterRecordBarPrefab(Clone) active=False available=False methods=
+INPUT resultPrefab(Clone)/Camera/UI_PopupConfirm/MainWidget/BtnSetTwo/ButtonCancel active=False available=False methods=Click_Cancel
+ACTIVE_NGUI 
+DYNAMIC resultPrefab(Clone)
+DYNAMIC resultPrefab(Clone)/Camera/playerRecord/_active/layout/mypitcher/pitcherScrollView1 UGUI Viewport/pitcherScrollView1/resultPitcherRecordBarPrefab(Clone)
+DYNAMIC resultPrefab(Clone)/Camera/playerRecord/_active/layout/mypitcher/pitcherScrollView1 UGUI Viewport/pitcherScrollView1/resultPitcherRecordBarPrefab(Clone)

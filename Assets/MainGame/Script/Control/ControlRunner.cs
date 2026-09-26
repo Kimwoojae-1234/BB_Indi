@@ -1,4 +1,4 @@
-﻿using BaseBall.BallPlay.UGUI;
+using BaseBall.BallPlay.UGUI;
 using UnityEngine;
 using System.Collections;
 
@@ -71,7 +71,7 @@ namespace BaseBall.BallPlay
 
             for (int i = 0; i < 3; i++)
             {
-                UISprite cur = onBaseObj[i].transform.Find("steal").gameObject.GetComponent<UISprite>();
+                GameUIElement cur = onBaseObj[i].transform.Find("steal").gameObject.GetComponent<GameUIElement>();
                 if (manager.bMyTurn == true)
                 {
                     cur.spriteName = "steal_1";
@@ -185,18 +185,18 @@ namespace BaseBall.BallPlay
         //주자 정보
         private void setRunner(GameObject runnerObj, Runner runner)
         {
-            runnerObj.GetComponent<UISprite>().spriteName = "runnercon_onbase";
+            runnerObj.GetComponent<GameUIElement>().spriteName = "runnercon_onbase";
             runnerObj.transform.Find("skillIcon").gameObject.SetActive(false);
             runnerObj.transform.Find("light").gameObject.SetActive(false);
             int overRallValue = (runner.pRunner.getSpeed() / 10);
-            UILabel overRallLabel = runnerObj.transform.Find("overall").gameObject.GetComponent<UILabel>();
+            GameUIElement overRallLabel = runnerObj.transform.Find("overall").gameObject.GetComponent<GameUIElement>();
             Color overRallColor = new Color(0.38f, 0.45f, 0.84f); //최저
             if (overRallValue >= 100) overRallColor = new Color(0.74f, 0.15f, 0.89f);
             else if (overRallValue >= 80) overRallColor = new Color(0.96f, 0.16f, 0.16f);
             else if (overRallValue >= 60) overRallColor = new Color(0.16f, 0.58f, 1);
             overRallLabel.color = overRallColor;
             overRallLabel.text = overRallValue.ToString();
-            runnerObj.transform.Find("steal").gameObject.GetComponent<UISprite>().spriteName = (manager.bMyTurn == true ? "steal_1" : "pickoff_1");
+            runnerObj.transform.Find("steal").gameObject.GetComponent<GameUIElement>().spriteName = (manager.bMyTurn == true ? "steal_1" : "pickoff_1");
          
             //도루 스킬
             if (runner.pRunner.skillAvailable(SkillIndex.RunnerStealMaster) == true)
@@ -214,9 +214,9 @@ namespace BaseBall.BallPlay
                 uguiView.Select(System.Array.IndexOf(onBaseObj, runnerObj), manager.bMyTurn);
                 return;
             }
-            runnerObj.GetComponent<UISprite>().spriteName = "runnercon_steal";
+            runnerObj.GetComponent<GameUIElement>().spriteName = "runnercon_steal";
             runnerObj.transform.Find("light").gameObject.SetActive(true);
-            runnerObj.transform.Find("steal").gameObject.GetComponent<UISprite>().spriteName = (manager.bMyTurn == true ? "steal_2" : "pickoff_2");
+            runnerObj.transform.Find("steal").gameObject.GetComponent<GameUIElement>().spriteName = (manager.bMyTurn == true ? "steal_2" : "pickoff_2");
         }
 
 

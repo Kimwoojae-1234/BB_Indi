@@ -13,10 +13,15 @@ namespace BaseBall.BallPlay.UGUI
         public Transform scaleTarget;
         public Vector3 pressedScale = Vector3.one, hoverScale = Vector3.one;
         public bool usesScale;
+        public List<GameUIButtonFeedback> buttonFeedback = new List<GameUIButtonFeedback>();
         public float scaleDuration = .2f;
         private bool hovering;
         private int? releasedPointer;
         public GameUIScroll scroll;
+        public GameUIProgress progress;
+        public GameUIToggle toggle;
+        public GameUIInput input;
+        public List<GameUIAction> onDragStart = new List<GameUIAction>(), onDrag = new List<GameUIAction>(), onDragEnd = new List<GameUIAction>(), onDoubleClick = new List<GameUIAction>();
         private int? pointer;
         private Vector3 originalScale;
         private bool dragging;
@@ -45,6 +50,11 @@ namespace BaseBall.BallPlay.UGUI
         }
         private void Awake() { if (scaleTarget != null) originalScale = scaleTarget.localScale; }
         private void OnEnable() { GameUIRoot.EnsureInput(gameObject.scene); }
+        private void LateUpdate()
+        {
+            int state = !Available ? 3 : pointer.HasValue ? 2 : hovering ? 1 : 0;
+            foreach (var feedback in buttonFeedback) feedback.Apply(state);
+        }
         private void OnDisable() { CancelDrag(); pointer = releasedPointer = null; dragging = hovering = false; RestoreScale(); }
         private void RestoreScale()
         {
@@ -62,6 +72,8 @@ namespace BaseBall.BallPlay.UGUI
             pointer = data.pointerId; releasedPointer = null; dragging = false;
             AnimateScale(pressedScale);
             GameUIAction.InvokeAll(onPress);
+            if (progress != null) progress.Press(data);
+            if (input != null) { input.input.Select(); input.input.ActivateInputField(); }
         }
         public void OnPointerUp(PointerEventData data)
         {
@@ -72,7 +84,12 @@ namespace BaseBall.BallPlay.UGUI
         public void OnPointerClick(PointerEventData data)
         {
             bool accepted = releasedPointer == data.pointerId; releasedPointer = null;
-            if (accepted && Available && !dragging) GameUIAction.InvokeAll(onClick);
+            if (accepted && Available && !dragging)
+            {
+                if (toggle != null) toggle.Click();
+                GameUIAction.InvokeAll(onClick);
+                if (data.clickCount == 2) GameUIAction.InvokeAll(onDoubleClick);
+            }
         }
         public void OnPointerEnter(PointerEventData data) { hovering = data.pointerId < 0; if (Available) { if (!pointer.HasValue) AnimateScale(hovering ? hoverScale : Vector3.one); GameUIAction.InvokeAll(onHoverOver); } }
         public void OnPointerExit(PointerEventData data) { hovering = false; if (Available) { if (!pointer.HasValue) AnimateScale(Vector3.one); GameUIAction.InvokeAll(onHoverOut); } }
@@ -82,17 +99,21 @@ namespace BaseBall.BallPlay.UGUI
             if (!Available || pointer != data.pointerId || data.button != PointerEventData.InputButton.Left || dragPointer.HasValue) return;
             dragging = true; dragPointer = data.pointerId;
             if (scroll != null) scroll.OnBeginDrag(data);
+            GameUIAction.InvokeAll(onDragStart);
         }
         public void OnDrag(PointerEventData data)
         {
             if (dragPointer != data.pointerId) return;
             if (!Available) { CancelDrag(); pointer = releasedPointer = null; RestoreScale(); return; }
             if (scroll != null) scroll.OnDrag(data);
+            if (progress != null) progress.Drag(data);
+            GameUIAction.InvokeAll(onDrag);
         }
         public void OnEndDrag(PointerEventData data)
         {
             if (dragPointer != data.pointerId) return;
             if (scroll != null) scroll.OnEndDrag(data);
+            GameUIAction.InvokeAll(onDragEnd);
             dragPointer = null;
         }
         public void OnScroll(PointerEventData data) { if (Available && scroll != null) scroll.OnScroll(data); }

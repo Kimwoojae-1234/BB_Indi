@@ -85,9 +85,9 @@ public static class IntegratedUGUIPlayChecks
         if (hits.Count == 0 || hits[0].gameObject.GetComponentInParent<GameUIPointer>() != pointer)
             throw new InvalidOperationException(method + " raycast failed: " + screen + " depth=" + target.depth + " culled=" + target.canvasRenderer.cull + " enabled=" + target.raycastTarget + " rect=" + target.rectTransform.rect + " camera=" + target.canvas.worldCamera + " localFilter=" + target.IsRaycastLocationValid(screen, target.canvas.worldCamera) + " graphicFilter=" + target.Raycast(screen, target.canvas.worldCamera) + " groups=" + string.Join(",", target.GetComponentsInParent<CanvasGroup>().Select(g => g.name + ":" + g.blocksRaycasts + ":" + g.alpha)) + " raycasters=" + string.Join(",", RaycasterManager.GetRaycasters().Select(r => r.name + ":" + r.isActiveAndEnabled)) + " hits=" + string.Join(",", hits.Select(h => h.gameObject.name)));
         data.pointerCurrentRaycast = data.pointerPressRaycast = hits[0];
-        ExecuteEvents.Execute(pointer.gameObject, data, ExecuteEvents.pointerDownHandler);
-        ExecuteEvents.Execute(pointer.gameObject, data, ExecuteEvents.pointerUpHandler);
-        ExecuteEvents.Execute(pointer.gameObject, data, ExecuteEvents.pointerClickHandler);
+        ExecuteEvents.ExecuteHierarchy(target.gameObject, data, ExecuteEvents.pointerDownHandler);
+        ExecuteEvents.ExecuteHierarchy(target.gameObject, data, ExecuteEvents.pointerUpHandler);
+        ExecuteEvents.ExecuteHierarchy(target.gameObject, data, ExecuteEvents.pointerClickHandler);
         File.AppendAllText(Output + "/input-checks.txt", "TEST_INPUT " + Time.time + " " + method + " through EventSystem.RaycastAll + Unity pointer events; paused=" + Mode.bPauseGame + " mode=" + Mode.PlayTypeFlag + "\n");
         Snapshot();
     }
@@ -119,9 +119,9 @@ public static class IntegratedUGUIPlayChecks
         foreach (var path in Directory.GetFiles(IntegratedUGUIConverter.Folder, "Atlas-*.asset"))
         {
             string guid = Path.GetFileNameWithoutExtension(path).Substring(6);
-            var atlas = AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(guid)).GetComponent<UIAtlas>();
+            var atlas = AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(guid)).GetComponent<GameUIAsset>();
             var catalog = AssetDatabase.LoadAssetAtPath<GameUISpriteCatalog>(path);
-            catalog.material = IntegratedUGUIConverter.NativeAtlasMaterial(atlas);
+            catalog.material = atlas != null && atlas.sprites != null ? atlas.sprites.material : null;
             EditorUtility.SetDirty(catalog);
         }
         AssetDatabase.SaveAssets();

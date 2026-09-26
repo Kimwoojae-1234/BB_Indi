@@ -1,4 +1,5 @@
-﻿using System.Collections;
+using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WebConnector;
@@ -21,7 +22,7 @@ namespace BaseBall.BallPlay
         public Transform grid;
         public GameObject next;
 
-        private UILabel goldLabel;
+        private GameUIElement goldLabel;
 
         private int top100Rulby;
 
@@ -36,7 +37,7 @@ namespace BaseBall.BallPlay
             WebConnector.SeasonAnnounceInfo annInfo = finalRewardMain.getLobbyInfo().annInfo;
             //골드
             goldUI.SetActive(true);
-            goldLabel = goldUI.transform.Find("coinLabel").GetComponent<UILabel>();
+            goldLabel = goldUI.transform.Find("coinLabel").GetComponent<GameUIElement>();
             int gold = getTotalGold(annInfo);
             goldLabel.text = string.Format("{0:n0}", 0);
             //아이템
@@ -98,7 +99,7 @@ namespace BaseBall.BallPlay
             next.SetActive(false);
             WebConnector.RacePlayAnnounceInfo annInfo = finalRewardMain.getRaceInfo().annInfo;
             //race.SetActive(true);
-            race.transform.Find("sesonRankLabel").GetComponent<UILabel>().text = string.Format("{0:n0}", annInfo.weekRanking);
+            race.transform.Find("sesonRankLabel").GetComponent<GameUIElement>().text = string.Format("{0:n0}", annInfo.weekRanking);
 
             //골드
             int gold = 0; //골드 없음
@@ -130,7 +131,7 @@ namespace BaseBall.BallPlay
             next.SetActive(false);
             WebConnector.WalkoffPlayAnnounceInfo annInfo = finalRewardMain.getWalkoffInfo().annInfo;
             //walkoff.SetActive(true);
-            walkoff.transform.Find("sesonRankLabel").GetComponent<UILabel>().text = string.Format("{0:n0}", annInfo.weekRanking);
+            walkoff.transform.Find("sesonRankLabel").GetComponent<GameUIElement>().text = string.Format("{0:n0}", annInfo.weekRanking);
 
             //골드
             int gold = 0; //골드 없음
@@ -138,7 +139,7 @@ namespace BaseBall.BallPlay
             /*//지워지워 테스트용
             gold = 100000; 
             goldUI.SetActive(true);
-            goldLabel = goldUI.transform.Find("coinLabel").GetComponent<UILabel>();
+            goldLabel = goldUI.transform.Find("coinLabel").GetComponent<GameUIElement>();
             goldLabel.text = string.Format("{0:n0}", 0);
             //지워지워 테스트용 - 여기까지*/
 
@@ -166,12 +167,12 @@ namespace BaseBall.BallPlay
             next.SetActive(false);
             WebConnector.LivePlayAnnounceInfo annInfo = finalRewardMain.getLiveInfo().annInfo;
             //livematch.SetActive(true);
-            livematch.transform.Find("sesonRankLabel").GetComponent<UILabel>().text = string.Format("{0:n0}", annInfo.finalRank);
+            livematch.transform.Find("sesonRankLabel").GetComponent<GameUIElement>().text = string.Format("{0:n0}", annInfo.finalRank);
 
 
             //골드대신 코인
             coinUI.SetActive(true);
-            goldLabel = coinUI.transform.Find("coinLabel").GetComponent<UILabel>();
+            goldLabel = coinUI.transform.Find("coinLabel").GetComponent<GameUIElement>();
             int coin = annInfo.weekLeagueCoin; //코인임
             goldLabel.text = string.Format("{0:n0}", 0);
 
@@ -273,7 +274,7 @@ namespace BaseBall.BallPlay
 
                 
             }
-            grid.GetComponent<UIGrid>().enabled = true;
+            grid.GetComponent<GameUIGrid>().enabled = true;
         }
 
         /// <summary>
@@ -336,7 +337,7 @@ namespace BaseBall.BallPlay
             seasonCasterAnim.gameObject.SetActive(false);
             liveCasterAnim.gameObject.SetActive(false);
             raceCasterAnim.gameObject.SetActive(false);
-            TweenAlpha.Begin(gameObject, 0.5f, 0);
+            GameUITweenAlpha.Begin(gameObject, 0.5f, 0);
             yield return new WaitForSeconds(0.5f);
             _active.SetActive(false);
         }

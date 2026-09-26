@@ -872,7 +872,7 @@ namespace BaseBall.BallPlay
                     manager.nErrorCount[i] = gameSyncInfo.errorNum[i];
                 }
 
-                manager.field.run.transform.DestroyChildren();// .checkDestroyRunner
+                Util.DestroyChildren(manager.field.run.transform);
                 for (int i = 0; i < 4; i++) manager.field.run.runnerActive[i] = false;
 
 

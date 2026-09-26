@@ -1,4 +1,4 @@
-﻿using BaseBall.BallPlay.UGUI;
+using BaseBall.BallPlay.UGUI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -345,7 +345,7 @@ namespace BaseBall.BallPlay
         /// <param name="title"></param>
         /// <param name="message"></param>
         /// <param name="callBack"></param>
-        public static void SetConfirmPopupOnebutton(string title, string message, EventDelegate.Callback callBack = null)
+        public static void SetConfirmPopupOnebutton(string title, string message, System.Action callBack = null)
         {
             Instance_.confirmPopup.SetIngameMode();
             Instance_.confirmPopup.SetPopup_OneBtn(title, message, callBack);
@@ -359,7 +359,7 @@ namespace BaseBall.BallPlay
         /// <param name="message"></param>
         /// <param name="callBack_Left"></param>
         /// <param name="callBack_Right"></param>
-        public static void SetConfirmPopupTwobutton(string title, string message, EventDelegate.Callback callBack_Left = null, EventDelegate.Callback callBack_Right = null)
+        public static void SetConfirmPopupTwobutton(string title, string message, System.Action callBack_Left = null, System.Action callBack_Right = null)
         {
             Instance_.confirmPopup.SetIngameMode();
             Instance_.confirmPopup.SetPopup_TwoBtn(title, message, "확인", "취소", callBack_Left, callBack_Right);

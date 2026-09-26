@@ -79,8 +79,7 @@ namespace BaseBall.BallPlay
             image.rectTransform.sizeDelta = entry.nativeSize;
         }
 
-        // During incremental migration the parent still owns the other NGUI HUD elements.
-        // Accept values rather than an NGUI component so the new view has no NGUI dependency.
+        // Inherit the owning HUD panel's alpha and drawing order.
         public void SetInheritedRendering(float alpha, int renderQueue, int sortingOrder)
         {
             opacity.alpha = alpha;

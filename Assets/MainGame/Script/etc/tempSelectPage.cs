@@ -1,4 +1,5 @@
-﻿using System.Collections;
+using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -26,7 +27,7 @@ public class tempSelectPage : MonoBehaviour {
 
 
 
-    public UISprite button1, button2;
+    public GameUIElement button1, button2;
 
 
     bool bInit;
@@ -39,46 +40,46 @@ public class tempSelectPage : MonoBehaviour {
         if (button1 != null)
         {
             button1.color = new Color(0, 0, 0);
-            button1.transform.Find("Label").GetComponent<UILabel>().text = "[aaaaaa]투수 모드 OFF";
+            button1.transform.Find("Label").GetComponent<GameUIElement>().text = "[aaaaaa]투수 모드 OFF";
         }
         if (button2 != null)
         {
             button2.color = new Color(0, 0, 0);
-            button2.transform.Find("Label").GetComponent<UILabel>().text = "[aaaaaa]특수 능력 OFF";
+            button2.transform.Find("Label").GetComponent<GameUIElement>().text = "[aaaaaa]특수 능력 OFF";
         }
 
     }
 
 
-    public void pitcherMode(UILabel label)
+    public void pitcherMode(GameUIElement label)
     {
         if (Mode.bPitchingViewActive == true)
         {
             button1.color = new Color(0, 0, 0);
-            button1.transform.Find("Label").GetComponent<UILabel>().text = "[aaaaaa]투수 모드 OFF";
+            button1.transform.Find("Label").GetComponent<GameUIElement>().text = "[aaaaaa]투수 모드 OFF";
             Mode.bPitchingViewActive = false;
         }
         else
         {
             button1.color = new Color(1, 1, 1);
-            button1.transform.Find("Label").GetComponent<UILabel>().text = "[ffffff]투수 모드 ON";
+            button1.transform.Find("Label").GetComponent<GameUIElement>().text = "[ffffff]투수 모드 ON";
             Mode.bPitchingViewActive = true;
         }
     }
 
 
-    public void spMode(UILabel label)
+    public void spMode(GameUIElement label)
     {
         if (Mode.bBattingSPMode == true)
         {
             button2.color = new Color(0, 0, 0);
-            button2.transform.Find("Label").GetComponent<UILabel>().text = "[aaaaaa]특수 능력 OFF";
+            button2.transform.Find("Label").GetComponent<GameUIElement>().text = "[aaaaaa]특수 능력 OFF";
             Mode.bBattingSPMode = false;
         }
         else
         {
             button2.color = new Color(1, 1, 1);
-            button2.transform.Find("Label").GetComponent<UILabel>().text = "[ffffff]특수 능력 ON";
+            button2.transform.Find("Label").GetComponent<GameUIElement>().text = "[ffffff]특수 능력 ON";
             Mode.bBattingSPMode = true;
         }
     }

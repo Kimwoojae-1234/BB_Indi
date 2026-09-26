@@ -1,52 +1,54 @@
-﻿using UnityEngine;
+using TMPro;
+using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 public class UI_CardBase : MonoBehaviour
 {
     [SerializeField]
-    public UISprite spriteBackground; // Card 백그라운드
-    private UISpriteAnimation spriteani;
+    public GameUIElement spriteBackground; // Card 백그라운드
+    private GameUISpriteAnimation spriteani;
     [SerializeField]
-    public UISprite legendLine;
+    public GameUIElement legendLine;
     // 강화 파티클 애니메이션
     [SerializeField]
-    public UISprite spriteTeamLogo;   // 팀 로고
+    public GameUIElement spriteTeamLogo;   // 팀 로고
     [SerializeField]
-    public UITexture texturePlayer;     // 선수 사진
+    public GameUIElement texturePlayer;     // 선수 사진
     [SerializeField]
-    public UILabel labelPlayerName;     // 선수 이름
+    public GameUIElement labelPlayerName;     // 선수 이름
     [SerializeField]
-    public UISprite spritePlayerName_Bg;
+    public GameUIElement spritePlayerName_Bg;
     [SerializeField]
-    public UILabel labelPlayerLevel;    // 선수 레벨
+    public GameUIElement labelPlayerLevel;    // 선수 레벨
     [SerializeField]
-    public UISprite spritePlayerLevel_BG;
+    public GameUIElement spritePlayerLevel_BG;
     [SerializeField]
-    public UISprite spritePlayerPosition;   // 선수 포지션 스프라이트
+    public GameUIElement spritePlayerPosition;   // 선수 포지션 스프라이트
     [SerializeField]
-    public UISprite spritePlayerPosition_bg;
+    public GameUIElement spritePlayerPosition_bg;
     [SerializeField]
-    public UISprite spriteReinforce;    // 선수 강화 표시 스프라이트
+    public GameUIElement spriteReinforce;    // 선수 강화 표시 스프라이트
     [SerializeField]
-    public UISprite spriteReinforce_bg;    // 선수 강화 표시 스프라이트
+    public GameUIElement spriteReinforce_bg;    // 선수 강화 표시 스프라이트
     [SerializeField]
-    public UILabel labelPower;//선수 파워 라벨
+    public GameUIElement labelPower;//선수 파워 라벨
     [SerializeField]
-    public UISprite spriteLock; //잠금표시 스프라이트
+    public GameUIElement spriteLock; //잠금표시 스프라이트
     [SerializeField]
-    public UISprite Grade_sprite;   //등급 스프라이트 금색 , 은색 별
+    public GameUIElement Grade_sprite;   //등급 스프라이트 금색 , 은색 별
     [SerializeField]
-    public UILabel Grade_label;     //등급 숫자 라벨
+    public GameUIElement Grade_label;     //등급 숫자 라벨
     [SerializeField]
-    public UISprite spriteNewMark;
+    public GameUIElement spriteNewMark;
     [SerializeField]
-    public UISprite new_get_mark;
+    public GameUIElement new_get_mark;
     [SerializeField]
-    private UISprite goldenGlove_sprite;
+    private GameUIElement goldenGlove_sprite;
     protected CardData cardData;
 
-    protected UIFont overallFont;
+    protected TMP_FontAsset overallFont;
 
     /// <summary>
     /// 플레이어가 보유한 카드 정보로 파싱

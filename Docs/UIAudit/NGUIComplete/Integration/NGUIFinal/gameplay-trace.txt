@@ -1,0 +1,52 @@
+Offline _Test_Local entry, 2026-09-26T11:32:58.3015215Z
+0.0 Scene=Logo manager=False board=False
+4.1 Scene=MainLobby manager=False board=False
+5.5 Scene=MainLoading manager=False board=False
+ERROR tk2dCamera.GetGameViewSize - has a Unity update broken this?
+This is not a fatal error, but a warning that you've probably not got the latest 2D Toolkit update.
+
+System.NullReferenceException: Object reference not set to an instance of an object
+  at tk2dCamera.Editor__GetGameViewSize (System.Single& width, System.Single& height, System.Single& aspect) [0x00021] in D:\PROJECTS\Git\BB_Indi\Assets\TK2DROOT\tk2d\Code\Camera\tk2dCamera.cs:371 
+UnityEngine.Debug:LogError (object)
+tk2dCamera:Editor__GetGameViewSize (single&,single&,single&) (at Assets/TK2DROOT/tk2d/Code/Camera/tk2dCamera.cs:430)
+tk2dCamera:GetScreenPixelDimensions (tk2dCamera) (at Assets/TK2DROOT/tk2d/Code/Camera/tk2dCamera.cs:701)
+tk2dCamera:UpdateCameraMatrix () (at Assets/TK2DROOT/tk2d/Code/Camera/tk2dCamera.cs:774)
+tk2dCamera:OnEnable () (at Assets/TK2DROOT/tk2d/Code/Camera/tk2dCamera.cs:275)
+
+5.9 Scene=BallPlay manager=True board=True ugui=True visible=False phase=PLAY_INIT_INNING update=False inning=0 top=False home=False score=0,0 count=0/0/0 display=0:0 alpha=1
+8.6 Scene=BallPlay manager=True board=True ugui=True visible=False phase=NONE update=False inning=1 top=True home=False score=0,0 count=0/0/0 display=0:0 alpha=1
+13.6 Scene=BallPlay manager=True board=True ugui=True visible=False phase=NONE update=True inning=1 top=True home=False score=0,0 count=0/0/0 display=0:0 alpha=1
+15.4 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW_INFO update=True inning=1 top=True home=False score=0,0 count=0/0/0 display=0:0 alpha=1
+17.7 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW update=True inning=1 top=True home=False score=0,0 count=0/0/0 display=0:0 alpha=1
+22.7 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW update=True inning=1 top=True home=False score=0,0 count=0/1/0 display=0:0 alpha=1
+23.4 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW_READY update=True inning=1 top=True home=False score=0,0 count=0/1/0 display=0:0 alpha=1
+24.7 Scene=BallPlay manager=True board=True ugui=True visible=True phase=PLAY_BATTING_VIEW update=True inning=1 top=True home=False score=0,0 count=0/1/0 display=0:0 alpha=1
+ERROR ArgumentException: Animation not found: DEADBALL2
+Parameter name: animationName
+Spine.AnimationState.SetAnimation (System.Int32 trackIndex, System.String animationName, System.Boolean loop) (at Assets/Spine/spine-csharp/src/AnimationState.cs:405)
+BaseBall.BallPlay.Batter.batterAnim (System.Int32 track, System.String strAnim, System.Boolean bLoop, System.Single timeScale) (at Assets/MainGame/Script/Character/Batter.cs:731)
+BaseBall.BallPlay.Batter+<hitByPitchAnim>d__224.MoveNext () (at Assets/MainGame/Script/Character/Batter.cs:4009)
+UnityEngine.SetupCoroutine.InvokeMoveNext (System.Collections.IEnumerator enumerator, System.IntPtr returnValueAddress) (at <31f3cd5c2a074982a9d5664e7709cac1>:0)
+UnityEngine.MonoBehaviour:StartCoroutine(IEnumerator)
+BaseBall.BallPlay.Batter:lookingFrame() (at Assets/MainGame/Script/Character/Batter.cs:3009)
+BaseBall.BallPlay.Batter:batterFrame() (at Assets/MainGame/Script/Character/Batter.cs:2956)
+BaseBall.BallPlay.BallPlayManager:battingViewFrame() (at Assets/MainGame/Script/Manager/BallPlayManager.cs:3694)
+BaseBall.BallPlay.BallPlayManager:updateFrame() (at Assets/MainGame/Script/Manager/BallPlayManager.cs:3149)
+BaseBall.BallPlay.BallPlayManager:Update() (at Assets/MainGame/Script/Manager/BallPlayManager.cs:953)
+
+ERROR 투수 에러 PITCHER_INCONVENENCE_01
+UnityEngine.Debug:LogError (object)
+BaseBall.BallPlay.Pitcher:pitcherAnim (string,bool,bool) (at Assets/MainGame/Script/Character/Pitcher.cs:534)
+BaseBall.BallPlay.Pitcher/<pitcherAngry>d__149:MoveNext () (at Assets/MainGame/Script/Character/Pitcher.cs:2300)
+UnityEngine.MonoBehaviour:StartCoroutine (System.Collections.IEnumerator)
+BaseBall.BallPlay.Pitcher:checkCount () (at Assets/MainGame/Script/Character/Pitcher.cs:2249)
+BaseBall.BallPlay.Pitcher:finishFrame () (at Assets/MainGame/Script/Character/Pitcher.cs:2018)
+BaseBall.BallPlay.Pitcher:pitchingFrame () (at Assets/MainGame/Script/Character/Pitcher.cs:1789)
+BaseBall.BallPlay.BallPlayManager:battingViewFrame () (at Assets/MainGame/Script/Manager/BallPlayManager.cs:3693)
+BaseBall.BallPlay.BallPlayManager:updateFrame () (at Assets/MainGame/Script/Manager/BallPlayManager.cs:3149)
+BaseBall.BallPlay.BallPlayManager:Update () (at Assets/MainGame/Script/Manager/BallPlayManager.cs:953)
+
+31.7 Scene=BallPlay manager=True board=True ugui=True visible=False phase=PLAY_FIELDING_VIEW update=True inning=1 top=True home=False score=0,0 count=0/1/0 display=0:0 alpha=0
+34.4 Scene=BallPlay manager=True board=True ugui=True visible=False phase=PLAY_FAST_INNING_SIMUL update=True inning=1 top=True home=False score=0,0 count=0/0/0 display=0:0 alpha=0
+232.4 Scene=BallPlay manager=True board=True ugui=True visible=False phase=NONE update=True inning=9 top=False home=False score=14,1 count=0/0/3 display=0:0 alpha=0
+3149.5 Scene=MainLobby manager=False board=False

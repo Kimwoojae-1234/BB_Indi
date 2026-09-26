@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 using WebConnector;
 
@@ -17,8 +18,8 @@ namespace BaseBall.BallPlay
         public GameObject effectObj;
         private GameObject [] upDownObj = new GameObject[2];
 
-        public UITexture myLogo;
-        public UITexture cpuLogo;
+        public GameUIElement myLogo;
+        public GameUIElement cpuLogo;
 
 
         public void initSeason(BallPlayManager manager)
@@ -42,12 +43,12 @@ namespace BaseBall.BallPlay
             {
                 //팀스탯 세팅
                 Transform stat = teamStat[i].transform;
-                // DISABLED_MGRS: stat.Find("logo").GetComponent<UITexture>().mainTexture = Mgrs.DataLoad.LoadTexture(string.Format("{0}/{1}", "Logo", UI_Helper.ConvertTeamCodeMid((UserData.ETeamCode)(i == 0 ? SimulPlayerManager.myTeamIndex : SimulPlayerManager.cpuTeamIndex))));
-                stat.Find("teamLabel").GetComponent<UILabel>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);
-                stat.Find("scoreLabel").GetComponent<UILabel>().text = manager.nGameScore[i].ToString();
+                // DISABLED_MGRS: stat.Find("logo").GetComponent<GameUIElement>().mainTexture = Mgrs.DataLoad.LoadTexture(string.Format("{0}/{1}", "Logo", UI_Helper.ConvertTeamCodeMid((UserData.ETeamCode)(i == 0 ? SimulPlayerManager.myTeamIndex : SimulPlayerManager.cpuTeamIndex))));
+                stat.Find("teamLabel").GetComponent<GameUIElement>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);
+                stat.Find("scoreLabel").GetComponent<GameUIElement>().text = manager.nGameScore[i].ToString();
                 //
                 /*
-                UISprite spr = stat.FindChild("updown").GetComponent<UISprite>();
+                GameUIElement spr = stat.FindChild("updown").GetComponent<GameUIElement>();
                 if (curRank[i] < lastRank[i]) spr.spriteName = "result_rankup";
                 else if (curRank[i] > lastRank[i]) spr.spriteName = "result_rankdown";
                 else spr.spriteName = "result_rankkeep";
@@ -64,7 +65,7 @@ namespace BaseBall.BallPlay
                 {
                     upDownObj[i] = stat.Find("updown").Find("even").gameObject;
                 }
-                upDownObj[i].transform.Find("rankLabel").GetComponent<UILabel>().text = curRank[i] + "위";
+                upDownObj[i].transform.Find("rankLabel").GetComponent<GameUIElement>().text = curRank[i] + "위";
 
                 //게이지 세팅
                 setGauge(gauge[i], manager.nHitCount[i], 1);
@@ -91,12 +92,12 @@ namespace BaseBall.BallPlay
             {
                 //팀스탯 세팅
                 Transform stat = teamStat[i].transform;
-                // DISABLED_MGRS: stat.FindChild("logo").GetComponent<UITexture>().mainTexture = Mgrs.DataLoad.LoadTexture(string.Format("{0}/{1}", "Logo", UI_Helper.ConvertTeamCodeMid((UserData.ETeamCode)(i==0?SimulPlayerManager.myTeamIndex:SimulPlayerManager.cpuTeamIndex))));
-                stat.FindChild("teamLabel").GetComponent<UILabel>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);
-                stat.FindChild("scoreLabel").GetComponent<UILabel>().text = manager.nGameScore[i].ToString();
+                // DISABLED_MGRS: stat.FindChild("logo").GetComponent<GameUIElement>().mainTexture = Mgrs.DataLoad.LoadTexture(string.Format("{0}/{1}", "Logo", UI_Helper.ConvertTeamCodeMid((UserData.ETeamCode)(i==0?SimulPlayerManager.myTeamIndex:SimulPlayerManager.cpuTeamIndex))));
+                stat.FindChild("teamLabel").GetComponent<GameUIElement>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);
+                stat.FindChild("scoreLabel").GetComponent<GameUIElement>().text = manager.nGameScore[i].ToString();
                 //
                 /*
-                UISprite spr = stat.FindChild("updown").GetComponent<UISprite>();
+                GameUIElement spr = stat.FindChild("updown").GetComponent<GameUIElement>();
                 if (curRank[i] < lastRank[i]) spr.spriteName = "result_rankup";
                 else if (curRank[i] > lastRank[i]) spr.spriteName = "result_rankdown";
                 else spr.spriteName = "result_rankkeep";
@@ -113,7 +114,7 @@ namespace BaseBall.BallPlay
                 {
                     upDownObj[i] = stat.FindChild("updown").FindChild("even").gameObject;
                 }
-                upDownObj[i].transform.FindChild("rankLabel").GetComponent<UILabel>().text = curRank[i] + "위";                
+                upDownObj[i].transform.FindChild("rankLabel").GetComponent<GameUIElement>().text = curRank[i] + "위";
 
                 //게이지 세팅
                 setGauge(gauge[i], manager.nHitCount[i], 1);
@@ -168,13 +169,13 @@ namespace BaseBall.BallPlay
             {
                 //팀스탯 세팅
                 Transform stat = teamStat[i].transform;
-                // DISABLED_MGRS: stat.FindChild("logo").GetComponent<UITexture>().mainTexture = Mgrs.DataLoad.LoadTexture(string.Format("{0}/{1}", "Logo", UI_Helper.ConvertTeamCodeMid((UserData.ETeamCode)(i == 0 ? SimulPlayerManager.myTeamIndex : SimulPlayerManager.cpuTeamIndex))));
-                stat.FindChild("teamLabel").GetComponent<UILabel>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);
-                stat.FindChild("scoreLabel").GetComponent<UILabel>().text = manager.nGameScore[i].ToString();
+                // DISABLED_MGRS: stat.FindChild("logo").GetComponent<GameUIElement>().mainTexture = Mgrs.DataLoad.LoadTexture(string.Format("{0}/{1}", "Logo", UI_Helper.ConvertTeamCodeMid((UserData.ETeamCode)(i == 0 ? SimulPlayerManager.myTeamIndex : SimulPlayerManager.cpuTeamIndex))));
+                stat.FindChild("teamLabel").GetComponent<GameUIElement>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);
+                stat.FindChild("scoreLabel").GetComponent<GameUIElement>().text = manager.nGameScore[i].ToString();
 
                 //순위
-                /*UISprite spr = stat.FindChild("updown").GetComponent<UISprite>();
-                stat.FindChild("rankLabel").GetComponent<UILabel>().text = curRank[i] + "위";
+                /*GameUIElement spr = stat.FindChild("updown").GetComponent<GameUIElement>();
+                stat.FindChild("rankLabel").GetComponent<GameUIElement>().text = curRank[i] + "위";
                 if (curRank[i] < lastRank[i]) spr.spriteName = "result_rankup";
                 else if (curRank[i] > lastRank[i]) spr.spriteName = "result_rankdown";
                 else spr.spriteName = "result_rankkeep";
@@ -191,7 +192,7 @@ namespace BaseBall.BallPlay
                 {
                     upDownObj[i] = stat.FindChild("updown").FindChild("even").gameObject;
                 }
-                upDownObj[i].transform.FindChild("rankLabel").GetComponent<UILabel>().text = curRank[i] + "위";    
+                upDownObj[i].transform.FindChild("rankLabel").GetComponent<GameUIElement>().text = curRank[i] + "위";
 
                 //게이지 세팅
                 setGauge(gauge[i], manager.nHitCount[i], 1);
@@ -221,11 +222,11 @@ namespace BaseBall.BallPlay
             {
                 //팀스탯 세팅
                 Transform stat = teamStat[i].transform;
-                // DISABLED_MGRS: stat.FindChild("logo").GetComponent<UITexture>().mainTexture = Mgrs.DataLoad.LoadTexture(string.Format("{0}/{1}", "Logo", UI_Helper.ConvertTeamCodeMid((UserData.ETeamCode)(i == 0 ? SimulPlayerManager.myTeamIndex : SimulPlayerManager.cpuTeamIndex))));
-                stat.FindChild("teamLabel").GetComponent<UILabel>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);
-                stat.FindChild("scoreLabel").GetComponent<UILabel>().text = manager.nGameScore[i].ToString();
+                // DISABLED_MGRS: stat.FindChild("logo").GetComponent<GameUIElement>().mainTexture = Mgrs.DataLoad.LoadTexture(string.Format("{0}/{1}", "Logo", UI_Helper.ConvertTeamCodeMid((UserData.ETeamCode)(i == 0 ? SimulPlayerManager.myTeamIndex : SimulPlayerManager.cpuTeamIndex))));
+                stat.FindChild("teamLabel").GetComponent<GameUIElement>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);
+                stat.FindChild("scoreLabel").GetComponent<GameUIElement>().text = manager.nGameScore[i].ToString();
 
-                UISprite spr = stat.FindChild("updown").GetComponent<UISprite>();
+                GameUIElement spr = stat.FindChild("updown").GetComponent<GameUIElement>();
                 spr.gameObject.SetActive(false);
 
                 //게이지 세팅
@@ -260,12 +261,12 @@ namespace BaseBall.BallPlay
             {
                 //팀스탯 세팅
                 Transform stat = teamStat[i].transform;
-                // DISABLED_MGRS: stat.FindChild("logo").GetComponent<UITexture>().mainTexture = Mgrs.DataLoad.LoadTexture(string.Format("{0}/{1}", "Logo", UI_Helper.ConvertTeamCodeMid((UserData.ETeamCode)(i == 0 ? SimulPlayerManager.myTeamIndex : SimulPlayerManager.cpuTeamIndex))));
-                stat.FindChild("teamLabel").GetComponent<UILabel>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);
-                stat.FindChild("scoreLabel").GetComponent<UILabel>().text = manager.nGameScore[i].ToString();
+                // DISABLED_MGRS: stat.FindChild("logo").GetComponent<GameUIElement>().mainTexture = Mgrs.DataLoad.LoadTexture(string.Format("{0}/{1}", "Logo", UI_Helper.ConvertTeamCodeMid((UserData.ETeamCode)(i == 0 ? SimulPlayerManager.myTeamIndex : SimulPlayerManager.cpuTeamIndex))));
+                stat.FindChild("teamLabel").GetComponent<GameUIElement>().text = (i == 0 ? SimulPlayerManager.strMyTeam : SimulPlayerManager.strCPUTeam);
+                stat.FindChild("scoreLabel").GetComponent<GameUIElement>().text = manager.nGameScore[i].ToString();
 
 
-                //UISprite spr = stat.FindChild("updown").GetComponent<UISprite>();
+                //GameUIElement spr = stat.FindChild("updown").GetComponent<GameUIElement>();
                 //spr.gameObject.SetActive(false);
 
                 //게이지 세팅
@@ -285,7 +286,7 @@ namespace BaseBall.BallPlay
 
         public void deActive()
         {
-            TweenAlpha.Begin(gameObject, 0.5f, 0);
+            GameUITweenAlpha.Begin(gameObject, 0.5f, 0);
             Invoke("deactive", 0.6f);
         }
 
@@ -320,9 +321,9 @@ namespace BaseBall.BallPlay
         private void setGauge(GameObject gauge, int value, int count)
         {
             Transform value5 = gauge.transform.Find("value" + count);
-            value5.GetComponent<UILabel>().text = value.ToString();
+            value5.GetComponent<GameUIElement>().text = value.ToString();
             int size5 = Mathf.Clamp(value * 22, 20, 332);
-            UISprite gaugeSpr = value5.Find("gauge").GetComponent<UISprite>();
+            GameUIElement gaugeSpr = value5.Find("gauge").GetComponent<GameUIElement>();
             if (value > 0)
             {
                 //gaugeSpr.SetDimensions(size5, 20);
@@ -345,11 +346,11 @@ namespace BaseBall.BallPlay
         {
             yield return new WaitForSeconds(0.5f);
             effectObj.SetActive(true);
-            if(leftObj.activeSelf) TweenPosition.Begin(leftObj, 0.15f, new Vector3(-437, 0, 0));
-            if (rightObj.activeSelf) TweenPosition.Begin(rightObj, 0.15f, new Vector3(437, 0, 0));
+            if(leftObj.activeSelf) GameUITweenPosition.Begin(leftObj, 0.15f, new Vector3(-437, 0, 0));
+            if (rightObj.activeSelf) GameUITweenPosition.Begin(rightObj, 0.15f, new Vector3(437, 0, 0));
             yield return new WaitForSeconds(0.15f);
-            TweenAlpha.Begin(effectObj.transform.Find("light1").gameObject, 0.2f, 0);
-            TweenAlpha.Begin(effectObj.transform.Find("light2").gameObject, 0.2f, 0);
+            GameUITweenAlpha.Begin(effectObj.transform.Find("light1").gameObject, 0.2f, 0);
+            GameUITweenAlpha.Begin(effectObj.transform.Find("light2").gameObject, 0.2f, 0);
             yield return new WaitForSeconds(0.15f);
             titleObj.SetActive(true);
 
@@ -362,7 +363,7 @@ namespace BaseBall.BallPlay
             }
         }
 
-        private IEnumerator gagueAnim(UISprite gaugeSpr, int size)
+        private IEnumerator gagueAnim(GameUIElement gaugeSpr, int size)
         {
             yield return new WaitForSeconds(1);
             gaugeSpr.gameObject.SetActive(true);

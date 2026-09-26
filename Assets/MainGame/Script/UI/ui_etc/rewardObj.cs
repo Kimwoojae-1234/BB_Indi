@@ -1,4 +1,5 @@
-﻿using System.Collections;
+using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace BaseBall.BallPlay
@@ -26,7 +27,7 @@ namespace BaseBall.BallPlay
         private IEnumerator setEffect(ItemSlot.ItemSize size)
         {
             yield return new WaitForSeconds(0.5f);
-            TweenAlpha.Begin(light, 0.4f, 0.65f);
+            GameUITweenAlpha.Begin(light, 0.4f, 0.65f);
             yield return new WaitForSeconds(0.5f + (order*0.5f));
             _active.SetActive(true);
             if (size == ItemSlot.ItemSize.BIG) big.SetActive(true);

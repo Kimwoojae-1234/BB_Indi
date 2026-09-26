@@ -67,7 +67,7 @@ namespace BaseBall.BallPlay
         }
 
         // Runner.destroyRunner also fades this marker before its scheduled removal.
-        // NGUI's TweenAlpha cannot reach UGUI graphics, which now live in depth layers.
+        // The marker's graphics live in separate depth layers and fade together here.
         public void FadeOut(float duration)
         {
             teamAlpha = team.color.a;

@@ -1,11 +1,12 @@
-﻿using System.Collections;
+using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class buttonActionSmall : MonoBehaviour {
 
 	public GameObject mainController;
-    public UITweener[] tween;
+    public GameUITween[] tween;
     public float delay = 0.3f;
 
     public int width = 300;
@@ -13,7 +14,7 @@ public class buttonActionSmall : MonoBehaviour {
 
     public GameObject[] sizeObj;
 
-    public UIPanel[] panels;
+    public GameUIPanel[] panels;
 
     private string message;
     private bool bActive = false;
@@ -24,10 +25,10 @@ public class buttonActionSmall : MonoBehaviour {
         int count = tween.Length;
         for (int i = 0; i < count; i++)
         {
-            TweenAlpha alpha = tween[i].GetComponent<TweenAlpha>();
+            GameUITweenAlpha alpha = tween[i].GetComponent<GameUITweenAlpha>();
             if (alpha != null)
             {
-                tween[i].GetComponent<UISprite>().alpha = 0;
+                tween[i].GetComponent<GameUIElement>().alpha = 0;
             }
             tween[i].enabled = false;
         }
@@ -41,7 +42,7 @@ public class buttonActionSmall : MonoBehaviour {
         {
             for (int i = 0; i < panels.Length; i++)
             {
-                panels[i].depth = mainController.GetComponent<UIPanel>().depth + i + 1000;
+                panels[i].depth = mainController.GetComponent<GameUIPanel>().depth + i + 1000;
             }
         }
     }
@@ -94,7 +95,7 @@ public class buttonActionSmall : MonoBehaviour {
         int count = tween.Length;
         for (int i = 0; i < count; i++)
         {
-            TweenAlpha alpha = tween[i].GetComponent<TweenAlpha>();
+            GameUITweenAlpha alpha = tween[i].GetComponent<GameUITweenAlpha>();
             if (alpha != null)
             {
                 tween[i].enabled = true;
@@ -115,8 +116,8 @@ public class buttonActionSmall : MonoBehaviour {
 #if UNITY_EDITOR
     public void setData()
     {
-        sizeObj[0].GetComponent<UIPanel>().baseClipRegion = new Vector4(0,0,width-2, height);
-        sizeObj[1].GetComponent<UISprite>().SetDimensions(width, height);
+        sizeObj[0].GetComponent<GameUIPanel>().clipRegion = new Vector4(0,0,width-2, height);
+        sizeObj[1].GetComponent<GameUIElement>().SetDimensions(width, height);
     }
 #endif
 

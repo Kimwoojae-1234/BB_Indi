@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4047085442513702}
-  - component: {fileID: 114367210186205856}
+  - component: {fileID: 9084695284778614877}
   m_Layer: 0
   m_Name: bitmapfont_card_grade_num
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114367210186205856
+--- !u!114 &9084695284778614877
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,126 +41,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1907775492353214}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b4eb3a400afab046abb8471a9d746d6, type: 3}
+  m_Script: {fileID: 11500000, guid: 978c7a42536880d4394f10e132406263, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  mMat: {fileID: 2100000, guid: 2ba2af970d0ea9f4eadd91e9722a46af, type: 2}
-  mUVRect:
-    serializedVersion: 2
-    x: 0.067871094
-    y: 0.74121094
-    width: 0.125
-    height: 0.25
-  mFont:
-    mSize: 32
-    mBase: 26
-    mWidth: 256
-    mHeight: 256
-    mSpriteName: card_grade_num
-    mSaved:
-    - index: 48
-      x: 36
-      y: 0
-      width: 10
-      height: 18
-      offsetX: 0
-      offsetY: 0
-      advance: 10
-      channel: 15
-      kerning: 
-    - index: 49
-      x: 101
-      y: 0
-      width: 6
-      height: 18
-      offsetX: 0
-      offsetY: 0
-      advance: 6
-      channel: 15
-      kerning: 
-    - index: 50
-      x: 47
-      y: 0
-      width: 10
-      height: 18
-      offsetX: 0
-      offsetY: 0
-      advance: 10
-      channel: 15
-      kerning: 
-    - index: 51
-      x: 58
-      y: 0
-      width: 10
-      height: 18
-      offsetX: 0
-      offsetY: 0
-      advance: 10
-      channel: 15
-      kerning: 
-    - index: 52
-      x: 0
-      y: 0
-      width: 11
-      height: 18
-      offsetX: 0
-      offsetY: 0
-      advance: 11
-      channel: 15
-      kerning: 
-    - index: 53
-      x: 69
-      y: 0
-      width: 10
-      height: 18
-      offsetX: 0
-      offsetY: 0
-      advance: 10
-      channel: 15
-      kerning: 
-    - index: 54
-      x: 12
-      y: 0
-      width: 11
-      height: 18
-      offsetX: 0
-      offsetY: 0
-      advance: 11
-      channel: 15
-      kerning: 
-    - index: 55
-      x: 91
-      y: 0
-      width: 9
-      height: 18
-      offsetX: 0
-      offsetY: 0
-      advance: 9
-      channel: 15
-      kerning: 
-    - index: 56
-      x: 24
-      y: 0
-      width: 11
-      height: 18
-      offsetX: 0
-      offsetY: 0
-      advance: 11
-      channel: 15
-      kerning: 
-    - index: 57
-      x: 80
-      y: 0
-      width: 10
-      height: 18
-      offsetX: 0
-      offsetY: 0
-      advance: 10
-      channel: 15
-      kerning: 
-  mAtlas: {fileID: 11451540, guid: d958cbef9f20c9d41a8a955a09ea914c, type: 3}
-  mReplacement: {fileID: 0}
-  mSymbols: []
-  mDynamicFont: {fileID: 0}
-  mDynamicFontSize: 16
-  mDynamicFontStyle: 0
+  m_EditorClassIdentifier: Assembly-CSharp::BaseBall.BallPlay.UGUI.GameUIAsset
+  sprites: {fileID: 0}
+  bitmapFont: {fileID: 11400000, guid: c5a1a22bcfc90ac48ba0362bf40587e2, type: 2}
+  dynamicFont: {fileID: 0}

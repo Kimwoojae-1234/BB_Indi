@@ -1,4 +1,4 @@
-﻿using BaseBall.BallPlay.UGUI;
+using BaseBall.BallPlay.UGUI;
 using UnityEngine;
 using System.Collections;
 
@@ -35,19 +35,19 @@ namespace BaseBall.BallPlay
         }
 
         //보드
-        public UISprite homeLogo, awayLogo;
-        public UILabel homeName, awayName;
-        public UILabel homeScore, awayScore;
+        public GameUIElement homeLogo, awayLogo;
+        public GameUIElement homeName, awayName;
+        public GameUIElement homeScore, awayScore;
 
         //베이스 상태
-        public UISprite[] baseOn;
+        public GameUIElement[] baseOn;
 
         //이닝 정보
-        public UILabel inningInfo;
-        public UISprite topBottom;
-        public UISprite[] ballCount;
-        public UISprite[] strikeCount;
-        public UISprite[] outCount;
+        public GameUIElement inningInfo;
+        public GameUIElement topBottom;
+        public GameUIElement[] ballCount;
+        public GameUIElement[] strikeCount;
+        public GameUIElement[] outCount;
 
         //공격 인디케이터
         public GameObject [] indicator;

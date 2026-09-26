@@ -34,6 +34,7 @@ namespace BaseBall.BallPlay.UGUI
         public RectTransform layoutRect;
         public GameUICanvasBatch canvasBatch;
         public RectTransform presentationRoot;
+        public bool externalLayout;
         private GameUIPanel panel;
         public GameUIPanel Panel => panel != null ? panel : (panel = GetComponentInParent<GameUIPanel>(true));
         private string appliedText, appliedSprite, shadowText;
@@ -110,9 +111,12 @@ namespace BaseBall.BallPlay.UGUI
             var visibleColor = mColor; visibleColor.a = CalculateFinalAlpha(); graphic.color = visibleColor;
             if (clipping != null) clipping.Apply();
             var rect = graphic.rectTransform;
-            rect.pivot = pivotOffset;
-            rect.sizeDelta = new Vector2(mWidth, mHeight);
-            rect.localPosition = Vector3.zero;
+            if (!externalLayout)
+            {
+                rect.pivot = pivotOffset;
+                rect.sizeDelta = new Vector2(mWidth, mHeight);
+                rect.localPosition = Vector3.zero;
+            }
             if (graphic is GameUITextureGraphic textureGraphic)
             {
                 textureGraphic.SetTexture(mTexture, mRect);
@@ -130,14 +134,22 @@ namespace BaseBall.BallPlay.UGUI
                 }
                 image.enabled = enabled && entry != null;
                 image.fillAmount = mFillAmount;
-                if (entry != null && mType == 0)
+                if (entry != null && mType != 2 && !externalLayout)
                 {
                     var padding = entry.padding;
-                    var size = new Vector2(mWidth * (1 - (padding.x + padding.z) / entry.size.x),
-                        mHeight * (1 - (padding.y + padding.w) / entry.size.y));
+                    float px = 1, py = 1;
+                    if (mType == 0 || mType == 3)
+                    {
+                        // Legacy simple/filled sprites pad odd source dimensions to
+                        // even pixel boundaries. Sliced sprites keep fixed padding.
+                        if (((int)entry.size.x & 1) != 0) padding.z++;
+                        if (((int)entry.size.y & 1) != 0) padding.w++;
+                        px = mWidth / entry.size.x; py = mHeight / entry.size.y;
+                    }
+                    var size = new Vector2(mWidth - px * (padding.x + padding.z), mHeight - py * (padding.y + padding.w));
                     rect.sizeDelta = size;
-                    rect.localPosition = new Vector3(mWidth * padding.x / entry.size.x + (size.x - mWidth) * rect.pivot.x,
-                        mHeight * padding.y / entry.size.y + (size.y - mHeight) * rect.pivot.y, 0);
+                    rect.localPosition = new Vector3(px * padding.x + (size.x - mWidth) * rect.pivot.x,
+                        py * padding.y + (size.y - mHeight) * rect.pivot.y, 0);
                 }
                 bool flipX = mFlip == 1 || mFlip == 3, flipY = mFlip == 2 || mFlip == 3;
                 rect.localScale = new Vector3(flipX ? -1 : 1, flipY ? -1 : 1, 1);

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace BaseBall.BallPlay
@@ -7,10 +8,10 @@ namespace BaseBall.BallPlay
     {
         public GameObject[] box;
 
-        public UISprite[] leftLine;
-        public UISprite[] rightLine;
+        public GameUIElement[] leftLine;
+        public GameUIElement[] rightLine;
 
-        public UITexture challergerLogo;
+        public GameUIElement challergerLogo;
 
         /// <summary>
         /// 박스스코어 설정
@@ -22,8 +23,8 @@ namespace BaseBall.BallPlay
         {
             Transform curBox = box[index].transform.Find("done");
             bool bLeftWin = (score1 > score2);
-            UILabel away = curBox.Find("away").GetComponent<UILabel>();
-            UILabel home = curBox.Find("home").GetComponent<UILabel>();
+            GameUIElement away = curBox.Find("away").GetComponent<GameUIElement>();
+            GameUIElement home = curBox.Find("home").GetComponent<GameUIElement>();
 
             away.text = score1.ToString();
             home.text = score2.ToString();
@@ -55,7 +56,7 @@ namespace BaseBall.BallPlay
         /// <param name="bChallengerWin"></param>
         public void setMyGameState(bool bMyTeamChallenger)
         {
-            GetComponent<UISprite>().spriteName = "postseason_title_2";
+            GetComponent<GameUIElement>().spriteName = "postseason_title_2";
             if (bMyTeamChallenger)
             {
                 //내팀이 도전자인경우

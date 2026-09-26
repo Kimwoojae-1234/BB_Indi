@@ -1,4 +1,5 @@
-﻿using System.Collections;
+using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WebConnector;
@@ -39,14 +40,14 @@ namespace BaseBall.BallPlay
         public GameObject simul;
         private SimulGameInfo gameInfo;
         
-        public UILabel[] awayScore;
-        public UILabel[] homeScore;
+        public GameUIElement[] awayScore;
+        public GameUIElement[] homeScore;
 
-        public UILabel[] awayRecord;
-        public UILabel[] homeRecord;
+        public GameUIElement[] awayRecord;
+        public GameUIElement[] homeRecord;
 
-        public UITexture[] logo;
-        public UILabel[] teamName;
+        public GameUIElement[] logo;
+        public GameUIElement[] teamName;
 
 
         private int consectiveGameNum;

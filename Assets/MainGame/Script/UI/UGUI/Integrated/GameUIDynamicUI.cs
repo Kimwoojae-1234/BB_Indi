@@ -56,6 +56,8 @@ namespace BaseBall.BallPlay.UGUI
                     canvas.overrideSorting = true;
             }
             GameUIRenderOrder.Invalidate();
+            var scroll = GetComponentInParent<GameUIScroll>();
+            if (scroll != null) scroll.RefreshContentBounds();
         }
         private static void EnsureClipping(GameUIElement element)
         {
@@ -69,7 +71,11 @@ namespace BaseBall.BallPlay.UGUI
             var presentation = (RectTransform)new GameObject("Dynamic clipped presentation",typeof(RectTransform)).transform;
             presentation.gameObject.layer = element.gameObject.layer;
             presentation.SetParent(container,false); presentation.sizeDelta = Vector2.zero;
-            element.graphic.transform.SetParent(presentation,false);
+            // Slider owns the anchors of its fill Graphic relative to its fill area.
+            // Move that area with the presentation so clipping cannot change the value geometry.
+            var visual = element.externalLayout && element.graphic.transform.parent != container
+                ? element.graphic.transform.parent : element.graphic.transform;
+            visual.SetParent(presentation,false);
             foreach (var shadow in element.shadows) if (shadow != null) shadow.transform.SetParent(presentation,false);
             element.clipping = container.gameObject.AddComponent<GameUIClip>();
             element.clipping.source = element.transform; element.clipping.presentation = presentation;

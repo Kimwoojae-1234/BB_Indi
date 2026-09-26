@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4000010069320834}
-  - component: {fileID: 114000010907643956}
+  - component: {fileID: 8818741672797087505}
   m_Layer: 0
   m_Name: BannerAtlas
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114000010907643956
+--- !u!114 &8818741672797087505
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,38 +41,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000010381145048}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0c51bb0b6e93049af5e88f93826e3b, type: 3}
+  m_Script: {fileID: 11500000, guid: 978c7a42536880d4394f10e132406263, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: 0f49d1f3fb491894dbcdc03f12c12dcd, type: 2}
-  mSprites:
-  - name: banner_ad1
-    x: 0
-    y: 115
-    width: 180
-    height: 70
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: banner_ad2
-    x: 0
-    y: 186
-    width: 180
-    height: 70
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  mPixelSize: 1
-  mReplacement: {fileID: 0}
-  mCoordinates: 0
-  sprites: []
+  m_EditorClassIdentifier: Assembly-CSharp::BaseBall.BallPlay.UGUI.GameUIAsset
+  sprites: {fileID: 11400000, guid: faf4a435e1a38794883fd690a9fa8834, type: 2}
+  bitmapFont: {fileID: 0}
+  dynamicFont: {fileID: 0}

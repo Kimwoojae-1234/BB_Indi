@@ -1,4 +1,5 @@
-﻿using System.Collections;
+using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WebConnector;
@@ -7,17 +8,17 @@ namespace BaseBall.BallPlay
     public class mvpTitle : MonoBehaviour
     {
         public UI_CardSmall card;
-        public UILabel teamNameLabel;
-        public UISprite myTeamSpr, myTealLogoSpr;
-        public UILabel goldLabel;
+        public GameUIElement teamNameLabel;
+        public GameUIElement myTeamSpr, myTealLogoSpr;
+        public GameUIElement goldLabel;
 
-        public UILabel[] info1;
-        public UILabel[] info2;
-        public UISprite[] winnner;
+        public GameUIElement[] info1;
+        public GameUIElement[] info2;
+        public GameUIElement[] winnner;
 
         public GameObject batter, pitcher;
 
-        public UISprite cardLight;
+        public GameUIElement cardLight;
 
         public void initMvp(SeasonTitleMvpRewardInfo mvpInfo, FinalResultUI resultMain, bool bPitcher)
         {

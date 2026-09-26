@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 namespace BaseBall.BallPlay
 {
@@ -6,9 +7,9 @@ namespace BaseBall.BallPlay
     {
         public bool bPitcher;
         public GameObject bgSpr;
-        public UISprite logo;
-        public UISprite pos;
-        public UILabel[] label;
+        public GameUIElement logo;
+        public GameUIElement pos;
+        public GameUIElement[] label;
 
         public void init(CPlayer player, int teamIndex, int count)
         {

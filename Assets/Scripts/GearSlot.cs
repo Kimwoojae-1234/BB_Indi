@@ -1,18 +1,19 @@
-﻿using System.Collections;
+using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GearSlot : MonoBehaviour {
     [SerializeField]
-    private UISprite bg_sprite;
+    private GameUIElement bg_sprite;
     [SerializeField]
-    private UISprite icon_sprite;
+    private GameUIElement icon_sprite;
     [SerializeField]
-    private UISprite gradeBg_sprite;
+    private GameUIElement gradeBg_sprite;
     [SerializeField]
-    private UILabel grade_label;
+    private GameUIElement grade_label;
     [SerializeField]
-    private UILabel reinforce_label;
+    private GameUIElement reinforce_label;
 
     private OldCode.GearData gearData;
     public void SetGearSlot(OldCode.GearData data)

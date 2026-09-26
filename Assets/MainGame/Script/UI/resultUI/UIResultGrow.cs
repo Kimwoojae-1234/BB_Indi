@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using WebConnector;
@@ -68,7 +69,7 @@ namespace BaseBall.BallPlay
 
             if (count < 8)
             {
-                batterGrow.GetComponent<UIScrollView>().enabled = false;
+                batterGrow.GetComponent<GameUIScroll>().enabled = false;
             }
 
 
@@ -116,12 +117,12 @@ namespace BaseBall.BallPlay
 
             if (count < 8)
             {
-                pitcherGrow.GetComponent<UIScrollView>().enabled = false;
+                pitcherGrow.GetComponent<GameUIScroll>().enabled = false;
             }
 
-            gameObject.GetComponent<UIPanel>().alpha = 1;
+            gameObject.GetComponent<GameUIPanel>().alpha = 1;
             _active.SetActive(true);
-            //TweenAlpha.Begin(gameObject, 0.5f, 1);
+            //GameUITweenAlpha.Begin(gameObject, 0.5f, 1);
             Light.SetActive(true);
 
         }
@@ -145,7 +146,7 @@ namespace BaseBall.BallPlay
 
         public void deActive()
         {
-            TweenAlpha.Begin(gameObject, 0.5f, 0);
+            GameUITweenAlpha.Begin(gameObject, 0.5f, 0);
             Invoke("deactive", 0.6f);
         }
 

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -14,43 +15,43 @@ public class UI_PopupConfirm : UI_WindowBase
 
 
     [SerializeField]
-    private UILabel label_Title;
+    private GameUIElement label_Title;
     [SerializeField]
-    private UILabel label_Message;
+    private GameUIElement label_Message;
 
     [SerializeField]
-    private UILabel label_BtnOne_OK;
+    private GameUIElement label_BtnOne_OK;
     [SerializeField]
-    private UISprite sprite_BtnTwo_OK;
+    private GameUIElement sprite_BtnTwo_OK;
     [SerializeField]
-    private UISprite sprite_BtnTwo_Cancel;
+    private GameUIElement sprite_BtnTwo_Cancel;
     
     /// <summary>
     /// 왼쪽을 기준
     /// </summary>
     [SerializeField]
-    private List<UILabel> list_label_BtnFour;
+    private List<GameUIElement> list_label_BtnFour;
     /// <summary>
     /// 왼쪽을 기준
     /// </summary>
-    private List<EventDelegate.Callback> list_callBack_Four;
+    private List<System.Action> list_callBack_Four;
 
     [SerializeField]
-    private TweenAlpha bgTween;
+    private GameUITweenAlpha bgTween;
     [SerializeField]
-    private TweenAlpha mainWidgetTween;
+    private GameUITweenAlpha mainWidgetTween;
 
 
     [SerializeField]
     private GameObject CenterContext;
     [SerializeField]
-    private UILabel retry_txt;
+    private GameUIElement retry_txt;
 
 
 
 
-    private EventDelegate.Callback callBack_OK;
-    private EventDelegate.Callback callBack_Cancel;
+    private System.Action callBack_OK;
+    private System.Action callBack_Cancel;
 
     //인게임 전용
     private bool bIngameOnly;
@@ -73,7 +74,7 @@ public class UI_PopupConfirm : UI_WindowBase
         this.bIngameOnly = false;
     }
 
-    public void SetPopup(EPOPUP ePopupType, string title = "", string message = "", string text_ok = "", string text_cancel = "",  EventDelegate.Callback okCallBack = null, EventDelegate.Callback cancelCallBack = null, string[] list_text_four = null, EventDelegate.Callback[] list_callback_four = null)
+    public void SetPopup(EPOPUP ePopupType, string title = "", string message = "", string text_ok = "", string text_cancel = "",  System.Action okCallBack = null, System.Action cancelCallBack = null, string[] list_text_four = null, System.Action[] list_callback_four = null)
     {
         if (message.Contains("[-]") == false)
             this.label_Message.supportEncoding = false;
@@ -130,7 +131,7 @@ public class UI_PopupConfirm : UI_WindowBase
                     this.btnSet_OK.SetActive(false);
                     this.btnSet_OkCancle.SetActive(false);
                     this.btnSet_Four.SetActive(true);
-                    this.list_callBack_Four = new List<EventDelegate.Callback>();
+                    this.list_callBack_Four = new List<System.Action>();
                     for (int i = 0; i < list_text_four.Length; ++i)
                     {
                         this.list_callBack_Four.Add(list_callback_four[i]);
@@ -142,13 +143,13 @@ public class UI_PopupConfirm : UI_WindowBase
         }
     }
 
-    public void SetPopup_OneBtn(string title, string message, EventDelegate.Callback callBack = null)
+    public void SetPopup_OneBtn(string title, string message, System.Action callBack = null)
     {
         
         this.SetPopup_OneBtn(title, message, "확인", callBack);
     }
 
-    public void SetPopup_OneBtn(string title, string message, string text_Btn, EventDelegate.Callback callBack = null)
+    public void SetPopup_OneBtn(string title, string message, string text_Btn, System.Action callBack = null)
     {
         if (message.Contains("[-]") == false)
             this.label_Message.supportEncoding = false;
@@ -172,12 +173,12 @@ public class UI_PopupConfirm : UI_WindowBase
         }
     }
 
-    public void SetPopup_TwoBtn(string title, string message, EventDelegate.Callback callBack_Left = null, EventDelegate.Callback callBack_Right = null)
+    public void SetPopup_TwoBtn(string title, string message, System.Action callBack_Left = null, System.Action callBack_Right = null)
     {
         this.SetPopup_TwoBtn(title, message, "확인", "취소", callBack_Left, callBack_Right);
     }
 
-    public void SetPopup_TwoBtn(string title, string message, string text_BtnLeft, string text_BtnRight, EventDelegate.Callback callBack_Left = null, EventDelegate.Callback callBack_Right = null)
+    public void SetPopup_TwoBtn(string title, string message, string text_BtnLeft, string text_BtnRight, System.Action callBack_Left = null, System.Action callBack_Right = null)
     {
         if (message.Contains("[-]") == false)
             this.label_Message.supportEncoding = false;
@@ -212,7 +213,7 @@ public class UI_PopupConfirm : UI_WindowBase
 
         if (callBack_OK != null)
         {
-            EventDelegate.Callback callback = callBack_OK;
+            System.Action callback = callBack_OK;
             callBack_OK = null;
             callBack_Cancel = null;
             callback();
@@ -228,7 +229,7 @@ public class UI_PopupConfirm : UI_WindowBase
 
         if (callBack_Cancel != null)
         {
-            EventDelegate.Callback callback = callBack_Cancel;
+            System.Action callback = callBack_Cancel;
             callBack_OK = null;
             callBack_Cancel = null;
             callback();
@@ -247,7 +248,7 @@ public class UI_PopupConfirm : UI_WindowBase
             // DISABLED_MGRS: Mgrs.UI.CloseWindow(this.windowID);
         }
 
-        EventDelegate.Callback callBack = this.list_callBack_Four[btnIndex];
+        System.Action callBack = this.list_callBack_Four[btnIndex];
         if(callBack != null)
         {
             callBack();

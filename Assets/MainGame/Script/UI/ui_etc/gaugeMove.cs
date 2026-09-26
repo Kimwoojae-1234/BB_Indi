@@ -1,4 +1,5 @@
-﻿//#define _Test_Version
+using BaseBall.BallPlay.UGUI;
+//#define _Test_Version
 
 using System.Collections;
 using System.Collections.Generic;
@@ -9,8 +10,8 @@ namespace BaseBall.BallPlay
     {
         private readonly int MAXLEVEL = 40;
 
-        public UISprite firstGauge, secondGague;
-        public UILabel percent, exp, level;
+        public GameUIElement firstGauge, secondGague;
+        public GameUIElement percent, exp, level;
 
         private int maxValue;
         private bool bInit = false;        

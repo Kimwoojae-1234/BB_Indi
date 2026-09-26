@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 namespace BaseBall.BallPlay
 {
     public class resultSeasonRewardBar : MonoBehaviour
     {
         public GameObject bg;
-        public UILabel label, rank, gold;
+        public GameUIElement label, rank, gold;
 
         public void set(string _label, string _rank, int _gold, bool bBg)
         {

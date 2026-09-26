@@ -1,4 +1,5 @@
-﻿using System.Collections;
+using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace BaseBall.BallPlay
@@ -7,8 +8,8 @@ namespace BaseBall.BallPlay
     {
         public bool bMaxLevel;
 
-        public UISprite firstGauge, secondGague;
-        public UILabel level;
+        public GameUIElement firstGauge, secondGague;
+        public GameUIElement level;
 
         private GameObject maxLevel;
 

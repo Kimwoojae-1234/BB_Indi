@@ -1,4 +1,5 @@
-﻿using System.Collections;
+using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WebConnector;
@@ -11,14 +12,14 @@ namespace BaseBall.BallPlay
         public GameObject _active;
         // Use this for initialization
 
-        public UISprite leagueLogo;
+        public GameUIElement leagueLogo;
 
         public GameObject pitcher, batter;
 
-        public UISprite[] pLabel;
-        public UISprite[] bLabel;
+        public GameUIElement[] pLabel;
+        public GameUIElement[] bLabel;
 
-        public UISprite cursor;
+        public GameUIElement cursor;
         public GameObject mvp, title;
         public GameObject next;
 
@@ -116,20 +117,20 @@ namespace BaseBall.BallPlay
 
             if (step != 0)
             {
-                UITweener tween = light.GetComponent<UITweener>();
+                GameUITween tween = light.GetComponent<GameUITween>();
                 tween.ResetToBeginning();
                 tween.PlayForward();
             }
 
             if (step == 0 || step == 6)
             {
-                mvp.GetComponent<UIPanel>().alpha = 0;
+                mvp.GetComponent<GameUIPanel>().alpha = 0;
                 mvp.transform.localPosition = new Vector3(70, 0, 0);
                 mvp.SetActive(true);
                 title.SetActive(false);
                 mvp.GetComponent<mvpTitle>().initMvp((step == 0 ? batterMvp : pitcherMvp), finalRewardMain, (step == 0 ? false : true));                                
-                TweenAlpha.Begin(mvp, 0.2f, 1.0f);
-                TweenPosition.Begin(mvp, 0.2f, Vector3.zero);
+                GameUITweenAlpha.Begin(mvp, 0.2f, 1.0f);
+                GameUITweenPosition.Begin(mvp, 0.2f, Vector3.zero);
                 bPressNext = false;
             }
             else
@@ -147,7 +148,7 @@ namespace BaseBall.BallPlay
                     individualTitle curTitle = child.GetComponent<individualTitle>();                    
                     if (curTitle != null)
                     {
-                        curTitle.GetComponent<UISprite>().alpha = 0;
+                        curTitle.GetComponent<GameUIElement>().alpha = 0;
                         curTitle.transform.localPosition = new Vector3((-230 + 50 + count * 218), 200, 0);
                         SeasonTitleRewardInfo rewardTitle = rewardTitleList[count];
                         curTitle.setIndividualTitle(rewardTitle, finalRewardMain);
@@ -167,17 +168,17 @@ namespace BaseBall.BallPlay
         {
             yield return new WaitForSeconds(delay);
 
-            TweenAlpha.Begin(obj, 0.2f, 1.0f);
-            TweenPosition.Begin(obj, 0.2f, new Vector3((-230 + count * 218), 200, 0));
+            GameUITweenAlpha.Begin(obj, 0.2f, 1.0f);
+            GameUITweenPosition.Begin(obj, 0.2f, new Vector3((-230 + count * 218), 200, 0));
         }
 
         private IEnumerator setCardLight()
         {            
             int count = 0;
-            UISprite[] card = new UISprite[3];
+            GameUIElement[] card = new GameUIElement[3];
             foreach (Transform child in cardLight.transform)
             {
-                card[count] = child.GetComponent<UISprite>();
+                card[count] = child.GetComponent<GameUIElement>();
                 count++;
             }
 
@@ -248,7 +249,7 @@ namespace BaseBall.BallPlay
 
         private IEnumerator deActive()
         {
-            TweenAlpha.Begin(gameObject, 0.5f, 0);
+            GameUITweenAlpha.Begin(gameObject, 0.5f, 0);
             yield return new WaitForSeconds(0.5f);
             _active.SetActive(false);
         }

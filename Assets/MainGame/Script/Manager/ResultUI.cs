@@ -1,4 +1,5 @@
-﻿#define _EFFECT_TEST
+#define _EFFECT_TEST
+using BaseBall.BallPlay.UGUI;
 
 using UnityEngine;
 using System.Collections;
@@ -107,20 +108,20 @@ namespace BaseBall.BallPlay
             //confirmPopup.gameObject.SetActive(false);
 
 
-            TweenAlpha.Begin(front, 0.3f, 1);
+            GameUITweenAlpha.Begin(front, 0.3f, 1);
 
 #if _Test_Local
             if (Mode.gameMode == Mode.GamePlayMode.NineInningTwoOut)
             {
                 // DISABLED_MGRS: Mgrs.userData.SetUserGameMode(DefineEnum.EGameMode.Walkoff);
                 walkOffResult.Init(manager);
-                TweenAlpha.Begin(walkOffResult.gameObject, 1, 1);
+                GameUITweenAlpha.Begin(walkOffResult.gameObject, 1, 1);
             }
             else
             {
                 // DISABLED_MGRS: Mgrs.userData.SetUserGameMode(DefineEnum.EGameMode.Season);
                 resultMain.initSeason(manager);
-                TweenAlpha.Begin(resultMain.gameObject, 1, 1);
+                GameUITweenAlpha.Begin(resultMain.gameObject, 1, 1);
             }
             setBack();
 #else       
@@ -295,7 +296,7 @@ namespace BaseBall.BallPlay
                     // DISABLED_MGRS_CONT: resultMain.initSeason(manager);
                     // DISABLED_MGRS_CONT: setBack();
                     
-                    //TweenAlpha.Begin(resultMain.gameObject, 1, 1);
+                    //GameUITweenAlpha.Begin(resultMain.gameObject, 1, 1);
                     //결과전송 끝
                 // DISABLED_MGRS_CONT: }, ((ErrorResource er) =>
                 // DISABLED_MGRS_CONT: {
@@ -320,7 +321,7 @@ namespace BaseBall.BallPlay
                     //bNetworkComplete = true;
                     // DISABLED_MGRS_CONT: rankResultInfo = info;
                     // DISABLED_MGRS_CONT: resultMain.initRank(manager);
-                    // DISABLED_MGRS_CONT: TweenAlpha.Begin(resultMain.gameObject, 1, 1);
+                    // DISABLED_MGRS_CONT: GameUITweenAlpha.Begin(resultMain.gameObject, 1, 1);
                     // DISABLED_MGRS_CONT: setBack();
                 // DISABLED_MGRS_CONT: }, ((ErrorResource er) =>
                 // DISABLED_MGRS_CONT: {
@@ -407,8 +408,8 @@ namespace BaseBall.BallPlay
         /// </summary>
         private void setBack()
         {
-            front.GetComponent<UIPanel>().alpha = 1;
-            TweenAlpha.Begin(front, 0.5f, 0);
+            front.GetComponent<GameUIPanel>().alpha = 1;
+            GameUITweenAlpha.Begin(front, 0.5f, 0);
 
             DefineEnum.EGameMode mode = DefineEnum.EGameMode.Season;
 
@@ -419,7 +420,7 @@ namespace BaseBall.BallPlay
                 // DISABLED_MGRS: Mgrs.userData.UserLobbyReason = UserData.EReason.InGame_WalkoffPlay;
                 leftTitleSetting("9회말 2아웃");
                 //lose.SetActive(true);
-                lose.transform.Find("result").GetComponent<UISprite>().spriteName = "walkoff_result_title";
+                lose.transform.Find("result").GetComponent<GameUIElement>().spriteName = "walkoff_result_title";
                 statButonObj.SetActive(false);
                 otherResultButton.SetActive(false);
                 getCoinObj.SetActive(false);
@@ -534,14 +535,14 @@ namespace BaseBall.BallPlay
             }
             if (mode != DefineEnum.EGameMode.SeasonInstant && mode != DefineEnum.EGameMode.LeagueRaceInstant) Debug_UI.SetNetwork(false);
             back.SetActive(true);
-            //TweenAlpha.Begin(back.gameObject, 1, 1);
+            //GameUITweenAlpha.Begin(back.gameObject, 1, 1);
 
         }
 
         //왼쪽 타이틀
         private void leftTitleSetting(string text)
         {
-            UILabel leftLabel = leftTitle.transform.Find("leftLabel").GetComponent<UILabel>();
+            GameUIElement leftLabel = leftTitle.transform.Find("leftLabel").GetComponent<GameUIElement>();
             leftTitle.SetActive(true);
             leftLabel.text = text;
         }
@@ -549,7 +550,7 @@ namespace BaseBall.BallPlay
         //오른쪽 타이틀
         private void rightTitleSetting(string text)
         {
-            UILabel rightLabel = rightTitle.transform.Find("rightLabel").GetComponent<UILabel>();
+            GameUIElement rightLabel = rightTitle.transform.Find("rightLabel").GetComponent<GameUIElement>();
             rightTitle.SetActive(true);
             rightLabel.text = text;
         }
@@ -564,7 +565,7 @@ namespace BaseBall.BallPlay
         private void getCoinSetting(int coin)
         {
             getCoinObj.SetActive(true);
-            getCoinObj.transform.Find("coinLabel").GetComponent<UILabel>().text = string.Format("{0:N0}", coin); 
+            getCoinObj.transform.Find("coinLabel").GetComponent<GameUIElement>().text = string.Format("{0:N0}", coin);
         }
 
         //이긴경우
@@ -633,7 +634,7 @@ namespace BaseBall.BallPlay
                 {
                     leftTitle.gameObject.SetActive(false);
                     rightTitle.gameObject.SetActive(false);
-                    TweenAlpha.Begin(front, 0.5f, 1);
+                    GameUITweenAlpha.Begin(front, 0.5f, 1);
                     yield return new WaitForSeconds(0.5f);
                     //정규시즌 화면 업데이트                    
                     // DISABLED_MGRS: Mgrs.NM.C2S_GetSeasonLobbyInfo();
@@ -643,7 +644,7 @@ namespace BaseBall.BallPlay
                 {
                     leftTitle.gameObject.SetActive(false);
                     rightTitle.gameObject.SetActive(false);
-                    TweenAlpha.Begin(front, 0.5f, 1);
+                    GameUITweenAlpha.Begin(front, 0.5f, 1);
                     yield return new WaitForSeconds(0.5f);
                     //쟁탈전 화면 업데이트                    
                     // DISABLED_MGRS: Mgrs.NM.C2S_RacePlay_GetLobbyInfo();
@@ -651,7 +652,7 @@ namespace BaseBall.BallPlay
                 }
                 else
                 {
-                    TweenAlpha.Begin(back.gameObject, 0.5f, 0);
+                    GameUITweenAlpha.Begin(back.gameObject, 0.5f, 0);
                     yield return new WaitForSeconds(0.5f);
                     //로비행
                     gotoLobby();
@@ -660,7 +661,7 @@ namespace BaseBall.BallPlay
             else
             {
                 //연속 경기
-                TweenAlpha.Begin(back.gameObject, 0.5f, 0);
+                GameUITweenAlpha.Begin(back.gameObject, 0.5f, 0);
                 yield return new WaitForSeconds(0.5f);
 
                 

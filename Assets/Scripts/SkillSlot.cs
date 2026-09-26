@@ -1,16 +1,17 @@
-﻿using System.Collections;
+using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SkillSlot : MonoBehaviour {
     [SerializeField]
-    private UISprite icon_sprite;
+    private GameUIElement icon_sprite;
     [SerializeField]
-    private UISprite rank_sprite;
+    private GameUIElement rank_sprite;
     [SerializeField]
-    private UISprite lock_sprite;
+    private GameUIElement lock_sprite;
     [SerializeField]
-    private UISprite circle_sprite;
+    private GameUIElement circle_sprite;
     [SerializeField]
     private IconSIze eSize = IconSIze.Medium;
     [SerializeField]

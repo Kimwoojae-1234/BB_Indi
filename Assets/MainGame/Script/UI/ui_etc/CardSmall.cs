@@ -1,19 +1,20 @@
-﻿using UnityEngine;
+using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 
 namespace BaseBall.BallPlay
 {
     public class CardSmall : MonoBehaviour
     {
-        public UISprite spriteBackground; // 선수 백그라운드
-        public UISprite spriteNameBackground; //선수 이름 백그라운드
-        public UISprite spriteTeamLogo;   // 팀 로고
-        public UITexture texturePlayer;     // 선수 사진
-        public UILabel labelPlayerName;     // 선수 이름
-        public UILabel labelPlayerLevel;    // 선수 레벨
-        public UISprite spritePlayerPosition;   // 선수 포지션 스프라이트
-        public UISprite spritePlayerEnhance;    // 선수 강화 스프라이트
-        public UILabel labelOverRoll;
+        public GameUIElement spriteBackground; // 선수 백그라운드
+        public GameUIElement spriteNameBackground; //선수 이름 백그라운드
+        public GameUIElement spriteTeamLogo;   // 팀 로고
+        public GameUIElement texturePlayer;     // 선수 사진
+        public GameUIElement labelPlayerName;     // 선수 이름
+        public GameUIElement labelPlayerLevel;    // 선수 레벨
+        public GameUIElement spritePlayerPosition;   // 선수 포지션 스프라이트
+        public GameUIElement spritePlayerEnhance;    // 선수 강화 스프라이트
+        public GameUIElement labelOverRoll;
 
 #if _Test_Local
         public void SetCard(CPlayer player)

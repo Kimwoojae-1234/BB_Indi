@@ -45,7 +45,7 @@ public static class CanvasIntegrationChecks
             if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Stop Play Mode before starting integration checks.");
             string run = action == "start" ? "" : action.Substring(6);
             if (run.Any(c => !char.IsLetterOrDigit(c) && c != '-')) throw new ArgumentException("Simple run name required.");
-            SessionState.SetString(Key + ".Output", run.Length == 0 ? Root : Root + "/" + run);
+            SessionState.SetString(Key + ".Output", run.StartsWith("NGUI") ? "Docs/UIAudit/NGUIComplete/Integration/" + run : run.Length == 0 ? Root : Root + "/" + run);
             Directory.CreateDirectory(Output);
             // Preserve previous sessions, including interrupted/failed runs.
             string trace = Output + "/integration-trace.txt";
@@ -158,7 +158,7 @@ public static class CanvasIntegrationChecks
         if (result != null && result.resultMain.board != null)
         {
             foreach (var row in result.resultMain.board.teamObj)
-                text.AppendLine("RESULT_ROW " + row.transform.Find("teamLabel").GetComponent<UILabel>().text + " scores=" + string.Join(",", row.transform.Find("score").GetComponentsInChildren<UILabel>().Select(l => l.text)) + " stats=" + string.Join(",", row.transform.Find("stat").GetComponentsInChildren<UILabel>().Select(l => l.text)));
+                text.AppendLine("RESULT_ROW " + row.transform.Find("teamLabel").GetComponent<GameUIElement>().text + " scores=" + string.Join(",", row.transform.Find("score").GetComponentsInChildren<GameUIElement>().Select(l => l.text)) + " stats=" + string.Join(",", row.transform.Find("stat").GetComponentsInChildren<GameUIElement>().Select(l => l.text)));
         }
         foreach (var root in Object.FindObjectsByType<GameUIRoot>(FindObjectsSortMode.None))
             text.AppendLine("ROOT " + root.name + " camera=" + root.uiCamera + " canvases=" + root.GetComponentsInChildren<Canvas>().Length);
@@ -189,7 +189,7 @@ public static class CanvasIntegrationChecks
         {
             var result = prefab.GetComponent<ResultUI>();
             var board = result.resultMain.board;
-            if (board == null || prefab.GetComponentInChildren<scoreboard>(true) != null) throw new InvalidOperationException("Legacy result still references the UGUI scoreboard.");
+            if (board == null || prefab.GetComponentInChildren<scoreboard>(true) != null) throw new InvalidOperationException("Result scoreboard controller binding is missing or incorrect.");
             board.initScoreBoard("Away", "Home", 1, 2);
             var away = Enumerable.Repeat(SimulParm.NOPLAY_INNING, 12).ToArray();
             var home = (int[])away.Clone();
@@ -199,16 +199,16 @@ public static class CanvasIntegrationChecks
             string[] expected = { "0,9,X", "2,3X" };
             for (int team = 0; team < 2; team++)
             {
-                var labels = board.teamObj[team].transform.Find("score").GetComponentsInChildren<UILabel>(true);
+                var labels = board.teamObj[team].transform.Find("score").GetComponentsInChildren<GameUIElement>(true);
                 if (labels.Length != 12 || string.Join(",", labels.Where(l => l.gameObject.activeSelf).Select(l => l.text)) != expected[team])
-                    throw new InvalidOperationException("Incorrect legacy inning visibility/text.");
+                    throw new InvalidOperationException("Incorrect result inning visibility/text.");
                 if (board.teamObj[team].transform.Find("indicator").gameObject.activeSelf != (team == 1)) throw new InvalidOperationException("Incorrect team indicator.");
-                var stat = board.teamObj[team].transform.Find("stat").GetComponentsInChildren<UILabel>(true);
+                var stat = board.teamObj[team].transform.Find("stat").GetComponentsInChildren<GameUIElement>(true);
                 if (string.Join(",", stat.Select(l => l.text)) != (team == 0 ? "9,10,1" : "5,8,0")) throw new InvalidOperationException("Incorrect result totals.");
             }
             if (board.cur.activeSelf) throw new InvalidOperationException("Result retains active inning marker.");
-            Directory.CreateDirectory(Root);
-            File.WriteAllText(Root + "/result-scoreboard-checks.txt", "PASS actual result prefab controller binding; both 12-inning rows; zero, numeric, X and walkoff 3X; unplayed innings hidden; R/H/E; own-team indicator; current inning marker hidden. Prefab contents unloaded without saving.\n");
+            Directory.CreateDirectory(RemainingUGUIMigration.Output);
+            File.WriteAllText(RemainingUGUIMigration.Output + "/result-scoreboard-checks.txt", "PASS actual UGUI result prefab controller binding; both 12-inning rows; zero, numeric, X and walkoff 3X; unplayed innings hidden; R/H/E; own-team indicator; current inning marker hidden. Prefab contents unloaded without saving.\n");
         }
         finally { PrefabUtility.UnloadPrefabContents(prefab); }
     }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 using System.Globalization;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace BaseBall.BallPlay
         public GameObject _active;
 
         public GameObject gaugeObj;
-        public UILabel gold;
+        public GameUIElement gold;
         
         public Transform grid;
         public GameObject noReward;
@@ -31,7 +32,7 @@ namespace BaseBall.BallPlay
         {
             noReward.gameObject.SetActive(false);
             //deactive();
-            TweenAlpha.Begin(gameObject, 0.3f, 0);
+            GameUITweenAlpha.Begin(gameObject, 0.3f, 0);
             Invoke("deactive", 0.32f);
         }
 
@@ -51,7 +52,7 @@ namespace BaseBall.BallPlay
             
         }
 
-        private IEnumerator setGold(UILabel label, int getgold)
+        private IEnumerator setGold(GameUIElement label, int getgold)
         {
             yield return new WaitForSeconds(1.5f);
             int curGold = 0;

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,19 +10,19 @@ namespace BaseBall.BallPlay
         public GameObject _active;
 
         //보드
-        public UISprite logo;
-        public UILabel teamLabel;
+        public GameUIElement logo;
+        public GameUIElement teamLabel;
         public Transform score;
-        public UILabel totalScore;
+        public GameUIElement totalScore;
 
         //
         public GameObject gauge;
-        public UILabel gold;
-        public UILabel rank;
-        public UILabel percent;
-        public UILabel finalScore;
-        public UILabel finalRound;
-        public UILabel goldPerRun;
+        public GameUIElement gold;
+        public GameUIElement rank;
+        public GameUIElement percent;
+        public GameUIElement finalScore;
+        public GameUIElement finalRound;
+        public GameUIElement goldPerRun;
 
         public GameObject effectObj;
 
@@ -38,7 +39,7 @@ namespace BaseBall.BallPlay
             int count = 0;
             foreach(Transform child in score)
             {
-                UILabel roundScore = child.GetComponent<UILabel>();
+                GameUIElement roundScore = child.GetComponent<GameUIElement>();
                 if (roundScore != null)
                 {
                     if (manager.nineTwoRoundScore[count] >= 0)
@@ -87,7 +88,7 @@ namespace BaseBall.BallPlay
 
         public void deActive()
         {
-            TweenAlpha.Begin(gameObject, 0.5f, 0);
+            GameUITweenAlpha.Begin(gameObject, 0.5f, 0);
             Invoke("deactive", 0.6f);
         }
 
@@ -108,11 +109,11 @@ namespace BaseBall.BallPlay
         {
             yield return new WaitForSeconds(0.5f);
             effectObj.SetActive(true);
-            if (leftObj.activeSelf) TweenPosition.Begin(leftObj, 0.15f, new Vector3(-437, 0, 0));
-            if (rightObj.activeSelf) TweenPosition.Begin(rightObj, 0.15f, new Vector3(437, 0, 0));
+            if (leftObj.activeSelf) GameUITweenPosition.Begin(leftObj, 0.15f, new Vector3(-437, 0, 0));
+            if (rightObj.activeSelf) GameUITweenPosition.Begin(rightObj, 0.15f, new Vector3(437, 0, 0));
             yield return new WaitForSeconds(0.15f);
-            TweenAlpha.Begin(effectObj.transform.Find("light1").gameObject, 0.2f, 0);
-            TweenAlpha.Begin(effectObj.transform.Find("light2").gameObject, 0.2f, 0);
+            GameUITweenAlpha.Begin(effectObj.transform.Find("light1").gameObject, 0.2f, 0);
+            GameUITweenAlpha.Begin(effectObj.transform.Find("light2").gameObject, 0.2f, 0);
             yield return new WaitForSeconds(0.15f);
             titleObj.SetActive(true);
             yield return new WaitForSeconds(0.4f);

@@ -19,8 +19,8 @@ public static class IntegratedUGUICommand
         catch (IOException) { return; } // The request writer may still hold its file handle.
         try
         {
-            if (command == "build-candidates") IntegratedUGUIConverter.BuildCandidates();
-            else if (command == "refresh") AssetDatabase.Refresh();
+            if (command == "refresh") AssetDatabase.Refresh();
+            else if (command.StartsWith("remaining:")) RemainingUGUIMigration.Command(command.Substring(10));
             else if (command.StartsWith("integration:")) CanvasIntegrationChecks.Command(command.Substring(12));
             else if (command == "capture-connections") CanvasStructureChecks.CaptureStep4Baseline();
             else if (command == "check-connections") CanvasStructureChecks.CheckStep4();
@@ -31,7 +31,6 @@ public static class IntegratedUGUICommand
             else if (command == "play-expansion") CanvasExpansionPlayChecks.Start();
             else if (command == "play-expansion-batches") CanvasBatchPlayChecks.StartStep5();
             else if (command == "play-expansion-connections") CanvasConnectionPlayChecks.StartStep5();
-            else if (command == "check-candidates") IntegratedUGUIChecks.Run();
             else if (command == "capture-references") IntegratedUGUIChecks.CaptureReferences();
             else if (command == "check-applied") IntegratedUGUIChecks.CheckApplied();
             else if (command == "begin-apply") { AssetDatabase.DisallowAutoRefresh(); EditorApplication.LockReloadAssemblies(); }

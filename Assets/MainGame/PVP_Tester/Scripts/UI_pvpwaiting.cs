@@ -1,4 +1,5 @@
-﻿using System.Collections;
+using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ public class UI_pvpwaiting : MonoBehaviour {
 
     public Spine.Unity.SkeletonAnimation MyCharAnim, OtherCharAnim;
 
-    public UILabel myName, otherName;
+    public GameUIElement myName, otherName;
 
     public void InitEvent()
     {

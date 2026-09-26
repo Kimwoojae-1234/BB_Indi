@@ -1,4 +1,5 @@
-﻿using System.Collections;
+using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WebConnector;
@@ -14,8 +15,8 @@ namespace BaseBall.BallPlay
 
 
         public GameObject leagueUP, leagueSame, leagueDown;
-        public UISprite leagueLogo, leagueLogoUp, leagueLogoDown;
-        public UILabel leagueRank;
+        public GameUIElement leagueLogo, leagueLogoUp, leagueLogoDown;
+        public GameUIElement leagueRank;
 
         public Spine.Unity.SkeletonAnimation animUP, animDown, animSame;
 
@@ -39,7 +40,7 @@ namespace BaseBall.BallPlay
         public void InitSeasonLeagueUpDown()
         {
             next.SetActive(false);
-            finalRewardMain.front.GetComponent<UIPanel>().alpha = 0;
+            finalRewardMain.front.GetComponent<GameUIPanel>().alpha = 0;
 
             bLiveMatchUpdown = false;
 
@@ -68,7 +69,7 @@ namespace BaseBall.BallPlay
         public void InitRaceLeagueUpDown()
         {
             next.SetActive(false);
-            finalRewardMain.front.GetComponent<UIPanel>().alpha = 0;
+            finalRewardMain.front.GetComponent<GameUIPanel>().alpha = 0;
 
             bLiveMatchUpdown = false;
 
@@ -112,7 +113,7 @@ namespace BaseBall.BallPlay
         public void InitTest()
         {
             next.SetActive(false);
-            finalRewardMain.front.GetComponent<UIPanel>().alpha = 0;
+            finalRewardMain.front.GetComponent<GameUIPanel>().alpha = 0;
 
             bLiveMatchUpdown = false;
 
@@ -181,9 +182,9 @@ namespace BaseBall.BallPlay
 
         private IEnumerator init(GameObject leagueState)
         {
-            gameObject.GetComponent<UIPanel>().alpha = 0;
+            gameObject.GetComponent<GameUIPanel>().alpha = 0;
             _active.SetActive(true);
-            TweenAlpha.Begin(gameObject, 0.15f, 1);
+            GameUITweenAlpha.Begin(gameObject, 0.15f, 1);
             yield return new WaitForSeconds(0.1f);
             leagueState.SetActive(true);
 
@@ -197,15 +198,15 @@ namespace BaseBall.BallPlay
             if (levelGab > 0)
             {
                 //승격
-                TweenPosition.Begin(leagueLogo.gameObject, 0.5f, new Vector3(0,200,0));
-                UITweener tween = leagueLogoUp.gameObject.GetComponent<UITweener>();
+                GameUITweenPosition.Begin(leagueLogo.gameObject, 0.5f, new Vector3(0,200,0));
+                GameUITween tween = leagueLogoUp.gameObject.GetComponent<GameUITween>();
                 tween.enabled = true;
             }
             else if (levelGab < 0)
             {
                 //강등
-                TweenPosition.Begin(leagueLogo.gameObject, 0.5f, new Vector3(0, -200, 0));
-                UITweener tween = leagueLogoDown.gameObject.GetComponent<UITweener>();
+                GameUITweenPosition.Begin(leagueLogo.gameObject, 0.5f, new Vector3(0, -200, 0));
+                GameUITween tween = leagueLogoDown.gameObject.GetComponent<GameUITween>();
                 tween.enabled = true;
             }
             
@@ -260,7 +261,7 @@ namespace BaseBall.BallPlay
         {
             //curAnim.GetComponent<MeshRenderer>().enabled = false;
             curAnim.gameObject.SetActive(false);
-            TweenAlpha.Begin(gameObject, 0.5f, 0);
+            GameUITweenAlpha.Begin(gameObject, 0.5f, 0);
             yield return new WaitForSeconds(0.5f);
             _active.SetActive(false);
         }

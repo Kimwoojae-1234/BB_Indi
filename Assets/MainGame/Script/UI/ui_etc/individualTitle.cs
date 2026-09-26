@@ -1,4 +1,5 @@
-﻿using System.Collections;
+using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WebConnector;
@@ -7,11 +8,11 @@ namespace BaseBall.BallPlay
     public class individualTitle : MonoBehaviour
     {
         public UI_CardSmall card;
-        public UILabel teamNameLabel;
-        public UISprite myTeamSpr, myTealLogoSpr;
-        public UILabel goldLabel;
+        public GameUIElement teamNameLabel;
+        public GameUIElement myTeamSpr, myTealLogoSpr;
+        public GameUIElement goldLabel;
 
-        public UILabel info;
+        public GameUIElement info;
 
 
         public void setIndividualTitle(SeasonTitleRewardInfo rewardTitle, FinalResultUI resultMain)

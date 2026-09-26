@@ -1,0 +1,154 @@
+#if UNITY_EDITOR
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using BaseBall.BallPlay.UGUI;
+using TMPro;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.UI;
+using Object = UnityEngine.Object;
+
+public static partial class IntegratedUGUIConverter
+{
+    public static void BeginCompleteBatch()
+    {
+        CompleteMigration = true; catalogs.Clear(); fonts.Clear(); baselineIssues.Clear();
+        Directory.CreateDirectory(ResourceFolder); AssetDatabase.Refresh();
+    }
+    static TMP_FontAsset BuildNativeFont(UIFont font)
+    {
+        string folder = ResourceFolder;
+        if (CompleteMigration)
+        {
+            string guid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(font));
+            folder += "/Fonts/" + (string.IsNullOrEmpty(guid) ? currentSourceGuid : guid);
+            Directory.CreateDirectory(folder); AssetDatabase.Refresh();
+        }
+        return NGUIBitmapFontConverter.BuildFont(font, folder);
+    }
+    static void ConvertAnchors(UIWidget source, GameUIElement element)
+    {
+        var target = source.gameObject.AddComponent<GameUIAnchors>(); target.element = element;
+        target.left = Anchor(source.leftAnchor); target.right = Anchor(source.rightAnchor);
+        target.bottom = Anchor(source.bottomAnchor); target.top = Anchor(source.topAnchor);
+    }
+    static GameUIAnchors.Edge Anchor(UIRect.AnchorPoint a) => new GameUIAnchors.Edge { target = a.target, relative = a.relative, absolute = a.absolute };
+    static void ConvertAdditional(GameObject root, MonoBehaviour[] originals, Dictionary<Component, Component> pairs)
+    {
+        foreach (var source in originals)
+        {
+            if (pairs.ContainsKey(source)) continue;
+            if (source is UIAtlas atlas)
+            {
+                var target = source.gameObject.AddComponent<GameUIAsset>(); target.sprites = Catalog(atlas); pairs.Add(source, target);
+            }
+            else if (source is UIFont font)
+            {
+                var target = source.gameObject.AddComponent<GameUIAsset>();
+                if (font.isDynamic) target.dynamicFont = font.dynamicFont;
+                else if (font.texture != null) target.bitmapFont = BuildNativeFont(font);
+                pairs.Add(source, target);
+            }
+            else if (source is UIProgressBar progress)
+            {
+                var fields = new SerializedObject(source);
+                var foreground = fields.FindProperty("mFG").objectReferenceValue as UIWidget;
+                var target = source.gameObject.AddComponent<GameUIProgress>();
+                if (!(source.transform is RectTransform)) source.gameObject.AddComponent<RectTransform>();
+                var slider = source.gameObject.AddComponent<Slider>(); target.slider = slider;
+                slider.transition = Selectable.Transition.None;
+                slider.navigation = new Navigation { mode = Navigation.Mode.None };
+                slider.interactable = source is UISlider && source.enabled;
+                slider.direction = (Slider.Direction)fields.FindProperty("mFill").enumValueIndex;
+                target.steps = progress.numberOfSteps;
+                if (foreground != null)
+                {
+                    target.foreground = foreground.GetComponent<GameUIElement>();
+                    var graphic = target.foreground.graphic;
+                    if (graphic != null)
+                    {
+                        var area = Child(graphic.transform.parent, "Slider Fill Area");
+                        area.localPosition = graphic.transform.localPosition; area.pivot = graphic.rectTransform.pivot;
+                        area.sizeDelta = new Vector2(foreground.width, foreground.height);
+                        graphic.transform.SetParent(area, false);
+                        graphic.rectTransform.anchorMin = Vector2.zero; graphic.rectTransform.anchorMax = Vector2.one;
+                        graphic.rectTransform.anchoredPosition = Vector2.zero; graphic.rectTransform.sizeDelta = Vector2.zero;
+                        target.foreground.externalLayout = true;
+                        target.fillArea = area; slider.fillRect = graphic.rectTransform; slider.targetGraphic = graphic;
+                    }
+                }
+                if (progress.thumb != null)
+                {
+                    var thumb = progress.thumb as RectTransform ?? progress.thumb.gameObject.AddComponent<RectTransform>();
+                    slider.handleRect = thumb;
+                }
+                slider.SetValueWithoutNotify(progress.value); target.onChange.AddRange(Actions(progress.onChange));
+                target.enabled = source.enabled;
+                if (source is UISlider && source.GetComponent<Collider>() != null) Pointer(source.gameObject).progress = target;
+                pairs.Add(source, target);
+            }
+            else if (source is UIToggle toggle)
+            {
+                if (!(source.transform is RectTransform)) source.gameObject.AddComponent<RectTransform>();
+                var target = source.gameObject.AddComponent<GameUIToggle>();
+                target.toggle = source.gameObject.AddComponent<Toggle>(); target.toggle.transition = Selectable.Transition.None;
+                target.toggle.navigation = new Navigation { mode = Navigation.Mode.None };
+                target.toggle.SetIsOnWithoutNotify(toggle.startsActive);
+                target.group = toggle.group; target.optionCanBeNone = toggle.optionCanBeNone;
+                target.activeSprite = toggle.activeSprite != null ? toggle.activeSprite.GetComponent<GameUIElement>() : null;
+                target.invertSpriteState = toggle.invertSpriteState; target.instantTween = toggle.instantTween;
+                target.activeAnimation = toggle.activeAnimation; target.animator = toggle.animator;
+                target.tween = toggle.tween != null ? toggle.tween.GetComponent<GameUITween>() : null;
+                target.onChange.AddRange(Actions(toggle.onChange)); target.enabled = source.enabled;
+                Pointer(source.gameObject).toggle = target; pairs.Add(source, target);
+            }
+            else if (source is UIToggledComponents) { /* Attach after its toggle has been converted. */ }
+            else if (source is UILocalize localize)
+            {
+                var target = source.gameObject.AddComponent<GameUILocalize>(); target.key = localize.key;
+                target.table = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/Resources/Localization.csv");
+                target.element = source.GetComponent<GameUIElement>(); target.enabled = source.enabled; pairs.Add(source, target);
+            }
+            else if (source is UIInput input)
+            {
+                if (!(source.transform is RectTransform)) source.gameObject.AddComponent<RectTransform>();
+                var target = source.gameObject.AddComponent<GameUIInput>();
+                target.label = input.label != null ? input.label.GetComponent<GameUIElement>() : null;
+                if (target.label == null || !(target.label.graphic is Text label)) throw new NotSupportedException("Input font requires explicit TMP conversion: " + source.name);
+                var field = source.gameObject.AddComponent<InputField>(); target.input = field;
+                field.textComponent = label; field.targetGraphic = label;
+                field.transition = Selectable.Transition.None;
+                field.navigation = new Navigation { mode = Navigation.Mode.None };
+                var placeholder = Object.Instantiate(label, label.transform.parent); placeholder.name = "Input Placeholder";
+                placeholder.text = input.label.text; placeholder.raycastTarget = false; field.placeholder = placeholder;
+                field.characterLimit = input.characterLimit;
+                field.inputType = input.inputType == UIInput.InputType.Password ? InputField.InputType.Password : input.inputType == UIInput.InputType.AutoCorrect ? InputField.InputType.AutoCorrect : InputField.InputType.Standard;
+                field.keyboardType = (TouchScreenKeyboardType)(int)input.keyboardType;
+                field.characterValidation = (InputField.CharacterValidation)(int)input.validation;
+                field.caretColor = input.caretColor; field.selectionColor = input.selectionColor; field.customCaretColor = true;
+                target.savedAs = input.savedAs; field.SetTextWithoutNotify(input.value);
+                target.onSubmit.AddRange(Actions(input.onSubmit)); target.onChange.AddRange(Actions(input.onChange));
+                target.enabled = source.enabled; Pointer(source.gameObject).input = target; pairs.Add(source, target);
+            }
+            else if (source is UIAnchor anchor)
+            {
+                var target = source.gameObject.AddComponent<GameUIAnchors>(); target.screenAnchor = true;
+                target.container = anchor.container != null ? anchor.container.transform : null; target.uiCamera = anchor.uiCamera;
+                target.side = (int)anchor.side; target.runOnlyOnce = anchor.runOnlyOnce;
+                target.relativeOffset = anchor.relativeOffset; target.pixelOffset = anchor.pixelOffset;
+                target.enabled = source.enabled; pairs.Add(source, target);
+            }
+            else if (source is UIEventListener) pairs.Add(source, Pointer(source.gameObject));
+            else throw new NotSupportedException("No complete conversion for " + source.GetType().Name);
+        }
+        foreach (var source in originals.OfType<UIToggledComponents>())
+        {
+            var target = source.GetComponent<GameUIToggle>();
+            if (target == null) throw new InvalidOperationException("Toggled components without a toggle: " + source.name);
+            target.activate = source.activate.ToArray(); target.deactivate = source.deactivate.ToArray(); pairs.Add(source, target);
+        }
+    }
+}
+#endif

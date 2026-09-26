@@ -1,4 +1,5 @@
-﻿using System.Collections;
+using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WebConnector;
@@ -7,15 +8,15 @@ namespace BaseBall.BallPlay
 {
     public class otherResultSetting : MonoBehaviour
     {
-        public UITexture[] logo;
-        public UILabel[] teamLabel;
-        public UILabel[] rankLabel;
-        public UILabel[] scoreLabel;
-        public UISprite[] updown;
+        public GameUIElement[] logo;
+        public GameUIElement[] teamLabel;
+        public GameUIElement[] rankLabel;
+        public GameUIElement[] scoreLabel;
+        public GameUIElement[] updown;
         public GameObject[] win;
         public GameObject[] lose;
-        public UILabel[] pitcherLabel;
-        public UILabel[] pitcherOverall;
+        public GameUIElement[] pitcherLabel;
+        public GameUIElement[] pitcherOverall;
 
 
         public void set(int curIndex, SeasonGameInfo info, SeasonGameEndInfo resultInfo, List<SeasonGameResult> gameResult, List<SeasonPitcherResult> pitcherResult)

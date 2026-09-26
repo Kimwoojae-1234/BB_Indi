@@ -1,4 +1,5 @@
-﻿using System.Collections;
+using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WebConnector;
@@ -11,8 +12,8 @@ namespace BaseBall.BallPlay
         public GameObject _active;
 
         public GameObject season, race;
-        public UILabel teamPowerLabel;
-        public UISprite teamLogoSpr;
+        public GameUIElement teamPowerLabel;
+        public GameUIElement teamLogoSpr;
 
         public Transform[] column;
 
@@ -85,20 +86,20 @@ namespace BaseBall.BallPlay
             SeasonTeamRecordInfo teamRecordInfo = info.annInfo.rsReport.teamRanking[index];
             SimpleTeamInfo teamInfo = info.teams[teamRecordInfo.teamNo];
 
-            col.GetComponent<UISprite>().spriteName = bMyColumn ? "season_panentraceMyTeam_bg" : "season_panentraceTeam_bg";
+            col.GetComponent<GameUIElement>().spriteName = bMyColumn ? "season_panentraceMyTeam_bg" : "season_panentraceTeam_bg";
             if (myRanking >= 4 && bMyColumn)
             {
-                col.Find("rankLabel").GetComponent<UILabel>().color = Color.white;
+                col.Find("rankLabel").GetComponent<GameUIElement>().color = Color.white;
             }
 
             //팀로고
-            //col.FindChild("logo").GetComponent<UISprite>().spriteName = "logo_" + (int)teamInfo.team;         //팀로고
-            Util.SetSpritePixelPerfect(col.Find("logo").GetComponent<UISprite>(), "logo_" + (int)teamInfo.team);//
+            //col.FindChild("logo").GetComponent<GameUIElement>().spriteName = "logo_" + (int)teamInfo.team;         //팀로고
+            Util.SetSpritePixelPerfect(col.Find("logo").GetComponent<GameUIElement>(), "logo_" + (int)teamInfo.team);//
 
-            UILabel[] label = new UILabel[11];
+            GameUIElement[] label = new GameUIElement[11];
             for (int i = 0; i < 11; i++)
             {
-                label[i] = col.Find("label" + i).GetComponent<UILabel>();
+                label[i] = col.Find("label" + i).GetComponent<GameUIElement>();
                 if (bMyColumn == true) label[i].color = Color.white;
             }
 
@@ -122,20 +123,20 @@ namespace BaseBall.BallPlay
             bool bMyColumn = (myRanking == index + 1) ? true : false;
             RacePlayTeamRecordInfo teamRecordInfo = info.annInfo.finalTeamRanks[index];
 
-            col.GetComponent<UISprite>().spriteName = bMyColumn ? "season_panentraceMyTeam_bg" : "season_panentraceTeam_bg";
+            col.GetComponent<GameUIElement>().spriteName = bMyColumn ? "season_panentraceMyTeam_bg" : "season_panentraceTeam_bg";
             if (myRanking >= 4 && bMyColumn)
             {
-                col.Find("rankLabel").GetComponent<UILabel>().color = Color.white;
+                col.Find("rankLabel").GetComponent<GameUIElement>().color = Color.white;
             }
 
             //팀로고
-            //col.FindChild("logo").GetComponent<UISprite>().spriteName = "logo_" + (int)teamRecordInfo.team;         //팀로고
-            Util.SetSpritePixelPerfect(col.Find("logo").GetComponent<UISprite>(), "logo_" + (int)teamRecordInfo.team);//
+            //col.FindChild("logo").GetComponent<GameUIElement>().spriteName = "logo_" + (int)teamRecordInfo.team;         //팀로고
+            Util.SetSpritePixelPerfect(col.Find("logo").GetComponent<GameUIElement>(), "logo_" + (int)teamRecordInfo.team);//
 
-            UILabel[] label = new UILabel[11];
+            GameUIElement[] label = new GameUIElement[11];
             for (int i = 0; i < 11; i++)
             {
-                label[i] = col.Find("label" + i).GetComponent<UILabel>();
+                label[i] = col.Find("label" + i).GetComponent<GameUIElement>();
                 if (bMyColumn == true) label[i].color = Color.white;
             }
 

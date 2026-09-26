@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using WebConnector;
@@ -208,7 +209,7 @@ namespace BaseBall.BallPlay
 
         public void changeScene()
         {
-            TweenAlpha.Begin(front, 0.5f, 1);
+            GameUITweenAlpha.Begin(front, 0.5f, 1);
             if (back.activeSelf == false)
             {
                 Invoke("setBack", 0.5f);
@@ -222,7 +223,7 @@ namespace BaseBall.BallPlay
 
         public void fadeIn()
         {            
-            TweenAlpha.Begin(front, 0.2f, 0);
+            GameUITweenAlpha.Begin(front, 0.2f, 0);
         }
 
 
@@ -232,7 +233,7 @@ namespace BaseBall.BallPlay
         public void deActive()
         {
             backLight.SetActive(false);
-            TweenAlpha.Begin(back.gameObject, 0.5f, 0);
+            GameUITweenAlpha.Begin(back.gameObject, 0.5f, 0);
                         
             Destroy(gameObject, 2.0f);
         }

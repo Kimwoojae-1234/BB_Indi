@@ -1,4 +1,5 @@
-﻿using System.Collections;
+using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,9 +11,9 @@ public class lobbyManager : MonoBehaviour {
 
 
     public GameObject player1, player2;
-    public UILabel idLabel;
-    public UILabel connectingLabel;
-    public UILabel roomLabel;
+    public GameUIElement idLabel;
+    public GameUIElement connectingLabel;
+    public GameUIElement roomLabel;
     TouchScreenKeyboard keyboardInstance = null;
     private bool keyActive = false;
     private string userID = null;

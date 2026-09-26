@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 
 
@@ -12,13 +13,13 @@ namespace BaseBall.BallPlay
 
         int step;
 
-        public UISprite[] teamText;
-        public UISprite[] teamBG;
-        public UISprite[] logo;
-        public UILabel[] playerName;
-        public UILabel[] skillName;
+        public GameUIElement[] teamText;
+        public GameUIElement[] teamBG;
+        public GameUIElement[] logo;
+        public GameUIElement[] playerName;
+        public GameUIElement[] skillName;
 
-        public UISprite[] skillIcon;
+        public GameUIElement[] skillIcon;
 
         void Awake()
         {

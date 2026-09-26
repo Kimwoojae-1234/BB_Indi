@@ -1,4 +1,5 @@
-﻿using BaseBall.BallPlay.UGUI;
+using TMPro;
+using BaseBall.BallPlay.UGUI;
 using UnityEngine;
 using System.Collections;
 
@@ -6,6 +7,19 @@ namespace BaseBall.BallPlay
 {
     public class Util
     {
+        public static void DestroyChildren(Transform parent)
+        {
+            while (parent.childCount > 0)
+            {
+                var child = parent.GetChild(0);
+                if (Application.isPlaying)
+                {
+                    child.SetParent(null, true);
+                    Object.Destroy(child.gameObject);
+                }
+                else Object.DestroyImmediate(child.gameObject);
+            }
+        }
 
         public static bool GetPercent(int per)
         {
@@ -111,13 +125,13 @@ namespace BaseBall.BallPlay
                         text.color = col;
                     }
 
-                    UISprite uiSpr = t.GetComponent<UISprite>();
+                    GameUIElement uiSpr = t.GetComponent<GameUIElement>();
                     if (uiSpr != null)
                     {
                         uiSpr.color = col;
                     }
 
-                    UIWidget widget = t.GetComponent<UIWidget>();
+                    GameUIElement widget = t.GetComponent<GameUIElement>();
                     if (widget != null)
                     {
                         widget.alpha = col.a;
@@ -206,12 +220,7 @@ namespace BaseBall.BallPlay
             sprite.spriteName = name; if (pixelPerfect) sprite.MakePixelPerfect();
         }
 
-        public static void SetUILabelColor(UILabel label, int value)
-        {
-            Color[] color = new Color[5] { new Color(0.74f, 0.74f, 0.74f), new Color(0.455f, 0.588f, 0.984f), new Color(0, 1, 0), new Color(1, 0.9f, 0), new Color(1, 0, 0) };
-            int index = MyMath.SetMinMax(value / 200,0,4);
-            label.color = color[index];
-        }
+
 
         public static string GetPositionString(int pos)
         {
@@ -571,29 +580,25 @@ namespace BaseBall.BallPlay
         {
             var native = obj.GetComponent<GameUITween>();
             if (native != null) { native.ResetToBeginning(); native.PlayForward(); return; }
-            UITweener tween = obj.GetComponent<UITweener>();
+            GameUITween tween = obj.GetComponent<GameUITween>();
             tween.ResetToBeginning();
             tween.enabled = true;
             tween.PlayForward();
         }
 
 
-        public static void SetSpritePixelPerfect(UISprite spr, string sprName, bool bPixelPerfect = true)
-        {
-            spr.spriteName = sprName;
-            if(bPixelPerfect) spr.MakePixelPerfect();
-        }
 
 
-        public static UIFont GetOverallFont(int overallNum)
+
+        public static TMP_FontAsset GetOverallFont(int overallNum)
         {
             /*if (overallNum >= 100)
             {
-                // DISABLED_MGRS: return Mgrs.DataLoad.LoadFont("bitmapfont_card_yellow_num").GetComponent<UIFont>();
+                // DISABLED_MGRS: return Mgrs.DataLoad.LoadFont("bitmapfont_card_yellow_num").GetComponent<TMP_FontAsset>();
             }
             else
             {
-                // DISABLED_MGRS: return Mgrs.DataLoad.LoadFont("bitmapfont_card_silver_num").GetComponent<UIFont>();
+                // DISABLED_MGRS: return Mgrs.DataLoad.LoadFont("bitmapfont_card_silver_num").GetComponent<TMP_FontAsset>();
             }*/
             return null;
         }
@@ -604,7 +609,7 @@ namespace BaseBall.BallPlay
             var native = obj.GetComponent<GameUITween>();
             if (native != null) { obj.SetActive(true); native.ResetToBeginning(); native.PlayForward(); return; }
             obj.SetActive(true);
-            UITweener tween = obj.GetComponent<UITweener>();
+            GameUITween tween = obj.GetComponent<GameUITween>();
             tween.ResetToBeginning();
             tween.PlayForward();
         }
@@ -614,7 +619,7 @@ namespace BaseBall.BallPlay
             var native = obj.GetComponent<GameUITween>();
             if (native != null) { native.PlayReverse(); return; }
             //obj.SetActive(true);
-            UITweener tween = obj.GetComponent<UITweener>();
+            GameUITween tween = obj.GetComponent<GameUITween>();
             //tween.ResetToBeginning();
             tween.PlayReverse();
         }

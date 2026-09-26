@@ -1,4 +1,5 @@
-﻿using System.Collections;
+using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,25 +24,25 @@ public class ItemSlot : MonoBehaviour {
     }
 
     [SerializeField]
-    private UISprite bg;
+    private GameUIElement bg;
     [SerializeField]
-    private UISprite icon;
+    private GameUIElement icon;
     [SerializeField]
-    private UILabel have_count_label;
+    private GameUIElement have_count_label;
     [SerializeField]
-    private UILabel itemName;
+    private GameUIElement itemName;
     [SerializeField]
     private ItemSize itemSize = ItemSize.SMALL;
     [SerializeField]
     private GameObject GearObject;
     [SerializeField]
-    private UISprite gearPlayerType;
+    private GameUIElement gearPlayerType;
     [SerializeField]
-    private UILabel gearReinforce_label;
+    private GameUIElement gearReinforce_label;
     [SerializeField]
-    private UISprite GearGradeStar;
+    private GameUIElement GearGradeStar;
     [SerializeField]
-    private UILabel GearGradeLabel;
+    private GameUIElement GearGradeLabel;
     private ItemType itemType = ItemType.MAX;
     public ItemType ITEM_TYPE { get { return itemType; } }
 

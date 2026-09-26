@@ -1,4 +1,5 @@
-﻿using System.Collections;
+using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WebConnector;
@@ -13,11 +14,11 @@ namespace BaseBall.BallPlay
         public GameObject next;
         public GameObject league, race;
 
-        public UILabel rankLabel;
-        public UILabel teamPowerLabel;
-        public UILabel wdlLabel;
-        public UILabel coinLabel;
-        public UISprite leagueLogoSpr;
+        public GameUIElement rankLabel;
+        public GameUIElement teamPowerLabel;
+        public GameUIElement wdlLabel;
+        public GameUIElement coinLabel;
+        public GameUIElement leagueLogoSpr;
 
         public Transform grid;
         public GameObject noReward;
@@ -153,7 +154,7 @@ namespace BaseBall.BallPlay
 
         private IEnumerator deActive()
         {
-            TweenAlpha.Begin(gameObject, 0.5f, 0);
+            GameUITweenAlpha.Begin(gameObject, 0.5f, 0);
             yield return new WaitForSeconds(0.5f);
             _active.SetActive(false);
         }

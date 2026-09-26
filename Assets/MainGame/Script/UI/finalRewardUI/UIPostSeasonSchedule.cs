@@ -1,4 +1,5 @@
-﻿using System.Collections;
+using BaseBall.BallPlay.UGUI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace BaseBall.BallPlay
@@ -12,15 +13,15 @@ namespace BaseBall.BallPlay
 
         public GameObject[] trophy;
 
-        public UILabel[] teamName;
+        public GameUIElement[] teamName;
 
-        public UITexture[] teamLogo;
+        public GameUIElement[] teamLogo;
 
         public GameObject myTeam;
 
         public postScheduleInfo[] scheduleInfo;
 
-        public UISprite leagueLogo;
+        public GameUIElement leagueLogo;
 
 
 
@@ -80,7 +81,7 @@ namespace BaseBall.BallPlay
 
         private IEnumerator deActive()
         {
-            TweenAlpha.Begin(gameObject, 0.5f, 0);
+            GameUITweenAlpha.Begin(gameObject, 0.5f, 0);
             yield return new WaitForSeconds(0.5f);
             _active.SetActive(false);
         }

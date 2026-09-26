@@ -18,7 +18,7 @@ public static class ScoreboardPlayChecks
     [Serializable] private class SavedSetup { public SceneSetup[] scenes; }
     private static double nextSample;
     private static string previousState;
-    private static string TraceOutput => SessionState.GetString(SessionKey + ".Output", ScoreboardMigrationChecks.OutputPath);
+    private static string TraceOutput => SessionState.GetString(SessionKey + ".Output", UGUIMigrationPaths.OutputPath);
 
     static ScoreboardPlayChecks()
     {
@@ -39,7 +39,7 @@ public static class ScoreboardPlayChecks
     }
 
     [MenuItem("Tools/UI Migration/Start Offline Gameplay Check")]
-    public static void StartOffline() { StartOffline(ScoreboardMigrationChecks.OutputPath); }
+    public static void StartOffline() { StartOffline(UGUIMigrationPaths.OutputPath); }
 
     public static void StartOffline(string output)
     {
@@ -117,7 +117,7 @@ public static class ScoreboardPlayChecks
     {
         if (!EditorApplication.isPlaying) throw new InvalidOperationException("Gameplay capture requires Play Mode.");
         var board = UnityEngine.Object.FindFirstObjectByType<MatchScoreboard>(FindObjectsInactive.Include);
-        ScreenCapture.CaptureScreenshot(ScoreboardMigrationChecks.OutputPath + (board != null && board.UguiView != null ? "/gameplay-ugui.png" : "/gameplay-legacy.png"));
+        ScreenCapture.CaptureScreenshot(UGUIMigrationPaths.OutputPath + (board != null && board.UguiView != null ? "/gameplay-ugui.png" : "/gameplay-legacy.png"));
     }
 }
 #endif

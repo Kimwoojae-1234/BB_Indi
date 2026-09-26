@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using SQLite4Unity3d;
 using System.Collections.Generic;
 using System;
@@ -171,7 +172,7 @@ namespace BaseBall.BallPlay
         }
 
         private SQLiteConnection connection;
-        private List<EventDelegate.Callback> list_callBack = new List<EventDelegate.Callback>();
+        private List<System.Action> list_callBack = new List<System.Action>();
 
         private void InitMethodList()
         {

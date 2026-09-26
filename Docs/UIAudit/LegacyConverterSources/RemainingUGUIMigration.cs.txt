@@ -1,0 +1,254 @@
+#if UNITY_EDITOR
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using BaseBall.BallPlay;
+using BaseBall.BallPlay.UGUI;
+
+public static class RemainingUGUIMigration
+{
+    public const string Output = "Docs/UIAudit/NGUIComplete";
+    [Serializable] public sealed class Inventory { public Entry[] assets; }
+    [Serializable] public sealed class Entry { public string path; public ComponentInfo[] components; public string[] missingScripts; }
+    [Serializable] public sealed class ComponentInfo { public string type, node, settings; public long id; }
+    public static void Command(string command)
+    {
+        if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Edit Mode required.");
+        if (command == "audit") { Audit(); return; }
+        if (command == "normalize") { Normalize(); return; }
+        if (command == "build") { Build(); return; }
+        if (command == "build-scenes") { BuildScenes(); return; }
+        if (command == "check") { RemainingUGUIChecks.Check(); return; }
+        if (command == "play-controls") { RemainingUGUIControlChecks.Start(); return; }
+        if (command == "finish-resources") { FinishResources(); return; }
+        if (command == "dependencies")
+        {
+            var report = new List<string>();
+            foreach (string path in AssetDatabase.GetAllAssetPaths().Where(p => p.StartsWith("Assets/") && !p.StartsWith("Assets/NGUI/") && !p.StartsWith("Assets/Editor/") && !AssetDatabase.IsValidFolder(p)))
+                foreach (string dependency in AssetDatabase.GetDependencies(path, false).Where(p => p.StartsWith("Assets/NGUI/"))) report.Add(path + " -> " + dependency);
+            File.WriteAllLines(Output + "/remaining-plugin-dependencies.txt", report); return;
+        }
+        if (command == "capture-before" || command == "capture-after") { CaptureResult(command == "capture-before" ? "before" : "after"); return; }
+        throw new ArgumentException(command);
+    }
+    static void FinishResources()
+    {
+        IntegratedUGUIConverter.BeginCompleteBatch();
+        var plans = JsonUtility.FromJson<IntegratedUGUIConverter.Plan>(File.ReadAllText(Output + "/candidate-plan.json")).assets;
+        var report = new List<string>();
+        foreach (var plan in plans.Where(p => p.source.EndsWith(".prefab")))
+        {
+            var candidate = AssetDatabase.LoadAssetAtPath<GameObject>(plan.candidate);
+            var atlas = candidate.GetComponent<UIAtlas>();
+            if (atlas == null) continue;
+            var catalog = IntegratedUGUIConverter.Catalog(atlas, AssetDatabase.AssetPathToGUID(plan.source));
+            if (catalog.entries.Length != atlas.spriteList.Count) throw new InvalidOperationException("Atlas entry count mismatch: " + plan.source);
+            AssetDatabase.SaveAssetIfDirty(catalog);
+            var root = PrefabUtility.LoadPrefabContents(plan.source);
+            try
+            {
+                if (root.GetComponentsInChildren<MonoBehaviour>(true).Any(c => c == null)) throw new InvalidOperationException("Unexpected missing script in atlas data");
+                root.GetComponent<GameUIAsset>().sprites = catalog;
+                PrefabUtility.SaveAsPrefabAsset(root, plan.source);
+            }
+            finally { PrefabUtility.UnloadPrefabContents(root); }
+            report.Add(plan.source + " sprites=" + catalog.entries.Length + " catalog=" + AssetDatabase.GetAssetPath(catalog));
+        }
+        File.WriteAllLines(Output + "/atlas-resource-checks.txt", report);
+    }
+    static void CaptureResult(string stage)
+    {
+        for (int i = 0; i < SceneManager.sceneCount; i++) if (SceneManager.GetSceneAt(i).isDirty) throw new InvalidOperationException("Save scene edits first.");
+        var setup = EditorSceneManager.GetSceneManagerSetup(); var previous = RenderTexture.active;
+        RenderTexture texture = null; Texture2D pixels = null;
+        try
+        {
+            EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+            var root = UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Resources/MainGame/prefabs/resultUI/resultPrefab.prefab"));
+            root.transform.position = Vector3.zero;
+            var result = root.GetComponent<ResultUI>(); result.resultMain._active.SetActive(true);
+            var board = result.resultMain.board; board.initScoreBoard("Away", "Home", 1, 2);
+            int[] away = Enumerable.Repeat(SimulParm.NOPLAY_INNING, 12).ToArray(), home = (int[])away.Clone();
+            for (int i = 0; i < 9; i++) { away[i] = i == 3 ? 6 : 0; home[i] = i == 6 ? 2 : 0; }
+            board.setResult(away, home, new[] { 6, 14, 1 }, new[] { 2, 7, 1 }, 0);
+            foreach (var panel in root.GetComponentsInChildren<UIPanel>()) panel.SendMessage("Start");
+            foreach (var widget in root.GetComponentsInChildren<UIWidget>()) { widget.SendMessage("Start"); widget.CreatePanel(); }
+            foreach (var panel in root.GetComponentsInChildren<UIPanel>()) panel.Refresh();
+            foreach (var panel in root.GetComponentsInChildren<GameUIPanel>()) GameUIRenderOrder.Register(panel);
+            foreach (var element in root.GetComponentsInChildren<GameUIElement>()) GameUIRenderOrder.Register(element);
+            foreach (var element in root.GetComponentsInChildren<GameUIElement>()) element.Apply();
+            var camera = root.GetComponentInChildren<Camera>();
+            texture = new RenderTexture(1280, 720, 24, RenderTextureFormat.ARGB32);
+            camera.targetTexture = texture; camera.aspect = 1280f / 720;
+            Canvas.ForceUpdateCanvases(); camera.Render();
+            RenderTexture.active = texture; pixels = new Texture2D(1280, 720, TextureFormat.RGBA32, false);
+            pixels.ReadPixels(new Rect(0, 0, 1280, 720), 0, 0); pixels.Apply();
+            File.WriteAllBytes(Output + "/result-" + stage + ".png", pixels.EncodeToPNG());
+            var colors = pixels.GetPixels32(); int visible = colors.Count(c => !c.Equals(colors[0]));
+            File.WriteAllText(Output + "/result-" + stage + "-capture.txt", "Visible pixels=" + visible + " camera=" + camera.transform.position + " size=" + camera.orthographicSize);
+            if (visible < 1000) throw new InvalidOperationException("Blank result capture");
+        }
+        finally
+        {
+            RenderTexture.active = previous;
+            if (pixels != null) UnityEngine.Object.DestroyImmediate(pixels);
+            if (texture != null) UnityEngine.Object.DestroyImmediate(texture);
+            EditorSceneManager.RestoreSceneManagerSetup(setup);
+        }
+    }
+    static string NodePath(Transform node, Transform root)
+    {
+        var indices = new List<int>(); while (node != root) { indices.Add(node.GetSiblingIndex()); node = node.parent; }
+        indices.Reverse(); return string.Join("/", indices);
+    }
+    static Transform NodeAt(Transform root, string path)
+    {
+        if (path.Length > 0) foreach (string index in path.Split('/')) root = root.GetChild(int.Parse(index)); return root;
+    }
+    static void BuildScenes()
+    {
+        for (int i = 0; i < SceneManager.sceneCount; i++) if (SceneManager.GetSceneAt(i).isDirty) throw new InvalidOperationException("Save scene edits first.");
+        Directory.CreateDirectory("Assets/Editor/RemainingSources"); AssetDatabase.Refresh();
+        IntegratedUGUIConverter.BeginCompleteBatch();
+        var inventory = JsonUtility.FromJson<Inventory>(File.ReadAllText(Output + "/inventory.json"));
+        var plan = JsonUtility.FromJson<IntegratedUGUIConverter.Plan>(File.ReadAllText(Output + "/candidate-plan.json"));
+        var plans = plan.assets.ToList(); var setup = EditorSceneManager.GetSceneManagerSetup();
+        try
+        {
+            foreach (var entry in inventory.assets.Where(a => a.components.Length > 0 && a.path.EndsWith(".unity")))
+            {
+                if (plans.Any(p => p.source == entry.path)) continue;
+                var scene = EditorSceneManager.OpenScene(entry.path, OpenSceneMode.Single);
+                var roots = scene.GetRootGameObjects();
+                var identities = new List<(UnityEngine.Object obj, Transform node, Type type, int index, long id)>();
+                foreach (var root in roots)
+                foreach (var node in root.GetComponentsInChildren<Transform>(true))
+                {
+                    identities.Add((node.gameObject, node, null, 0, (long)GlobalObjectId.GetGlobalObjectIdSlow(node.gameObject).targetObjectId));
+                    foreach (var component in node.GetComponents<Component>().Where(c => c != null))
+                        identities.Add((component, node, component.GetType(), Array.IndexOf(node.GetComponents(component.GetType()), component), (long)GlobalObjectId.GetGlobalObjectIdSlow(component).targetObjectId));
+                }
+                if (identities.Any(i => i.id == 0) || identities.Select(i => i.id).Distinct().Count() != identities.Count) throw new InvalidOperationException("Scene identities are not unique: " + entry.path);
+                var wrapper = new GameObject("Scene Conversion Container");
+                foreach (var root in roots) root.transform.SetParent(wrapper.transform, true);
+                foreach (var node in wrapper.GetComponentsInChildren<Transform>(true)) GameObjectUtility.RemoveMonoBehavioursWithMissingScript(node.gameObject);
+                string guid = AssetDatabase.AssetPathToGUID(entry.path);
+                string source = "Assets/Editor/RemainingSources/" + guid + ".prefab";
+                var prefab = PrefabUtility.SaveAsPrefabAsset(wrapper, source);
+                var mapping = new Dictionary<long, long>();
+                foreach (var item in identities)
+                {
+                    var node = NodeAt(prefab.transform, NodePath(item.node, wrapper.transform));
+                    var value = item.type == null ? (UnityEngine.Object)node.gameObject : node.GetComponents(item.type)[item.index];
+                    AssetDatabase.TryGetGUIDAndLocalFileIdentifier(value, out string _, out long id); mapping.Add(id, item.id);
+                }
+                var converted = IntegratedUGUIConverter.Build(source, "Assets/Editor/RemainingCandidates/" + guid + ".prefab");
+                converted.synthetic = converted.identities.Where(i => !mapping.ContainsKey(i.original)).Select(i => i.replacement).ToArray();
+                foreach (var identity in converted.identities) if (mapping.TryGetValue(identity.original, out long id)) identity.original = id;
+                converted.identities = converted.identities.Where(i => !converted.synthetic.Contains(i.replacement)).ToArray();
+                converted.source = entry.path; plans.Add(converted);
+                File.WriteAllText(Output + "/candidate-plan.json", JsonUtility.ToJson(new IntegratedUGUIConverter.Plan { assets = plans.ToArray() }, true));
+                UnityEngine.Object.DestroyImmediate(wrapper);
+                // The scene source is never saved from this temporary export.
+            }
+        }
+        finally { EditorSceneManager.RestoreSceneManagerSetup(setup); }
+        foreach (string path in AssetDatabase.GetAllAssetPaths().Where(p => p.StartsWith("Assets/MainGame/UI/CompleteUGUI/"))) AssetDatabase.SaveAssetIfDirty(AssetDatabase.LoadMainAssetAtPath(path));
+    }
+    static void Build()
+    {
+        const string folder = "Assets/Editor/RemainingCandidates";
+        Directory.CreateDirectory(folder); AssetDatabase.Refresh();
+        IntegratedUGUIConverter.BeginCompleteBatch();
+        var inventory = JsonUtility.FromJson<Inventory>(File.ReadAllText(Output + "/inventory.json"));
+        string planPath = Output + "/candidate-plan.json";
+        var plans = File.Exists(planPath) ? JsonUtility.FromJson<IntegratedUGUIConverter.Plan>(File.ReadAllText(planPath)).assets.ToList() : new List<IntegratedUGUIConverter.AssetPlan>();
+        var errors = new List<string>();
+        foreach (var entry in inventory.assets.Where(a => a.components.Length > 0 && a.path.EndsWith(".prefab")))
+        {
+            if (plans.Any(p => p.source == entry.path)) continue;
+            try
+            {
+                File.WriteAllText(Output + "/build-progress.txt", entry.path);
+                string candidate = folder + "/" + AssetDatabase.AssetPathToGUID(entry.path) + ".prefab";
+                plans.Add(IntegratedUGUIConverter.Build(entry.path, candidate));
+                File.WriteAllText(planPath, JsonUtility.ToJson(new IntegratedUGUIConverter.Plan { assets = plans.ToArray() }, true));
+            }
+            catch (Exception exception) { errors.Add(entry.path + "\n" + exception); }
+        }
+        foreach (string path in AssetDatabase.GetAllAssetPaths().Where(p => p.StartsWith("Assets/MainGame/UI/CompleteUGUI/")))
+            AssetDatabase.SaveAssetIfDirty(AssetDatabase.LoadMainAssetAtPath(path));
+        File.WriteAllLines(Output + "/build-errors.txt", errors);
+        File.WriteAllText(Output + "/build-progress.txt", "Built=" + plans.Count + "; failed=" + errors.Count);
+        if (errors.Count > 0) throw new InvalidOperationException(errors.Count + " candidate conversions need attention. See build-errors.txt.");
+    }
+    static void Normalize()
+    {
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+            if (SceneManager.GetSceneAt(i).isDirty) throw new InvalidOperationException("Save scene edits first.");
+        var inventory = JsonUtility.FromJson<Inventory>(File.ReadAllText(Output + "/inventory.json"));
+        var paths = inventory.assets.Where(a => a.components.Length > 0).Select(a => a.path).ToArray();
+        foreach (string path in paths)
+        {
+            string backup = "Library/UGUIMigration/Complete/Before/" + path;
+            if (!File.Exists(backup)) { Directory.CreateDirectory(Path.GetDirectoryName(backup)); File.Copy(path, backup); }
+        }
+        AssetDatabase.ForceReserializeAssets(paths, ForceReserializeAssetsOptions.ReserializeAssets);
+        var setup = EditorSceneManager.GetSceneManagerSetup();
+        try
+        {
+            foreach (string path in paths.Where(p => p.EndsWith(".unity")))
+            {
+                var scene = EditorSceneManager.OpenScene(path, OpenSceneMode.Single);
+                foreach (var root in scene.GetRootGameObjects())
+                foreach (var node in root.GetComponentsInChildren<Transform>(true).Select(t => t.gameObject).ToArray())
+                    if (PrefabUtility.IsOutermostPrefabInstanceRoot(node)) PrefabUtility.UnpackPrefabInstance(node, PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
+                EditorSceneManager.SaveScene(scene);
+            }
+        }
+        finally { EditorSceneManager.RestoreSceneManagerSetup(setup); }
+        File.WriteAllLines(Output + "/normalized-assets.txt", paths);
+    }
+    static void Audit()
+    {
+        Directory.CreateDirectory(Output);
+        var entries = new List<Entry>();
+        foreach (string path in AssetDatabase.GetAllAssetPaths().Where(p => p.StartsWith("Assets/") && !p.StartsWith("Assets/NGUI/") && (p.EndsWith(".prefab") || p.EndsWith(".unity"))).OrderBy(p => p))
+        {
+            if (path.EndsWith(".prefab"))
+            {
+                var root = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+                if (root != null) Collect(path, new[] { root }, entries);
+            }
+            else
+            {
+                var scene = EditorSceneManager.OpenPreviewScene(path);
+                try { Collect(path, scene.GetRootGameObjects(), entries); }
+                finally { EditorSceneManager.ClosePreviewScene(scene); }
+            }
+        }
+        File.WriteAllText(Output + "/inventory.json", JsonUtility.ToJson(new Inventory { assets = entries.ToArray() }, true));
+        File.WriteAllLines(Output + "/inventory-summary.txt", entries.Select(e => e.path + " " + e.components.Length + " " + string.Join(",", e.components.GroupBy(c => c.type).Select(g => g.Key + "=" + g.Count()))));
+    }
+    static void Collect(string path, GameObject[] roots, List<Entry> entries)
+    {
+        var components = new List<ComponentInfo>();
+        var missing = new List<string>();
+        foreach (var root in roots)
+        foreach (var transform in root.GetComponentsInChildren<Transform>(true))
+        foreach (var component in transform.GetComponents<MonoBehaviour>())
+        {
+            if (component == null) { missing.Add(AnimationUtility.CalculateTransformPath(transform, null)); continue; }
+            if (!AssetDatabase.GetAssetPath(MonoScript.FromMonoBehaviour(component)).StartsWith("Assets/NGUI/")) continue;
+            AssetDatabase.TryGetGUIDAndLocalFileIdentifier(component, out string _, out long id);
+            components.Add(new ComponentInfo { type = component.GetType().Name, node = AnimationUtility.CalculateTransformPath(transform, null), id = id, settings = JsonUtility.ToJson(component) });
+        }
+        if (components.Count > 0 || missing.Count > 0) entries.Add(new Entry { path = path, components = components.ToArray(), missingScripts = missing.ToArray() });
+    }
+}
+#endif

@@ -87,7 +87,7 @@ public static class IntegratedUGUIChecks
             foreach (var animator in root.GetComponentsInChildren<Animator>(true))
                 if (animator.runtimeAnimatorController != null)
                     foreach (var clip in animator.runtimeAnimatorController.animationClips)
-                        Require(!AnimationUtility.GetCurveBindings(clip).Any(b => typeof(UIWidget).IsAssignableFrom(b.type) || b.type == typeof(UIPanel)), asset.source + ": old animation binding " + clip.name);
+                        Require(!AnimationUtility.GetCurveBindings(clip).Any(b => RemainingUGUIChecks.IsLegacyUIType(b.type)), asset.source + ": old animation binding " + clip.name);
         }
         File.WriteAllText(reportPath, "PASS " + DateTime.UtcNow.ToString("O") + "\nassets=" + plan.assets.Length + " nativeWidgets=" + native + " retainedControllerReferences=" + count + "\nExact reference GUID/fileID mapping and CanvasRenderer presence checked. No NGUI behaviors or NGUI animator curves in converted assets. Gameplay and device validation reported separately.\n");
     }
@@ -97,101 +97,6 @@ public static class IntegratedUGUIChecks
         Require(action.mTarget.GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
             .Any(m => m.Name == action.mMethodName && m.GetParameters().Length == (action.mParameters?.Length ?? 0)), name + ": invalid native callback " + action.mMethodName);
     }
-    [MenuItem("Tools/UI Migration/Integrated/Check Candidates")]
-    public static void Run()
-    {
-        var plan = JsonUtility.FromJson<IntegratedUGUIConverter.Plan>(File.ReadAllText(IntegratedUGUIConverter.Output + "/candidate-plan.json"));
-        var report = new List<string>();
-        int widgets = 0, tweenSamples = 0, callbacks = 0, inertCallbacks = 0;
-        foreach (var asset in plan.assets)
-        {
-            var root = PrefabUtility.LoadPrefabContents(asset.candidate);
-            try
-            {
-                foreach (var original in root.GetComponentsInChildren<UIWidget>(true))
-                {
-                    var target = original.GetComponent<GameUIElement>();
-                    Require(target != null, original.name + ": missing replacement");
-                    Require(target.width == original.width && target.height == original.height, original.name + ": dimensions");
-                    Require(target.color == original.color && target.pivotOffset == original.pivotOffset, original.name + ": color/pivot");
-                    Require(target.enabled == original.enabled, original.name + ": enabled");
-                    target.Apply();
-                    if (original is UISprite sprite)
-                    {
-                        Require(target.spriteName == sprite.spriteName, original.name + ": sprite name");
-                        bool exists = target.sprites.TryGet(sprite.spriteName, out var entry);
-                        Require(target.sprites.material == (sprite.atlas == null ? null : IntegratedUGUIConverter.NativeAtlasMaterial(sprite.atlas)), original.name + ": atlas blend material");
-                        Require(exists == (sprite.GetAtlasSprite() != null), original.name + ": sprite lookup");
-                        if (exists)
-                        {
-                            Require(entry.sprite != null, original.name + ": sprite asset");
-                            foreach (float fill in new[] { 0f, .25f, .5f, 1f })
-                            {
-                                target.fillAmount = fill; Require(Mathf.Approximately(((Image)target.graphic).fillAmount, fill), "Fill propagation");
-                            }
-                            target.fillAmount = sprite.fillAmount;
-                        }
-                    }
-                    if (original is UILabel label)
-                    {
-                        Require(target.text == label.text, original.name + ": text");
-                        Require(target.graphic is TMP_Text || target.graphic is Text, original.name + ": text graphic");
-                        string marked = "[FFEA00]Fastball[-]   150km";
-                        target.text = marked;
-                        string actual = target.graphic is TMP_Text tmp ? tmp.text : ((Text)target.graphic).text;
-                        Require(actual == (label.supportEncoding ? "<color=#FFEA00>Fastball</color>   150km" : marked), original.name + ": live markup");
-                        target.text = label.text;
-                    }
-                    if (target.graphic != null) Require(!target.graphic.raycastTarget, original.name + ": display intercepts input");
-                    widgets++;
-                }
-                foreach (var original in root.GetComponentsInChildren<UITweener>(true))
-                {
-                    Type type = original is TweenAlpha ? typeof(GameUITweenAlpha) : original is TweenPosition ? typeof(GameUITweenPosition)
-                        : original is TweenScale ? typeof(GameUITweenScale) : typeof(GameUITweenRotation);
-                    var target = (GameUITween)original.GetComponent(type);
-                    Require(target != null, original.name + ": tween replacement");
-                    for (int index = 0; index <= 20; index++)
-                    {
-                        float sample = index / 20f;
-                        original.Sample(sample, index == 20);
-                        Vector4 expected = TweenValue(original);
-                        target.Sample(sample, index == 20);
-                        Vector4 actual = TweenValue(target);
-                        Require(Vector4.Distance(expected, actual) < .003f, original.name + ": tween sample " + index + " expected=" + expected + " actual=" + actual);
-                        tweenSamples++;
-                    }
-                }
-                foreach (var pointer in root.GetComponentsInChildren<GameUIPointer>(true))
-                {
-                    Require(pointer.inputCollider != null, pointer.name + ": input shape");
-                    Require(pointer.GetComponentsInChildren<GameUIHitTarget>(true).Any(h => h.pointer == pointer), pointer.name + ": raycast target");
-                    foreach (var action in pointer.onPress.Concat(pointer.onRelease).Concat(pointer.onClick).Concat(pointer.onHoverOver).Concat(pointer.onHoverOut))
-                    {
-                        if (action.mTarget == null) { inertCallbacks++; continue; }
-                        int count = action.mParameters?.Length ?? 0;
-                        Require(action.mTarget.GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                            .Any(m => m.Name == action.mMethodName && m.GetParameters().Length == count), pointer.name + ": callback " + action.mMethodName);
-                        callbacks++;
-                    }
-                }
-                report.Add("PASS candidate " + asset.source);
-            }
-            finally { PrefabUtility.UnloadPrefabContents(root); }
-        }
-        report.Insert(0, "PASS " + DateTime.UtcNow.ToString("O"));
-        report.Add("widgets=" + widgets + " tweenSamples=" + tweenSamples + " callbacks=" + callbacks + " preexistingNullCallbacks=" + inertCallbacks);
-        report.Add("Candidate structural/presentation comparison only. Applied asset/reference checks and gameplay evidence are reported separately.");
-        File.WriteAllLines(IntegratedUGUIConverter.Output + "/candidate-checks.txt", report);
-    }
     private static void Require(bool value, string message) { if (!value) throw new InvalidOperationException(message); }
-    private static Vector4 TweenValue(Component tween)
-    {
-        if (tween is TweenAlpha oldAlpha) return new Vector4(oldAlpha.value, 0, 0, 0);
-        if (tween is GameUITweenAlpha alpha) return new Vector4(alpha.value, 0, 0, 0);
-        if (tween is TweenPosition || tween is GameUITweenPosition) return tween.transform.localPosition;
-        if (tween is TweenScale || tween is GameUITweenScale) return tween.transform.localScale;
-        var rotation = tween.transform.localRotation; return new Vector4(rotation.x, rotation.y, rotation.z, rotation.w);
-    }
 }
 #endif

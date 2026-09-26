@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using BaseBall.BallPlay.UGUI;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -8,8 +9,8 @@ namespace BaseBall.BallPlay
     {
         public const int MAX_GRADE = 7;
 
-        public UISprite pos1, pos2;
-        public UILabel name, overall;
+        public GameUIElement pos1, pos2;
+        public GameUIElement name, overall;
         public GameObject gaugeObj;
 
         public void setPlayer(WebConnector.GameCardInfo growCard, CPlayer player, bool bPitcher,float delay, bool bMaxLevel = false)
