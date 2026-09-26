@@ -61,6 +61,10 @@ namespace BaseBall.BallPlay.UGUI
             // A secondary camera must see the same UI geometry as the Spine meshes it captures.
             // Screen-space canvases otherwise belong exclusively to their assigned UI camera.
             Canvas.ForceUpdateCanvases();
+            // Skill captures can run immediately after changing a source Transform,
+            // before the normal LateUpdate that copies it into a shared canvas.
+            foreach (var batch in owner.GetComponentsInChildren<GameUICanvasBatch>(true)) batch.Synchronize();
+            Canvas.ForceUpdateCanvases();
             var rect = (RectTransform)canvas.transform;
             var position = rect.position; var rotation = rect.rotation;
             var scale = rect.localScale; var size = rect.sizeDelta;

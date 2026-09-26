@@ -1,0 +1,32 @@
+2026-09-26T03:58:59.2140742Z
+Static prefab rendering and projection checks; not a gameplay run.
+PASS IngameUIPrefab-1280x720 graphics=1442 maximumScreenBoundsDrift=0.0000px canvasSize=(1280.00, 720.00)
+IMAGE IngameUIPrefab-1280x720 meanAbsoluteRGB=0.0000 pixelsAbove24=0
+RASTER IngameUIPrefab-1280x720 onePixelResidual=0.000000 outliers=0
+RASTER IngameUIPrefab-1280x720 reverse onePixelResidual=0.000000 outliers=0
+PASS secondary skill camera captures UGUI marker and restores screen-space layout.
+PASS IngameUIPrefab-2340x1080 graphics=1442 maximumScreenBoundsDrift=0.0000px canvasSize=(1560.00, 720.00)
+IMAGE IngameUIPrefab-2340x1080 meanAbsoluteRGB=0.0000 pixelsAbove24=0
+PASS IngameUIPrefab-1024x768 graphics=1442 maximumScreenBoundsDrift=0.0000px canvasSize=(960.00, 720.00)
+IMAGE IngameUIPrefab-1024x768 meanAbsoluteRGB=0.0000 pixelsAbove24=0
+PASS QuickSimulatorPrefab-1280x720 graphics=451 maximumScreenBoundsDrift=0.0000px canvasSize=(1280.00, 720.00)
+IMAGE QuickSimulatorPrefab-1280x720 meanAbsoluteRGB=0.0000 pixelsAbove24=0
+RASTER QuickSimulatorPrefab-1280x720 onePixelResidual=0.000000 outliers=0
+RASTER QuickSimulatorPrefab-1280x720 reverse onePixelResidual=0.000000 outliers=0
+PASS both Quick card portraits draw above same-depth decorations.
+PASS QuickSimulatorPrefab-2340x1080 graphics=451 maximumScreenBoundsDrift=0.0000px canvasSize=(1560.00, 720.00)
+IMAGE QuickSimulatorPrefab-2340x1080 meanAbsoluteRGB=0.0000 pixelsAbove24=0
+PASS QuickSimulatorPrefab-1024x768 graphics=451 maximumScreenBoundsDrift=0.0000px canvasSize=(1280.00, 960.00)
+IMAGE QuickSimulatorPrefab-1024x768 meanAbsoluteRGB=0.0000 pixelsAbove24=0
+PASS loadingPagePrefab-1280x720 graphics=11 maximumScreenBoundsDrift=0.0000px canvasSize=(1280.00, 720.00)
+IMAGE loadingPagePrefab-1280x720 meanAbsoluteRGB=0.0000 pixelsAbove24=0
+RASTER loadingPagePrefab-1280x720 onePixelResidual=0.000000 outliers=0
+RASTER loadingPagePrefab-1280x720 reverse onePixelResidual=0.000000 outliers=0
+PASS loadingPagePrefab-2340x1080 graphics=11 maximumScreenBoundsDrift=0.0000px canvasSize=(1560.00, 720.00)
+IMAGE loadingPagePrefab-2340x1080 meanAbsoluteRGB=0.0000 pixelsAbove24=0
+PASS loadingPagePrefab-1024x768 graphics=11 maximumScreenBoundsDrift=0.0000px canvasSize=(1280.00, 960.00)
+IMAGE loadingPagePrefab-1024x768 meanAbsoluteRGB=0.0000 pixelsAbove24=0
+BASELINE NOTE BallPlayManager.IngameUITrans remains null, as serialized before this change.
+PASS Assets/MainGame/Scene/BallPlay.unity resolved canvas roots=2; scene not saved.
+PASS Assets/MainGame/Scene/MainLoading.unity resolved canvas roots=1; scene not saved.
+OVERALL PASS

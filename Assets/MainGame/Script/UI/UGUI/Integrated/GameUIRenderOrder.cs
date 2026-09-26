@@ -37,7 +37,11 @@ namespace BaseBall.BallPlay.UGUI
                 var paths = new Dictionary<GameUIElement, int[]>();
                 foreach (var e in elements)
                 {
-                    if (e == null || e.displayCanvas == null || e.displayCanvas.isRootCanvas) continue;
+                    if (e == null || e.displayCanvas == null) continue;
+                    // A temporarily disabled shared canvas still belongs to its UI root.
+                    // Use the hierarchy so hide/show does not collapse equal-depth ranks.
+                    var parent = e.displayCanvas.transform.parent;
+                    if (parent == null || parent.GetComponentInParent<Canvas>(true) == null) continue;
                     var key = (e.Panel, e.depth);
                     if (!nested.TryGetValue(key, out var group)) nested[key] = group = new List<GameUIElement>();
                     group.Add(e);

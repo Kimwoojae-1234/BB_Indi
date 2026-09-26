@@ -29,8 +29,11 @@ namespace BaseBall.BallPlay.UGUI
         public Color shadowColor = Color.black;
         [SerializeField] private CanvasGroup widgetOpacity;
         public GameUIClip clipping;
+        public RectTransform layoutRect;
+        public GameUICanvasBatch canvasBatch;
+        public RectTransform presentationRoot;
         private GameUIPanel panel;
-        public GameUIPanel Panel => panel != null ? panel : (panel = GetComponentInParent<GameUIPanel>());
+        public GameUIPanel Panel => panel != null ? panel : (panel = GetComponentInParent<GameUIPanel>(true));
         private string appliedText, appliedSprite, shadowText;
         private int appliedDepth = int.MinValue;
         public bool supportEncoding { get => mEncoding; set { mEncoding = value; appliedText = null; Apply(); } }
@@ -49,8 +52,8 @@ namespace BaseBall.BallPlay.UGUI
 
         public Color color { get => mColor; set { mColor = value; Apply(); } }
         public float alpha { get => mColor.a; set { mColor.a = Mathf.Clamp01(value); Apply(); } }
-        public int width { get => mWidth; set { mWidth = value; Apply(); } }
-        public int height { get => mHeight; set { mHeight = value; Apply(); } }
+        public int width { get => layoutRect != null ? Mathf.RoundToInt(layoutRect.rect.width) : mWidth; set { SetDimensions(value, height); } }
+        public int height { get => layoutRect != null ? Mathf.RoundToInt(layoutRect.rect.height) : mHeight; set { SetDimensions(width, value); } }
         public int depth { get => mDepth; set { mDepth = value; Apply(); } }
         public string spriteName { get => mSpriteName; set { mSpriteName = value ?? ""; Apply(); } }
         public string text { get => mText; set { mText = value ?? ""; Apply(); } }
@@ -58,9 +61,18 @@ namespace BaseBall.BallPlay.UGUI
         public Texture mainTexture { get => mTexture; set { mTexture = value; Apply(); } }
         public Rect uvRect { get => mRect; set { mRect = value; Apply(); } }
         public int fontSize { get => mFontSize; set { mFontSize = value; Apply(); } }
-        public Vector2 pivotOffset => new Vector2((mPivot % 3) * .5f, 1 - (mPivot / 3) * .5f);
+        public Vector2 pivotOffset => layoutRect != null ? layoutRect.pivot : new Vector2((mPivot % 3) * .5f, 1 - (mPivot / 3) * .5f);
 
-        public void SetDimensions(int w, int h) { mWidth = w; mHeight = h; Apply(); }
+        public void SetDimensions(int w, int h)
+        {
+            mWidth = w; mHeight = h;
+            if (layoutRect != null)
+            {
+                layoutRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, w);
+                layoutRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, h);
+            }
+            Apply();
+        }
         public void MakePixelPerfect()
         {
             if (kind == ElementKind.Sprite && sprites != null && sprites.TryGet(mSpriteName, out var item))
@@ -70,10 +82,18 @@ namespace BaseBall.BallPlay.UGUI
 
         private void OnEnable() { GameUIRenderOrder.Register(this); appliedText = appliedSprite = null; Apply(); }
         private void OnTransformParentChanged() { panel = null; GameUIRenderOrder.Invalidate(); }
-        private void OnDisable() { GameUIRenderOrder.Remove(this); if (graphic != null) graphic.enabled = false; foreach (var shadow in shadows) if (shadow != null) shadow.enabled = false; }
+        private void OnDisable() { GameUIRenderOrder.Remove(this); if (canvasBatch != null && presentationRoot != null) presentationRoot.gameObject.SetActive(false); if (graphic != null) graphic.enabled = false; foreach (var shadow in shadows) if (shadow != null) shadow.enabled = false; }
+        private void OnDestroy()
+        {
+            // Batched graphics are siblings of their layout owner, so runtime destruction
+            // must remove that owned presentation too.
+            if (Application.isPlaying && canvasBatch != null && presentationRoot != null) Destroy(presentationRoot.gameObject);
+        }
         private void LateUpdate() { Apply(); }
         public void Apply()
         {
+            if (layoutRect != null) { mWidth = width; mHeight = height; }
+            if (canvasBatch != null) canvasBatch.UpdatePresentation(this);
             if (kind == ElementKind.Widget)
             {
                 if (widgetOpacity != null) widgetOpacity.alpha = 1;
@@ -153,7 +173,7 @@ namespace BaseBall.BallPlay.UGUI
             {
                 if (!displayCanvas.isRootCanvas) displayCanvas.overrideSorting = true;
                 if (appliedDepth != mDepth) { appliedDepth = mDepth; GameUIRenderOrder.Invalidate(); }
-                displayCanvas.sortingOrder = GameUIRenderOrder.Get(this);
+                if (canvasBatch == null) displayCanvas.sortingOrder = GameUIRenderOrder.Get(this);
                 if (displayCanvas.worldCamera == null) displayCanvas.worldCamera = GameUIRoot.FindCameraForLayer(gameObject.layer);
             }
         }

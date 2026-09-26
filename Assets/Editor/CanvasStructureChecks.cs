@@ -14,8 +14,9 @@ using Object = UnityEngine.Object;
 // Explicit batch checks only; never saves a scene or prefab.
 public static class CanvasStructureChecks
 {
-    private const string Output = "Docs/UIAudit/CanvasRestructure/Step2";
-    private const string Baseline = "Library/UGUIMigration/CanvasStructure";
+    private static string Output = "Docs/UIAudit/CanvasRestructure/Step2";
+    private static string Baseline = "Library/UGUIMigration/CanvasStructure";
+    private static bool step3;
     private static readonly string[] Assets = {
         "Assets/Resources/MainGame/prefabs/gameUI/IngameUIPrefab.prefab",
         "Assets/Resources/MainGame/prefabs/QuickUI/QuickSimulatorPrefab.prefab",
@@ -27,6 +28,9 @@ public static class CanvasStructureChecks
     public static void CaptureBaseline() { Run(false); }
     public static void Check() { Run(true); }
     public static void CompareBaseline() { CaptureBaseline(); Check(); }
+    public static void CaptureStep3Baseline() { Step3(); Run(false); }
+    public static void CheckStep3() { Step3(); Run(true); }
+    private static void Step3() { step3 = true; Output = "Docs/UIAudit/CanvasRestructure/Step3"; Baseline = "Library/UGUIMigration/CanvasLayout"; }
 
     private static void Run(bool compare)
     {
@@ -37,11 +41,12 @@ public static class CanvasStructureChecks
         foreach (var path in Assets)
         foreach (var size in new[] { new Vector2Int(1280, 720), new Vector2Int(2340, 1080), new Vector2Int(1024, 768) })
         {
-            string baselineCopy = "Assets/Editor/CanvasStructureBaseline/" + Path.GetFileName(path);
+            string baselineCopy = (step3 ? "Assets/Editor/CanvasLayoutBaseline/" : "Assets/Editor/CanvasStructureBaseline/") + Path.GetFileName(path);
             string source = !compare && File.Exists(baselineCopy) ? baselineCopy : path;
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(source);
             Require(prefab != null, "Prefab could not be loaded: " + source);
-            if (!compare) Require(prefab.GetComponent<GameUIRoot>().rootCanvas == null, "Baseline capture requires the step-1 prefab, not the converted root: " + source);
+            if (!compare && !step3) Require(prefab.GetComponent<GameUIRoot>().rootCanvas == null, "Baseline capture requires the step-1 prefab, not the converted root: " + source);
+            if (!compare && step3) Require(!prefab.GetComponentsInChildren<GameUIElement>(true).Any(e => e.layoutRect != null), "Step-3 baseline requires the unmodified step-2 prefab: " + source);
             var instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab, scene);
             var root = instance.GetComponent<GameUIRoot>();
             var camera = root.uiCamera;
@@ -87,6 +92,7 @@ public static class CanvasStructureChecks
                 Canvas.ForceUpdateCanvases();
                 // A second update applies atlas padding after the canvas has driven its root transform.
                 foreach (var e in instance.GetComponentsInChildren<GameUIElement>(true)) e.Apply();
+                foreach (var batch in instance.GetComponentsInChildren<GameUICanvasBatch>(true)) batch.Apply();
                 Canvas.ForceUpdateCanvases();
                 var layout = new Layout();
                 foreach (var e in instance.GetComponentsInChildren<GameUIElement>(true))
@@ -105,12 +111,14 @@ public static class CanvasStructureChecks
                     var before = JsonUtility.FromJson<Layout>(File.ReadAllText(Baseline + "/" + name + ".json")).points.ToDictionary(p => p.id);
                     Require(before.Count == layout.points.Count, name + " graphic count changed");
                     float maximum = 0;
+                    string maximumId = "";
                     foreach (var point in layout.points)
                     {
                         Require(before.TryGetValue(point.id, out var old), name + " lost fileID " + point.id);
-                        maximum = Mathf.Max(maximum, Vector2.Distance(old.min, point.min), Vector2.Distance(old.max, point.max));
+                        float drift = Mathf.Max(Vector2.Distance(old.min, point.min), Vector2.Distance(old.max, point.max));
+                        if (drift > maximum) { maximum = drift; maximumId = point.id + " " + old.min + ".." + old.max + " -> " + point.min + ".." + point.max; }
                     }
-                    Require(maximum < 1, name + " screen bounds drift " + maximum);
+                    Require(maximum < 1, name + " screen bounds drift " + maximum + " fileID=" + maximumId);
                     Require(scaler != null && scaler.uiScaleMode == CanvasScaler.ScaleMode.ScaleWithScreenSize, name + " missing scaler");
                     var canvas = scaler.GetComponent<Canvas>();
                     Require(canvas.isRootCanvas && canvas.renderMode == RenderMode.ScreenSpaceCamera && canvas.worldCamera == camera, name + " root canvas");
