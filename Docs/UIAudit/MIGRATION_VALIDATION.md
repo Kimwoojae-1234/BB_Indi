@@ -2,7 +2,7 @@
 
 **2026-09-24 후속 구조 변경 지시**
 
-`ngui-to-ugui-migration`의 `00aabf65`를 기준으로 BeachBaseballWorkspace의 Canvas 중심 구조를 참고해 최상위 UI 계층을 재구성한다. 사용자의 최신 지시에 따라 번호 순서대로 한 단계씩 진행하고 결과를 보고한다. [1단계 배치·의존 관계 조사](CanvasRestructure/STEP1_BASELINE.md), [2단계 루트 Canvas 구성](CanvasRestructure/STEP2_ROOT_CANVAS.md)에 이어 [3단계 RectTransform 배치·Canvas 통합](CanvasRestructure/STEP3_RECTTRANSFORM_BATCHING.md)을 완료했다. UI Transform 2,227개를 RectTransform으로 전환하고 Canvas 596개를 줄였으며, 9개 화면 조합·기존 참조·분리된 Play Mode UI 수명 주기 검사를 통과했다. 4단계 연결 정리와 6단계 게임 통합 검증은 아직 진행하지 않았다. 아래의 이전 일괄 진행 지시는 당시 작업 기록으로 구분한다.
+`ngui-to-ugui-migration`의 `00aabf65`를 기준으로 BeachBaseballWorkspace의 Canvas 중심 구조를 참고해 최상위 UI 계층을 재구성한다. 사용자의 최신 지시에 따라 번호 순서대로 한 단계씩 진행하고 결과를 보고한다. [1단계 배치·의존 관계 조사](CanvasRestructure/STEP1_BASELINE.md), [2단계 루트 Canvas 구성](CanvasRestructure/STEP2_ROOT_CANVAS.md)에 이어 [3단계 RectTransform 배치·Canvas 통합](CanvasRestructure/STEP3_RECTTRANSFORM_BATCHING.md)을 완료했다. UI Transform 2,227개를 RectTransform으로 전환하고 Canvas 596개를 줄였으며, 9개 화면 조합·기존 참조·분리된 Play Mode UI 수명 주기 검사를 통과했다. 이어서 `b611a0d9` 기준 [4단계 알파·스크롤·마스크·입력·트윈 연결 정리](CanvasRestructure/STEP4_CONNECTIONS.md)와 해당 화면 비교·참조 보존·분리된 Play Mode 연결/회귀 검사를 완료했다. 5단계 구조 확대와 6단계 게임 통합 검증은 아직 진행하지 않았다. 아래의 이전 일괄 진행 지시는 당시 작업 기록으로 구분한다.
 
 **2026-09-23 작업 재개 기준 (공유 대화의 최종 지시)**
 

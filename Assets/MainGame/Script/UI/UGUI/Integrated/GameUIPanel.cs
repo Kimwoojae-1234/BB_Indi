@@ -20,7 +20,7 @@ namespace BaseBall.BallPlay.UGUI
         public int Order => GameUIRenderOrder.Get(this, 0);
         public int startingRenderQueue => 3000;
         public int sortingOrder => Order;
-        public float CalculateFinalAlpha(int frame) => mAlpha * GameUIElement.InheritedAlpha(transform.parent);
+        public float CalculateFinalAlpha(int frame) => GameUIElement.InheritedAlpha(transform);
         private void OnEnable() { GameUIRenderOrder.Register(this); Apply(); }
         private void OnDisable() { GameUIRenderOrder.Remove(this); }
         private void LateUpdate() { Apply(); }

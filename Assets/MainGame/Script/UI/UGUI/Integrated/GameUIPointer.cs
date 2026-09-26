@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 namespace BaseBall.BallPlay.UGUI
 {
     public sealed class GameUIPointer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
-        IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
+        IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IInitializePotentialDragHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IScrollHandler
     {
         public List<GameUIAction> onPress = new List<GameUIAction>(), onRelease = new List<GameUIAction>(),
             onClick = new List<GameUIAction>(), onHoverOver = new List<GameUIAction>(), onHoverOut = new List<GameUIAction>();
@@ -20,10 +20,32 @@ namespace BaseBall.BallPlay.UGUI
         private int? pointer;
         private Vector3 originalScale;
         private bool dragging;
-        private bool Available => isActiveAndEnabled && (inputCollider == null || inputCollider.enabled);
+        private int? dragPointer;
+        private readonly List<CanvasGroup> groups = new List<CanvasGroup>();
+        public bool Available
+        {
+            get
+            {
+                float alpha = GameUIElement.InheritedAlpha(transform);
+                if (!isActiveAndEnabled || (inputCollider != null && !inputCollider.enabled) || alpha < .001f) return false;
+                for (var node = transform; node != null; node = node.parent)
+                {
+                    node.GetComponents(groups);
+                    bool stop = false;
+                    foreach (var group in groups)
+                    {
+                        if (!group.isActiveAndEnabled) continue;
+                        if (!group.interactable || !group.blocksRaycasts) return false;
+                        alpha *= group.alpha; stop |= group.ignoreParentGroups;
+                    }
+                    if (stop) break;
+                }
+                return alpha >= .001f;
+            }
+        }
         private void Awake() { if (scaleTarget != null) originalScale = scaleTarget.localScale; }
         private void OnEnable() { GameUIRoot.EnsureInput(gameObject.scene); }
-        private void OnDisable() { pointer = releasedPointer = null; dragging = hovering = false; RestoreScale(); }
+        private void OnDisable() { CancelDrag(); pointer = releasedPointer = null; dragging = hovering = false; RestoreScale(); }
         private void RestoreScale()
         {
             if (!usesScale || scaleTarget == null) return;
@@ -54,8 +76,30 @@ namespace BaseBall.BallPlay.UGUI
         }
         public void OnPointerEnter(PointerEventData data) { hovering = data.pointerId < 0; if (Available) { if (!pointer.HasValue) AnimateScale(hovering ? hoverScale : Vector3.one); GameUIAction.InvokeAll(onHoverOver); } }
         public void OnPointerExit(PointerEventData data) { hovering = false; if (Available) { if (!pointer.HasValue) AnimateScale(Vector3.one); GameUIAction.InvokeAll(onHoverOut); } }
-        public void OnBeginDrag(PointerEventData data) { dragging = true; if (scroll != null) scroll.OnBeginDrag(data); }
-        public void OnDrag(PointerEventData data) { if (scroll != null) scroll.OnDrag(data); }
-        public void OnEndDrag(PointerEventData data) { if (scroll != null) scroll.OnEndDrag(data); }
+        public void OnInitializePotentialDrag(PointerEventData data) { if (Available && scroll != null) scroll.OnInitializePotentialDrag(data); }
+        public void OnBeginDrag(PointerEventData data)
+        {
+            if (!Available || pointer != data.pointerId || data.button != PointerEventData.InputButton.Left || dragPointer.HasValue) return;
+            dragging = true; dragPointer = data.pointerId;
+            if (scroll != null) scroll.OnBeginDrag(data);
+        }
+        public void OnDrag(PointerEventData data)
+        {
+            if (dragPointer != data.pointerId) return;
+            if (!Available) { CancelDrag(); pointer = releasedPointer = null; RestoreScale(); return; }
+            if (scroll != null) scroll.OnDrag(data);
+        }
+        public void OnEndDrag(PointerEventData data)
+        {
+            if (dragPointer != data.pointerId) return;
+            if (scroll != null) scroll.OnEndDrag(data);
+            dragPointer = null;
+        }
+        public void OnScroll(PointerEventData data) { if (Available && scroll != null) scroll.OnScroll(data); }
+        private void CancelDrag()
+        {
+            if (dragPointer.HasValue && scroll != null) scroll.CancelDrag(dragPointer.Value);
+            dragPointer = null;
+        }
     }
 }

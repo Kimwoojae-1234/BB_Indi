@@ -11,12 +11,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
-// Explicit batch checks only; never saves a scene or prefab.
+// Explicit checks only; never saves a scene or prefab. Interactive checks restore scene setup.
 public static class CanvasStructureChecks
 {
     private static string Output = "Docs/UIAudit/CanvasRestructure/Step2";
     private static string Baseline = "Library/UGUIMigration/CanvasStructure";
     private static bool step3;
+    private static bool step4;
     private static readonly string[] Assets = {
         "Assets/Resources/MainGame/prefabs/gameUI/IngameUIPrefab.prefab",
         "Assets/Resources/MainGame/prefabs/QuickUI/QuickSimulatorPrefab.prefab",
@@ -25,16 +26,34 @@ public static class CanvasStructureChecks
     [Serializable] private class Point { public string id; public Vector2 min, max; }
     [Serializable] private class Layout { public List<Point> points = new List<Point>(); }
 
-    public static void CaptureBaseline() { Run(false); }
-    public static void Check() { Run(true); }
+    public static void CaptureBaseline() { Step2(); Run(false); }
+    public static void Check() { Step2(); Run(true); }
     public static void CompareBaseline() { CaptureBaseline(); Check(); }
     public static void CaptureStep3Baseline() { Step3(); Run(false); }
     public static void CheckStep3() { Step3(); Run(true); }
-    private static void Step3() { step3 = true; Output = "Docs/UIAudit/CanvasRestructure/Step3"; Baseline = "Library/UGUIMigration/CanvasLayout"; }
+    private static void Step2() { step3 = step4 = false; Output = "Docs/UIAudit/CanvasRestructure/Step2"; Baseline = "Library/UGUIMigration/CanvasStructure"; }
+    private static void Step3() { step4 = false; step3 = true; Output = "Docs/UIAudit/CanvasRestructure/Step3"; Baseline = "Library/UGUIMigration/CanvasLayout"; }
+    public static void CaptureStep4Baseline()
+    {
+        Step4();
+        Require(!Directory.Exists(Baseline), "Step-4 baseline already exists; do not overwrite the pre-change capture.");
+        Run(false);
+    }
+    public static void CheckStep4() { Step4(); Run(true); }
+    private static void Step4() { step3 = false; step4 = true; Output = "Docs/UIAudit/CanvasRestructure/Step4"; Baseline = "Library/UGUIMigration/CanvasConnections"; }
 
     private static void Run(bool compare)
     {
-        if (!Application.isBatchMode) throw new InvalidOperationException("Run in a separate batch editor; open user scenes are not changed.");
+        Require(!EditorApplication.isPlayingOrWillChangePlaymode, "Stop Play Mode before running canvas checks.");
+        for (int i = 0; i < UnityEngine.SceneManagement.SceneManager.sceneCount; i++)
+            Require(!UnityEngine.SceneManagement.SceneManager.GetSceneAt(i).isDirty, "Save scene changes before running canvas checks.");
+        var setup = EditorSceneManager.GetSceneManagerSetup();
+        try { RunInFixture(compare); }
+        finally { if (!Application.isBatchMode) EditorSceneManager.RestoreSceneManagerSetup(setup); }
+    }
+
+    private static void RunInFixture(bool compare)
+    {
         Directory.CreateDirectory(compare ? Output : Baseline);
         var report = new List<string> { DateTime.UtcNow.ToString("O"), "Static prefab rendering and projection checks; not a gameplay run." };
         var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
@@ -42,10 +61,10 @@ public static class CanvasStructureChecks
         foreach (var size in new[] { new Vector2Int(1280, 720), new Vector2Int(2340, 1080), new Vector2Int(1024, 768) })
         {
             string baselineCopy = (step3 ? "Assets/Editor/CanvasLayoutBaseline/" : "Assets/Editor/CanvasStructureBaseline/") + Path.GetFileName(path);
-            string source = !compare && File.Exists(baselineCopy) ? baselineCopy : path;
+            string source = !compare && !step4 && File.Exists(baselineCopy) ? baselineCopy : path;
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(source);
             Require(prefab != null, "Prefab could not be loaded: " + source);
-            if (!compare && !step3) Require(prefab.GetComponent<GameUIRoot>().rootCanvas == null, "Baseline capture requires the step-1 prefab, not the converted root: " + source);
+            if (!compare && !step3 && !step4) Require(prefab.GetComponent<GameUIRoot>().rootCanvas == null, "Baseline capture requires the step-1 prefab, not the converted root: " + source);
             if (!compare && step3) Require(!prefab.GetComponentsInChildren<GameUIElement>(true).Any(e => e.layoutRect != null), "Step-3 baseline requires the unmodified step-2 prefab: " + source);
             var instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab, scene);
             var root = instance.GetComponent<GameUIRoot>();

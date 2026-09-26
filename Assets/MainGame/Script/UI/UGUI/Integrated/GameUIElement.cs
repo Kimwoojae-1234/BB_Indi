@@ -8,6 +8,8 @@ namespace BaseBall.BallPlay.UGUI
 {
     /// <summary>Game-facing presentation API backed only by Unity UI graphics.
     /// The editor converter supplies the graphic and catalog; runtime never reads an NGUI asset.</summary>
+    // ScrollRect moves content in LateUpdate at the default execution order.
+    [DefaultExecutionOrder(50)]
     public sealed class GameUIElement : MonoBehaviour
     {
         public enum ElementKind { Widget, Sprite, Label, Texture }
@@ -38,15 +40,18 @@ namespace BaseBall.BallPlay.UGUI
         private int appliedDepth = int.MinValue;
         public bool supportEncoding { get => mEncoding; set { mEncoding = value; appliedText = null; Apply(); } }
         public TMP_FontAsset bitmapFont { get => (graphic as TMP_Text)?.font; set { if (graphic is TMP_Text label) label.font = value; } }
-        public float CalculateFinalAlpha() => mColor.a * InheritedAlpha(transform.parent);
+        public float CalculateFinalAlpha() => InheritedAlpha(transform);
         public static float InheritedAlpha(Transform parent)
         {
+            float alpha = 1;
             for (; parent != null; parent = parent.parent)
             {
-                if (parent.TryGetComponent<GameUIElement>(out var e)) return e.CalculateFinalAlpha();
-                if (parent.TryGetComponent<GameUIPanel>(out var p)) return p.CalculateFinalAlpha(Time.frameCount);
+                // Native CanvasGroups are applied by CanvasRenderer. Legacy widget/panel
+                // alpha is folded into the Graphic once, including both on the same owner.
+                if (parent.TryGetComponent<GameUIElement>(out var e)) alpha *= e.mColor.a;
+                if (parent.TryGetComponent<GameUIPanel>(out var p)) alpha *= p.mAlpha;
             }
-            return 1;
+            return alpha;
         }
         private GameUISpriteCatalog.Entry entry;
 

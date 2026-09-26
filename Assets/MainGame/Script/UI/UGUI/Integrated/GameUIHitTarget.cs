@@ -5,14 +5,36 @@ namespace BaseBall.BallPlay.UGUI
 {
     /// <summary>An invisible UGUI hit target using the original collider only as shape data.
     /// No physics raycaster or NGUI input dispatcher participates in UI events.</summary>
+    [DefaultExecutionOrder(75)]
     [RequireComponent(typeof(CanvasRenderer))]
     public sealed class GameUIHitTarget : Graphic, ICanvasRaycastFilter
     {
         public Collider shape;
         public GameUIPointer pointer;
-        private void LateUpdate()
+        private void LateUpdate() { Synchronize(); }
+        public void Synchronize()
         {
-            if (pointer == null) return;
+            if (pointer == null || canvas == null) return;
+            // Collider data remains the explicit hit area; resizing art must not enlarge
+            // deliberately smaller buttons. Refresh its native rectangle when data changes.
+            if (shape != null && rectTransform.parent == shape.transform)
+            {
+                rectTransform.pivot = new Vector2(.5f, .5f);
+                rectTransform.localRotation = Quaternion.identity;
+                rectTransform.localScale = Vector3.one;
+                if (shape is BoxCollider box)
+                {
+                    rectTransform.localPosition = box.center;
+                    rectTransform.sizeDelta = new Vector2(box.size.x, box.size.y);
+                }
+                else if (shape is CapsuleCollider capsule)
+                {
+                    rectTransform.localPosition = capsule.center;
+                    float diameter = capsule.radius * 2;
+                    rectTransform.sizeDelta = new Vector2(capsule.direction == 0 ? Mathf.Max(diameter, capsule.height) : diameter,
+                        capsule.direction == 1 ? Mathf.Max(diameter, capsule.height) : diameter);
+                }
+            }
             var e = pointer.GetComponentInParent<GameUIElement>();
             if (!canvas.isRootCanvas) canvas.overrideSorting = true;
             canvas.sortingOrder = e != null ? GameUIRenderOrder.Get(e) : GameUIRenderOrder.Get(pointer.GetComponentInParent<GameUIPanel>(), 0);
@@ -31,8 +53,7 @@ namespace BaseBall.BallPlay.UGUI
         }
         public bool IsRaycastLocationValid(Vector2 point, Camera camera)
         {
-            if (pointer == null || !pointer.isActiveAndEnabled || shape == null || !shape.enabled) return false;
-            if (GameUIElement.InheritedAlpha(pointer.transform) < .001f) return false;
+            if (pointer == null || !pointer.Available || shape == null || !shape.enabled) return false;
             if (!RectTransformUtility.ScreenPointToWorldPointInRectangle(rectTransform, point, camera, out var world)) return false;
             foreach (var panel in pointer.GetComponentsInParent<GameUIPanel>())
             {

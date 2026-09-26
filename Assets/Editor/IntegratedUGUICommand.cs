@@ -21,6 +21,10 @@ public static class IntegratedUGUICommand
         {
             if (command == "build-candidates") IntegratedUGUIConverter.BuildCandidates();
             else if (command == "refresh") AssetDatabase.Refresh();
+            else if (command == "capture-connections") CanvasStructureChecks.CaptureStep4Baseline();
+            else if (command == "check-connections") CanvasStructureChecks.CheckStep4();
+            else if (command == "play-connections") CanvasConnectionPlayChecks.Start();
+            else if (command == "play-batch-regression") CanvasBatchPlayChecks.StartStep4();
             else if (command == "check-candidates") IntegratedUGUIChecks.Run();
             else if (command == "capture-references") IntegratedUGUIChecks.CaptureReferences();
             else if (command == "check-applied") IntegratedUGUIChecks.CheckApplied();

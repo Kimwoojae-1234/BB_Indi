@@ -1,6 +1,6 @@
 # 경기 UI 일괄 UGUI 전환 기록
 
-2026-09-26 후속 작업: 이 구현은 `00aabf65`로 커밋되었다. 최상위 Canvas 구조 변경은 별도 작업으로 단계별 진행하며, [1단계 배치·의존 관계 조사](../CanvasRestructure/STEP1_BASELINE.md), [2단계 루트 Canvas 구성](../CanvasRestructure/STEP2_ROOT_CANVAS.md)에 이어 [3단계 RectTransform 배치·Canvas 통합](../CanvasRestructure/STEP3_RECTTRANSFORM_BATCHING.md)과 해당 범위의 검증을 완료했다. 4단계는 진행하지 않았다. 아래는 이전 일괄 전환과 당시 검증 기록이다.
+2026-09-26 후속 작업: 이 구현은 `00aabf65`로 커밋되었다. 최상위 Canvas 구조 변경은 별도 작업으로 단계별 진행하며, [1단계 배치·의존 관계 조사](../CanvasRestructure/STEP1_BASELINE.md), [2단계 루트 Canvas 구성](../CanvasRestructure/STEP2_ROOT_CANVAS.md)에 이어 [3단계 RectTransform 배치·Canvas 통합](../CanvasRestructure/STEP3_RECTTRANSFORM_BATCHING.md)과 해당 범위의 검증을 완료했다. 이어서 `b611a0d9` 기준 [4단계 알파·스크롤·마스크·입력·트윈 연결 정리](../CanvasRestructure/STEP4_CONNECTIONS.md)를 완료했다. 화면 비교·참조 보존 및 분리된 Play Mode 연결/회귀 검사를 통과했으며, 5·6단계는 진행하지 않았다. 아래는 이전 일괄 전환과 당시 검증 기록이다.
 
 기준: `ngui-to-ugui-migration` / `52f01bd15638130263e69e8f35473937351e2bb9`.
 공유 대화의 최종 지시에 따라 남은 실사용 UI를 일괄 적용하고 Unity 통합 검증을 진행했다. 이전 네 단위의 결과와 이번 결과를 구분한다.

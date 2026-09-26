@@ -15,7 +15,8 @@ using Object = UnityEngine.Object;
 public static class CanvasBatchPlayChecks
 {
     private const string Key = "CanvasBatchPlayChecks";
-    private const string Report = "Docs/UIAudit/CanvasRestructure/Step3/play-checks.txt";
+    private static string Report => SessionState.GetString(Key + "Report", "Docs/UIAudit/CanvasRestructure/Step3/play-checks.txt");
+    [Serializable] private class SavedSetup { public SceneSetup[] scenes; }
     private static readonly List<string> results = new List<string>();
     private static GameUIRoot root;
     private static RectTransform content;
@@ -25,9 +26,17 @@ public static class CanvasBatchPlayChecks
     private static int phase, nextFrame;
 
     static CanvasBatchPlayChecks() { EditorApplication.update += Tick; }
-    public static void Start()
+    public static void Start() { StartWithReport("Docs/UIAudit/CanvasRestructure/Step3/play-checks.txt"); }
+    public static void StartStep4() { StartWithReport("Docs/UIAudit/CanvasRestructure/Step4/batch-regression-checks.txt"); }
+    private static void StartWithReport(string report)
     {
-        if (!Application.isBatchMode) throw new InvalidOperationException("Use a separate batch editor.");
+        if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Stop Play Mode first.");
+        for (int i = 0; i < UnityEngine.SceneManagement.SceneManager.sceneCount; i++)
+            Require(!UnityEngine.SceneManagement.SceneManager.GetSceneAt(i).isDirty, "Save scene changes before running the fixture.");
+        phase = nextFrame = 0; results.Clear();
+        SessionState.SetBool(Key + "Background", Application.runInBackground);
+        SessionState.SetString(Key + "Setup", JsonUtility.ToJson(new SavedSetup { scenes = EditorSceneManager.GetSceneManagerSetup() }));
+        SessionState.SetString(Key + "Report", report);
         EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
         SessionState.SetBool(Key, true); SessionState.SetBool(Key + "Done", false);
         SessionState.SetString(Key + "Start", DateTime.UtcNow.ToString("O"));
@@ -42,13 +51,16 @@ public static class CanvasBatchPlayChecks
             if (!EditorApplication.isPlayingOrWillChangePlaymode)
             {
                 SessionState.SetBool(Key, false);
-                EditorApplication.Exit(SessionState.GetInt(Key + "Exit", 1));
+                if (Application.isBatchMode) EditorApplication.Exit(SessionState.GetInt(Key + "Exit", 1));
+                else EditorSceneManager.RestoreSceneManagerSetup(JsonUtility.FromJson<SavedSetup>(SessionState.GetString(Key + "Setup", "")).scenes);
             }
             return;
         }
         try
         {
             Require((DateTime.UtcNow - DateTime.Parse(SessionState.GetString(Key + "Start", ""))).TotalSeconds < 150, "Play fixture timed out");
+            if (!EditorApplication.isPlayingOrWillChangePlaymode) { results.Add("Fixture interrupted before completion"); Finish(1); return; }
+            EditorApplication.QueuePlayerLoopUpdate();
             if (!EditorApplication.isPlaying || Time.frameCount < nextFrame) return;
             switch (phase++)
             {
@@ -131,6 +143,8 @@ public static class CanvasBatchPlayChecks
 
     private static void Build()
     {
+        Application.runInBackground = true;
+        EditorApplication.isPaused = false;
         var owner = new GameObject("Canvas batch fixture"); owner.SetActive(false);
         root = owner.AddComponent<GameUIRoot>();
         var cameraObject = new GameObject("UI Camera", typeof(Camera)); cameraObject.transform.SetParent(owner.transform, false);
@@ -195,6 +209,7 @@ public static class CanvasBatchPlayChecks
     }
     private static void Finish(int code)
     {
+        Application.runInBackground = SessionState.GetBool(Key + "Background", false);
         results.Add(code == 0 ? "OVERALL PASS (UI fixture only; not a gameplay/device run)" : "FAILED");
         Directory.CreateDirectory(Path.GetDirectoryName(Report)); File.WriteAllLines(Report, results);
         SessionState.SetInt(Key + "Exit", code); SessionState.SetBool(Key + "Done", true);

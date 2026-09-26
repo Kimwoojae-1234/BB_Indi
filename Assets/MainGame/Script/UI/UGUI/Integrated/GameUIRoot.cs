@@ -56,14 +56,11 @@ namespace BaseBall.BallPlay.UGUI
         {
             var owner = camera.GetComponentInParent<GameUIRoot>();
             var canvas = owner != null ? owner.rootCanvas : null;
+            if (owner != null) owner.SynchronizePresentation();
             if (canvas == null || canvas.renderMode == RenderMode.WorldSpace) { camera.Render(); return; }
 
             // A secondary camera must see the same UI geometry as the Spine meshes it captures.
             // Screen-space canvases otherwise belong exclusively to their assigned UI camera.
-            Canvas.ForceUpdateCanvases();
-            // Skill captures can run immediately after changing a source Transform,
-            // before the normal LateUpdate that copies it into a shared canvas.
-            foreach (var batch in owner.GetComponentsInChildren<GameUICanvasBatch>(true)) batch.Synchronize();
             Canvas.ForceUpdateCanvases();
             var rect = (RectTransform)canvas.transform;
             var position = rect.position; var rotation = rect.rotation;
@@ -83,6 +80,17 @@ namespace BaseBall.BallPlay.UGUI
                 Canvas.ForceUpdateCanvases();
             }
         }
+        public void SynchronizePresentation()
+        {
+            Canvas.ForceUpdateCanvases();
+            // Alpha tweens and scroll changes also affect unbatched/clipped widgets.
+            // Only active owners may expose detached presentation objects during capture.
+            foreach (var element in GetComponentsInChildren<GameUIElement>())
+                if (element.isActiveAndEnabled) element.Apply();
+            foreach (var batch in GetComponentsInChildren<GameUICanvasBatch>()) batch.Apply();
+            Canvas.ForceUpdateCanvases();
+        }
+
         public static Camera FindCameraForLayer(int layer)
         {
             Camera selected = null;

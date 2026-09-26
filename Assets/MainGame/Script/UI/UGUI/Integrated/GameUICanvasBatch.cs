@@ -15,11 +15,16 @@ namespace BaseBall.BallPlay.UGUI
 
         public void UpdatePresentation(GameUIElement element)
         {
-            if (element.transform.parent != sourceParent || (element.isActiveAndEnabled && element.Panel != panel) || element.depth != depth || element.gameObject.layer != gameObject.layer)
+            // A CanvasGroup on the source owner cannot affect a sibling presentation.
+            // Restore native ancestry when its visual settings require that boundary.
+            bool needsGroup = element.TryGetComponent<CanvasGroup>(out var group) && (group.alpha != 1 || group.ignoreParentGroups);
+            if (needsGroup || element.transform.parent != sourceParent || (element.isActiveAndEnabled && element.Panel != panel) || element.depth != depth || element.gameObject.layer != gameObject.layer)
             {
                 Release();
                 return;
             }
+            // A changed parent pivot must be resolved before a member updates its masks.
+            AlignToSource();
             var presentation = element.presentationRoot;
             presentation.localPosition = element.transform.localPosition;
             presentation.localRotation = element.transform.localRotation;
@@ -30,11 +35,7 @@ namespace BaseBall.BallPlay.UGUI
         public void Apply()
         {
             if (!enabled) return;
-            // Keep the shared coordinate frame at the parent's origin even when the
-            // parent RectTransform's pivot changes at runtime or in the layout editor.
-            var rect = (RectTransform)transform;
-            rect.anchorMin = rect.anchorMax = sourceParent is RectTransform parentRect ? parentRect.pivot : Vector2.one * .5f;
-            rect.localPosition = Vector3.zero; rect.localRotation = Quaternion.identity; rect.localScale = Vector3.one;
+            AlignToSource();
             int first = int.MaxValue, last = int.MinValue, count = 0;
             foreach (var element in members)
             {
@@ -48,6 +49,13 @@ namespace BaseBall.BallPlay.UGUI
             displayCanvas.enabled = count != 0;
             if (count != 0) displayCanvas.sortingOrder = first;
             if (displayCanvas.worldCamera == null) displayCanvas.worldCamera = GameUIRoot.FindCameraForLayer(gameObject.layer);
+        }
+
+        private void AlignToSource()
+        {
+            var rect = (RectTransform)transform;
+            rect.anchorMin = rect.anchorMax = sourceParent is RectTransform parentRect ? parentRect.pivot : Vector2.one * .5f;
+            rect.localPosition = Vector3.zero; rect.localRotation = Quaternion.identity; rect.localScale = Vector3.one;
         }
 
         private void LateUpdate() { Apply(); }
