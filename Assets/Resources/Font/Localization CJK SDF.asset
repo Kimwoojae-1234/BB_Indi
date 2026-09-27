@@ -37,10 +37,10 @@ Texture2D:
     m_WrapV: 0
     m_WrapW: 0
   m_LightmapFormat: 0
-  m_ColorSpace: 1
+  m_ColorSpace: 0
   m_PlatformBlob: 
   image data: 1
-  _typelessdata: cd
+  _typelessdata: 00
   m_StreamData:
     serializedVersion: 2
     offset: 0
@@ -126,7 +126,75 @@ MonoBehaviour:
     m_Height: 2047
   m_FontFeatureTable:
     m_MultipleSubstitutionRecords: []
-    m_LigatureSubstitutionRecords: []
+    m_LigatureSubstitutionRecords:
+    - m_ComponentGlyphIDs: 21060000540600005d0600001a060000
+      m_LigatureGlyphID: 2207
+    - m_ComponentGlyphIDs: 500600000c0600005d060000
+      m_LigatureGlyphID: 2253
+    - m_ComponentGlyphIDs: 1f0600005d0600002b060000660600004a060000
+      m_LigatureGlyphID: 2206
+    - m_ComponentGlyphIDs: 1f0600000e0600001906000055060000
+      m_LigatureGlyphID: 2205
+    - m_ComponentGlyphIDs: 470600000e0600005d06000032060000
+      m_LigatureGlyphID: 2234
+    - m_ComponentGlyphIDs: 470600005d06000033060000
+      m_LigatureGlyphID: 2237
+    - m_ComponentGlyphIDs: 3206000004060000
+      m_LigatureGlyphID: 61781
+    - m_ComponentGlyphIDs: 320600005d060000
+      m_LigatureGlyphID: 2213
+    - m_ComponentGlyphIDs: 0c0600003b0600006606000032060000
+      m_LigatureGlyphID: 2174
+    - m_ComponentGlyphIDs: 0c060000550600003f0600000b060000
+      m_LigatureGlyphID: 2175
+    - m_ComponentGlyphIDs: 0c0600005d060000440600000c060000
+      m_LigatureGlyphID: 2176
+    - m_ComponentGlyphIDs: 0c0600006606000055060000
+      m_LigatureGlyphID: 2177
+    - m_ComponentGlyphIDs: 1506000004060000
+      m_LigatureGlyphID: 61774
+    - m_ComponentGlyphIDs: 15060000530600002d06000032060000
+      m_LigatureGlyphID: 2186
+    - m_ComponentGlyphIDs: 15060000570600005406000066060000
+      m_LigatureGlyphID: 2187
+    - m_ComponentGlyphIDs: 150600000e06000054060000
+      m_LigatureGlyphID: 2185
+    - m_ComponentGlyphIDs: 10060000130600005d060000
+      m_LigatureGlyphID: 2180
+    - m_ComponentGlyphIDs: 1906000004060000
+      m_LigatureGlyphID: 61776
+    - m_ComponentGlyphIDs: 1906000055060000260600000e06000057060000
+      m_LigatureGlyphID: 2200
+    - m_ComponentGlyphIDs: 19060000570600006606000037060000
+      m_LigatureGlyphID: 2201
+    - m_ComponentGlyphIDs: 1206000023060000190600006606000033060000
+      m_LigatureGlyphID: 2181
+    - m_ComponentGlyphIDs: 12060000660600001506000066060000
+      m_LigatureGlyphID: 2182
+    - m_ComponentGlyphIDs: 1706000004060000
+      m_LigatureGlyphID: 61775
+    - m_ComponentGlyphIDs: 17060000570600004b060000660600003206000055060000
+      m_LigatureGlyphID: 2196
+    - m_ComponentGlyphIDs: 17060000570600001a060000530600004a060000
+      m_LigatureGlyphID: 2195
+    - m_ComponentGlyphIDs: 1706000057060000590600002d06000032060000
+      m_LigatureGlyphID: 2197
+    - m_ComponentGlyphIDs: 170600004f0600005406000066060000
+      m_LigatureGlyphID: 2192
+    - m_ComponentGlyphIDs: 1706000057060000
+      m_LigatureGlyphID: 2194
+    - m_ComponentGlyphIDs: 1a060000530600004a060000320600005d060000
+      m_LigatureGlyphID: 2199
+    - m_ComponentGlyphIDs: 1a060000530600004a060000
+      m_LigatureGlyphID: 2198
+    - m_ComponentGlyphIDs: 540600002d0600003206000055060000
+      m_LigatureGlyphID: 2254
+    - m_ComponentGlyphIDs: 5406000053060000
+      m_LigatureGlyphID: 2255
+    - m_ComponentGlyphIDs: 400600002d060000210600001106000055060000
+      m_LigatureGlyphID: 2225
+    - m_ComponentGlyphIDs: 3306000055060000
+      m_LigatureGlyphID: 2212
     m_GlyphPairAdjustmentRecords: []
     m_MarkToBaseAdjustmentRecords: []
     m_MarkToMarkAdjustmentRecords: []
@@ -198,7 +266,9 @@ Material:
   m_Shader: {fileID: 4800000, guid: fe393ace9b354375a9cb14cdbbc28be4, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - OUTLINE_ON
+  - UNDERLAY_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -223,7 +293,7 @@ Material:
     - _MaskSoftnessX: 0
     - _MaskSoftnessY: 0
     - _OutlineSoftness: 0
-    - _OutlineWidth: 0
+    - _OutlineWidth: 0.22
     - _PerspectiveFilter: 0.875
     - _ScaleRatioA: 1
     - _ScaleRatioB: 1
@@ -239,9 +309,9 @@ Material:
     - _StencilWriteMask: 255
     - _TextureHeight: 2048
     - _TextureWidth: 2048
-    - _UnderlayDilate: 0
+    - _UnderlayDilate: 0.32
     - _UnderlayOffsetX: 0
-    - _UnderlayOffsetY: 0
+    - _UnderlayOffsetY: -0.85
     - _UnderlaySoftness: 0
     - _VertexOffsetX: 0
     - _VertexOffsetY: 0
@@ -251,6 +321,6 @@ Material:
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
     - _FaceColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
-    - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+    - _UnderlayColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
