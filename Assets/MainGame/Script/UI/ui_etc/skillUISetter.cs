@@ -74,6 +74,7 @@ namespace BaseBall.BallPlay
 
         public void init(int skillID, int rank, bool bVs = false)
         {
+            if (Mode.bRttsMode) { SkipPresentation(); return; }
             bVsState = bVs;
             if (_active.activeSelf == true)
             {
@@ -247,10 +248,16 @@ namespace BaseBall.BallPlay
 
         private void destroyObject()
         {
-            skillStot.transform.parent = front.transform;
-            skillStot.transform.localPosition = new Vector3(bLeftPosition?-250:250, 52, 0);
-            skillStot.transform.localEulerAngles = Vector3.zero;
-            skillStot.gameObject.SetActive(false);
+            if (skillStot != null)
+            {
+                if (front != null)
+                {
+                    skillStot.transform.parent = front.transform;
+                    skillStot.transform.localPosition = new Vector3(bLeftPosition ? -250 : 250, 52, 0);
+                    skillStot.transform.localEulerAngles = Vector3.zero;
+                }
+                skillStot.gameObject.SetActive(false);
+            }
 
             if (anim != null)
             {

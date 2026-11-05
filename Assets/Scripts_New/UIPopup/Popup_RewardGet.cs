@@ -48,9 +48,30 @@ public class Popup_RewardGet : UIPopup
     KOBRewardInfo _rewardInfo; //보상 정보 버퍼
     List<KOBRewardInfo> _multiRewardList = null; //여러개 보상시 리스트
     int CurCount = 0;   //리스트의 현재 카운트
+    private Sprite rewardIconOverride;
+    private int openedFrame;
+
+    public override void Initialize()
+    {
+        base.Initialize();
+        // A CanvasGroup alone does not consume clicks in empty parts of the popup.
+        var blocker = new GameObject("RewardInputBlocker", typeof(RectTransform), typeof(Image));
+        blocker.transform.SetParent(transform, false);
+        blocker.transform.SetAsFirstSibling();
+        var rect = (RectTransform)blocker.transform;
+        rect.anchorMin = Vector2.zero;
+        rect.anchorMax = Vector2.one;
+        rect.offsetMin = rect.offsetMax = Vector2.zero;
+        var image = blocker.GetComponent<Image>();
+        image.color = Color.clear;
+        image.raycastTarget = true;
+    }
 
     public override void Open()
     {
+        canvasGroup.DOKill();
+        canvasGroup.blocksRaycasts = true;
+        openedFrame = Time.frameCount;
         base.Open();
     }
 
@@ -74,6 +95,7 @@ public class Popup_RewardGet : UIPopup
     public override void Set(Intent it = null)
     {
         base.Set(it);
+        rewardIconOverride = it != null && it.Contains("RewardIcon") ? it["RewardIcon"] as Sprite : null;
 
         if (it.Contains("Reward") == true) //보상이 단품으로
         {
@@ -124,7 +146,7 @@ public class Popup_RewardGet : UIPopup
         for (int i = 0; i < Obj.Length; i++) Obj[i].SetActive(false);
         Obj[3].gameObject.SetActive(true);
         Title.gameObject.SetActive(true);
-        Title.text = "BOX"; //임시
+        UILocalization.Set(Title, "ui.5d27af0eb9a7"); //임시
         canvasGroup.alpha = 1;
         bActive = true;
     }
@@ -153,7 +175,7 @@ public class Popup_RewardGet : UIPopup
 
                 rewardObject.name = string.Format("Reward_Item_small_{0}", i);
                 rewardObject.SetActive(true);
-                rewardObject.GetComponent<Reward_Item_small>()?.InitItem(_multiRewardList[i]);
+                rewardObject.GetComponent<Reward_Item_small>()?.InitItem(_multiRewardList[i], rewardIconOverride);
             }
         }
         
@@ -172,7 +194,8 @@ public class Popup_RewardGet : UIPopup
         _rewardInfo = rewardInfo;
         if (_rewardInfo != null)
         {
-            Title.text = _rewardInfo.reward.ToString().ToUpper(); //임시
+            string titleKey = "reward.title." + _rewardInfo.reward;
+            UILocalization.Set(Title, UILocalization.Contains(titleKey) ? titleKey : "reward.title.None");
             if (rewardInfo.GetRewardType() == KOBRewardType.Card)
             {
                 SetCard();
@@ -217,7 +240,7 @@ public class Popup_RewardGet : UIPopup
     {
         Title.gameObject.SetActive(true);   
         Obj[0].gameObject.SetActive(true);          
-        CurrencyAmount.text = string.Format("+{0}", _rewardInfo.amount);
+        UILocalization.Set(CurrencyAmount, "Arena.Ads.Point", _rewardInfo.amount);
         if (_rewardInfo.reward == KOBReward.Gold)
         {
             setgold();
@@ -230,6 +253,8 @@ public class Popup_RewardGet : UIPopup
         {
             RewardImg.sprite = KOBManager.Atlas.GetSprite(AtlasManager.MyAtlas.UIIcon, "Icon_Energy_Green");
         }        
+        if (rewardIconOverride != null) RewardImg.sprite = rewardIconOverride;
+        RewardImg.preserveAspect = true;
         RewardImg.SetNativeSize();
         canvasGroup.alpha = 1;
         DotTweenUtil.Restart(RewardImg.gameObject);
@@ -424,7 +449,7 @@ public class Popup_RewardGet : UIPopup
     protected override void Update()
     {
         base.Update();
-        if (bActive == true)
+        if (bActive == true && Time.frameCount > openedFrame)
         {
             if (Input.GetMouseButtonDown(0))
             {

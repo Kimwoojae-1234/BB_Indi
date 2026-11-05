@@ -10,6 +10,7 @@ namespace BaseBall.BallPlay
         public UILabel name;
         public UILabel overall;
         public UISprite logo;
+        private UITexture rttsLogo;
         public GameObject hitFlag;
         public GameObject focusObj;
 
@@ -34,8 +35,27 @@ namespace BaseBall.BallPlay
 #if _Test_Local
             logo.spriteName = "logo_" + Random.Range(1, 10);
             logo.SetDimensions(25, 25);
+            if (Mode.bRttsMode)
+            {
+                if (rttsLogo == null)
+                {
+                    var go = new GameObject("RttsTeamLogo");
+                    go.layer = logo.gameObject.layer;
+                    go.transform.SetParent(logo.transform.parent, false);
+                    go.transform.localPosition = logo.transform.localPosition;
+                    go.transform.localScale = logo.transform.localScale;
+                    rttsLogo = go.AddComponent<UITexture>();
+                    rttsLogo.pivot = logo.pivot;
+                    rttsLogo.depth = logo.depth;
+                    rttsLogo.SetDimensions(25, 25);
+                }
+                rttsLogo.mainTexture = KOBManager.Resource.LoadLogoTemp(player.RttsTeamId + 1);
+                rttsLogo.gameObject.SetActive(true);
+            }
+            else if (rttsLogo != null) rttsLogo.gameObject.SetActive(false);
+            logo.enabled = !Mode.bRttsMode;
             bPitcher = (player.getCurPos() == CPlayer._PITCHER?true:false);
-            int overallNum = Random.Range(80,140);            
+            int overallNum = Mode.bRttsMode ? RttsLiveRoster.Ability100(RttsLiveRoster.League, RttsLiveRoster.IsSelected(player)) : Random.Range(80,140);
 #else
             Util.SetSpritePixelPerfect(logo, "logo_" + (int)player.getPlayerData().eTeam, false); //logo.spriteName = "logo_" + (int)player.getPlayerData().eTeam;     //
             bPitcher = (player.getCard().PlayerType == WebConnector.PlayerType.Pitcher ? true : false);

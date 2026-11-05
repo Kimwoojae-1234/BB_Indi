@@ -1156,6 +1156,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+  - component: {fileID: 8900000000000000000}
   - component: {fileID: 2349538205122975762}
   - component: {fileID: 3640125241970468147}
   - component: {fileID: 7535371899310149913}
@@ -1447,6 +1448,7 @@ GameObject:
   - component: {fileID: 4084566847091236916}
   - component: {fileID: 8424080854804989867}
   - component: {fileID: 4124932684606583962}
+  - component: {fileID: 7669618507228}
   m_Layer: 5
   m_Name: Dimed
   m_TagString: Untagged
@@ -3721,6 +3723,7 @@ GameObject:
   - component: {fileID: 6087559324667140647}
   - component: {fileID: 5509952103843360378}
   - component: {fileID: 6367415409583019098}
+  - component: {fileID: 7152450221370}
   m_Layer: 5
   m_Name: Button_Close
   m_TagString: Untagged
@@ -3919,3 +3922,44 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8900000000000000000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4085768132007537455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae59f6cc6df29ed2425c0141eed820b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: ui.2a3ffd9ebb69
+--- !u!114 &7669618507228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4703748751484405961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 597caef40151bb8861944cdd6ccd67c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundEnabled: 1
+  sound: 0
+--- !u!114 &7152450221370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9181468973948795999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 597caef40151bb8861944cdd6ccd67c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundEnabled: 1
+  sound: 0

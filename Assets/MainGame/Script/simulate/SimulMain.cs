@@ -2368,6 +2368,7 @@ namespace BaseBall.BallPlay
         /// </summary>
         private bool checkChangeBatter()
         {
+            if (Mode.bRttsMode) return false;
             //UnityEngine.Debug.Log("[시뮬] ========================>> 타자교체 체크");
             if (checkBatterChanged() == true)
             {
@@ -2479,6 +2480,7 @@ namespace BaseBall.BallPlay
         /// </summary>
         private bool checkChangeRunner()
         {
+            if (Mode.bRttsMode) return false;
             /*
             changerIndex[(int)ChangerIndex.InRunner] = -1; // firstBase = secondBase = -1;
             bool bChange = false;
@@ -3105,6 +3107,7 @@ namespace BaseBall.BallPlay
         /// </summary>
         private void checkChangeFielder(int team)
         {
+            if (Mode.bRttsMode) return;
             for (int i = CPlayer._CATCHER; i <= CPlayer._RIGHTFIELDER; i++)
             {
                 fielderChangeNeedCheck(team, i);
@@ -4084,6 +4087,7 @@ namespace BaseBall.BallPlay
         //pitcherChanging()f 호출하여 투수가 교체 되었는지 여부를 리턴해줌
         private bool checkPitcherChanged()
         {
+            if (Mode.bRttsMode) return false;
             defense = 1 - curIndex;
             offense = curIndex;
 
@@ -4317,7 +4321,7 @@ namespace BaseBall.BallPlay
                 int rating = getPitcherValue(sPlayer.GetPitcher(team, i, false));
                 int outWeight = (sPlayer.GetPitcherOut(team, i) == true ? -1 : 1);
                 int pitcherPosition = sPlayer.GetPitcher(team, i, false).getPitcherPosition();
-                if (pitcherPosition == 0 || sPlayer.GetPitcherOut(team, i) == true)
+                if (pitcherPosition <= 0 || pitcherPosition >= _weight.Length || sPlayer.GetPitcherOut(team, i) == true)
                 {
                     changeValue[i] = -1;
                 }

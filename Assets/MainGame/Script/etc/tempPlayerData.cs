@@ -347,6 +347,7 @@ namespace BaseBall.BallPlay
             //_throw = 480;
             //_speed = team == 0?1000:300;
             fielder.setBatterAbility(eye, contact, power, tando, _catch, _throw, _speed);
+            RttsLiveRoster.Apply(fielder, team, index, false);
             
         }
 
@@ -383,6 +384,7 @@ namespace BaseBall.BallPlay
             int sharp = 600;//
 
             pitcher.setPitcherAbility(spd, con, stm, hard, sharp, team, index);
+            RttsLiveRoster.Apply(pitcher, team, index, true);
 
         }
 

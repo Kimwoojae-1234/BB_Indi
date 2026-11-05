@@ -98,15 +98,15 @@ public static class KOBUtil
         string _id = string.Empty;
         if (hand == KOBHand.Left)
         {
-            return "Lefty";
+            return UILocalization.Get("ui.c67e7bb93ccc");
         }
         else if (hand == KOBHand.Right)
         {
-            return "Righty";
+            return UILocalization.Get("ui.d52854f39765");
         }
         else
         {
-            return "Switch";
+            return UILocalization.Get("ui.3e44c920427e");
         }
 
         //return KOBManager.Localization.GetUILocalizedValue2(_id);
@@ -165,7 +165,7 @@ public static class KOBUtil
         }
         else
         {
-            return "ALL";
+            return UILocalization.Get("ui.6b42874e3cd2");
         }
     }
 
@@ -175,39 +175,39 @@ public static class KOBUtil
 
         if (pos == KOBPosition.Pitcher)
         {
-            return "Pitcher";
+            return UILocalization.Get("ui.556473af7d23");
         }
         else if (pos == KOBPosition.Catcher)
         {
-            return "Catcher";
+            return UILocalization.Get("ui.2defbd91dfc4");
         }
         else if (pos == KOBPosition.First)
         {
-            return "First baseman";
+            return UILocalization.Get("ui.ce8ecea6f0d7");
         }
         else if (pos == KOBPosition.Second)
         {
-            return "Second baseman";
+            return UILocalization.Get("ui.bde43fcfa65b");
         }
         else if (pos == KOBPosition.Third)
         {
-            return "Third baseman";
+            return UILocalization.Get("ui.4713e8677c40");
         }
         else if (pos == KOBPosition.Short)
         {
-            return "Short stop";
+            return UILocalization.Get("ui.8a03f0eb05a5");
         }
         else if (pos == KOBPosition.Left)
         {
-            return "Left fielder";
+            return UILocalization.Get("ui.74b37e3b2683");
         }
         else if (pos == KOBPosition.Center)
         {
-            return "Center fielder";
+            return UILocalization.Get("ui.49a5d4be0815");
         }
         else if (pos == KOBPosition.Right)
         {
-            return "Right fielder";
+            return UILocalization.Get("ui.c6e72acc9efa");
         }
         else if (pos == KOBPosition.DH)
         {
@@ -215,15 +215,15 @@ public static class KOBUtil
         }
         else if (pos == KOBPosition.InfieldUtil)
         {
-            return "Infielder";
+            return UILocalization.Get("ui.9a10392087c2");
         }
         else if (pos == KOBPosition.OutfieldUtil)
         {
-            return "Outfielder";
+            return UILocalization.Get("ui.0d27eea06a01");
         }
         else
         {
-            return "All position";
+            return UILocalization.Get("ui.e4746d784125");
         }
     }
 
@@ -290,12 +290,12 @@ public static class KOBUtil
 
         if (components.Length > 0)
         {
-            Debug.Log(typeof(T).Name + " ¹ß°ßµÊ: " + components[0].gameObject.name);
+            Debug.Log(typeof(T).Name + " ï¿½ß°ßµï¿½: " + components[0].gameObject.name);
             return components[0];
         }
         else
         {
-            Debug.Log("È°¼ºÈ­µÈ " + typeof(T).Name + "°¡ ¾øÀ½");
+            Debug.Log("È°ï¿½ï¿½È­ï¿½ï¿½ " + typeof(T).Name + "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
             return null;
         }
     }

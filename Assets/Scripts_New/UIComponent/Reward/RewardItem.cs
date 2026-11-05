@@ -10,7 +10,7 @@ public class RewardItem : MonoBehaviour
     [SerializeField] private Image CardImage;
     [SerializeField] private Image BoxImage;
 
-    public void SetItem(int reward_index, int pindex, bool isAquire = false) //È¹µæ °¡´É½Ã true
+    public void SetItem(int reward_index, int pindex, bool isAquire = false, bool useFacePortrait = false) //È¹µæ °¡´É½Ã true
     {
         RewardIcon.gameObject.SetActive(false);
         CardObj.gameObject.SetActive(false);
@@ -26,12 +26,12 @@ public class RewardItem : MonoBehaviour
             else
             {
                 KOBRewardInfo info = new KOBRewardInfo(list[0]);
-                if(pindex > 0) info.pindex = pindex;
+                if(pindex > 0 || (useFacePortrait && pindex == KOBConstant.BALLPER_YOUPLAY)) info.pindex = pindex;
                 KOBRewardType type = info.GetRewardType();
 
                 if (type == KOBRewardType.Card)
                 {
-                    SetCard(info, isAquire);
+                    SetCard(info, isAquire, useFacePortrait);
                 }
                 else if (type == KOBRewardType.Box)
                 {
@@ -46,12 +46,16 @@ public class RewardItem : MonoBehaviour
         
     }
 
-    private void SetCard(KOBRewardInfo info, bool isAquire)
+    private void SetCard(KOBRewardInfo info, bool isAquire, bool useFacePortrait)
     {
         CardObj.gameObject.SetActive(info != null);
         if (info != null)
         {
-            KOBManager.Resource.LoadBallerPortrait(CardImage, info.pindex);
+            int portraitId = info.pindex;
+            if (useFacePortrait && portraitId == KOBConstant.BALLPER_YOUPLAY)
+                portraitId = KOBManager.MyInfo.GameData.ManageInfo.SelectBaller;
+            if (!useFacePortrait || !BallerFacePortraits.Apply(CardImage, portraitId))
+                KOBManager.Resource.LoadBallerPortrait(CardImage, portraitId);
             SetAquire(CardObj.gameObject, isAquire);
         }
     }

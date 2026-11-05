@@ -8,6 +8,21 @@ using Unity.VisualScripting;
 
 public class CharacterChart : Chart
 {
+    public void LoadForPrototype(AfterBackendLoadFunc completed)
+    {
+        try
+        {
+            var local = PrototypeBallers.Characters;
+            if (local == null) { BackendChartAndSave(completed); return; }
+            LoadChartDataTemplate(local);
+        }
+        catch (System.Exception error)
+        {
+            completed(false, nameof(CharacterChart), nameof(LoadForPrototype), error.ToString());
+            return;
+        }
+        completed(true, nameof(CharacterChart), nameof(LoadForPrototype), "");
+    }
     private readonly Dictionary<int, CharacterData> _dictionary = new();
 
     // 다른 클래스에서 Add, Delete등 수정이 불가능하도록 읽기 전용 Dictionary
@@ -25,6 +40,7 @@ public class CharacterChart : Chart
     // 차트 정보 불러오는 함수는 BackendData.Base.Chart의 BackendChartDataLoad를 참고해주세요
     protected override void LoadChartDataTemplate(JsonData json)
     {
+        _dictionary.Clear();
         foreach (JsonData eachItem in json)
         {
             CharacterData info = new CharacterData(eachItem);
@@ -74,6 +90,7 @@ public class CharacterData
     public CharacterType char_type { get; private set; } //캐릭터 타입에 타자/투수여부 포함
     public KOBPosition position { get; private set; } //포지션에 멀티포지션 여부 포함
     public KOBBody body { get; private set; } //body에 성별포함
+    public int unlock_gems { get; private set; }
    
 
 
@@ -90,5 +107,6 @@ public class CharacterData
         char_type = (CharacterType)int.Parse(json["char_type"].ToString());
         position = (KOBPosition)int.Parse(json["position"].ToString());
         body = (KOBBody)int.Parse(json["body"].ToString());
+        unlock_gems = json.ContainsKey("unlock_gems") ? int.Parse(json["unlock_gems"].ToString()) : 0;
     }
 }

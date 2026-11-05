@@ -246,6 +246,7 @@ namespace BaseBall.BallPlay
         // 해당 팀의 현재 출전중인 투수의 인덱스를 설정한다. (초기화 혹은 교체시 호출)
         public void SetCurrentPitcherIndex(int team, int index, bool bStarer) //bool bStarer = false
         {
+            if (Mode.bRttsMode && !bStarer) return;
             if (bStarer == true)
             {
                 starterIndex[team] = index;
@@ -711,11 +712,13 @@ namespace BaseBall.BallPlay
         // inPlayer: 교체들어오는 선수, outPlayer: 교체 아웃되는 선수
         private void setFielderChange(int team, int inIndex, int outIndex, int changeType)
         {
+            if (Mode.bRttsMode) return; // Fixed nine-player RTTS roster.
             ////Debug.Log("================================================================================>>야수교체");
 
             //임시 버퍼 저장
             CPlayer inPlayer = pFielder[team, inIndex];
             CPlayer outPlayer = pFielder[team, outIndex];
+            if (Mode.bRttsMode && (inPlayer.RttsPlayerId <= 0 || RttsLiveRoster.IsSelected(outPlayer))) return;
             int curPos = outPlayer.getCurPos();
 
             addBatterChange(inPlayer, team);
@@ -751,7 +754,7 @@ namespace BaseBall.BallPlay
         {
 #if _Test_Local  
             //테스트용 - 나중에 지워
-            player.setPosition(team == 1 ? tempPlayerData._kiaBatter[index, 0] : tempPlayerData._samsungBatter[index, 0]);
+            if (!Mode.bRttsMode) player.setPosition(team == 1 ? tempPlayerData._kiaBatter[index, 0] : tempPlayerData._samsungBatter[index, 0]);
             player.picIndex = index;
 #endif
 

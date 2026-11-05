@@ -46,7 +46,7 @@ public class HitterLevelDataChart : Chart
                 return _dictionary[idx][level]; 
             }
         }
-        return null;
+        return PrototypeBallers.Level(idx, level);
     }
 
 }

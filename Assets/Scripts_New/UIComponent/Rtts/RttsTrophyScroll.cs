@@ -63,105 +63,7 @@ public class RttsTrophyScroll : MonoBehaviour
                 group[i].spacing = GAB;
             }
 
-#if false
-            CurrentWin = 0;
-            //트로피 차트
-            RttsReward rewardInfo = KOBManager.Backend.Chart.RttsReward.Dictionary[League];
-            Dictionary<int, TeamRecord> LeagueTeamRecord =  KOBManager.MyInfo.GameData.RttsInfo.LeagueTeamRecord;
-            int TotalGame = KOBManager.Backend.Chart.RttsInfo.GetRttsInfo(League).TotalGame;
 
-            if (LeagueTeamRecord != null)
-            {
-                if(LeagueTeamRecord.ContainsKey(0) == true) CurrentWin = LeagueTeamRecord[0].Win;
-            }            
-
-            int Step = 0;
-            int CurrentKey = 0;
-            int CurValue = 0;
-            int NextValue = 5;
-
-
-            int Key = 1;//
-            Dictionary<int, RttsTrophyRoad> rttsChart = new Dictionary<int, RttsTrophyRoad>();
-            //--> 이것만 만들면 끝남 -> 순서가 엇갈리므로 wins로 오름차순 정렬 필요 -> 딕셔너리 정렬사용하지 말고 for문 돌려 순차적으로 할것(키값때문에)
-
-            int[] small = rewardInfo.small_reward_pos;
-            int[] big = rewardInfo.big_reward_pos;
-            int bigValue = big[0];
-            int smallValue = small[0];
-            int cardValue = -100;
-            int[] cardReward = new int[2];
-
-            if (rewardInfo.card_reward != null)
-            {
-                if (rewardInfo.card_reward.Count > 0)
-                {
-                    foreach (KeyValuePair<int, int[]> card in rewardInfo.card_reward)
-                    {
-                        cardValue = card.Key;
-                        cardReward = card.Value;
-                        break;
-                    }
-                }
-            }
-
-
-            //이 작업을 로비 진입시 하여 글로벌에 보관한다!!!!!
-            for (int i = 0; i<TotalGame;i++)
-            {
-                int count = i + 1;
-                
-                if (count == TotalGame)
-                {
-                    //최종
-                    Debug.Log("최종 보상 : " + count);
-                    rttsChart.Add(Key, new RttsTrophyRoad(Key, count, rewardInfo.winall_reward[0], rewardInfo.winall_reward[1]));
-                    Key++;
-                }
-                else
-                {
-                    bool bCardGet = false;
-                    if(bFirstTry == true && cardValue > 0)
-                    {
-                        if (count == cardValue)
-                        {
-                            bCardGet = true;
-                            Debug.Log("선수 카드 보상 : " + count +"   부여받는 카드 번호 "+ cardReward[0]);
-                            rttsChart.Add(Key, new RttsTrophyRoad(Key, count, KOBReward.Card, cardReward[0], cardReward[1]));
-                            Key++;
-                            foreach (KeyValuePair<int, int[]> card in rewardInfo.card_reward)
-                            {
-                                if (card.Key > cardValue)
-                                {
-                                    cardValue = card.Key;
-                                    cardReward = card.Value;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-
-
-                    if (bCardGet == false)
-                    {
-                        if (count == bigValue)
-                        {
-                            Debug.Log("빅 보상 : " + count);                            
-                            rttsChart.Add(Key, new RttsTrophyRoad(Key, count, big[2], big[3]));
-                            Key++;
-                            bigValue += big[1];
-                        }
-                        else if (count == smallValue)
-                        {
-                            Debug.Log("스몰 보상 : " + count);                            
-                            rttsChart.Add(Key, new RttsTrophyRoad(Key, count, small[2], small[3]));
-                            Key++;
-                            smallValue += small[1];
-                        }
-                    }
-                }
-            }
-#endif
             CurrentWin = KOBManager.Rtts.CurrentRttsRewardPoint;
 
             int CurrentKey = 0;
@@ -211,7 +113,7 @@ public class RttsTrophyScroll : MonoBehaviour
             {
                 Clone[0].gameObject.SetActive(false);
                 Clone[1].gameObject.SetActive(false);
-                TropyTxt.text = string.Format("{0} Points", CurrentWin);
+                UILocalization.Set(TropyTxt, "ui.b4b036eaa997", CurrentWin);
                 return;
             }
 
@@ -259,7 +161,7 @@ public class RttsTrophyScroll : MonoBehaviour
 
             Debug.Log("trophyPos : " + trophyPos);
             //인디케이터 설정하기
-            TropyTxt.text = string.Format("{0} Points", CurrentWin);
+            UILocalization.Set(TropyTxt, "ui.b4b036eaa997", CurrentWin);
             Indicator.anchoredPosition = new Vector2(trophyPos, Indicator.anchoredPosition.y);
 
             //초기 스크롤 위치
@@ -277,6 +179,7 @@ public class RttsTrophyScroll : MonoBehaviour
         {
             if (child.gameObject != template)
             {
+                child.gameObject.SetActive(false);
                 Destroy(child.gameObject);
             }
         }
@@ -295,6 +198,8 @@ public class RttsTrophyRoad
         idx = Key;
         wins = Win;
         rewardInfo = new KOBRewardInfo(_refID, _pIndex, KOBRewardFrom.SeasonTrophyRoad);
+        if (rewardInfo.GetRewardType() == KOBRewardType.Card)
+            rewardInfo.pindex = KOBManager.MyInfo.GameData.ManageInfo.SelectBaller;
     }
 
     public RttsTrophyRoad(int Key, int Win, KOBReward _type, int _pindex, int _amount) //카드 보상 설정

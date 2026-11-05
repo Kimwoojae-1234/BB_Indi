@@ -8,6 +8,8 @@ namespace BaseBall.BallPlay
 {
     public class CPlayer
     {   
+        public int RttsTeamId = -1;
+        public int RttsPlayerId;
         //HAND
         public const int _LEFTHAND = 0;// Left Hand Index
         public const int _RIGHTHAND = 1;// Right Hand Index  		 
@@ -1084,6 +1086,9 @@ namespace BaseBall.BallPlay
                 ballValue[4] = tempSelectPage.PITCHING_STAT + UnityEngine.Random.Range(0, 100); //UnityEngine.Random.Range(500, 800);
             }
 
+            if (Mode.bRttsMode)
+                for (int i = 0; i < ballValue.Length; i++) ballValue[i] = hard;
+
             pitcherAvg = 0;
             int pcount = 0;
             for (int i = 0; i < 5; i++)
@@ -1347,6 +1352,7 @@ namespace BaseBall.BallPlay
         /// <param name="rate"></param>
         public void setStamina()
         {
+            if (Mode.bRttsMode) { curStamina = PitchingMechanism.INIT_STAMINA; faitgueStep = FatigueStep.STAMINA_NORMAL; return; }
             //////UnityEngine.//Debug.Log("================>> 투수 체력 감소 증감 비율 :" + addRate);
             /*if (pinchState == PinchStep.Pinch)
             {
@@ -1388,6 +1394,7 @@ namespace BaseBall.BallPlay
         /// <param name="stamina"></param>
         public void setCurrentStamina(float stamina)
         {
+            if (Mode.bRttsMode) { curStamina = PitchingMechanism.INIT_STAMINA; faitgueStep = FatigueStep.STAMINA_NORMAL; return; }
             curStamina = stamina;
         }
         
@@ -1481,6 +1488,7 @@ namespace BaseBall.BallPlay
         /// </summary>
         public int getCurrentStamina()
         {
+            if (Mode.bRttsMode) return (int)PitchingMechanism.INIT_STAMINA;
             return (int)curStamina;
         }
 
@@ -1745,6 +1753,13 @@ namespace BaseBall.BallPlay
 
         public void setSkillTemp()
         {
+            // RTTS prototype: disable legacy test skills and their effects.
+            if (Mode.bRttsMode)
+            {
+                setSkillInit();
+                skillList.Clear();
+                return;
+            }
             if (bPitcher == true)
             {
                 if (Mode.gameMode == Mode.GamePlayMode.Pvp433)

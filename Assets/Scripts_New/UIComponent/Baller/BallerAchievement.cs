@@ -12,7 +12,8 @@ public class BallerAchievement : MonoBehaviour
 
     public void InitUI(int _idx)
     {
-        if(SelectIdx != _idx)
+        // Refresh even when returning to the same baller after a saved match result.
+        if (_idx > 0)
         {
             IReadOnlyDictionary<int, AchievementData> chart = KOBManager.Backend.Chart.AchievementData.Dictionary;
             SelectIdx = _idx;
@@ -22,7 +23,7 @@ public class BallerAchievement : MonoBehaviour
                 {
                     int key = item.Key;
                     GameObject achiveObj = GameObject.Instantiate(Clone.gameObject, Vector3.zero, Quaternion.identity) as GameObject;
-                    achiveObj.transform.parent = content;
+                    achiveObj.transform.SetParent(content, false);
                     achiveObj.transform.localScale = Vector3.one;
                     achiveObj.gameObject.SetActive(true);
                     BallerAchieveComponent achive = achiveObj.GetComponent<BallerAchieveComponent>();

@@ -85,12 +85,15 @@ public class GrowthInfo
     [JsonProperty] public int MaxEnergy { get; private set; }
     [JsonProperty] public int League { get; private set; }
     [JsonProperty] public int PassXP { get; private set; }
+    [JsonProperty] public List<int> PassFreeClaims { get; private set; } = new List<int>();
     [JsonProperty] public int MyTier { get; private set; } = 0;
 
     //트로피 획득 정보
     [JsonProperty] public List<int> TropyGetList { get; private set; } = new List<int>();
     [JsonProperty] public Dictionary<int, List<int>> BallerTropyGetList { get; private set; } = new  Dictionary<int, List<int>>();
     [JsonProperty] public Dictionary<int, Dictionary<int, int[]>> BallerStat { get; private set; } = new Dictionary<int, Dictionary<int, int[]>>(); //pa(0),ab(1),h(2),2b(3),3b(4),hr(5),rbi(6),sb(7),bb(8),so(9),r(10),결승타(11),역전타(12),타격왕(13),홈런왕(14),타점왕(15),MVP(16), 우승(17), 호수비-보살포함(18)
+    // Per-baller lifetime totals, keyed by BallerAchievementMetric.
+    [JsonProperty] public Dictionary<int, Dictionary<int, int>> BallerAchievementProgress { get; private set; } = new Dictionary<int, Dictionary<int, int>>();
     [JsonProperty] public Dictionary<int, Dictionary<int, int>> AchievementList { get; private set; } = new Dictionary<int, Dictionary<int, int>>();
 
     public void Init()
@@ -100,10 +103,12 @@ public class GrowthInfo
         League = 1;
         MaxEnergy = KOBManager.Backend.Setting.InitMaxStamina;
         PassXP = 0;
+        PassFreeClaims.Clear();
         MyTier = 0;
         TropyGetList.Clear();
         BallerTropyGetList.Clear();
         AchievementList.Clear();
+        BallerAchievementProgress.Clear();
         BallerStat.Clear();
 
         SetBallerAdditionalInfo(KOBConstant.FIRSTBALLER);
@@ -121,6 +126,7 @@ public class GrowthInfo
         if (json.ContainsKey("League") == true) League = int.Parse(json["League"].ToString());
         if (json.ContainsKey("MaxEnergy") == true) MaxEnergy = int.Parse(json["MaxEnergy"].ToString()); ;
         if (json.ContainsKey("PassXP") == true) PassXP = int.Parse(json["PassXP"].ToString());
+        if (json.ContainsKey("PassFreeClaims")) PassFreeClaims = JsonHelper.DeserializeObject<List<int>>(json["PassFreeClaims"].ToJson()) ?? new List<int>();
         if (json.ContainsKey("MyTier") == true) MyTier = int.Parse(json["MyTier"].ToString());
         if (json.ContainsKey("TropyGetList") == true) TropyGetList = KOBTableUtil.DeserializeList<int>(json["TropyGetList"], json => JsonHelper.DeserializeObject<int>(json.ToJson()));
         if (json.ContainsKey("BallerTropyGetList") == true)
@@ -134,6 +140,12 @@ public class GrowthInfo
             BallerStat = KOBTableUtil.DeserializeDictionary<int, Dictionary<int, int[]>>(json["BallerStat"],
                                                             keyStr => int.Parse(keyStr),
                                                             json => JsonHelper.DeserializeObject<Dictionary<int, int[]>>(json.ToJson()));
+        }
+        if (json.ContainsKey("BallerAchievementProgress") && json["BallerAchievementProgress"] != null)
+        {
+            BallerAchievementProgress = KOBTableUtil.DeserializeDictionary<int, Dictionary<int, int>>(json["BallerAchievementProgress"],
+                keyStr => int.Parse(keyStr), value => JsonHelper.DeserializeObject<Dictionary<int, int>>(value.ToJson()))
+                ?? new Dictionary<int, Dictionary<int, int>>();
         }
         if (json.ContainsKey("AchievementList") == true)
         {
@@ -528,6 +540,7 @@ public class KOBBaller
     [JsonProperty] public int baller_trophy { get; private set; } = 0;
     [JsonProperty] public int baller_rank { get; private set; } = 0;
     [JsonProperty] public Dictionary<int, int> SkillEquip { get; private set; } = new Dictionary<int, int>(); //Key:슬롯인덱스 : Value: 슬롯에 있는 스킬인덱스
+    [JsonProperty] public Dictionary<int, KOBGear> GearList { get; private set; } = new Dictionary<int, KOBGear>();
     [JsonProperty] public Dictionary<int, int> GearEquip { get; private set; } = new Dictionary<int, int>(); //Key:슬롯인덱스 : Value: 슬롯에 있는 장비인덱스
     [JsonProperty] public Dictionary<int, int> SkinEquip { get; private set; } = new Dictionary<int, int>(); //Key:슬롯인덱스 : Value: 슬롯에 있는 스킨인덱스
     [JsonProperty] public Dictionary<int, KOBSkill> SkillList { get; private set; } = new Dictionary<int, KOBSkill>(); //추가 Key:스킬인덱스 : Value: 스킬현재상태 (여기서는현재가지고 있는  차트는 가질수 있는) //-->현재 스킬의 업그레이드 상태
@@ -544,6 +557,7 @@ public class KOBBaller
         baller_rank = 0;
         SkillEquip.Clear();
         GearEquip.Clear();
+        GearList.Clear();
         SkinEquip.Clear();
         SkillList.Clear();
         //KOBManager.Backend.GameData.KOBGameData.GrowthInfo.AddBaller(idx);

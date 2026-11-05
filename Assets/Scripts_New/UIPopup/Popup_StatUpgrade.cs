@@ -71,6 +71,7 @@ public class Popup_StatUpgrade : UIPopup
 
     public override void Close()
     {
+        if (_upgradeRequestInProgress) return;
         Action<int> closeAction = _action;
         int updatedIdx = UpdatedIDX;
         _action = null;
@@ -119,6 +120,7 @@ public class Popup_StatUpgrade : UIPopup
         UpdatedIDX = -1;
         UpgradeBtnObj.gameObject.SetActive(false);
         UnlockBtnObj.gameObject.SetActive(true);
+        UnlockFeeTxt.text = PrototypeBallers.UnlockCost(KOBManager.Backend.Chart.CharacterData.GetData(_idx), KOBManager.MyInfo.GameData.GrowthInfo.League).ToString("N0");
         CharacterData ballerData = KOBManager.Backend.Chart.CharacterData.GetData(_idx);
         setValue(ballerData, _level);
         bUpgrade = false;
@@ -165,16 +167,17 @@ public class Popup_StatUpgrade : UIPopup
         FieldingValue[1].text = CurValue.throwing.ToString("N0");
         FieldingValue[2].text = CurValue.speed.ToString("N0");
 
+        MaxBtnObj.gameObject.SetActive(CurLevel < KOBConstant.MAX_LEVEL);
         if (CurLevel == KOBConstant.MAX_LEVEL)
         {
             // MAX Level
-            MaxBtnObj.gameObject.SetActive(false);
+            maxStatSetting();
         }
         else
         {
             if (bUpgrade == true)
             {
-                TitleTxt.text = string.Format("UPGRADE TO POWER LEVEL {0}?", CurLevel);                
+                UILocalization.Set(TitleTxt, "ui.5ce6196ed18c", CurLevel);                
                 for (int i = 0; i < 6; i++)
                 {
                     int count = 0;
@@ -182,13 +185,13 @@ public class Popup_StatUpgrade : UIPopup
                     {
                         count = i;
                         HittingUpgrade[count].gameObject.SetActive(UpgradeValue[i] > 0 ? true : false);
-                        if (UpgradeValue[i] > 0) HittingUpgrade[count].text = string.Format("+{0}", UpgradeValue[i]);
+                        if (UpgradeValue[i] > 0) UILocalization.Set(HittingUpgrade[count], "Arena.Ads.Point", UpgradeValue[i]);
                     }
                     else
                     {
                         count = i - 3;
                         FieldingUpgrade[count].gameObject.SetActive(UpgradeValue[i] > 0 ? true : false);
-                        if (UpgradeValue[i] > 0) FieldingUpgrade[count].text = string.Format("+{0}", UpgradeValue[i]);
+                        if (UpgradeValue[i] > 0) UILocalization.Set(FieldingUpgrade[count], "Arena.Ads.Point", UpgradeValue[i]);
                     }
                 }
 
@@ -196,12 +199,12 @@ public class Popup_StatUpgrade : UIPopup
                 int totalFieldupgrade = UpgradeValue[3] + UpgradeValue[4] + UpgradeValue[5];
                 TotalHitUpgrade.gameObject.SetActive(totalHitupgrade > 0 ? true : false);
                 TotalFieldingUpgrade.gameObject.SetActive(totalFieldupgrade > 0 ? true : false);
-                TotalHitUpgrade.text = string.Format("+{0}", totalHitupgrade);
-                TotalFieldingUpgrade.text = string.Format("+{0}", totalFieldupgrade);
+                UILocalization.Set(TotalHitUpgrade, "Arena.Ads.Point", totalHitupgrade);
+                UILocalization.Set(TotalFieldingUpgrade, "Arena.Ads.Point", totalFieldupgrade);
             }
             else
             {
-                TitleTxt.text = string.Format("{0}'S STATS", CurName);
+                UILocalization.Set(TitleTxt, "ui.01dc5da6e33f", CurName);
                 TotalHitUpgrade.gameObject.SetActive(false);
                 TotalFieldingUpgrade.gameObject.SetActive(false);
                 for (int i = 0; i < HittingUpgrade.Length; i++) HittingUpgrade[i].gameObject.SetActive(false);
@@ -228,7 +231,7 @@ public class Popup_StatUpgrade : UIPopup
 
     private void maxStatSetting()
     {
-        TitleTxt.text = string.Format("{0}'S MAX STATS", CurName);
+        UILocalization.Set(TitleTxt, "ui.94dbe944ea74", CurName);
 
         //타격쪽
         int totalHitting = MaxValue.power + MaxValue.contact + MaxValue.vision;
@@ -302,6 +305,7 @@ public class Popup_StatUpgrade : UIPopup
                     TResultUpgradeCard res = response as TResultUpgradeCard;
                     if (callback?.IsSuccess() == true && res?.isSuccess == true)
                     {
+                        _upgradeRequestInProgress = false;
                         UpdatedIDX = res.CardIdx;
                         Close();
                     }
@@ -334,6 +338,8 @@ public class Popup_StatUpgrade : UIPopup
 
     private void SetUpgradeButtonInteractable(bool interactable)
     {
+        var unlockButton = UnlockBtnObj != null ? UnlockBtnObj.GetComponent<Button>() : null;
+        if (unlockButton != null) unlockButton.interactable = interactable;
         Button upgradeButton = UpgradeBtnObj != null ? UpgradeBtnObj.GetComponent<Button>() : null;
         if (upgradeButton != null)
         {
@@ -343,7 +349,44 @@ public class Popup_StatUpgrade : UIPopup
 
     public void OnClickUnlock()
     {
-        Debug.Log("OnClickUnlock");
+        if (_upgradeRequestInProgress) return;
+        _upgradeRequestInProgress = true;
+        SetUpgradeButtonInteractable(false);
+        try
+        {
+            KOBManager.DummyNetwork.SendPacket(new TRequestRecruitBaller { CardIdx = SelectIDX }, (callback, response) =>
+            {
+                try
+                {
+                    var result = response as TResultRecruitBaller;
+                    if (callback?.IsSuccess() == true && result?.isSuccess == true)
+                    {
+                        _upgradeRequestInProgress = false;
+                        UpdatedIDX = result.CardIdx;
+                        Close();
+                        RecruitMessage("baller.unlock.success");
+                    }
+                    else
+                    {
+                        string key = result?.ErrorCode == (int)KOBErrorCode.Not_Enough_Gem ? "baller.unlock.insufficient"
+                            : result?.ErrorCode == (int)KOBErrorCode.Baller_Already_Owned ? "baller.unlock.owned" : "baller.unlock.failed";
+                        RecruitMessage(key);
+                    }
+                }
+                finally { CompleteUpgradeRequest(); }
+            });
+        }
+        catch (Exception exception)
+        {
+            CompleteUpgradeRequest();
+            Debug.LogException(exception);
+            RecruitMessage("baller.unlock.failed");
+        }
+    }
+
+    private void RecruitMessage(string key)
+    {
+        KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init(UILocalization.Get(key));
     }
 
     public void OnTouchStat(GameObject obj)

@@ -1,342 +1,171 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System.Linq;
 
 public class Popup_GearSetting : UIPopup
 {
-    [SerializeField] private GearSlotBaller[] GearSlot;
-    [SerializeField] private GearSlotBaller[] GearList;
-    [SerializeField] private RectTransform origin;
-    [SerializeField] private TextMeshProUGUI GearNameTxt;
-    [SerializeField] private TextMeshProUGUI GearDescTxt;
-    [SerializeField] private RectTransform Position;
-    [SerializeField] private GameObject BuyBtn;
-    [SerializeField] private GameObject UpgradeBtn;
-    [SerializeField] private GameObject LockBtn; //누르면 언제 업글 가능한지 알려줘
-    [SerializeField] private GameObject NotAvailble;
-
-
-    //private GameObject BallerObj;
+    [SerializeField] private GearSlotBaller[] GearSlot, GearList;
+    [SerializeField] private RectTransform origin, Position;
+    [SerializeField] private TextMeshProUGUI GearNameTxt, GearDescTxt;
+    [SerializeField] private GameObject BuyBtn, UpgradeBtn, LockBtn, NotAvailble;
     public delegate void OnCloseEvent();
-    private OnCloseEvent CallBack = null;
-
-
-
-    private Dictionary<int, GearListType> CurGearList = new Dictionary<int, GearListType>();
-    private int CurSlot = 1;
-    private int CurSelect = 1;
-    private bool bAvailableBaller;
-    private int[] OpenLevel = new int[6];
-    private int CurBallerLevel;
-    private KOBRarity CurRarity;
+    private OnCloseEvent callback;
+    private int ballerIdx, currentSlot, selectedBase;
+    private bool saving, ready;
+    private Button equipButton, upgradeButton;
+    private TMP_Text equipLabel, upgradeLabel;
+    private GameObject lunaImage, lunaVideo;
+    private bool imageWasActive, videoWasActive;
+    private readonly Vector3[] corners = new Vector3[4];
 
     public override void Open()
     {
-        base.Open();
-
-
+        base.Open(); ready = false; saving = false;
+        Position.gameObject.SetActive(false);
+        PrepareButton(BuyBtn, ref equipLabel, OnClickEquip);
+        PrepareButton(UpgradeBtn, ref upgradeLabel, OnClickUpgrade);
+        equipButton = BuyBtn.GetComponent<Button>(); upgradeButton = UpgradeBtn.GetComponent<Button>();
+        Position.GetComponent<Image>().enabled = false;
+        var connector = Position.GetComponentInChildren<SkillPanelConnector>(true);
+        if (connector == null)
+        {
+            var go = new GameObject("ConnectedTab", typeof(RectTransform), typeof(CanvasRenderer), typeof(SkillPanelConnector));
+            go.transform.SetParent(Position, false);
+            var rect = (RectTransform)go.transform;
+            rect.anchorMin = Vector2.zero; rect.anchorMax = Vector2.one;
+            rect.offsetMin = rect.offsetMax = Vector2.zero;
+            connector = go.GetComponent<SkillPanelConnector>();
+        }
+        connector.color = new Color32(0, 126, 201, 255); connector.raycastTarget = false;
     }
-
+    private void PrepareButton(GameObject go, ref TMP_Text label, UnityEngine.Events.UnityAction action)
+    {
+        var button = go.GetComponent<Button>();
+        button.onClick.RemoveListener(action); button.onClick.AddListener(action);
+        if (label == null)
+        {
+            foreach (Transform child in go.transform) child.gameObject.SetActive(false);
+            label = Instantiate(GearNameTxt, go.transform);
+            label.name = "ActionLabel"; label.gameObject.SetActive(true);
+            label.color = Color.white; label.raycastTarget = false;
+            label.alignment = TextAlignmentOptions.Center;
+            label.enableAutoSizing = true; label.fontSizeMax = 54; label.fontSizeMin = 26;
+            label.rectTransform.anchorMin = Vector2.zero; label.rectTransform.anchorMax = Vector2.one;
+            label.rectTransform.offsetMin = new Vector2(20, 10); label.rectTransform.offsetMax = new Vector2(-20, -10);
+        }
+        var rect = (RectTransform)go.transform;
+        rect.anchorMin = rect.anchorMax = new Vector2(.5f, 0); rect.pivot = new Vector2(.5f, .5f);
+        rect.sizeDelta = new Vector2(500, 120);
+    }
+    public void Setting(GameObject baller, int idx, int slot, OnCloseEvent onClose)
+    {
+        RestoreLuna(); ballerIdx = idx; currentSlot = Mathf.Clamp(slot, 1, 4); callback = onClose;
+        baller.transform.SetParent(origin, false); baller.transform.localScale = Vector3.one; baller.transform.localPosition = Vector3.zero;
+        if (idx == 1001)
+        {
+            lunaImage = baller.transform.Find("Image")?.gameObject; lunaVideo = baller.transform.Find("CharacterVideoPlayer")?.gameObject;
+            imageWasActive = lunaImage != null && lunaImage.activeSelf; videoWasActive = lunaVideo != null && lunaVideo.activeSelf;
+            if (lunaImage != null) lunaImage.SetActive(true); if (lunaVideo != null) lunaVideo.SetActive(false);
+        }
+        Refresh(true); ready = true;
+        Canvas.ForceUpdateCanvases(); LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)transform); UpdateConnector();
+    }
+    private void RestoreLuna()
+    {
+        if (lunaImage != null) lunaImage.SetActive(imageWasActive); if (lunaVideo != null) lunaVideo.SetActive(videoWasActive);
+        lunaImage = lunaVideo = null;
+    }
     public override void Close()
     {
-        base.Close();
-        if (CallBack != null)
-        {
-            CallBack();
-            CallBack = null;
-        }
+        if (saving) return;
+        ready = false; RestoreLuna(); var action = callback; callback = null; base.Close(); action?.Invoke();
     }
-
-
-    public void Setting(GameObject baller, int _idx, int _slot, OnCloseEvent callBack)
+    private void Refresh(bool selectEquipped)
     {
-        CurSlot = _slot;
-        CallBack = callBack;
-        baller.transform.parent = origin.transform;
-        baller.transform.localScale = Vector3.one;
-        baller.transform.localPosition = Vector3.zero;
-
-        CharacterData ballerData = KOBManager.Backend.Chart.CharacterData.GetData(_idx); //고정정보 - 선수고유정보
-        CurRarity = ballerData.rarity;
-        if (KOBManager.MyInfo.GameData.PlayerInfo.BallerList.ContainsKey(_idx) == true) //소유
+        var chart = KOBManager.Backend.Chart;
+        KOBManager.MyInfo.GameData.PlayerInfo.BallerList.TryGetValue(ballerIdx, out var baller);
+        for (int i = 0; i < GearSlot.Length; i++)
         {
-            bAvailableBaller = true;
-            KOBBaller ballerInfo = KOBManager.MyInfo.GameData.PlayerInfo.BallerList[_idx]; //변동정보 - 유저가 성장
-            GearSlotSetting(ballerData, ballerInfo);
-
-            GearListSetting(ballerData, ballerInfo);//, GearSlot[CurSlot - 1].Type);
-            CurSelect = GetSelectedGear();
-            ShowGearList((SlotEquipType)GearSlot[CurSlot - 1].Type);
+            GearSlot[i].gameObject.SetActive(i < 4);
+            if (i >= 4) continue;
+            if (baller != null && baller.GearEquip.TryGetValue(i + 1, out int id)) GearSlot[i].SetGear(id, i + 1);
+            else GearSlot[i].SetEmpty(i + 1);
+            GearSlot[i].SetSelect(currentSlot == i + 1);
         }
-        else
+        var candidates = BallerGearCatalog.Families(BallerGearCatalog.SlotType(currentSlot)).ToArray();
+        if (selectEquipped)
+            selectedBase = baller != null && baller.GearEquip.TryGetValue(currentSlot, out int id)
+                ? BallerGearCatalog.Base(chart.GearData.GetData(id))?.idx ?? 0 : 0;
+        if (!candidates.Any(g => g.idx == selectedBase)) selectedBase = candidates.FirstOrDefault()?.idx ?? 0;
+        for (int i = 0; i < GearList.Length; i++)
         {
-            bAvailableBaller = false;
-            GearSlotSetting(ballerData, null);
-
-            CurSelect = 1;
-            GearListSetting(ballerData, null);//, GearSlot[CurSlot - 1].Type);
-            ShowGearList((SlotEquipType)GearSlot[CurSlot - 1].Type);
+            GearList[i].gameObject.SetActive(i < candidates.Length);
+            if (i >= candidates.Length) continue;
+            var actual = BallerGearCatalog.AtLevel(candidates[i], Mathf.Max(1, BallerGearCatalog.OwnedLevel(baller, candidates[i]))) ?? candidates[i];
+            GearList[i].SetGear(actual.idx, i + 1); GearList[i].SetSelect(candidates[i].idx == selectedBase);
         }
-
-        ShowGearText();
-        ShowBtnState();
-        SetCursorPos(GearSlot[CurSlot - 1].gameObject);
+        var basis = chart.GearData.GetData(selectedBase);
+        int level = BallerGearCatalog.OwnedLevel(baller, basis);
+        var gear = BallerGearCatalog.AtLevel(basis, Mathf.Max(1, level));
+        if (gear != null)
+        {
+            UILocalization.Set(GearNameTxt, "skill.equip.name", UILocalization.Get("gear.family." + selectedBase), gear.att_lv);
+            GearDescTxt.text = BallerGearCatalog.Description(gear);
+        }
+        else { GearNameTxt.text = ""; GearDescTxt.text = ""; }
+        bool equipped = baller != null && baller.GearEquip.TryGetValue(currentSlot, out int current) && current == gear?.idx;
+        BuyBtn.SetActive(baller != null && gear != null);
+        UpgradeBtn.SetActive(baller != null && gear != null && level > 0);
+        LockBtn.SetActive(false); NotAvailble.SetActive(baller == null);
+        if (baller == null) UILocalization.Set(NotAvailble.GetComponentInChildren<TMP_Text>(true), "gear.unowned");
+        UILocalization.Set(equipLabel, equipped ? "skill.equip.equipped" : "skill.equip.action");
+        equipButton.interactable = !saving && !equipped;
+        var next = BallerGearCatalog.AtLevel(basis, level + 1);
+        bool max = level > 0 && next == null;
+        int cost = SkillProgression.UpgradeGold(level + 1);
+        upgradeButton.interactable = !saving && !max && cost > 0;
+        if (max) UILocalization.Set(upgradeLabel, "skill.upgrade.max", level);
+        else UILocalization.Set(upgradeLabel, "skill.upgrade.action", cost.ToString("N0"));
+        ((RectTransform)BuyBtn.transform).anchoredPosition = new Vector2(level > 0 ? -270 : 0, 80);
+        ((RectTransform)UpgradeBtn.transform).anchoredPosition = new Vector2(270, 80);
     }
-
-
-    private int GetSelectedGear()
+    public void OnClickSlotTouch(GearSlotBaller slot) { if (saving) return; currentSlot = slot.Slot; Refresh(true); Canvas.ForceUpdateCanvases(); UpdateConnector(); }
+    public void OnClickListTouch(GearSlotBaller item) { if (saving) return; selectedBase = BallerGearCatalog.Base(KOBManager.Backend.Chart.GearData.GetData(item.GearIndex))?.idx ?? 0; Refresh(false); }
+    public void OnClickEquip() { if (equipButton.interactable) Send(false); }
+    public void OnClickUpgrade() { if (upgradeButton.interactable) Send(true); }
+    private void Send(bool upgrade)
     {
-        int EquipedGear = GearSlot[CurSlot - 1].GearIndex;
-        if (EquipedGear != 0)
+        if (saving || selectedBase <= 0) return;
+        saving = true; equipButton.interactable = upgradeButton.interactable = false;
+        try
         {
-            for (int i = 0; i < GearSlot.Length; i++)
+            KOBManager.DummyNetwork.SendPacket(new TRequestBallerGear { BallerIdx = ballerIdx, Slot = currentSlot, GearIdx = selectedBase, Upgrade = upgrade }, (result, response) =>
             {
-                if (GearSlot[i].GearIndex == EquipedGear)
-                {
-                    return (i + 1);
-                }
-            }
+                saving = false; KOBManager.FrontUI.GetPopup<FrontUI_NetworkLoading>()?.Close();
+                bool success = result?.IsSuccess() == true && response?.isSuccess == true;
+                string key = success ? (upgrade ? "gear.upgrade.success" : "gear.equip.success")
+                    : response?.ErrorCode == (int)KOBErrorCode.Not_Enough_Gold ? "skill.upgrade.gold" : "gear.failed";
+                KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init(UILocalization.Get(key));
+                Refresh(false); KOBManager.UI.GetUIWindow<UI_Ballers>()?.UpdateInfo(ballerIdx);
+            });
         }
-
-        return 1;
-    }
-
-
-    private void GearSlotSetting(CharacterData ballerData, KOBBaller ballerInfo)
-    {
-        CurBallerLevel = 0;
-        /*if (ballerData.gear_slot != null)
+        catch (Exception error)
         {
-            int Count = ballerData.gear_slot.Count;
-            if (ballerInfo != null) //보유함
-            {
-                CurBallerLevel = ballerInfo.level;
-                for (int i = 0; i < GearSlot.Length; i++)
-                {
-                    if (i < Count)
-                    {
-                        GearSlot[i].gameObject.SetActive(true);
-                        int slot = (i + 1);
-                        int openLv = ballerData.gear_slot[slot][1];
-                        int type = ballerData.gear_slot[slot][0];
-                        OpenLevel[i] = openLv;
-                        if (CurBallerLevel < openLv)
-                        {
-                            //잠김
-                            GearSlot[i].SetLock(slot, type, openLv, ballerData.rarity);
-                        }
-                        else
-                        {
-                            //bool bEquip = false;
-                            int gearIndex = 0;
-                            if (ballerInfo.GearEquip.ContainsKey(slot) == true)
-                            {
-                                gearIndex = ballerInfo.GearEquip[slot];
-                            }
-
-                            if (gearIndex == 0) //비었음
-                            {
-                                GearSlot[i].SetEmpty(slot, type);
-                            }
-                            else //스킬 있음
-                            {
-                                int GearLV = ballerInfo.GearList[gearIndex].level; //스킬 레벨
-                                GearSlot[i].SetGear(gearIndex, slot, type, GearLV);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        GearSlot[i].gameObject.SetActive(false);
-                    }
-                }
-            }
-            else //볼러 미보유
-            {
-                for (int i = 0; i < GearSlot.Length; i++)
-                {
-                    if (i < Count)
-                    {
-                        GearSlot[i].gameObject.SetActive(true);
-                        int slot = (i + 1);
-                        int openLv = ballerData.gear_slot[slot][1];
-                        int type = ballerData.gear_slot[slot][0];
-                        OpenLevel[i] = openLv;
-                        //미보유시 Lock형태
-                        GearSlot[i].SetLock(slot, type, openLv, ballerData.rarity);
-                    }
-                    else
-                    {
-                        GearSlot[i].gameObject.SetActive(false);
-                    }
-                }
-            }
-        }*/
-    }
-
-
-
-    private void GearListSetting(CharacterData ballerData, KOBBaller ballerInfo)
-    {
-        CurGearList.Clear();
-
-        if (ballerInfo != null) //보유시
-        {
-            //일부라도 성장이 되있는 경우
-            /*foreach (KeyValuePair<int, KOBGear> gear in ballerInfo.GearList) //info로 부터
-            {
-                int gearindex = gear.Key;
-                KOBGear value = gear.Value;
-                CurGearList.Add(gearindex, new GearListType(gearindex, value.level));                
-            }*/
-        }
-
-        //아직 아무것도 없는 경우
-        /*for (int i = 0; i < ballerData.gear_list.Count; i++) //data로 부터
-        {
-            int gearIdx = ballerData.gear_list[i];
-
-            if (CurGearList.ContainsKey(gearIdx) == false)
-            {
-                CurGearList.Add(gearIdx, new GearListType(gearIdx, 0));
-            }
-        }*/
-
-        //gear index 오름차순 정렬
-        var sortVar1 = from item in CurGearList
-                       orderby item.Value.idx ascending
-                       select item;
-        sortVar1.ToDictionary(x => x.Key, x => x.Value);
-
-        
-
-        Debug.Log("CurSlot : " + CurSlot);
-    }
-
-    private void ShowGearList(SlotEquipType type)
-    {   
-    }
-
-    private void ChangeGearList()
-    {
-        
-    }
-
-
-    private void SetCursorPos(GameObject obj)
-    {
-        float newX = obj.transform.position.x;
-        float newY = Position.transform.position.y;
-        Position.transform.position = new Vector2(newX, newY);
-    }
-
-
-    private void ShowGearText()
-    {
-        int CurGearIndex = GearList[CurSelect - 1].GearIndex;
-        int CurLevel = 0;// GearList[CurSelect - 1].Level;
-
-
-        string name_id = string.Format("GearName.{0}", CurGearIndex);
-        string desc_id = string.Format("GearDesc.{0}", CurGearIndex);
-
-
-        if (CurLevel == 0)
-        {
-            GearNameTxt.text = KOBManager.Localization.GetUILocalizedValue2(name_id);
-        }
-        else
-        {
-            GearNameTxt.text = string.Format("{0} LV{1}", KOBManager.Localization.GetUILocalizedValue2(name_id), CurLevel);
-        }
-
-        int value = Random.Range(10, 15);
-        int Per = Random.Range(40, 85);
-        int value2 = Random.Range(10, 15);
-        int Per2 = Random.Range(40, 85);
-        int value3 = Random.Range(10, 15);
-        int Per3 = Random.Range(40, 85);
-
-        GearDescTxt.text = string.Format(KOBManager.Localization.GetUILocalizedValue2(desc_id), value, Per, value2, Per2, value3, Per3);
-    }
-
-
-    private void ShowBtnState()
-    {
-        BuyBtn.gameObject.SetActive(false);
-        UpgradeBtn.gameObject.SetActive(false);
-        LockBtn.gameObject.SetActive(false);
-        NotAvailble.gameObject.SetActive(false);
-
-        int openLv = OpenLevel[CurSlot - 1];
-        if (bAvailableBaller == true)
-        {
-            if (CurBallerLevel < openLv)
-            {
-                NotAvailble.gameObject.SetActive(true);
-                TextMeshProUGUI t = NotAvailble.transform.Find("Text").GetComponent<TextMeshProUGUI>();
-                t.color = KOBUtil.GetRarityColor(CurRarity);
-                t.text = string.Format("<color=white>Available to learn after reaching</color> POWER LEVEL {0}", openLv);
-            }
-            else
-            {
-
-            }
-        }
-        else
-        {
-            NotAvailble.gameObject.SetActive(true);
-            TextMeshProUGUI t = NotAvailble.transform.Find("Text").GetComponent<TextMeshProUGUI>();
-            t.color = KOBUtil.GetRarityColor(CurRarity);
-            t.text = string.Format("<color=white>Available to learn after reaching</color> POWER LEVEL {0}", openLv);
+            saving = false; KOBManager.FrontUI.GetPopup<FrontUI_NetworkLoading>()?.Close(); Refresh(false);
+            Debug.LogException(error); KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init(UILocalization.Get("gear.failed"));
         }
     }
-
-
-    public void OnClickSlotTouch(GearSlotBaller obj)
+    private void LateUpdate() { if (ready) UpdateConnector(); }
+    private void UpdateConnector()
     {
-        int newSlot = obj.Slot;
-        Debug.Log("newSlot = " + newSlot);
-        if (newSlot != CurSlot)
-        {
-            CurSlot = newSlot;
-            SetCursorPos(obj.gameObject);
-            CurSelect = GetSelectedGear();
-            Debug.Log("new slot type " + GearSlot[CurSlot - 1].Type);
-            ShowGearList((SlotEquipType)GearSlot[CurSlot - 1].Type);
-            ShowGearText();
-            ShowBtnState();
-        }
-    }
-
-
-    public void OnClickListTouch(GearSlotBaller obj)
-    {
-        int newSelect = obj.Slot;
-        Debug.Log("newSelect = " + newSelect);
-        if (newSelect != CurSelect)
-        {
-            CurSelect = newSelect;
-            ChangeGearList();
-            ShowGearText();
-            ShowBtnState();
-        }
-    }
-
-}
-
-
-public class GearListType
-{
-    public int idx; //비활성/활성/업글가능
-    public int level; //0인경우 비활성화
-
-    public GearListType(int _idx, int _level)
-    {
-        idx = _idx;
-        level = _level;
+        var parent = (RectTransform)Position.parent; var panel = (RectTransform)BuyBtn.transform.parent;
+        panel.GetWorldCorners(corners); float bottom = parent.InverseTransformPoint(corners[1]).y - 8;
+        var slot = (RectTransform)GearSlot[currentSlot - 1].transform;
+        slot.GetWorldCorners(corners); float top = Mathf.Max(bottom + 30, parent.InverseTransformPoint(corners[0]).y + 24);
+        float x = parent.InverseTransformPoint(slot.TransformPoint(slot.rect.center)).x;
+        Position.sizeDelta = new Vector2(140, top - bottom); Position.localPosition = new Vector3(x, (top + bottom) * .5f, 0);
+        Position.gameObject.SetActive(true);
     }
 }

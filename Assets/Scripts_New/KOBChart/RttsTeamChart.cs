@@ -53,7 +53,7 @@ public class RttsTeam
     public int[] Level { get; private set; }
     public int[] Pos { get; private set; }
     public int Logo { get; private set; }
-    public string Name { get; private set; }
+    public string Name => UILocalization.Get("beach.team." + (idx % KOBConstant.TEAM_RECORD_UNIT));
 
     public RttsTeam(JsonData json)
     {
@@ -63,7 +63,7 @@ public class RttsTeam
         Level = JsonHelper.DeserializeObject<int[]>(json["Level"].ToString());
         Pos = JsonHelper.DeserializeObject<int[]>(json["Pos"].ToString());
         Logo = int.Parse(json["Logo"].ToString()); ;
-        Name = json["Name"].ToString();
+        // Display names are localized independently of the server city names.
 
     }
 }

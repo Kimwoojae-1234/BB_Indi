@@ -52,6 +52,9 @@ public class TR_RewardComp : MonoBehaviour
     private KOBRewardInfo rewardInfo;
     private int trophy;
     private bool isTouched = false;
+    private bool portraitLayoutSaved;
+    private Vector3 portraitBaseScale;
+    private Vector2 portraitBasePosition;
 
     public void Init(TrophyRoad data, int key, Transform par, TrophyRewartState state)
     {
@@ -185,7 +188,7 @@ public class TR_RewardComp : MonoBehaviour
     {
         //10/50/100/300/1000
         item[0].gameObject.SetActive(true);
-        txtName.text = "Gold";
+        UILocalization.Set(txtName, "ui.c57604db5869");
         txtMount.gameObject.SetActive(true);
         txtMount.text = rewardInfo.amount.ToString();
         Image goldImage = item[0].GetComponent<Image>();
@@ -198,7 +201,7 @@ public class TR_RewardComp : MonoBehaviour
     private void setGem()
     {
         item[1].gameObject.SetActive(true);
-        txtName.text = "Gem";
+        UILocalization.Set(txtName, "ui.ae634fdf7461");
         txtMount.gameObject.SetActive(true);
         txtMount.text = rewardInfo.amount.ToString();
         Image gemImage = item[1].GetComponent<Image>();
@@ -212,7 +215,7 @@ public class TR_RewardComp : MonoBehaviour
     private void setEnergy()
     {
         item[2].gameObject.SetActive(true);
-        txtName.text = "Energy";
+        UILocalization.Set(txtName, "ui.437bcb151127");
         txtMount.gameObject.SetActive(true);
         txtMount.text = rewardInfo.amount.ToString();
     }
@@ -220,7 +223,7 @@ public class TR_RewardComp : MonoBehaviour
     private void setBat()
     {
         item[3].gameObject.SetActive(true);
-        txtName.text =  string.Format("Bat{0}", rewardInfo.pindex);
+        txtName.text =  UILocalization.Format("ui.4ccf299380fb", rewardInfo.pindex);
         txtMount2.gameObject.SetActive(true);
         txtMount2.text = string.Format("X{0}", rewardInfo.amount);
     }
@@ -229,20 +232,31 @@ public class TR_RewardComp : MonoBehaviour
     {
         item[4].gameObject.SetActive(true);
         int pIndex = rewardInfo.pindex;
+        if (trType == TR_Type.RttsReward) pIndex = KOBManager.MyInfo.GameData.ManageInfo.SelectBaller;
         if (pIndex == KOBConstant.BALLPER_YOUPLAY) pIndex = KOBManager.MyInfo.UISelectedBaller; // UI_Baller관련 됨 (명성트로피로드 보상이기때문)
 
         CharacterData ballerData = KOBManager.Backend.Chart.CharacterData.GetData(pIndex); //고정정보 - 선수고유정보
 
         Image Portrait = item[4].transform.Find("Item").GetComponent<Image>();
+        if (!portraitLayoutSaved)
+        {
+            portraitBaseScale = Portrait.rectTransform.localScale;
+            portraitBasePosition = Portrait.rectTransform.anchoredPosition;
+            portraitLayoutSaved = true;
+        }
+        Portrait.rectTransform.localScale = portraitBaseScale * 1.2f;
+        Portrait.rectTransform.anchoredPosition = portraitBasePosition + new Vector2(0, 5);
         if (ballerData != null) 
         {
-            txtName.text = ballerData.name_id;// KOBManager.Localization.GetUILocalizedValue2(ballerData.name_id);
-            KOBManager.Resource.LoadBallerPortrait(Portrait, ballerData.char_idx);
+            UILocalization.Set(txtName, ballerData.name_id);
+            if (!BallerFacePortraits.Apply(Portrait, ballerData.char_idx))
+                KOBManager.Resource.LoadBallerPortrait(Portrait, ballerData.char_idx);
         }
         else
         {
             txtName.text = KOBTextUtil.GetCardType(rewardInfo.reward);
-            KOBManager.Resource.LoadBallerPortrait(Portrait, pIndex);
+            if (!BallerFacePortraits.Apply(Portrait, pIndex))
+                KOBManager.Resource.LoadBallerPortrait(Portrait, pIndex);
         }
         txtMount2.gameObject.SetActive(true);
         txtMount2.text = string.Format("X{0}", rewardInfo.amount);
@@ -260,7 +274,7 @@ public class TR_RewardComp : MonoBehaviour
         if (spr != null)
         {
             spr.sprite = KOBManager.Atlas.GetRewarBox(rarity);
-            txtName.text = "Box";
+            UILocalization.Set(txtName, "ui.239ca5767afa");
             spr.SetNativeSize();
         }
     }
@@ -303,7 +317,7 @@ public class TR_RewardComp : MonoBehaviour
         }
         else if (State == TrophyRewartState.Acquired)
         {
-            KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init("This reward has already been obtained.");//
+            KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init(UILocalization.Get("ui.c06933b195a1"));//
             isTouched = false;
         }
     }

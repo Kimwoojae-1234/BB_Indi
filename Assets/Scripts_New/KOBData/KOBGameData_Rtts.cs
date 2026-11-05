@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -32,15 +32,23 @@ public partial class KOBGameData : BackendData.Base.GameData
 
         //리그 순위
         int[] stading = KOBManager.Rtts.GetLeagueStanding();     //내등수와 승,무,패
-        if (stading[0] == 1 ||  //1위 인 경우
-            curLeague == 0)     //또는 현재 리그 튜토리얼 리그인 경우 무조건 다음리그로 이어지게
+        bool qualifiesForPromotion = stading[0] == 1 || curLeague == 0;
+#if BEACH_LEAGUE_ONE_GAME_TEST
+        // Exercise promotion after one match even when the test match is lost.
+        qualifiesForPromotion = true;
+#endif
+        if (qualifiesForPromotion)
         {
             RttsInfo info = KOBManager.Backend.Chart.RttsInfo.GetRttsInfo(curLeague + 1);
-            if(info?.Open == true) //다음리그 데이터가 있는 경우
+            if (info?.Open == true)
             {
                 isNextLeagueExist = true;
-                nextLeague = curLeague + 1; //다음 리그로 진출할 수 있도록 설정
+                nextLeague = curLeague + 1;
             }
+        }
+        // Preserve the actual standings and championship reward eligibility.
+        if (stading[0] == 1 || curLeague == 0)
+        {
             int resultStep = (int)UI_RTTSResult.ResultStep.LeagueStading; //현재 보상 스텝
             int reward_index = KOBManager.Backend.Chart.RttsResultReward.GetRewardIndex(curLeague, resultStep); //해당 보상 인덱스
             rewardData.Add(resultStep, KOBManager.Backend.Chart.RewardData.GetRewards(reward_index)); //리스트에 담는다
@@ -73,6 +81,7 @@ public partial class KOBGameData : BackendData.Base.GameData
         TResultRttsLeagueUpgrade req = new TResultRttsLeagueUpgrade()
         {
             ErrorCode = errorCode,
+            CurrentLeague = curLeague,
             NextLeague = nextLeague,
             FinalStanding = stading,
             HRLeader = leaders[0],
@@ -178,10 +187,13 @@ public partial class KOBGameData : BackendData.Base.GameData
         };
 
         //MyInfo는 화면용 복사본이므로, 이번 경기 포인트가 반영된 실제 저장 객체의 값을 사용합니다.
-        List<KOBRewardInfo> milestoneRewards = KOBManager.Rtts.GetRttsRewardInfo(RttsInfo.RewardPoint);
-        if (milestoneRewards != null)
+        // Award every milestone crossed by this match, including multi-point gains.
+        int previousPoint = RttsInfo.RewardPoint - System.Math.Max(0, req.RttsRewardPoint);
+        foreach (int point in KOBManager.Rtts.RewardWinList)
         {
-            kobRewardList.AddRange(milestoneRewards);
+            if (point <= previousPoint || point > RttsInfo.RewardPoint) continue;
+            var milestoneRewards = KOBManager.Rtts.GetRttsRewardInfo(point, req.ballerIdx);
+            if (milestoneRewards != null) kobRewardList.AddRange(milestoneRewards);
         }
 
         for (int i = 0; i < kobRewardList.Count; i++)

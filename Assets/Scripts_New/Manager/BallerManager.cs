@@ -91,16 +91,13 @@ public class BallerManager : MonoBehaviour
     {
         Dictionary<int, KOBLineupInfo> LineupList = KOBManager.MyInfo.GameData.DeckInfo.LineupList;
 
-        bool exists = LineupList.Values.Any(x => x.idx == baller_idx); //라인업에 해당 볼러가 있는지 알아내는 여부
+        var newLineup = SetAutoLineup_SeletedBaller(baller_idx);
+        var newLineup2 = SetAutoLineup_Order(newLineup);
+        var newLineup3 = SetAutoLineup_Position(newLineup2);
+        bool exists = LineupList.Count == newLineup3.Count && newLineup3.All(pair =>
+            LineupList.TryGetValue(pair.Key, out var current) && current.idx == pair.Value.idx && current.position == pair.Value.position); //라인업에 해당 볼러가 있는지 알아내는 여부
         if (exists == false)
         {
-            //라인업짜고
-            Dictionary<int, KOBLineupInfo> newLineup = SetAutoLineup_SeletedBaller(baller_idx);
-            //배팅오더 짜고
-            Dictionary<int, KOBLineupInfo> newLineup2 = SetAutoLineup_Order(newLineup);
-            //수비위치 정함
-            Dictionary<int, KOBLineupInfo> newLineup3 = SetAutoLineup_Position(newLineup2);
-
             TRequestChangeDeck req = new TRequestChangeDeck()
             {
                 NewDeck = newLineup3,
@@ -163,34 +160,9 @@ public class BallerManager : MonoBehaviour
             newLineupList.Add(info);
             pos++;
         }
-        newLineupList = newLineupList.OrderByDescending(x => x.lineup_power).ToList();
-        if (newLineupList.Count > 8) newLineupList.RemoveRange(8, newLineupList.Count - 8); //8개 이상이면 제거
-
-        if (selected_idx > 0) //선택된 플레이어 강제 추가 이슈
-        {
-            int existingIndex = newLineupList.FindIndex(item => item.idx == selected_idx);
-
-            if (existingIndex == -1) // 리스트에 없으면
-            {
-                //마지막 선수의 포지션 체크
-                KOBLineupInfo removeItem = newLineupList[newLineupList.Count - 1];
-                int removePos = removeItem.position;
-
-                //선택된 선수 라인업인포 만들기
-                KOBBaller SelectedPlayer = KOBManager.MyInfo.GameData.GetBaller(selected_idx);
-                int power = KOBBallerUtil.GetBallerOverallPower(SelectedPlayer.idx, SelectedPlayer.level);
-                KOBLineupInfo AddItem = new KOBLineupInfo()
-                {
-                    idx = SelectedPlayer.idx,
-                    position = removePos,
-                    lineup_power = power,
-                };
-
-                //마지막거 빼고, 선택된 놈 넣기
-                newLineupList.RemoveAt(newLineupList.Count - 1);
-                newLineupList.Add(AddItem);
-            }
-        }
+        newLineupList = BeachLeagueRules.Roster(newLineupList, x => x.idx,
+            x => KOBManager.Backend.Chart.CharacterData.GetData(x.idx)?.char_type == CharacterType.Ballers,
+            x => x.lineup_power, selected_idx);
 
         int order = 1;
         Dictionary<int, KOBLineupInfo> newLineup = new Dictionary<int, KOBLineupInfo>();
@@ -230,7 +202,7 @@ public class BallerManager : MonoBehaviour
         {
             KOBBaller cur = KOBManager.MyInfo.GameData.GetBaller(lineup.Value.idx);
             int lineup_power = KOBBallerUtil.GetBallerBattingPower(lineup.Value.idx, cur.level);
-            if(lineup.Key == selected_idx)
+            if(lineup.Value.idx == selected_idx)
             {
                 lineup_power = (lineup_power * 110) / 100; //선택 선수인 경우 10% 추가 배팅 바워로 타순 정함
             }
@@ -252,6 +224,15 @@ public class BallerManager : MonoBehaviour
         for (int i = 0; i < targetKeys.Length; i++)
         {
             newLineup[targetKeys[i]] = sortedValues[i];
+        }
+
+        // Keep the controlled Baller fourth in every match.
+        int selectedOrder = newLineup.FirstOrDefault(p => p.Value.idx == selected_idx).Key;
+        if (selectedOrder > 0 && selectedOrder != 4 && newLineup.ContainsKey(4))
+        {
+            var fourth = newLineup[4];
+            newLineup[4] = newLineup[selectedOrder];
+            newLineup[selectedOrder] = fourth;
         }
 
         //키값 기준 오름차순 정렬

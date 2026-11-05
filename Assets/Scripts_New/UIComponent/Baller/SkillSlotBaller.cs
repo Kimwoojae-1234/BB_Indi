@@ -57,7 +57,7 @@ public class SkillSlotBaller : MonoBehaviour
         if(SkillTypeTxt != null)
         {
             SkillTypeTxt.color = (state == 3 ? Color.white : Color.gray);
-            SkillTypeTxt.text = (type == 1 ? "H SKILL" : "F SKILL");
+            SkillTypeTxt.text = (type == 1 ? UILocalization.Get("ui.972cb465acf0") : UILocalization.Get("ui.c5ba8eced538"));
         }
     }
 

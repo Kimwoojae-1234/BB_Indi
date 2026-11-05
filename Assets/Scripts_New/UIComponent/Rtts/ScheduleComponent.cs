@@ -50,7 +50,7 @@ public class ScheduleComponent : MonoBehaviour
 
             //SpineUtil.ReplayAnimation(VsAnim);
             VsAnim.gameObject.SetActive(true);
-            DateTxt.text = "Today Match";
+            UILocalization.Set(DateTxt, "ui.147d79124857");
             DateTxt.color = Color.white;
 
             Result1Txt.gameObject.SetActive(false);
@@ -73,7 +73,7 @@ public class ScheduleComponent : MonoBehaviour
             int round = (KOBManager.Rtts.PlayGame) + gab; //zero base
             if (_gab < 0) //이전 경기
             {                
-                DateTxt.text = string.Format("{0} Round Result", KOBTextUtil.ToOrdinal(round + 1));  //zerobase이므로 1 더해줄것
+                UILocalization.Set(DateTxt, "ui.706fb1d4fcec", KOBTextUtil.ToOrdinal(round + 1));  //zerobase이므로 1 더해줄것
                 DateTxt.color = new Color32(149, 165, 166, 255); // #95A5A6 회색
                 
                 int[] Score = null;
@@ -90,9 +90,9 @@ public class ScheduleComponent : MonoBehaviour
             }
             else
             {
-                DateTxt.text = string.Format("{0} Round Match", KOBTextUtil.ToOrdinal(round));
+                UILocalization.Set(DateTxt, "ui.31dd8a4351d0", KOBTextUtil.ToOrdinal(round));
                 DateTxt.color = Color.white;
-                Result1Txt.text = "Upcoming";
+                UILocalization.Set(Result1Txt, "ui.523baab918ef");
                 Result1Txt.color = new Color32(26, 188, 156, 255); 
                 Result2Txt.text = "VS";
             }

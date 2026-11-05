@@ -22,9 +22,9 @@ public class InboxComponent : MonoBehaviour
     [SerializeField] private TextMeshProUGUI cardAmount;
 
 
-    [SerializeField] private GameObject btnClaim; //º¸»óÀÖ´Â ¹öÆ°
+    [SerializeField] private GameObject btnClaim; //ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½Æ°
     [SerializeField] private Image btnIcon;
-    [SerializeField] private GameObject btnOk; //º¸»ó ¾ø´Â ¹öÆ°
+    [SerializeField] private GameObject btnOk; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
 
 
     int idx = -1;
@@ -32,7 +32,7 @@ public class InboxComponent : MonoBehaviour
         
     public void Init(PostData postData)
     {
-        //Portrait //ÃßÈÄ
+        //Portrait //ï¿½ï¿½ï¿½ï¿½
         idx = postData.idx;
         gameObject.name = string.Format("Post_idx{0}", idx);
         title.text = postData.title.ToUpper();
@@ -45,16 +45,16 @@ public class InboxComponent : MonoBehaviour
         if (postData.isCanReceive == false ||
            postData.postReward.Count == 0)
         {
-            //³ëº¸»ó            
+            //ï¿½ëº¸ï¿½ï¿½            
             btnClaim.gameObject.SetActive(false);
             btnOk.gameObject.SetActive(true);
         }
         else
         {
-            //º¸»ó            
+            //ï¿½ï¿½ï¿½ï¿½            
             setRewardUI(postData.postReward);
             btnClaim.gameObject.SetActive(true);
-            btnIcon.gameObject.SetActive(true); //ÃßÈÄ ±¤°í
+            btnIcon.gameObject.SetActive(true); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             btnOk.gameObject.SetActive(false);
         }
     }
@@ -63,26 +63,26 @@ public class InboxComponent : MonoBehaviour
     {
         if (postReward.Count >= 2)
         {
-            //»óÀÚ·Î Ç¥½Ã            
+            //ï¿½ï¿½ï¿½Ú·ï¿½ Ç¥ï¿½ï¿½            
             rewardObj.SetActive(true);
             rewardImg.sprite = KOBManager.Atlas.GetSprite(AtlasManager.MyAtlas.RandomBox, "itembox1");
             rewardImg.GetComponent<RectTransform>().sizeDelta = new Vector2(185, 185);
-            rewardAmount.text = "BOX";
+            UILocalization.Set(rewardAmount, "ui.5d27af0eb9a7");
         }
         else
         {
-#if false //ÃßÈÄ ´Ù½Ã ¸¸µé°Í
+#if false //ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
             if (postReward[0].reward == KOBReward.Card)
             {
                 cardObj.SetActive(true);
                 KOBManager.Resource.LoadBallerPortrait(cardImg, postReward[0].pindex);
-                cardAmount.text = string.Format("+{0}", postReward[0].amount);
+                UILocalization.Set(cardAmount, "Arena.Ads.Point", postReward[0].amount);
             }
             else
 #endif
             {
                 rewardObj.SetActive(true);
-                //¾ÆÀÌÄÜ Ç¥½Ã
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
                 if (postReward[0].reward == KOBReward.Gold)
                 {
                     rewardImg.sprite = KOBManager.Atlas.GetSprite(AtlasManager.MyAtlas.UIIcon, "Icon_ShopIcon_Gold0");
@@ -96,7 +96,7 @@ public class InboxComponent : MonoBehaviour
                     rewardImg.sprite = KOBManager.Atlas.GetSprite(AtlasManager.MyAtlas.UIIcon, "Icon_Energy_Green");
                 }
                 rewardImg.SetNativeSize();
-                rewardAmount.text = string.Format("+{0}", postReward[0].amount);
+                UILocalization.Set(rewardAmount, "Arena.Ads.Point", postReward[0].amount);
             }
         }
     }
@@ -110,14 +110,14 @@ public class InboxComponent : MonoBehaviour
             PostData data = (PostData)obj;
             if(data.isCanReceive == true)
             {
-                //º¸»ó ÆË¾÷
-                Debug.Log("º¸»óÆË¾÷ ³ª¿Â´Ù");
+                //ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¾ï¿½
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½Ë¾ï¿½ ï¿½ï¿½ï¿½Â´ï¿½");
                 rewardSetting(data);
             }
             else
             {
-                //¿©±â¼­ ¸¶¹«¸®
-                Debug.Log("±×³É³¡");
+                //ï¿½ï¿½ï¿½â¼­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                Debug.Log("ï¿½×³É³ï¿½");
             }            
             KOBManager.FrontUI.GetPopup<FrontUI_NetworkLoading>()?.Close();
             KOBManager.Popup.GetPopup<Popup_Inbox>()?.SetClaimAllBtn(KOBManager.Backend.PostList.Count);
@@ -127,7 +127,7 @@ public class InboxComponent : MonoBehaviour
 
     private void rewardSetting(PostData data)
     {
-        //ÇöÀç ÀÌºÎºÐ ¸¸Á·½º·´Áö ¾ÊÀ½
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ÌºÎºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         KOBManager.FrontUI.OpenPopup<FrontUI_NetworkLoading>();
         List<AdminPostReward> list = new List<AdminPostReward>();
         for (int i = 0; i < data.postReward.Count; i++)
@@ -135,7 +135,7 @@ public class InboxComponent : MonoBehaviour
             list.Add(data.postReward[i]);
         }
 
-        //¿ì¼± ÀÓ½Ã - ÃßÈÄ ¿©·¯°Ô¸¦ ÇÒ¼ö ÀÖ´Â°É·Î
+        //ï¿½ì¼± ï¿½Ó½ï¿½ - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô¸ï¿½ ï¿½Ò¼ï¿½ ï¿½Ö´Â°É·ï¿½
         TRequestRewardInfo req = new TRequestRewardInfo()
         {
             Reward = new KOBRewardInfo()

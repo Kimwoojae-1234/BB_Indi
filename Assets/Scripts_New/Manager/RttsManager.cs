@@ -344,6 +344,8 @@ public class RttsManager : MonoBehaviour
             return;
         }
 
+        BeachLeagueChanges.Capture();
+        FrontAudio.PlaySimulation();
         _roundInProgress = true;
         _roundComplete = onComplete;
         _returnToRttsWindow = returnToRttsWindow;
@@ -373,6 +375,7 @@ public class RttsManager : MonoBehaviour
         {
             var simulation = new RttsGameSimulation(League, PlayGame, Seed);
             _pendingMyResult = simulation.CreateResultTemplate(game[0], game[1], todayIsHome);
+            RttsLiveRoster.Begin(_pendingMyResult, League, KOBManager.MyInfo.GameData.ManageInfo.SelectBaller);
 
             tempSelectPage.ConfigureDongneYagu();
             Mode.BeginRttsGame(
@@ -436,6 +439,7 @@ public class RttsManager : MonoBehaviour
 
     private IEnumerator simulateMyGame(Action action)
     {
+        FrontAudio.PlaySimulation();
         int[] game = todaySchedule[0];
         try
         {
@@ -458,7 +462,7 @@ public class RttsManager : MonoBehaviour
 
         LastGameResult = result;
         CurrentMyResult = result.GetResultForFirstTeam();
-        CurrentMyXP = 0;
+        CurrentMyXP = PassCatalog.Current.xpPerGame;
 
         int selectedBaller = KOBManager.MyInfo.GameData.ManageInfo.SelectBaller;
         RttsPlayerGameRecord selectedRecord = result.FirstTeamPlayers.Find(player => player.PlayerIndex == selectedBaller);
@@ -563,11 +567,9 @@ public class RttsManager : MonoBehaviour
             if (source == null) continue;
 
             // 교체된 선발은 벤치 배열로 이동할 수 있으므로 현재 배열 위치가 아니라
-            // 경기 시작 당시 타순(originLineup)으로 RTTS 선수를 찾습니다.
-            int battingOrder = source.originLineup;
-            if (battingOrder < 0 || battingOrder >= destination.Count) continue;
-
-            RttsPlayerGameRecord target = destination[battingOrder];
+            // MakePlayerLocal에 연결한 RTTS 선수 ID로 기록을 귀속합니다.
+            RttsPlayerGameRecord target = destination.Find(p => p.PlayerIndex == source.RttsPlayerId);
+            if (source.RttsPlayerId <= 0 || target == null) continue;
             target.Record[RttsPlayerGameRecord.Game] = 1;
             target.Record[RttsPlayerGameRecord.PlateAppearance] = source.getStat(BallPlayParam.ST_PA);
             target.Record[RttsPlayerGameRecord.AtBat] = source.getStat(BallPlayParam.ST_AB);
@@ -670,6 +672,7 @@ public class RttsManager : MonoBehaviour
 
     private void CompleteRound()
     {
+        FrontAudio.StopSimulation();
         try
         {
             MyRttsInfo leagueInfo = KOBManager.Backend.GameData.KOBGameData.RttsInfo;
@@ -746,6 +749,8 @@ public class RttsManager : MonoBehaviour
 
     private void AbortRound(string message, Exception exception)
     {
+        FrontAudio.StopSimulation();
+        FrontAudio.WindowOpened(KOBManager.UI.GetCurrentUIType() ?? typeof(UI_LobbyRe));
         Debug.LogError(message + "\n" + exception);
         Mode.EndRttsGame();
         _roundInProgress = false;
@@ -858,63 +863,31 @@ public class RttsManager : MonoBehaviour
         RewardWinList.Clear();
 
         RttsReward rewardInfo = KOBManager.Backend.Chart.RttsReward.GetRttsReward(League);
-        int TotalGame = KOBManager.Backend.Chart.RttsInfo.GetRttsInfo(League).TotalGame;
-        bool bFirstTry = isLeagueFirstTry();
-
-        int[] small = rewardInfo.small_reward_pos;
-        int[] big = rewardInfo.big_reward_pos;
-        int bigValue = big[0];
-        int smallValue = small[0];
-        
-  
-
-        //이 작업을 로비 진입시 하여 글로벌에 보관한다!!!!!
-        for (int i = 0; i < TotalGame; i++)
+        // The one-game promotion test must not truncate the chart's reward road.
+        int totalPoints = KOBManager.Backend.Chart.RttsInfo.GetRttsInfo(League).RewardRoadLength;
+        bool firstTry = isLeagueFirstTry();
+        for (int point = 1; point <= totalPoints; point++)
         {
-            int count = i + 1;
-
-            if (count == TotalGame)
-            {
-                //최종
-                //Debug.Log("최종 보상 : " + count);
-                if (RttsRewardList.ContainsKey(count) == false)
-                {
-                    RttsRewardList.Add(count, new int[] { 0, rewardInfo.winall_reward[0], rewardInfo.winall_reward[1] });
-                    RewardWinList.Add(count);
-                }
-            }
-            else
-            {
-                bool bCardGet = false;
-                
-                if (bCardGet == false)
-                {
-                    if (bFirstTry == true && count == bigValue)
-                    {
-                        Debug.Log("빅 보상 : " + count);
-                        if (RttsRewardList.ContainsKey(count) == false)
-                        {
-                            RttsRewardList.Add(count, new int[] { 0, big[2], big[3] });
-                            RewardWinList.Add(count);
-                        }
-                        bigValue += big[1];
-                    }
-                    else if (count == smallValue)
-                    {
-                        Debug.Log("스몰 보상 : " + count);
-                        if (RttsRewardList.ContainsKey(count) == false)
-                        {
-                            RttsRewardList.Add(count, new int[] { 0, small[2], small[3] });
-                            RewardWinList.Add(count);
-                        }
-                        smallValue += small[1];
-                    }
-                }
-            }
+            int[] entry = null;
+            if (point == totalPoints && rewardInfo.winall_reward?.Length >= 2)
+                entry = new[] { 0, rewardInfo.winall_reward[0], rewardInfo.winall_reward[1] };
+            else if (firstTry && IsRewardPosition(point, rewardInfo.big_reward_pos))
+                entry = new[] { 0, rewardInfo.big_reward_pos[2], rewardInfo.big_reward_pos[3] };
+            else if (IsRewardPosition(point, rewardInfo.small_reward_pos))
+                entry = new[] { 0, rewardInfo.small_reward_pos[2], rewardInfo.small_reward_pos[3] };
+            if (entry == null) continue;
+            RttsRewardList.Add(point, entry);
+            RewardWinList.Add(point);
         }
     }
 
-    public List<KOBRewardInfo> GetRttsRewardInfo(int currentPoint)
+    private static bool IsRewardPosition(int point, int[] rule)
+    {
+        if (rule == null || rule.Length < 4 || rule[0] <= 0 || point < rule[0]) return false;
+        return point == rule[0] || (rule[1] > 0 && (point - rule[0]) % rule[1] == 0);
+    }
+
+    public List<KOBRewardInfo> GetRttsRewardInfo(int currentPoint, int ballerIdx)
     {
         List<KOBRewardInfo> kobRewardList = new List<KOBRewardInfo>();
         if (RttsRewardList.ContainsKey(currentPoint) == true)
@@ -929,6 +902,7 @@ public class RttsManager : MonoBehaviour
                     for (int i = 0; i < rewardData.Count; i++)
                     {
                         KOBRewardInfo reward = new KOBRewardInfo(rewardData[i]);
+                        if (reward.GetRewardType() == KOBRewardType.Card) reward.pindex = ballerIdx;
                         kobRewardList.Add(reward);
                     }
                     return kobRewardList;
@@ -938,6 +912,7 @@ public class RttsManager : MonoBehaviour
             else
             {
                 KOBRewardInfo reward = new KOBRewardInfo(_type, value[1], value[2]);
+                if (reward.GetRewardType() == KOBRewardType.Card) reward.pindex = ballerIdx;
                 kobRewardList.Add(reward);
                 return kobRewardList;
             }
@@ -982,6 +957,11 @@ public class RttsManager : MonoBehaviour
         if (returnToRttsWindow)
         {
             RefreshLeagueState();
+            if (CheckRttsLeagueEnd())
+            {
+                KOBManager.State.BackToLobby();
+                return;
+            }
             KOBManager.UI.OpenWindow<UI_RTTS>();
             return;
         }

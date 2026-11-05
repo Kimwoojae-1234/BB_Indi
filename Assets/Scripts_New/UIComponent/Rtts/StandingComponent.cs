@@ -17,6 +17,13 @@ public class StandingComponent : MonoBehaviour
 
     private int _idx;
 
+    // Rank-transition popup reuses the authored row, including its logo and record labels.
+    public void SetDisplayedRank(int rank)
+    {
+        RankTxt.text = rank.ToString();
+        bg.sprite = KOBManager.Atlas.GetStandingRankBgSprite(rank, (_idx % 1000) == 0);
+    }
+
     public void InitComp(int idx)
     {
         RttsTeam teamInfo = KOBManager.Backend.Chart.RttsTeam.GetRttsTeam(idx);

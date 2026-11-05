@@ -11,6 +11,39 @@ using BackEnd.Tcp;
 
 public class DummyNetworkManager : MonoBehaviour
 {
+#if UNITY_EDITOR
+    private int pendingGemCheats;
+    private bool gemCheatSaving;
+    private void Update()
+    {
+        if (KOBManager.MyInfo?.GameData?.CurrencyInfo == null) return;
+        var selected = UnityEngine.EventSystems.EventSystem.current?.currentSelectedGameObject;
+        bool typing = selected != null && (selected.GetComponent<TMPro.TMP_InputField>()?.isFocused == true || selected.GetComponent<UnityEngine.UI.InputField>()?.isFocused == true);
+        if (!typing && (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1)))
+        {
+            pendingGemCheats++;
+            Debug.Log("[Editor Gem Cheat] 1 key received: queued +100 gems.");
+        }
+        if (pendingGemCheats == 0 || gemCheatSaving) return;
+        var loading = KOBManager.FrontUI.GetPopup<FrontUI_NetworkLoading>();
+        if (loading != null && loading.gameObject.activeInHierarchy) return;
+        pendingGemCheats--;
+        gemCheatSaving = true;
+        SendPacket(new TRequestRewardInfo { Reward = new KOBRewardInfo(KOBReward.Gem_Free, 0, 100) }, (result, response) =>
+        {
+            gemCheatSaving = false;
+            KOBManager.FrontUI.GetPopup<FrontUI_NetworkLoading>()?.Close();
+            if (result?.IsSuccess() == true && response?.isSuccess == true)
+            {
+                foreach (var property in FindObjectsByType<LobbyPropertyComponent>(FindObjectsSortMode.None))
+                    property.InitProperty(KOBManager.UI.GetCurrentUIType());
+                KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init("[Editor] +100 Gems");
+            }
+            else KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init("[Editor] Gem save failed");
+        });
+    }
+#endif
+
     public void SendPacket(TRequestBase packetBody, BackendManager.AfterUpdateFunc onResult)
     {
         KOBManager.FrontUI.OpenPopup<FrontUI_NetworkLoading>();
@@ -44,6 +77,37 @@ public class DummyNetworkManager : MonoBehaviour
                 response = RequestBallerTrophyRoadReward(packetBody);
                 break;
 
+            case DummyURL.ShopPurchase:
+                int shopError = KOBManager.Backend.GameData.KOBGameData.BuyShopProduct(((TRequestShopPurchase)packetBody).ProductId, out var shopRewards);
+                response = new TResultShopPurchase { ErrorCode = shopError, isSuccess = shopError == 0, Rewards = shopRewards };
+                break;
+            case DummyURL.PassClaim:
+                int passError = KOBManager.Backend.GameData.KOBGameData.ClaimFreePass(((TRequestPassClaim)packetBody).Tier, out var passRewards);
+                response = new TResultShopPurchase { ErrorCode = passError, isSuccess = passError == 0, Rewards = passRewards };
+                break;
+            case DummyURL.EquipBallerGear:
+            case DummyURL.UpgradeBallerGear:
+                var gearRequest = (TRequestBallerGear)packetBody;
+                int gearError = gearRequest.Upgrade
+                    ? KOBManager.Backend.GameData.KOBGameData.UpgradeBallerGear(gearRequest.BallerIdx, gearRequest.GearIdx)
+                    : KOBManager.Backend.GameData.KOBGameData.EquipBallerGear(gearRequest.BallerIdx, gearRequest.Slot, gearRequest.GearIdx);
+                response = new TResultEquipBallerSkill { ErrorCode = gearError, isSuccess = gearError == 0 };
+                break;
+            case DummyURL.UpgradeBallerSkill:
+                var skillUpgrade = (TRequestUpgradeBallerSkill)packetBody;
+                int upgradeSkillError = KOBManager.Backend.GameData.KOBGameData.UpgradeBallerSkill(skillUpgrade.BallerIdx, skillUpgrade.SkillIdx);
+                response = new TResultEquipBallerSkill { ErrorCode = upgradeSkillError, isSuccess = upgradeSkillError == 0 };
+                break;
+            case DummyURL.EquipBallerSkill:
+                var equip = (TRequestEquipBallerSkill)packetBody;
+                int equipError = KOBManager.Backend.GameData.KOBGameData.EquipBallerSkill(equip.BallerIdx, equip.Slot, equip.SkillIdx);
+                response = new TResultEquipBallerSkill { ErrorCode = equipError, isSuccess = equipError == 0 };
+                break;
+            case DummyURL.RecruitBaller:
+                var recruit = (TRequestRecruitBaller)packetBody;
+                int recruitError = KOBManager.Backend.GameData.KOBGameData.RecruitBaller(recruit.CardIdx);
+                response = new TResultRecruitBaller { CardIdx = recruit.CardIdx, ErrorCode = recruitError, isSuccess = recruitError == 0 };
+                break;
             case DummyURL.UpgradeCard:
                 response = RequestUpgradeCard(packetBody);
                 break;

@@ -183,6 +183,7 @@ namespace BaseBall.BallPlay
         // Use this for initialization
         void Start()
         {
+            BallVisibilityOutline.Attach(ballObjSpr);
             bRelease = false;
             bHitByPitched = false;
 

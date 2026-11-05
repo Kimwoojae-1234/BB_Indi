@@ -34,6 +34,7 @@ public class soundmanager : MonoBehaviour {
     private static soundmanager Instance_;
 
     private bool SoundOn;
+    private bool settingsMuted;
 
     private void Awake()
     {
@@ -72,7 +73,7 @@ public class soundmanager : MonoBehaviour {
         //Debug.Log("Init Sound");
         int count = clip.Length;
         soundPlayNum = new int[count];
-        source.volume = Master_Volule;
+        ApplySettingsVolume();
         source.loop = false;
     }
 
@@ -81,7 +82,7 @@ public class soundmanager : MonoBehaviour {
     public void SetVolume(bool bSoundOn)
     {
         //Master_Volule = bSoundOn ? 0.35f : 0;
-        source.volume = Master_Volule;
+        ApplySettingsVolume();
         SoundOn = bSoundOn;
         if (SoundOn == false)
         {            
@@ -104,7 +105,13 @@ public class soundmanager : MonoBehaviour {
 
     public void SoundMute(bool bActive)
     {
-        source.volume = bActive ? 0 : Master_Volule;
+        settingsMuted = bActive;
+        ApplySettingsVolume();
+    }
+
+    public void ApplySettingsVolume()
+    {
+        if (source != null) source.volume = settingsMuted ? 0 : Master_Volule * ClientSettings.SoundVolume;
     }
 
     public void SoundStop()

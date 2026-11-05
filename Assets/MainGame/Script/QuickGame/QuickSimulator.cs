@@ -203,8 +203,11 @@ namespace BaseBall.BallPlay
 
         }
 
+        private void OnEnable() { FrontAudio.PlaySimulation(); }
+
         private void OnDisable()
         {
+            FrontAudio.StopSimulation();
             setHoldFastForward(false, false);
         }
 
@@ -430,6 +433,12 @@ namespace BaseBall.BallPlay
 
             if (!updatePresentation) return;
 
+            if (Mode.bRttsMode)
+            {
+                cardInfo[curIndex].SetRttsInfo(curBatter);
+                cardInfo[1 - curIndex].SetRttsInfo(curPitcher);
+                return;
+            }
             int lineup = curLineupCount[curIndex];
             int idx = curLineupCount[curIndex] + (curIndex * 10);
             int logo = curIndex == 0 ? logoValue1[lineup] : logoValue2[lineup];
@@ -498,6 +507,8 @@ namespace BaseBall.BallPlay
 
             topBottom.spriteName = (bTopInning ? "inningchange_top" : "inningchange_bottom");
             inningLabel.text = inning.ToString();
+            QuickSimLabelArt.Apply(topBottom, "inning_" + Mathf.Clamp(inning, 1, 12) + (bTopInning ? "_top" : "_bottom"), 76, 24, -8.1f);
+            inningLabel.enabled = false;
             arrowObj.transform.localScale = new Vector3((bMyTurn ? 1 : -1), 1, 1);
 
             if (updatePresentation)
@@ -968,9 +979,9 @@ namespace BaseBall.BallPlay
 
             yield return new WaitForSeconds(0.2f);
 
-            if (bChanceMode == true)
+            if (bChanceMode == true || Mode.bRttsMode)
             {
-                if (checkChance() == true || bGoToGameFlag == true)
+                if (Mode.bRttsMode ? RttsLiveRoster.TakeAction(inning, curBatter, curPitcher, bMyTurn) : (checkChance() || bGoToGameFlag))
                 {
                     stopFastForwardForChance();
                     StartCoroutine(setChancePopup());
@@ -1471,6 +1482,8 @@ namespace BaseBall.BallPlay
             bMyTurn = !bMyTurn;
             topBottom.spriteName = (bTopInning ? "inningchange_top" : "inningchange_bottom");
             inningLabel.text = inning.ToString();
+            QuickSimLabelArt.Apply(topBottom, "inning_" + Mathf.Clamp(inning, 1, 12) + (bTopInning ? "_top" : "_bottom"), 76, 24, -8.1f);
+            inningLabel.enabled = false;
             arrowObj.transform.localScale = new Vector3((bMyTurn ? 1 : -1), 1, 1);
         }
 
@@ -1819,6 +1832,18 @@ namespace BaseBall.BallPlay
         private bool bPopupButtonPress;
         private IEnumerator setChancePopup()
         {
+            if (Mode.bRttsMode)
+            {
+                stopFastForwardForChance();
+                bGoToGameFlag = false;
+                bPopupButtonPress = true;
+                Mode.bOnlyChanceMode = true;
+                yield return new WaitForSeconds(0.6f);
+                syncLineup();
+                manager.setChanceMode();
+                setWait(false);
+                yield break;
+            }
             stopFastForwardForChance();
             bPopupButtonPress = false;
             int index = (inning - 1) / 3;
@@ -1865,6 +1890,7 @@ namespace BaseBall.BallPlay
 
         public void setActionPlay()
         {
+            if (Mode.bRttsMode) return; // RTTS appearances are scheduled for the selected Baller.
             stopFastForwardForChance();
             Mode.bOnlyChanceMode = true;
             bPopupButtonPress = true;
@@ -1890,6 +1916,7 @@ namespace BaseBall.BallPlay
 
         public void setContinueAutoMode()
         {
+            if (Mode.bRttsMode) return; // RTTS appearances are scheduled for the selected Baller.
             stopFastForwardForChance();
             Mode.bOnlyChanceMode = false;
             bPopupButtonPress = true;

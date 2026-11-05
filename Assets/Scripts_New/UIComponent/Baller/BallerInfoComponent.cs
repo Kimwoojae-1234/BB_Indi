@@ -29,26 +29,22 @@ public class BallerInfoComponent : MonoBehaviour
         //캐릭터 로딩 -> 로드 볼러에서 이전로딩된거 자동으로 지워줌
         GameObject baller = KOBManager.Resource.LoadBaller(idx, origin.transform);
 
-        //애니메이션 설정및 버튼 여부
-        Transform animTrans = baller.transform.Find("anim");
-        if (animTrans != null)
+        touchCallBack = _callBack;
+        if (baller != null && touchCallBack != null)
         {
-            anim = animTrans.GetComponent<SkeletonGraphic>();
-            touchCallBack = _callBack;
-            Button button = animTrans.GetComponent<Button>();
-            if (button != null)
+            // Modern Ballers use Image/RawImage, not the old anim/Spine button.
+            foreach (var oldButton in baller.GetComponentsInChildren<Button>(true)) oldButton.enabled = false;
+            var button = baller.GetComponent<Button>() ?? baller.AddComponent<Button>();
+            button.enabled = true;
+            button.transition = Selectable.Transition.None;
+            foreach (var graphic in baller.GetComponentsInChildren<Graphic>(true))
             {
-                if (touchCallBack != null)
-                {
-                    //Debug.Log("버튼 초기화");
-                    button.enabled = true;
-                    button.onClick.AddListener(TouchBaller);
-                }
-                else
-                {
-                    button.enabled = false;
-                }
+                graphic.raycastTarget = graphic.name != "shadow";
+                if (graphic.raycastTarget && button.targetGraphic == null) button.targetGraphic = graphic;
             }
+            button.onClick = new Button.ButtonClickedEvent();
+            button.onClick.AddListener(TouchBaller);
+            UIButtonAudio.AttachMissing(baller);
         }
 
         //정보 업데이트

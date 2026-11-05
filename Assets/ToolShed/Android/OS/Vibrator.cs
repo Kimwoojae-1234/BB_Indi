@@ -60,6 +60,7 @@ namespace ToolShed.Android.OS
         /// <param name="amplitude">1-255 (Android API 26+)</param>
         public static void Vibrate(long milliseconds, int amplitude = VibrationEffect.DEFAULT_AMPLITUDE)
         {
+            if (!ClientSettings.Vibration) return;
 #if UNITY_ANDROID && !UNITY_EDITOR
             if (Build.Version.api < 26)
             {
@@ -77,6 +78,7 @@ namespace ToolShed.Android.OS
         /// </summary>
         public static void Vibrate(long[] pattern, int repeat)
         {
+            if (!ClientSettings.Vibration) return;
 #if UNITY_ANDROID && !UNITY_EDITOR
             if (Build.Version.api < 26)
             {
@@ -94,6 +96,7 @@ namespace ToolShed.Android.OS
         /// </summary>
         public static void Vibrate(long[] pattern, int repeat, AudioAttributes attributes)
         {
+            if (!ClientSettings.Vibration) return;
 #if UNITY_ANDROID && !UNITY_EDITOR
             if (Build.Version.api < 21)
             {
@@ -118,6 +121,7 @@ namespace ToolShed.Android.OS
         /// </summary>
         public static void Vibrate(VibrationEffect vibe)
         {
+            if (!ClientSettings.Vibration) return;
 #if UNITY_ANDROID && !UNITY_EDITOR
             if (Build.Version.api < 26)
             {
@@ -135,6 +139,7 @@ namespace ToolShed.Android.OS
         /// </summary>
         public static void Vibrate(VibrationEffect vibe, AudioAttributes attributes)
         {
+            if (!ClientSettings.Vibration) return;
 #if UNITY_ANDROID && !UNITY_EDITOR
 
             if (Build.Version.api < 21)
@@ -162,6 +167,7 @@ namespace ToolShed.Android.OS
         /// </summary>
         public static void Vibrate(AndroidJavaObject vibe, AndroidJavaObject attributes = null)
         {
+            if (!ClientSettings.Vibration) return;
 #if UNITY_ANDROID && !UNITY_EDITOR
             
             if (Build.Version.api < 26)

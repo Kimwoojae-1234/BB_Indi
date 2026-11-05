@@ -78,10 +78,10 @@ public class UI_ParameterTester : UIWindow
 
     public void SettingValue()
     {
-        TextAddXP.text = "AddXP : " + AddXP;
-        TextAddGold.text = "AddGold : " + AddGold;
-        TextAddGem.text = "AddGem : " + AddGem;
-        TextAddGameToken.text = "AddToken : " + AddToken;
+        TextAddXP.text = UILocalization.Get("ui.1036780fb7d3") + AddXP;
+        TextAddGold.text = UILocalization.Get("ui.b84d653d584d") + AddGold;
+        TextAddGem.text = UILocalization.Get("ui.5af4a7d09a70") + AddGem;
+        TextAddGameToken.text = UILocalization.Get("ui.728aac9982f6") + AddToken;
     }
 
 

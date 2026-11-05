@@ -11,10 +11,16 @@ public class Reward_Item_small : MonoBehaviour
     [SerializeField] private GameObject bonusObj;
     [SerializeField] private TextMeshProUGUI bonusTxt;
 
-    public void InitItem(KOBRewardInfo item)
+    public void InitItem(KOBRewardInfo item, Sprite iconOverride = null)
     {
         SetSpr(item);
-        amountTxt.text = string.Format("+{0}", item.amount);
+        if (iconOverride != null)
+        {
+            icon.sprite = iconOverride;
+            icon.preserveAspect = true;
+            icon.rectTransform.sizeDelta = new Vector2(140, 140);
+        }
+        UILocalization.Set(amountTxt, "Arena.Ads.Point", item.amount);
         bonusObj.gameObject.SetActive(item.unlock);
     }
 

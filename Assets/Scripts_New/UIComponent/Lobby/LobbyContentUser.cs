@@ -23,7 +23,8 @@ public class LobbyContentUser : LobbyContentButton
         if (isUpdate == false)
         {
             //닉네임 세팅
-            BtnText.text = KOBManager.MyInfo.BackkendUserInfo.nickname;
+            BtnText.text = KOBManager.MyInfo.BackkendUserInfo?.nickname ?? "Rookie";
+            Icon.sprite = UserIdentity.Portrait(KOBManager.Backend.GameData.KOBPublicData.ProfileId);
 
             //초상화 이미지 세팅
             //string potrait = string.Format("Profile_Portrait_{0:D3}", KOBManager.MyInfo.UserInfo.Profile.PortraitNo);

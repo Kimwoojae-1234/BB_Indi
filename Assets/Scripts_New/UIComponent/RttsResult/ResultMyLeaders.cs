@@ -26,31 +26,31 @@ public class ResultMyLeaders : MonoBehaviour
         if (type == LeaderType.Homerun)
         {
             plyer_idx = res.HRLeader[0];
-            _Title.text = "HOME RUN WINNER";
+            UILocalization.Set(_Title, "ui.471aff5d79fa");
             _leaderComp.Set(type, res.HRLeader, league);
         }
         else if (type == LeaderType.Avg)
         {
             plyer_idx = res.AvgLeader[0];
-            _Title.text = "BATTING AVERAGE WINNER";
+            UILocalization.Set(_Title, "ui.37100e254a11");
             _leaderComp.Set(type, res.AvgLeader, league);
         }
         else if (type == LeaderType.Rbi)
         {
             plyer_idx = res.RbiLeader[0];
-            _Title.text = "RBI WINNER";
+            UILocalization.Set(_Title, "ui.1b2220921c20");
             _leaderComp.Set(type, res.RbiLeader, league);
         }
         else if (type == LeaderType.Hit)
         {
             plyer_idx = res.HitLeader[0];
-            _Title.text = "HIT WINNER";
+            UILocalization.Set(_Title, "ui.0a5bbd2b3a70");
             _leaderComp.Set(type, res.HitLeader, league);
         }
         else if (type == LeaderType.Ops)
         {
             plyer_idx = res.OpsLeader[0];
-            _Title.text = "OPS WINNER";
+            UILocalization.Set(_Title, "ui.648c4ec226a2");
             _leaderComp.Set(type, res.OpsLeader, league);
         }
 

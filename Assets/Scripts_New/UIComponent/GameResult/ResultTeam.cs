@@ -39,9 +39,9 @@ public class ResultTeam : MonoBehaviour
         if (MyTeamName != null) MyTeamName.text = resultInfo.FirstTeamName;
         if (OppTeamName != null) OppTeamName.text = resultInfo.SecondTeamName;
 
-        SetStatItem(0, resultInfo.Stat.Hit, "HIT", 20);
+        SetStatItem(0, resultInfo.Stat.Hit, UILocalization.Get("ui.395ed46c439c"), 20);
         SetStatItem(1, resultInfo.Stat.HomeRun, "HR", 7);
-        SetStatItem(2, resultInfo.Stat.Steal, "STEAL", 5);
+        SetStatItem(2, resultInfo.Stat.Steal, UILocalization.Get("ui.33cdb7043f59"), 5);
         SetStatItem(3, resultInfo.Stat.StrikeOut, "SO", 20);
         SetStatItem(4, resultInfo.Stat.Error, "ERROR", 5);
     }

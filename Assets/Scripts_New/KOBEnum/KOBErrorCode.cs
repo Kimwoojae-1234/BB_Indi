@@ -10,5 +10,7 @@ public enum KOBErrorCode
 
     Duplicate_Trophy_Rewards,
 
-    Incorrect_Reputation_Setting_Upgrade
+    Incorrect_Reputation_Setting_Upgrade,
+    Not_Enough_Gem = 107,
+    Baller_Already_Owned = 108
 }

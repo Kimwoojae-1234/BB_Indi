@@ -61,7 +61,7 @@ public class MusicManager : MonoBehaviour {
     {
         if (activeScene.name == LobbySceneName)
         {
-            PlayLobbyMusic();
+            StopMusic(); // FrontAudio owns the window-specific lobby tracks.
         }
         else if (source != null && source.clip == lobbyMusic)
         {
@@ -108,13 +108,13 @@ public class MusicManager : MonoBehaviour {
         inPotionPlaying = false;
         int count = clip.Length;
         //bSpecialSound = false;
-        source.volume = Master_Volule;
+        ApplySettingsVolume();
     }
 
     public void SetVolume(bool bMusicOn)
     {
         //Master_Volule = bMusicOn ? 0.8f : 0;
-        source.volume = Master_Volule;
+        ApplySettingsVolume();
         MusicOn = bMusicOn;
         if (MusicOn == true)
         {
@@ -131,12 +131,18 @@ public class MusicManager : MonoBehaviour {
 
     public void PlayMusic(MusicID id)
     {
+        if (FrontAudio.SimulationPlaying) return;
         source.clip = clip[(int)id];
         source.loop = true;
         if (MusicOn == true)
         {
             source.Play();
         }
+    }
+
+    public void ApplySettingsVolume()
+    {
+        if (source != null) source.volume = Master_Volule * ClientSettings.MusicVolume;
     }
 
     public void StopMusic()

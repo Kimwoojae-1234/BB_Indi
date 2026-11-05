@@ -43,7 +43,7 @@ public class RttsRewardComponent : MonoBehaviour
         {       
             //몇경기 남음
             RemainObj.gameObject.SetActive(true);
-            ReaminWinText.text = string.Format("{0} More Point(s)", remain);
+            UILocalization.Set(ReaminWinText, "ui.af328002203f", remain);
                         
             //슬라이더 
             int lower = 0;
@@ -62,7 +62,7 @@ public class RttsRewardComponent : MonoBehaviour
             //보상아이콘
             rewardItem.gameObject.SetActive(true);
             int[] reward = KOBManager.Rtts.RttsRewardList[upper]; //보상정보
-            rewardItem.SetItem(reward[1], reward[2], false);
+            rewardItem.SetItem(reward[1], KOBManager.MyInfo.GameData.ManageInfo.SelectBaller, false, true);
         }
 
     }

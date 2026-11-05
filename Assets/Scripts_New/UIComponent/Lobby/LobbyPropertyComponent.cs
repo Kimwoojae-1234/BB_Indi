@@ -6,6 +6,24 @@ using DG.Tweening;
 
 public class LobbyPropertyComponent : MonoBehaviour
 {
+    public static void BindShopShortcuts(UIWindow window)
+    {
+        foreach (var button in window.GetComponentsInChildren<UnityEngine.UI.Button>(true))
+        {
+            if (button.name != "Button_Add") continue;
+            var parent = button.transform.parent;
+            if (parent == null || (parent.name != "Stats_Gold" && parent.name != "Stats_Gem" && parent.name != "Stats_Energe" && parent.name != "Stats_Energy")) continue;
+            button.enabled = true;
+            button.interactable = true;
+            button.onClick = new UnityEngine.UI.Button.ButtonClickedEvent();
+            button.onClick.AddListener(() =>
+            {
+                if (window is UI_Shop || KOBManager.Popup.CheckPopupOpen()) return;
+                KOBManager.UI.OpenWindow<UI_Shop>().LastWindow = window.GetType();
+            });
+        }
+    }
+
     [SerializeField] private TextMeshProUGUI TextGold = null;
     [SerializeField] private TextMeshProUGUI TextGem = null;
     [SerializeField] private TextMeshProUGUI TextEnergy = null;
@@ -29,9 +47,9 @@ public class LobbyPropertyComponent : MonoBehaviour
         lastEnergy = currencyInfo.Energy;
         lastMaxEnergy = KOBManager.MyInfo.GameData.GrowthInfo.MaxEnergy;
 
-        TextGold.text = lastGold.ToString("N0");
-        TextGem.text = lastGem.ToString("N0");
-        TextEnergy.text = string.Format("{0}/{1}", lastEnergy.ToString("N0"), lastMaxEnergy.ToString("N0"));
+        if (TextGold != null) TextGold.text = lastGold.ToString("N0");
+        if (TextGem != null) TextGem.text = lastGem.ToString("N0");
+        if (TextEnergy != null) TextEnergy.text = string.Format("{0}/{1}", lastEnergy.ToString("N0"), lastMaxEnergy.ToString("N0"));
     }
 
     private void OnDisable()

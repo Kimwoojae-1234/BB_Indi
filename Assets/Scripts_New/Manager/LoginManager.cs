@@ -190,6 +190,25 @@ public class LoginManager : MonoBehaviour
 
     private void OnLoginSuccess()
     {
+        KOBManager.MyInfo.InitUserInfo();
+        var user = KOBManager.MyInfo.BackkendUserInfo;
+        if (user == null) return;
+        if (string.IsNullOrWhiteSpace(user.nickname))
+        {
+            // Provision once. Only nickname collisions should generate another name.
+            for (int attempt = 0; attempt < 3; attempt++)
+            {
+                string nickname = "Rookie" + System.Guid.NewGuid().ToString("N").Substring(0, 5);
+                var result = Backend.BMember.CreateNickname(nickname);
+                if (result.IsSuccess()) { user.nickname = nickname; break; }
+                if (result.GetStatusCode() != "409")
+                {
+                    Debug.LogError("Initial nickname could not be saved: " + result);
+                    return;
+                }
+            }
+            if (string.IsNullOrWhiteSpace(user.nickname)) return;
+        }
         Debug.Log("Backend login success. Start server setting load.");
         KOBManager.Backend.Setting.InitFromServer();
         Debug.Log("Server setting load finished. Start chart version load.");

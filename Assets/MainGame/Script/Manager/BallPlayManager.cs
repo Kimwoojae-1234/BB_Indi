@@ -2002,7 +2002,7 @@ namespace BaseBall.BallPlay
                         yield return new WaitForSeconds(0.3f);
                     }
                     Debug_UI.SetLoading(false);
-                    yield return new WaitForSeconds(1.5f);
+                    if (!Mode.bRttsMode) yield return new WaitForSeconds(1.5f);
                     //스타팅 라인업 이벤트
                     IngameUI.StartingLineup(this);
                     playState = PlayState.PLAY_START_INNING;

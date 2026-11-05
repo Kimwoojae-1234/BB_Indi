@@ -19,6 +19,7 @@ public class UIBase : MonoBehaviour, UIEventHandler
     /// </summary>
     public virtual void Initialize()
     {
+        UIButtonAudio.AttachMissing(gameObject);
         return;
     }
 

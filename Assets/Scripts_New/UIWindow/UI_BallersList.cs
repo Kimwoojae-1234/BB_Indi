@@ -65,7 +65,7 @@ public class UI_BallersList : UIWindow
                 if (BallerList.ContainsKey(data.Key) == true)
                 {
                     //콜렉션
-                    CollectionBaller.Add(idx, new SortInfo(MakeGameCard(idx, CardBaller.CardBallerState.Collection), data.Value, BallerList[idx].level));
+                    CollectionBaller.Add(idx, new SortInfo(MakeGameCard(idx, CardBaller.CardBallerState.Collection), data.Value, BallerList[idx].level, BallerList[idx].baller_trophy));
                 }
                 else
                 {
@@ -87,6 +87,7 @@ public class UI_BallersList : UIWindow
         }
 
 
+        ApplySorting();
         int total = UnlockBaller.Count + CollectionBaller.Count;
         int baller = CollectionBaller.Count;        
         titleTxt.text = string.Format(KOBManager.Localization.GetUILocalizedValue2("UI.BallerListTitle"), baller, total);
@@ -118,6 +119,8 @@ public class UI_BallersList : UIWindow
 
             obj.transform.parent = (State == CardBaller.CardBallerState.Collection ? collection.transform : unlock.transform);
             obj.transform.localScale = Vector3.one;
+            obj.transform.localPosition = Vector3.zero;
+            obj.SetActive(true);
             return obj.transform;
         }
         else
@@ -138,6 +141,11 @@ public class UI_BallersList : UIWindow
 
         sortTxt.text = KOBManager.Localization.GetUILocalizedValue2("UI.BallerSort" + (int)sortType);
 
+        ApplySorting();
+    }
+
+    private void ApplySorting()
+    {
         CollectionBaller = SortingItem(sortType, CollectionBaller);
         UnlockBaller = SortingItem(sortType, UnlockBaller);
 

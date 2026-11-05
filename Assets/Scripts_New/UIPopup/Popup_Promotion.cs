@@ -63,19 +63,19 @@ public class Popup_Promotion : UIPopup
 
     private void SetAccountTier()
     {
-        textTitle.text = "Your Tier has increased!";
+        UILocalization.Set(textTitle, "ui.882f112f4ff8");
     }
 
 
     private void SetBallerReputation()
     {
-        textTitle.text = "Baller's Reputation has increased!";
+        UILocalization.Set(textTitle, "ui.4236f5e38f68");
     }
 
 
     private void SetLeaguePromotion()
     {
-        textTitle.text = "League Promotion achieved!";
+        UILocalization.Set(textTitle, "ui.3fade42a3adf");
     }
 
 

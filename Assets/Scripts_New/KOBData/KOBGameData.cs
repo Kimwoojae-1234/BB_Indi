@@ -166,7 +166,11 @@ public partial class KOBGameData : BackendData.Base.GameData
         if(isCurrencyChange == true) 
             param.Add("CurrencyInfo", CurrencyInfo);
         if (isGrowthChange == true)
+        {
             param.Add("GrowthInfo", GrowthInfo);
+            // BACKND rankings require a numeric top-level column on a private table.
+            param.Add("Trophy", GrowthInfo.Trophy);
+        }
         if (isTutoChange == true)
             param.Add("TutoInfo", TutoInfo);
         if (isRttsChange == true)
@@ -211,6 +215,8 @@ public partial class KOBGameData : BackendData.Base.GameData
         UnityEngine.Debug.Log("KOBGameData LocalDataUpdate");
         changeFlagSetting(false);
         KOBManager.MyInfo.UserInfoUpdate();
+        if (!string.IsNullOrEmpty(KOBManager.Backend.GameData.KOBPublicData.GetInDate()))
+            KOBManager.Backend.TrophyRanking.Sync();
     }
 
     public override void RevertData()

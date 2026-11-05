@@ -23,6 +23,7 @@ public class GearAttributesChart : Chart
     // 차트 정보 불러오는 함수는 BackendData.Base.Chart의 BackendChartDataLoad를 참고해주세요
     protected override void LoadChartDataTemplate(JsonData json)
     {
+        _dictionary.Clear();
         foreach (JsonData eachItem in json)
         {
             GearAttributes info = new GearAttributes(eachItem);

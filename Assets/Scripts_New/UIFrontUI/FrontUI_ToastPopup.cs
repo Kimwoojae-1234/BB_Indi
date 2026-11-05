@@ -23,7 +23,7 @@ public class FrontUI_ToastPopup : UIFrontUI
             _process = null;
         }
         _process = PopupProcess();
-        PopupText.text = Text;
+        UILocalization.Set(PopupText, Text);
         Open();        
         StartCoroutine(_process);
     }

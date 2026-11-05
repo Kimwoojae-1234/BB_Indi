@@ -23,6 +23,8 @@ public class UIWindow : UIBase
     public virtual void OpenWindow()
     {
         this.gameObject.SetActive(true);
+        LobbyPropertyComponent.BindShopShortcuts(this);
+        FrontAudio.WindowOpened(GetType());
         SetTransition(TransitionType);
     }
 

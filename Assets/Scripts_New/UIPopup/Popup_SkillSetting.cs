@@ -1,412 +1,286 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.U2D;
-using TMPro;
-using BackEnd;
-using System.Linq;
 
 public class Popup_SkillSetting : UIPopup
 {
-
     [SerializeField] private SkillSlotBaller[] SkillSlot;
     [SerializeField] private SkillSlotBaller[] SkillList;
     [SerializeField] private RectTransform origin;
     [SerializeField] private TextMeshProUGUI SkillNameTxt;
     [SerializeField] private TextMeshProUGUI SkillDescTxt;
     [SerializeField] private RectTransform Position;
-    [SerializeField] private GameObject LearnBtn;
-    [SerializeField] private GameObject UpgradeBtn;
-    [SerializeField] private GameObject LockBtn; //누르면 언제 업글 가능한지 알려줘
-    [SerializeField] private GameObject NotAvailble;
-
-
-    //private GameObject BallerObj;
+    [SerializeField] private GameObject LearnBtn, UpgradeBtn, LockBtn, NotAvailble;
     public delegate void OnCloseEvent();
-    private OnCloseEvent CallBack = null;
-
-
-
-    private Dictionary<int, SkillListType> HittingSkillList = new Dictionary<int, SkillListType>();
-    private Dictionary<int, SkillListType> FieldingSkillList = new Dictionary<int, SkillListType>();
-    private int CurSlot = 1;
-    private int CurSelect = 1;
-    private bool bAvailableBaller;
-    private int[] OpenLevel = new int[6];
-    private int CurBallerLevel;
-    private KOBRarity CurRarity;
+    private OnCloseEvent CallBack;
+    private int ballerIdx, curSlot, selectedSkill;
+    private bool saving, ready;
+    private Button equipButton;
+    private TMP_Text equipLabel, upgradeLabel;
+    private Button upgradeButton;
+    private readonly List<SkillListType> displayed = new();
+    private GameObject lunaImage, lunaVideo;
+    private bool imageWasActive, videoWasActive;
+    private SkillPanelConnector connector;
+    private readonly Vector3[] corners = new Vector3[4];
 
     public override void Open()
     {
         base.Open();
-
-        
+        ready = false;
+        saving = false;
+        Position.gameObject.SetActive(false);
+        equipButton = LearnBtn.GetComponent<Button>();
+        equipButton.onClick.RemoveListener(OnClickEquip);
+        equipButton.onClick.AddListener(OnClickEquip);
+        // Reuse the authored button, replacing its unused price layout with one label.
+        equipLabel = LearnBtn.transform.GetChild(1).GetComponent<TMP_Text>();
+        LearnBtn.transform.GetChild(0).gameObject.SetActive(false);
+        equipLabel.gameObject.SetActive(true);
+        equipLabel.rectTransform.anchorMin = Vector2.zero;
+        equipLabel.rectTransform.anchorMax = Vector2.one;
+        equipLabel.rectTransform.offsetMin = new Vector2(20, 10);
+        equipLabel.rectTransform.offsetMax = new Vector2(-20, -10);
+        equipLabel.alignment = TextAlignmentOptions.Center;
+        equipLabel.enableAutoSizing = true;
+        equipLabel.fontSizeMax = 54;
+        equipLabel.fontSizeMin = 28;
+        var buttonRect = (RectTransform)LearnBtn.transform;
+        buttonRect.anchoredPosition = new Vector2(-270, 80);
+        buttonRect.sizeDelta = new Vector2(500, 120);
+        upgradeButton = UpgradeBtn.GetComponent<Button>();
+        upgradeButton.onClick.RemoveListener(OnClickUpgrade);
+        upgradeButton.onClick.AddListener(OnClickUpgrade);
+        if (upgradeLabel == null)
+        {
+            foreach (Transform child in UpgradeBtn.transform) child.gameObject.SetActive(false);
+            upgradeLabel = Instantiate(equipLabel, UpgradeBtn.transform);
+            upgradeLabel.name = "SkillUpgradeLabel";
+        }
+        var upgradeRect = (RectTransform)UpgradeBtn.transform;
+        upgradeRect.anchorMin = upgradeRect.anchorMax = new Vector2(.5f, 0);
+        upgradeRect.pivot = new Vector2(.5f, .5f);
+        upgradeRect.anchoredPosition = new Vector2(270, 80);
+        upgradeRect.sizeDelta = new Vector2(500, 120);
+        Position.GetComponent<Image>().enabled = false;
+        connector = Position.GetComponentInChildren<SkillPanelConnector>(true);
+        if (connector == null)
+        {
+            var tab = new GameObject("ConnectedTab", typeof(RectTransform), typeof(CanvasRenderer), typeof(SkillPanelConnector));
+            tab.transform.SetParent(Position, false);
+            var rect = (RectTransform)tab.transform;
+            rect.anchorMin = Vector2.zero; rect.anchorMax = Vector2.one;
+            rect.offsetMin = rect.offsetMax = Vector2.zero;
+            connector = tab.GetComponent<SkillPanelConnector>();
+        }
+        connector.color = new Color32(0, 126, 201, 255);
+        connector.raycastTarget = false;
     }
 
     public override void Close()
     {
+        if (saving) return;
+        ready = false;
+        RestoreLuna();
+        var callback = CallBack;
+        CallBack = null;
         base.Close();
-        if(CallBack != null)
-        {
-            CallBack();
-            CallBack = null;
-        }
+        callback?.Invoke();
     }
 
-
-    public void Setting(GameObject baller, int _idx, int _slot, OnCloseEvent callBack)
+    public void Setting(GameObject baller, int idx, int slot, OnCloseEvent callback)
     {
-        CurSlot = _slot;
-        CallBack = callBack;
-        baller.transform.parent = origin.transform;
+        RestoreLuna();
+        ballerIdx = idx;
+        curSlot = slot;
+        CallBack = callback;
+        baller.transform.SetParent(origin, false);
         baller.transform.localScale = Vector3.one;
         baller.transform.localPosition = Vector3.zero;
-
-        CharacterData ballerData = KOBManager.Backend.Chart.CharacterData.GetData(_idx); //고정정보 - 선수고유정보
-        CurRarity = ballerData.rarity;
-        if (KOBManager.MyInfo.GameData.PlayerInfo.BallerList.ContainsKey(_idx) == true) //소유
+        if (idx == 1001)
         {
-            bAvailableBaller = true;
-            KOBBaller ballerInfo = KOBManager.MyInfo.GameData.PlayerInfo.BallerList[_idx]; //변동정보 - 유저가 성장
-            SkillSlotSetting(ballerData, ballerInfo);
-
-            SkillListSetting(ballerData, ballerInfo);//, SkillSlot[CurSlot - 1].Type);
-            CurSelect = GetSelectedSkill();
-            ShowSkillList((SlotEquipType)SkillSlot[CurSlot - 1].Type);
+            lunaImage = baller.transform.Find("Image")?.gameObject;
+            lunaVideo = baller.transform.Find("CharacterVideoPlayer")?.gameObject;
+            imageWasActive = lunaImage != null && lunaImage.activeSelf;
+            videoWasActive = lunaVideo != null && lunaVideo.activeSelf;
+            if (lunaImage != null) lunaImage.SetActive(true);
+            if (lunaVideo != null) lunaVideo.SetActive(false);
         }
-        else
-        {
-            bAvailableBaller = false;
-            SkillSlotSetting(ballerData, null);
-
-            CurSelect = 1;
-            SkillListSetting(ballerData, null);//, SkillSlot[CurSlot - 1].Type);
-            ShowSkillList((SlotEquipType)SkillSlot[CurSlot - 1].Type);
-        }
-
-        ShowSkillText();
-        ShowBtnState();
-        SetCursorPos(SkillSlot[CurSlot - 1].gameObject);
+        Refresh(true);
+        ready = true;
+        Canvas.ForceUpdateCanvases();
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)transform);
+        UpdateConnector();
     }
 
-
-    private int GetSelectedSkill()
+    private void RestoreLuna()
     {
-        int EquipedSkill = SkillSlot[CurSlot - 1].SkillIndex;
-        if(EquipedSkill != 0)
-        {
-            for(int i = 0; i<SkillList.Length;i++)
-            {
-                if(SkillList[i].SkillIndex == EquipedSkill)
-                {
-                    return (i + 1);
-                }
-            }
-        }
-
-        return 1;
+        if (lunaImage != null) lunaImage.SetActive(imageWasActive);
+        if (lunaVideo != null) lunaVideo.SetActive(videoWasActive);
+        lunaImage = lunaVideo = null;
     }
 
-
-    private void SkillSlotSetting(CharacterData ballerData, KOBBaller ballerInfo)
+    private void Refresh(bool selectEquipped)
     {
-        CurBallerLevel = 0;
-        //선수수정할것 - 수정함
-        HitterSkillData skillData = KOBManager.Backend.Chart.HitterSkillData.GetData(ballerData.char_idx);
-        if (skillData != null)
+        var chart = KOBManager.Backend.Chart;
+        var character = chart.CharacterData.GetData(ballerIdx);
+        var config = chart.HitterSkillData.GetData(ballerIdx);
+        KOBManager.MyInfo.GameData.PlayerInfo.BallerList.TryGetValue(ballerIdx, out var baller);
+        int count = Mathf.Min(config?.slot_list.Count ?? 0, SkillSlot.Length);
+        curSlot = Mathf.Clamp(curSlot, 1, Mathf.Max(1, count));
+        for (int i = 0; i < SkillSlot.Length; i++)
         {
-            int Count = skillData.slot_list.Count;
-            if (ballerInfo != null) //보유함
-            {
-                CurBallerLevel = ballerInfo.level;                
-                for (int i = 0; i < SkillSlot.Length; i++)
-                {
-                    if (i < Count)
-                    {
-                        SkillSlot[i].gameObject.SetActive(true);
-                        int slot = (i + 1);                        
-                        int openLv = skillData.slot_list[i];
-                        int type = (i % 2 == 0 ? 1 : 2);//이게 개허접하네
-                        OpenLevel[i] = openLv;
-                        if (CurBallerLevel < openLv)
-                        {
-                            //잠김
-                            SkillSlot[i].SetLock(slot, type, openLv, ballerData.rarity);
-                        }
-                        else
-                        {
-                            //bool bEquip = false;
-                            int skillIndex = 0;
-                            if (ballerInfo.SkillEquip.ContainsKey(slot) == true)
-                            {
-                                skillIndex = ballerInfo.SkillEquip[slot];
-                            }
-
-                            if (skillIndex == 0) //비었음
-                            {
-                                SkillSlot[i].SetEmpty(slot, type);
-                            }
-                            else //스킬 있음
-                            {
-                                int SkillLV = ballerInfo.SkillList[skillIndex].level; //스킬 레벨
-                                SkillSlot[i].SetSkill(skillIndex, slot, type,  SkillLV);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        SkillSlot[i].gameObject.SetActive(false);
-                    }
-                }
-            }
-            else //볼러 미보유
-            {                
-                for (int i = 0; i < SkillSlot.Length; i++)
-                {
-                    if (i < Count)
-                    {
-                        SkillSlot[i].gameObject.SetActive(true);
-                        int slot = (i + 1);
-                        int openLv = skillData.slot_list[i];
-                        int type = (i % 2 == 0 ? 1 : 2);//이게 개허접하네
-                        OpenLevel[i] = openLv;
-                        //미보유시 Lock형태
-                        SkillSlot[i].SetLock(slot, type, openLv, ballerData.rarity); 
-                    }
-                    else
-                    {
-                        SkillSlot[i].gameObject.SetActive(false);
-                    }
-                }
-            }
+            SkillSlot[i].gameObject.SetActive(i < count);
+            if (i >= count) continue;
+            int slot = i + 1, type = i % 2 == 0 ? 1 : 2;
+            if (baller == null || baller.level < config.slot_list[i])
+                SkillSlot[i].SetLock(slot, type, config.slot_list[i], character.rarity);
+            else if (baller.SkillEquip.TryGetValue(slot, out int equipped) && chart.SkillData.GetData(equipped) != null)
+                SkillSlot[i].SetSkill(equipped, slot, type, SkillLevel(baller, equipped));
+            else SkillSlot[i].SetEmpty(slot, type);
         }
-    }
-
-
-
-    private void SkillListSetting(CharacterData ballerData, KOBBaller ballerInfo)
-    {
-        HittingSkillList.Clear();
-        FieldingSkillList.Clear();
-
-        if (ballerInfo != null) //보유시
-        {
-            //일부라도 성장이 되있는 경우
-            foreach (KeyValuePair<int, KOBSkill> skill in ballerInfo.SkillList) //info로 부터
-            {
-                int skillindex = skill.Key;
-                KOBSkill value = skill.Value;
-                SlotEquipType curType = KOBUtil.GetEquipType(skillindex);
-                if (curType == SlotEquipType.HittingSkill)
-                {
-                    HittingSkillList.Add(skillindex, new SkillListType(skillindex, value.level));
-                }
-                else if (curType == SlotEquipType.FieldingSkill)
-                {
-                    FieldingSkillList.Add(skillindex, new SkillListType(skillindex, value.level));
-                }
-            }
-        }
-
-        //선수수정할것- 수정함
-        //아직 아무것도 없는 경우
-        HitterSkillData skillData = KOBManager.Backend.Chart.HitterSkillData.GetData(ballerData.char_idx);
-        if (skillData != null)
-        {
-            for (int i = 0; i < skillData.skill_list.Count; i++) //data로 부터
-            {
-                int skillIdx = skillData.skill_list[i];
-                SlotEquipType curType = KOBUtil.GetEquipType(skillIdx);
-                if (curType == SlotEquipType.HittingSkill)
-                {
-                    if (HittingSkillList.ContainsKey(skillIdx) == false)
-                    {
-                        HittingSkillList.Add(skillIdx, new SkillListType(skillIdx, 0));
-                    }
-                }
-                else if (curType == SlotEquipType.FieldingSkill)
-                {
-                    if (FieldingSkillList.ContainsKey(skillIdx) == false)
-                    {
-                        FieldingSkillList.Add(skillIdx, new SkillListType(skillIdx, 0));
-                    }
-                }
-            }
-        }
-
-        //skill index 오름차순 정렬
-        var sortVar1 = from item in HittingSkillList
-                      orderby item.Value.idx ascending
-                      select item;
-        sortVar1.ToDictionary(x => x.Key, x => x.Value);
-
-        var sortVar2 = from item in FieldingSkillList
-                       orderby item.Value.idx ascending
-                       select item;
-        sortVar2.ToDictionary(x => x.Key, x => x.Value);
-
-
-        Debug.Log("CurSlot : " + CurSlot);
-    }
-
-    private void ShowSkillList(SlotEquipType type)
-    {
-        int count = 0;
-        for (int i = 0; i < SkillList.Length; i++) SkillList[i].gameObject.SetActive(false);
-        if (type == SlotEquipType.HittingSkill)
-        {
-            foreach (KeyValuePair<int, SkillListType> list in HittingSkillList)
-            {
-                int skillindex = list.Key;
-                int Slot = (count + 1);
-
-                SkillList[count].gameObject.SetActive(true);
-                SkillList[count].SetList(skillindex, Slot, 1,  list.Value.level);
-                SkillList[count].SetSelect(CurSelect);
-                count++;
-            }
-        }
-        else if (type == SlotEquipType.FieldingSkill)
-        {
-            foreach (KeyValuePair<int, SkillListType> list in FieldingSkillList)
-            {
-                int skillindex = list.Key;
-                int Slot = (count + 1);
-                SkillList[count].gameObject.SetActive(true);
-                SkillList[count].SetList(skillindex, Slot, 2, list.Value.level);
-                SkillList[count].SetSelect(CurSelect);
-                count++;
-            }
-        }
-    }
-
-    private void ChangeSkillList()
-    {
+        displayed.Clear();
+        var typeWanted = curSlot % 2 == 1 ? SlotEquipType.HittingSkill : SlotEquipType.FieldingSkill;
+        if (config != null)
+            foreach (int id in config.skill_list.Distinct().OrderBy(id => id))
+                if (KOBUtil.GetEquipType(id) == typeWanted && chart.SkillData.GetData(id) != null)
+                    displayed.Add(new SkillListType(id, baller != null && baller.SkillList.ContainsKey(id) ? SkillLevel(baller, id) : 0));
+        if (selectEquipped) selectedSkill = baller != null && baller.SkillEquip.TryGetValue(curSlot, out int equippedId) ? equippedId : 0;
+        if (!displayed.Take(SkillList.Length).Any(s => s.idx == selectedSkill)) selectedSkill = displayed.Count > 0 ? displayed[0].idx : 0;
         for (int i = 0; i < SkillList.Length; i++)
         {
-            SkillList[i].SetSelect(CurSelect);
+            SkillList[i].gameObject.SetActive(i < displayed.Count);
+            if (i >= displayed.Count) continue;
+            SkillList[i].SetList(displayed[i].idx, i + 1, (int)typeWanted, displayed[i].level);
+            SkillList[i].SetSelect(displayed[i].idx == selectedSkill ? i + 1 : -1);
         }
+        ShowSkillText();
+        UpgradeBtn.SetActive(false);
+        LockBtn.SetActive(false);
+        bool open = count > 0 && baller != null && baller.level >= config.slot_list[curSlot - 1];
+        NotAvailble.SetActive(!open);
+        if (!open)
+        {
+            var text = NotAvailble.transform.Find("Text").GetComponent<TextMeshProUGUI>();
+            if (baller == null) UILocalization.Set(text, "skill.equip.unowned");
+            else if (count > 0) UILocalization.Set(text, "ui.ee88765859d7", config.slot_list[curSlot - 1]);
+            else UILocalization.Set(text, "skill.equip.empty");
+        }
+        bool alreadyEquipped = baller != null && baller.SkillEquip.TryGetValue(curSlot, out int current) && current == selectedSkill;
+        LearnBtn.SetActive(open && selectedSkill > 0);
+        equipButton.interactable = !saving && !alreadyEquipped;
+        UILocalization.Set(equipLabel, alreadyEquipped ? "skill.equip.equipped" : "skill.equip.action");
+        bool learned = baller != null && baller.SkillList.TryGetValue(selectedSkill, out var ownedSkill) && ownedSkill != null && ownedSkill.level > 0;
+        UpgradeBtn.SetActive(open && learned);
+        if (open && learned)
+        {
+            int currentLevel = SkillLevel(baller, selectedSkill);
+            int max = SkillProgression.MaxLevel(chart.SkillData.GetData(selectedSkill));
+            int cost = SkillProgression.UpgradeGold(currentLevel + 1);
+            bool atMax = currentLevel >= max;
+            upgradeButton.interactable = !saving && !atMax && cost > 0;
+            if (atMax) UILocalization.Set(upgradeLabel, "skill.upgrade.max", max);
+            else UILocalization.Set(upgradeLabel, "skill.upgrade.action", cost.ToString("N0"));
+        }
+        ((RectTransform)LearnBtn.transform).anchoredPosition = new Vector2(open && learned ? -270 : 0, 80);
     }
 
-
-    private void SetCursorPos(GameObject obj)
-    {
-        float newX = obj.transform.position.x;
-        float newY = Position.transform.position.y;
-        Position.transform.position = new Vector2(newX, newY);
-    }
-
+    private static int SkillLevel(KOBBaller baller, int id) =>
+        baller.SkillList.TryGetValue(id, out var learned) && learned != null ? Mathf.Max(1, learned.level) : 1;
 
     private void ShowSkillText()
     {
-        int CurSkillIndex = SkillList[CurSelect - 1].SkillIndex;
-        int CurLevel = SkillList[CurSelect - 1].Level;
-        SkillData skillData = KOBManager.Backend.Chart.SkillData.GetData(CurSkillIndex);
-
-        int level = 0;
-        if (CurLevel == 0)
+        var skill = KOBManager.Backend.Chart.SkillData.GetData(selectedSkill);
+        if (skill == null)
         {
-            SkillNameTxt.text = KOBManager.Localization.GetUILocalizedValue2(skillData.name_id);
+            UILocalization.Set(SkillNameTxt, "skill.equip.empty"); SkillDescTxt.text = ""; return;
         }
-        else
+        var entry = displayed.First(s => s.idx == selectedSkill);
+        int level = Mathf.Max(1, entry.level);
+        UILocalization.Set(SkillNameTxt, "skill.equip.name", UILocalization.Get(skill.name_id), level);
+        int[] values = new int[6];
+        for (int i = 0; i < Mathf.Min(3, skill.level_value.Count); i++)
         {
-            SkillNameTxt.text = string.Format("{0} LV{1}", KOBManager.Localization.GetUILocalizedValue2(skillData.name_id), CurLevel);
-            level = CurLevel - 1;
+            var value = skill.level_value[i];
+            if (value.Val != null && value.Val.Length > 0) values[i * 2] = value.Val[Mathf.Min(level - 1, value.Val.Length - 1)];
+            if (value.Per != null && value.Per.Length > 0) values[i * 2 + 1] = value.Per[Mathf.Min(level - 1, value.Per.Length - 1)];
         }
-
-        int[] value = new int[3];
-        int[] Per = new int[3];
-        for(int i = 0; i< skillData.level_value.Count; i++)
-        {
-            value[i] = skillData.level_value[i].Val[level];
-            Per[i] = skillData.level_value[i].Per[level];
-        }
-
-        SkillDescTxt.text = string.Format(KOBManager.Localization.GetUILocalizedValue2(skillData.desc_id), value[0], Per[0], value[1], Per[1], value[2], Per[2]);
+        UILocalization.Set(SkillDescTxt, skill.desc_id, values[0], values[1], values[2], values[3], values[4], values[5]);
     }
 
-
-    private void ShowBtnState()
+    public void OnClickSlotTouch(SkillSlotBaller slot)
     {
-        LearnBtn.gameObject.SetActive(false);
-        UpgradeBtn.gameObject.SetActive(false);
-        LockBtn.gameObject.SetActive(false);
-        NotAvailble.gameObject.SetActive(false);
-
-        int openLv = OpenLevel[CurSlot - 1];
-        if (bAvailableBaller == true)
+        if (saving || slot.Slot == curSlot) return;
+        curSlot = slot.Slot; Refresh(true);
+        Canvas.ForceUpdateCanvases(); UpdateConnector();
+    }
+    public void OnClickListTouch(SkillSlotBaller skill)
+    {
+        if (saving) return;
+        selectedSkill = skill.SkillIndex; Refresh(false);
+    }
+    public void OnClickEquip()
+    {
+        if (saving || selectedSkill <= 0 || !equipButton.interactable) return;
+        SendSkillChange(new TRequestEquipBallerSkill { BallerIdx = ballerIdx, Slot = curSlot, SkillIdx = selectedSkill });
+    }
+    public void OnClickUpgrade()
+    {
+        if (saving || selectedSkill <= 0 || !upgradeButton.interactable) return;
+        SendSkillChange(new TRequestUpgradeBallerSkill { BallerIdx = ballerIdx, SkillIdx = selectedSkill });
+    }
+    private void SendSkillChange(TRequestBase request)
+    {
+        saving = true; equipButton.interactable = upgradeButton.interactable = false;
+        try
         {
-            if(CurBallerLevel < openLv)
+            KOBManager.DummyNetwork.SendPacket(request, (callback, response) =>
             {
-                NotAvailble.gameObject.SetActive(true);
-                TextMeshProUGUI t = NotAvailble.transform.Find("Text").GetComponent<TextMeshProUGUI>();
-                t.color = KOBUtil.GetRarityColor(CurRarity);
-                t.text = string.Format("<color=white>Available to learn after reaching</color> POWER LEVEL {0}", openLv);
-            }
-            else
-            {
-
-            }
+                saving = false;
+                KOBManager.FrontUI.GetPopup<FrontUI_NetworkLoading>()?.Close();
+                if (callback?.IsSuccess() != true || response?.isSuccess != true)
+                    KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init(UILocalization.Get(response?.ErrorCode == (int)KOBErrorCode.Not_Enough_Gold ? "skill.upgrade.gold" : "skill.equip.failed"));
+                else
+                    KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init(UILocalization.Get(request is TRequestUpgradeBallerSkill ? "skill.upgrade.success" : "skill.equip.success"));
+                Refresh(false);
+                KOBManager.UI.GetUIWindow<UI_Ballers>()?.UpdateInfo(ballerIdx);
+            });
         }
-        else
-        {            
-            NotAvailble.gameObject.SetActive(true);
-            TextMeshProUGUI t = NotAvailble.transform.Find("Text").GetComponent<TextMeshProUGUI>();
-            t.color = KOBUtil.GetRarityColor(CurRarity);
-            t.text = string.Format("<color=white>Available to learn after reaching</color> POWER LEVEL {0}", openLv);
-        }
-    }
-
-
-    public void OnClickSlotTouch(SkillSlotBaller obj)
-    {
-        int newSlot = obj.Slot;
-        Debug.Log("newSlot = " + newSlot);
-        if(newSlot != CurSlot)
+        catch (Exception error)
         {
-            CurSlot = newSlot;            
-            SetCursorPos(obj.gameObject);
-            CurSelect = GetSelectedSkill();
-            Debug.Log("new slot type " + SkillSlot[CurSlot - 1].Type);
-            ShowSkillList((SlotEquipType)SkillSlot[CurSlot - 1].Type);
-            ShowSkillText();
-            ShowBtnState();
+            saving = false;
+            KOBManager.FrontUI.GetPopup<FrontUI_NetworkLoading>()?.Close();
+            Refresh(false);
+            Debug.LogException(error);
+            KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init(UILocalization.Get("skill.equip.failed"));
         }
     }
 
-
-    public void OnClickListTouch(SkillSlotBaller obj)
+    private void LateUpdate() { if (ready) UpdateConnector(); }
+    private void UpdateConnector()
     {
-        int newSelect = obj.Slot;
-        Debug.Log("newSelect = " + newSelect);
-        if (newSelect != CurSelect)
-        {
-            CurSelect = newSelect;
-            ChangeSkillList();
-            ShowSkillText();
-            ShowBtnState();
-        }
+        if (curSlot < 1 || curSlot > SkillSlot.Length || !SkillSlot[curSlot - 1].gameObject.activeSelf) return;
+        var parent = (RectTransform)Position.parent;
+        var panel = (RectTransform)LearnBtn.transform.parent;
+        panel.GetWorldCorners(corners);
+        float bottom = parent.InverseTransformPoint(corners[1]).y - 8;
+        var slot = (RectTransform)SkillSlot[curSlot - 1].transform;
+        slot.GetWorldCorners(corners);
+        float top = Mathf.Max(bottom + 30, parent.InverseTransformPoint(corners[0]).y + 24);
+        float x = parent.InverseTransformPoint(slot.TransformPoint(slot.rect.center)).x;
+        Position.sizeDelta = new Vector2(140, top - bottom);
+        Position.localPosition = new Vector3(x, (top + bottom) * .5f, 0);
+        Position.gameObject.SetActive(true);
     }
-
 }
-
 
 public class SkillListType
 {
-    public int idx; //비활성/활성/업글가능
-    public int level; //0인경우 비활성화
-
-    public SkillListType(int _idx, int _level)
-    {
-        idx = _idx;
-        level = _level;
-    }
+    public int idx, level;
+    public SkillListType(int id, int lv) { idx = id; level = lv; }
 }
-
-public enum SlotEquipType
-{
-    HittingSkill = 1,
-    FieldingSkill = 2,
-    Gear = 11,
-}
+public enum SlotEquipType { HittingSkill = 1, FieldingSkill = 2, Gear = 11 }

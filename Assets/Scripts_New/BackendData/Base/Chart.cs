@@ -12,6 +12,17 @@ namespace BackendData.Base {
     // 차트 불러오기에 대한 공통적인 로직을 가진 클래스
     //===============================================================
     public abstract class Chart : Normal {
+        // Presentation build: these checked-in charts take precedence over BACKND.
+        public void LoadLocalOrBackend(AfterBackendLoadFunc completed) {
+            var asset = Resources.Load<TextAsset>("Prototype/Charts/" + GetChartFileName());
+            if (asset == null) { BackendChartAndSave(completed); return; }
+            try { LoadChartDataTemplate(JsonMapper.ToObject(asset.text)); }
+            catch (Exception error) {
+                completed(false, GetType().Name, nameof(LoadLocalOrBackend), error.ToString());
+                return;
+            }
+            completed(true, GetType().Name, nameof(LoadLocalOrBackend), "");
+        }
 
         // Backend.Chart.GetChartContents 호출 시 리턴되는 json(Flatten)을 처리하는 함수
         // 각 자식 객체에서 형태에 맞게 설정해야한다.

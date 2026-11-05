@@ -3552,6 +3552,7 @@ namespace BaseBall.BallPlay
         //투수교체후 각종 파라메터를 세팅
         public void setPitcherChange(CPlayer player, int pIndex, int team, bool bStart)
         {
+            if (Mode.bRttsMode && !bStart) return;
             manager.nCurPitcherPitchNum[team] = 0;
             ////////UnityEngine.//Debug.Log("====================>>setPitcherChange 이게먼저");
             //선발포함 투수가 세팅할때 단 한번 불려지는 함수이다
@@ -3667,6 +3668,7 @@ namespace BaseBall.BallPlay
         //수동교체
         public void setManualPitcherChange(int inPitcherIndex,int outPitcherIndex)
         {
+            if (Mode.bRttsMode) return;
             inPitcher = inPitcherIndex;
             outPitcher = outPitcherIndex;
             setChangeFlagInit(manager.defenseIndex);            
@@ -3779,6 +3781,7 @@ namespace BaseBall.BallPlay
         //checkChangePitcher를 호출하여 투수가 교체 되었는지 여부를 리턴해줌
         public bool checkPitcherChanged()
         {
+            if (Mode.bRttsMode) return false;
 #if _Local_Balance
             //로컬밸런스에 의한
             if (InGameDebug._NO_CHANGE_PLAYER == true)

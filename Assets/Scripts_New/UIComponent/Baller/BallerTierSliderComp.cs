@@ -23,13 +23,13 @@ public class BallerTierSliderComp : MonoBehaviour
         //Debug.Log("curTrophy : " + tierInfo.CurTrophy + "          nextTrophy : " + tierInfo.NextTrophy);
         if (tierInfo.isMax == true)
         {
-            trophyTxt.text = "MAX";
+            UILocalization.Set(trophyTxt, "ButtonTxt.Max");
         }
         else
         {
             if (isMaxShow)
             {
-                trophyTxt.text = string.Format("{0}/{1}", baller.baller_trophy, tierInfo.NextTrophy);// ballerInfo.baller_trophy.ToString(); //Æ®·ÎÇÇÅØ½ºÆ®
+                trophyTxt.text = string.Format("{0}/{1}", baller.baller_trophy, tierInfo.NextTrophy);// ballerInfo.baller_trophy.ToString(); //Æ®ï¿½ï¿½ï¿½ï¿½ï¿½Ø½ï¿½Æ®
             }
             else
             {
@@ -55,7 +55,7 @@ public class BallerTierSliderComp : MonoBehaviour
         KOBManager.Atlas.SetBallerTierSprite(TierImg, tierInfo.CurTier);
         if (tierInfo.isMax == true)
         {
-            trophyTxt.text = "MAX";
+            UILocalization.Set(trophyTxt, "ButtonTxt.Max");
             TierSlider.value = 1;
         }
         else
@@ -71,7 +71,7 @@ public class BallerTierSliderComp : MonoBehaviour
                 curValue = x;
                 if (tierInfo.isMax == true)
                 {
-                    trophyTxt.text = "MAX";
+                    UILocalization.Set(trophyTxt, "ButtonTxt.Max");
                     TierSlider.value = 1;
                 }
                 else
@@ -82,7 +82,7 @@ public class BallerTierSliderComp : MonoBehaviour
 
                 if(curValue > tierInfo.NextTrophy)
                 {
-                    Debug.Log("Æ¼¾î : ¿¬Ãâ µµÁß Æ¼¾î ¹Ù²ï °æ¿ì!!");
+                    Debug.Log("Æ¼ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Æ¼ï¿½ï¿½ ï¿½Ù²ï¿½ ï¿½ï¿½ï¿½!!");
                     isTierUpgrade = true;
                     tierInfo = KOBManager.Backend.Chart.BallerTrophyRoadData.GetTierInfo(curValue + 10);
                     KOBManager.Atlas.SetBallerTierSprite(TierImg, tierInfo.CurTier);
@@ -92,7 +92,7 @@ public class BallerTierSliderComp : MonoBehaviour
             .SetDelay(delay)
             .OnComplete(() =>
             {
-                //Debug.Log("¾Ö´Ï¸ÞÀÌ¼Ç ¿Ï·á!");
+                //Debug.Log("ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½Ï·ï¿½!");
                 if (baller.baller_trophy >= tierInfo.NextTrophy ||
                     isTierUpgrade == true)
                 {

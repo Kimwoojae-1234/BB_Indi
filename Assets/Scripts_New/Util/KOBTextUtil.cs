@@ -6,16 +6,16 @@ using UnityEngine;
 public static class KOBTextUtil
 {
 
-    public static string[] _RecordTypeName = new string[] { "Home Run", "Batting\nAverage", "Run Batted In", "Number of\nHits", "On-base\nPlus Slugging" };
+    public static string[] _RecordTypeName => new string[] { UILocalization.Get("ui.ecf97abbc4b5"), UILocalization.Get("ui.9acfc28b3e11"), UILocalization.Get("ui.48c3eda42f37"), UILocalization.Get("ui.97724e923ef0"), UILocalization.Get("ui.4109aee5faa1") };
 
     public static string GetMyTeamName()
     {
-        return "<color=#ffff00>MY TEAM</color>";
+        return UILocalization.Get("ui.4d050045d551");
     }
 
     public static string GetMyPlayerName(int idx)
     {
-        return "<color=#ffff00>MY PLAYER</color>";
+        return UILocalization.Get(KOBManager.Backend.Chart.CharacterData.GetData(idx)?.name_id ?? "");
     }
 
 
@@ -23,11 +23,11 @@ public static class KOBTextUtil
     {
         if (rank <= 0)
         {
-            return "<color=#ffff00>RANK</color> - ";
+            return UILocalization.Get("ui.14dfd4fe467b");
         }
         else
         {
-            return string.Format("<color=#ffff00>RANK</color> {0} ", ToOrdinal(rank));
+            return UILocalization.Format("ui.ff53c335fc87", ToOrdinal(rank));
         }
     }
 
@@ -45,7 +45,7 @@ public static class KOBTextUtil
 
         if (isDetailShow)
         {
-            return string.Format("{0} (W{1} D{2} L{3})", per, w, d, l);
+            return UILocalization.Format("ui.021833c2a40d", per, w, d, l);
         }
         else
         {
@@ -56,7 +56,7 @@ public static class KOBTextUtil
 
     public static string ToOrdinal(int number)
     {
-        if (number <= 0) return number.ToString();
+        if (number <= 0 || UILocalization.Language != "en") return number.ToString();
 
         int lastTwo = number % 100;
 
@@ -79,15 +79,15 @@ public static class KOBTextUtil
     {
         if (score1 == score2)
         {
-            return "TIE";
+            return UILocalization.Get("ui.3f9069621a44");
         }
         else if (score1 > score2)
         {
-            return "WIN";
+            return UILocalization.Get("ui.662fae5f621a");
         }
         else
         {
-            return "LOSS";
+            return UILocalization.Get("ui.72ab4b12b8a9");
         }
     }
 
@@ -95,15 +95,15 @@ public static class KOBTextUtil
     {
         if (score1 == score2)
         {
-            return new Color32(149, 165, 166, 255); // #95A5A6 È¸»ö
+            return new Color32(149, 165, 166, 255); // #95A5A6 È¸ï¿½ï¿½
         }
         else if (score1 > score2)
         {
-            return new Color32(76, 175, 80, 255);   // #4CAF50 ÃÊ·Ï
+            return new Color32(76, 175, 80, 255);   // #4CAF50 ï¿½Ê·ï¿½
         }
         else
         {
-            return new Color32(231, 76, 60, 255);   // #E74C3C »¡°­
+            return new Color32(231, 76, 60, 255);   // #E74C3C ï¿½ï¿½ï¿½ï¿½
         }
     }
 
@@ -122,15 +122,15 @@ public static class KOBTextUtil
         switch (reward)
         {
             case KOBReward.Card_Black:
-                return "Black Card";
+                return UILocalization.Get("ui.56d3f4f620f8");
             case KOBReward.Card_Legend:
-                return "Legend Card";
+                return UILocalization.Get("ui.d8fd756f00d3");
             case KOBReward.Card_Epic:
-                return "Epic Card";
+                return UILocalization.Get("ui.a770463e4e13");
             case KOBReward.Card_Rare:
-                return "Rare Card";
+                return UILocalization.Get("ui.c2b39e11fc28");
             default:
-                return "Common Card";
+                return UILocalization.Get("ui.8609d467ec7e");
         }
     }
 }

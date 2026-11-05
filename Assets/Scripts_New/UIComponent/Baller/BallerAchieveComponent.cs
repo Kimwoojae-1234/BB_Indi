@@ -35,13 +35,13 @@ public class BallerAchieveComponent : MonoBehaviour
         Noti.gameObject.SetActive(false);
 
 
-        Dictionary<int, int> AchievementList = KOBManager.MyInfo.GameData.GrowthInfo.AchievementList[BallerIdx];
+        KOBManager.MyInfo.GameData.GrowthInfo.AchievementList.TryGetValue(BallerIdx, out var AchievementList);
         int rawValue = GetRawValue(BallerIdx, data.rIndex);
 
         //정식
-        if (AchievementList.ContainsKey(idx) == true)
+        if (AchievementList != null && AchievementList.ContainsKey(idx))
         {
-            Lv = AchievementList[idx];
+            Lv = Mathf.Max(0, AchievementList[idx]);
             curMount = rawValue;
             for (int i = 0; i < Lv; i++)
             {
@@ -57,26 +57,11 @@ public class BallerAchieveComponent : MonoBehaviour
             curReward = data.reward;
         }
 
-        //테스트
-        /*Lv = Random.Range(0, 4);
-        rawValue = 0;
-        for (int i = 0; i < Lv; i++)
-        {
-            rawValue += (data.count + (i * data.next_count));
-        }
-        int random = Random.Range(0, 50);
-        rawValue += random;
-        //Debug.Log("idx : " + idx + " // Lv : " + Lv + " // random : " + random + " // rawValue : " + rawValue);
-        curMount = rawValue;
-        for (int i = 0; i < Lv; i++)
-        {
-            curMount -= (data.count + (i * data.next_count));
-        }
-        achiveMount = data.count + Lv * data.next_count;
-        curReward = data.reward + Lv * data.add_reward;
-        //테스트 여기까지*/
 
 
+
+        curMount = Mathf.Max(0, curMount);
+        achiveMount = Mathf.Max(1, achiveMount);
         bool bClaim = (curMount >= achiveMount ? true : false);
 
         if (bClaim == true) //클레임
@@ -92,15 +77,15 @@ public class BallerAchieveComponent : MonoBehaviour
             State[0].gameObject.SetActive(true);
             State[1].gameObject.SetActive(false);            
             processRewardGem.text = curReward.ToString();
-            processSlider.value = (float)curMount / (float)achiveMount;
+            processSlider.value = Mathf.Clamp01((float)curMount / achiveMount);
             processText.text = string.Format("{0}/{1}", curMount, achiveMount);
         }
 
         AchiveIcon.sprite = KOBManager.Atlas.GetSprite(AtlasManager.MyAtlas.UITier, string.Format("achieve_icon_{0}", idx));
         AchiveIcon.SetNativeSize();
         //언어팩
-        AchiveName.text = data.name_id + " Lv" + (Lv + 1);
-        AchiveDesc.text = data.desc_id + " " + achiveMount;
+        UILocalization.Set(AchiveName, "baller.achievement.level", UILocalization.Get(data.name_id), Lv + 1);
+        UILocalization.Set(AchiveDesc, data.desc_id, achiveMount);
     }
 
 
@@ -110,19 +95,14 @@ public class BallerAchieveComponent : MonoBehaviour
     /// </summary>
     private int GetRawValue(int BallerIdx, int rIndex)
     {
-        /*Dictionary<int, int[]> BallerStat = KOBManager.MyInfo.GameData.GrowthInfo.BallerStat[BallerIdx]; //
-        int value = 0;
-        foreach (KeyValuePair<int, int[]> item in BallerStat)
-        {
-            value += item.Value[rIndex];
-        }
-        return value;*/
-        return 0;
+        var progress = KOBManager.MyInfo.GameData.GrowthInfo.BallerAchievementProgress;
+        return progress.TryGetValue(BallerIdx, out var totals) && totals != null && totals.TryGetValue(rIndex, out int value)
+            ? Mathf.Max(0, value) : 0;
     }
 
 
     public void OnClickClaim()
     {
-        Debug.Log("OnClickClaim");
+        KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init(UILocalization.Get("baller.achievement.reward.pending"));
     }
 }

@@ -29,7 +29,7 @@ public class TR_PointComp : MonoBehaviour
             Count.gameObject.SetActive(false);
             Tier.gameObject.SetActive(true);
             KOBManager.Atlas.SetTierSprite(Tier.GetComponent<Image>(), Data.tier);
-            Tier.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "TIRE " + Data.tier; //임시
+            Tier.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = UILocalization.Get("ui.f6f05a92bf43") + Data.tier; //임시
         }
     }
 }

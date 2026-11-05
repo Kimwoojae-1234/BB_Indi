@@ -10,7 +10,7 @@ public class CareerStatComponent : MonoBehaviour
 
     public void InitTotal(int _idx, Dictionary<int, int[]> BallerStat)
     {
-        Title.text = "Career Stats";
+        UILocalization.Set(Title, "ui.0bff3b2115d6");
 
         int[] totalRecord = new int[20] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         foreach (KeyValuePair<int, int[]> stat in BallerStat)
@@ -31,7 +31,7 @@ public class CareerStatComponent : MonoBehaviour
 
     public void InitLeague(int league, int _idx, Dictionary<int, int[]> BallerStat)
     {
-        Title.text = string.Format("League {0} Stats", league);
+        UILocalization.Set(Title, "ui.a4e860f55254", league);
 
         int[] totalRecord = new int[20] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         if(BallerStat.ContainsKey(league) == true)

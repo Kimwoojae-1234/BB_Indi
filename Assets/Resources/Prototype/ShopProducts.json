@@ -1,0 +1,157 @@
+{
+  "chests": [
+    {
+      "id": "small",
+      "cards": 5,
+      "gold": 300
+    },
+    {
+      "id": "large",
+      "cards": 10,
+      "gold": 1500
+    }
+  ],
+  "products": [
+    {
+      "id": "daily_subscription",
+      "path": "Item_0",
+      "costPath": "Text_Cost",
+      "currency": "cash",
+      "cost": 0,
+      "gold": 0,
+      "cashPrice": "US $4.99",
+      "gems": 450,
+      "amountPath": "Gems/Value/Text_Value"
+    },
+    {
+      "id": "daily_chests",
+      "path": "Item_1",
+      "costPath": "Group_Cost/Text_Cost",
+      "currency": "gem",
+      "cost": 29,
+      "gold": 0,
+      "chest": "small",
+      "chestCount": 3
+    },
+    {
+      "id": "small_chest",
+      "path": "Item_2/Group_Second/Item_Gold[0]",
+      "costPath": "Group_Cost/Text_Cost",
+      "currency": "gem",
+      "cost": 12,
+      "gold": 0,
+      "chest": "small",
+      "chestCount": 1
+    },
+    {
+      "id": "large_chest",
+      "path": "Item_2/Group_Second/Item_Gold[1]",
+      "costPath": "Group_Cost/Text_Cost",
+      "currency": "gem",
+      "cost": 60,
+      "gold": 0,
+      "chest": "large",
+      "chestCount": 1
+    },
+    {
+      "id": "gold_1500",
+      "path": "Item_3/Group/Group_First/Item_Gold[0]",
+      "costPath": "Group_Cost/Text_Cost",
+      "currency": "gem",
+      "cost": 12,
+      "gold": 1500,
+      "amountPath": "Text_Gold"
+    },
+    {
+      "id": "gold_4000",
+      "path": "Item_3/Group/Group_First/Item_Gold[1]",
+      "costPath": "Group_Cost/Text_Cost",
+      "currency": "gem",
+      "cost": 48,
+      "gold": 4000,
+      "amountPath": "Text_Gold"
+    },
+    {
+      "id": "gold_12000",
+      "path": "Item_3/Group/Group_Second/Item_Gold[0]",
+      "costPath": "Group_Cost/Text_Cost",
+      "currency": "gem",
+      "cost": 120,
+      "gold": 12000,
+      "amountPath": "Text_Gold"
+    },
+    {
+      "id": "gold_25000",
+      "path": "Item_3/Group/Group_Second/Item_Gold[1]",
+      "costPath": "Group_Cost/Text_Cost",
+      "currency": "gem",
+      "cost": 240,
+      "gold": 25000,
+      "amountPath": "Text_Gold"
+    },
+    {
+      "id": "gold_60000",
+      "path": "Item_3/Group/Item_Gold",
+      "costPath": "Group_Cost/Text_Cost",
+      "currency": "gem",
+      "cost": 490,
+      "gold": 60000,
+      "amountPath": "Text_Gold"
+    },
+    {
+      "id": "gem_40",
+      "path": "Item_4/Group/Group_First/Item_Gem[0]",
+      "costPath": "Text_Cost",
+      "currency": "cash",
+      "cost": 0,
+      "gold": 0,
+      "cashPrice": "US $1.99",
+      "amountPath": "Text_Gem",
+      "gems": 40
+    },
+    {
+      "id": "gem_220",
+      "path": "Item_4/Group/Group_First/Item_Gem[1]",
+      "costPath": "Text_Cost",
+      "currency": "cash",
+      "cost": 0,
+      "gold": 0,
+      "cashPrice": "US $4.99",
+      "amountPath": "Text_Gem",
+      "gems": 220
+    },
+    {
+      "id": "gem_480",
+      "path": "Item_4/Group/Group_Second/Item_Gem[0]",
+      "costPath": "Text_Cost",
+      "currency": "cash",
+      "cost": 0,
+      "gold": 0,
+      "cashPrice": "US $11.99",
+      "amountPath": "Text_Gem",
+      "gems": 480
+    },
+    {
+      "id": "gem_1200",
+      "path": "Item_4/Group/Group_Second/Item_Gem[1]",
+      "costPath": "Text_Cost",
+      "currency": "cash",
+      "cost": 0,
+      "gold": 0,
+      "cashPrice": "US $24.99",
+      "amountPath": "Text_Gem",
+      "gems": 1200
+    },
+    {
+      "id": "gem_2100",
+      "path": "Item_4/Group/Item_Gem",
+      "costPath": "Text_Cost",
+      "currency": "cash",
+      "cost": 0,
+      "gold": 0,
+      "cashPrice": "US $49.99",
+      "amountPath": "Text_Gem",
+      "gems": 2100
+    }
+  ]
+}

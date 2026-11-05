@@ -28,11 +28,11 @@ public class BallerInfoComponent2 : MonoBehaviour
     public void ShowBallerInfo(CharacterData ballerData)
     {
         NameBar.color = KOBUtil.GetRarityColor(ballerData.rarity);
-        ballerNameTxt.text = KOBManager.Localization.GetUILocalizedValue2(ballerData.name_id);
-        ballerDescTxt.text = KOBManager.Localization.GetUILocalizedValue2(ballerData.desc_id);
+        UILocalization.Set(ballerNameTxt, ballerData.name_id);
+        UILocalization.Set(ballerDescTxt, ballerData.desc_id);
 
         string hand_type = KOBUtil.GetHandString2(ballerData.hand);
-        string char_type = KOBManager.Localization.GetUILocalizedValue2(string.Format("CharType_{0:D4}", (int)ballerData.char_type));
+        string char_type = KOBManager.Localization.GetUILocalizedValue2(string.Format("CharType_{0:D4}", (int)ballerData.playingType));
         handAndTypeTxt.text = string.Format("{0} - {1}",hand_type, char_type);
         rarityTxt.text = KOBManager.Localization.GetUILocalizedValue2(string.Format("Rarity.{0}", ballerData.rarity.ToString()));
         rarityTxt.color = KOBUtil.GetRarityColor(ballerData.rarity);

@@ -38,7 +38,7 @@ public class ResultPlayer : MonoBehaviour
         int displayedTrophy = 0;
         if (KOBManager.MyInfo.GameData.GrowthInfo.Trophy >= KOBConstant.MAX_TROPHY)
         {
-            TrophyGainTxt.text = "MAX";
+            UILocalization.Set(TrophyGainTxt, "ButtonTxt.Max");
         }
         else
         {

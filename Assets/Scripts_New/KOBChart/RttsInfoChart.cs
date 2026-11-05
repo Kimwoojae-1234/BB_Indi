@@ -51,7 +51,20 @@ public class RttsInfoChart : Chart
 public class RttsInfo
 {
     public int idx { get; private set; }
-    public int TotalGame { get; private set; }
+    private int totalGame;
+    public int RewardRoadLength => totalGame;
+    public int TotalGame
+    {
+        get
+        {
+#if BEACH_LEAGUE_ONE_GAME_TEST
+            return 1;
+#else
+            return totalGame;
+#endif
+        }
+        private set { totalGame = value; }
+    }
     public bool isSeries { get; private set; }
     public bool Playoff { get; private set; }
     public bool Open { get; private set; }

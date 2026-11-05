@@ -132,7 +132,7 @@ public class ResourceManager : MonoBehaviour
     {
         if (logo != null)
         {
-            logo.sprite = LoadSprite("TeamLogo/Middle", "LOGO001_M"); //우선 임시로LoadSprite("Sprite/TeamLogo", "team050"); //우선 임시로
+            logo.sprite = TeamLogoCatalog.MyTeam; //우선 임시로LoadSprite("Sprite/TeamLogo", "team050"); //우선 임시로
             logo.SetNativeSize();
         }
     }
@@ -140,7 +140,7 @@ public class ResourceManager : MonoBehaviour
     public Sprite LoadMyTeamLogoSprite()
     {
         //return LoadSprite("Sprite/TeamLogo", "team050"); //우선 임시로
-        return LoadSprite("TeamLogo/Middle", "LOGO001_M"); //우선 임시로
+        return TeamLogoCatalog.MyTeam; //우선 임시로
     }
 
 
@@ -153,16 +153,16 @@ public class ResourceManager : MonoBehaviour
     {
         if (logo != null)
         {
-            string logoName = string.Format("LOGO{0:D3}_M", teamIdx);
-            logo.sprite = LoadSprite("TeamLogo/Middle", logoName);
-            logo.SetNativeSize();
+            logo.sprite = TeamLogoCatalog.Opponent(teamIdx);
+            logo.enabled = logo.sprite != null;
+            logo.preserveAspect = true;
+            if (logo.sprite != null) logo.SetNativeSize();
         }
     }
 
     public Sprite LoadTeamLogo(int teamIdx)
     {
-        string logoName = string.Format("LOGO{0:D3}_M", teamIdx);
-        return LoadSprite("TeamLogo/Middle", logoName);
+        return TeamLogoCatalog.Opponent(teamIdx);
     }
 
 
@@ -170,6 +170,13 @@ public class ResourceManager : MonoBehaviour
     {
         if (portrait != null)
         {
+            var localPortrait = PrototypeBallers.Portrait(idx);
+            if (localPortrait != null)
+            {
+                portrait.sprite = localPortrait;
+                portrait.preserveAspect = true;
+                return;
+            }
             if(idx < 0) portrait.sprite = LoadSprite("BallerPortrait", "pic0000");
             else portrait.sprite = LoadSprite("BallerPortrait", string.Format("pic{0}", idx));
             portrait.SetNativeSize();
@@ -193,13 +200,9 @@ public class ResourceManager : MonoBehaviour
 
     public Texture LoadLogoTemp(int idx)
     {
-        
-        string fileName = string.Format("LOGO{0:D3}_M", idx);
-
-        Texture texture = Resources.Load<Texture>("TeamLogo/Middle/" + fileName);
-
-        return texture;
+        return TeamLogoCatalog.Texture(idx);
     }
+
 
     public void LoadBallerPortraitTemp(Image portrait, int idx)
     {

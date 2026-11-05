@@ -10,6 +10,7 @@ using static Popup_Promotion;
 
 public class UI_LobbyRe : UIWindow
 {
+    public void OnClickSetting() => KOBManager.Popup.OpenPopup<Popup_Setting>();
 
     public enum LastPlay
     {
@@ -63,6 +64,9 @@ public class UI_LobbyRe : UIWindow
     public override void Initialize()
     {
         base.Initialize();
+        var settingsButton = transform.Find("Button_Settings/Button_Settings").GetComponent<UnityEngine.UI.Button>();
+        settingsButton.onClick = new UnityEngine.UI.Button.ButtonClickedEvent();
+        settingsButton.onClick.AddListener(OnClickSetting);
                 
         LobbyStepSetting();
 
@@ -84,6 +88,10 @@ public class UI_LobbyRe : UIWindow
     public override void OpenWindow()
     {
         base.OpenWindow();
+#if UNITY_EDITOR
+        // Input polling must exist before the player's first network action.
+        _ = KOBManager.DummyNetwork;
+#endif
 
         //select baller 다시한번 세팅해줘
         int ballerIdx = KOBManager.MyInfo.GameData.ManageInfo.SelectBaller;
@@ -294,7 +302,11 @@ public class UI_LobbyRe : UIWindow
 
     public void TouchBaller()
     {
-        GetButton(BtnType.Baller).OnClickButton();
+        if (KOBManager.Popup.CheckPopupOpen()) return;
+        int idx = KOBManager.MyInfo.GameData.ManageInfo.SelectBaller;
+        var window = KOBManager.UI.OpenWindow<UI_Ballers>();
+        window.LastWindow = typeof(UI_LobbyRe);
+        window.LoadBaller(idx, CardBaller.CardBallerState.Collection);
     }
 
 

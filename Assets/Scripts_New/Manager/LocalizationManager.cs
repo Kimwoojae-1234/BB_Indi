@@ -178,7 +178,8 @@ public class LocalizationManager : MonoBehaviour//, ManagerEventHandler
     /// <returns></returns>
     public string GetUILocalizedValue2(string key, TMPro.TextMeshProUGUI TextComponent = null)
     {
-        return GetLocalizedValue2(GameConfig.CurrentLanguage, key, TextComponent);
+        if (TextComponent != null) UILocalization.Set(TextComponent, key);
+        return UILocalization.Get(key);
     }
 
 
@@ -268,7 +269,8 @@ public class LocalizationManager : MonoBehaviour//, ManagerEventHandler
 
     public string GetUILocalizedValue(string key, UnityEngine.UI.Text TextComponent)
     {
-        return GetLocalizedValue(GameConfig.CurrentLanguage, key, TextComponent);
+        // Font switching is handled by the scoped LocalizedUIText binding.
+        return UILocalization.Get(key);
     }
 
 

@@ -78,6 +78,7 @@ public class BackendManager : MonoBehaviour {
     public BackendChart   Chart = new(); // 차트 모음 클래스 생성
     public BackendGameData GameData = new(); // 게임 모음 클래스 생성
     public BackendData.Rank.Manager Rank = new(); // 랭킹 관리 클래스 생성
+    public BackendData.Rank.TrophyRanking TrophyRanking = new();
     public BackendData.Post.Manager Post = new(); // 우편 클래스 생성
 
  // 게임 데이터의 저장, 조회등 일괄적으로 처리하기 위한 List
@@ -137,6 +138,7 @@ public class BackendManager : MonoBehaviour {
         Chart = new();
         GameData = new();
         Rank = new();
+        TrophyRanking = new();
         Post = new();
     }
 
@@ -196,7 +198,7 @@ public class BackendManager : MonoBehaviour {
 
         if (gameDatas.Count <= 0)
         {
-            afterUpdateFunc(null, response); // 지정한 대리자 함수 호출
+            afterUpdateFunc?.Invoke(null, response); // 지정한 대리자 함수 호출
 
             // 업데이트할 목록이 존재하지 않습니다.
         }

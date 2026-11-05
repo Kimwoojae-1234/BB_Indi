@@ -52,9 +52,16 @@ public class BallerPowerComponent : MonoBehaviour
         }
 
         SetCard(ballerData);
-        BallerLv.text = string.Format("Power <size=65>{0}</size>           <size=40><color=#FFB200>MAX13</size></color>", ballerInfo.level);
+        UILocalization.Set(BallerLv, "ui.4594448d54f8", ballerInfo.level);
         CurIdx = ballerData.char_idx;
         CurLevel = ballerInfo.level;        
+        if (CurLevel >= KOBConstant.MAX_LEVEL)
+        {
+            UILocalization.Set(CardTxt, "ButtonTxt.Max");
+            CardSlider.value = 1;
+            InfoSetting(ballerData, CurLevel);
+            return;
+        }
         int CardNeed = KOBManager.Backend.Chart.UpgradeData.UpgradeCard(ballerInfo.level + 1, ballerData.rarity);
         int curCard = ballerInfo.card_number;
 
@@ -99,9 +106,10 @@ public class BallerPowerComponent : MonoBehaviour
         SetCard(ballerData);
         CurIdx = ballerData.char_idx;
         CurLevel = 1;
-        BallerLv.text = string.Format("Power <size=65>{0}</size>              <size=40><color=#FFFF00>MAX13</size></color>", 1);
+        UILocalization.Set(BallerLv, "ui.8e1c22deae6f", 1);
         CardSlider.value = 0;
         CardTxt.text = string.Empty;
+        UnlockFeeTxt.text = PrototypeBallers.UnlockCost(ballerData, KOBManager.MyInfo.GameData.GrowthInfo.League).ToString("N0");
         State = UpgradeState.UnlockNow;
         UnlockBtn.gameObject.SetActive(true);
         InfoBtn.gameObject.SetActive(false);
@@ -119,7 +127,12 @@ public class BallerPowerComponent : MonoBehaviour
         CardFrame[1].color = color;
         CardFrame[2].color = darkcolor;
 
-        KOBManager.Resource.LoadBallerPortrait(Portrait, ballerData.char_idx);
+        Portrait.rectTransform.anchorMin = Portrait.rectTransform.anchorMax = new Vector2(.5f, .5f);
+        Portrait.rectTransform.localScale = Vector3.one;
+        Portrait.rectTransform.sizeDelta = new Vector2(150, 150);
+        Portrait.rectTransform.anchoredPosition = new Vector2(0, 5);
+        if (!BallerFacePortraits.Apply(Portrait, ballerData.char_idx))
+            KOBManager.Resource.LoadBallerPortrait(Portrait, ballerData.char_idx);
     }
 
 
@@ -162,66 +175,34 @@ public class BallerPowerComponent : MonoBehaviour
         PhisicalTxt[0].text = PhysicValue.ToString();
 
         //스킬
-        if (skillData != null && skillData.special_skill > 0 &&
-            skillData.special_unlock != null && skillData.special_unlock.Length > 0)
+        if (skillData != null && skillData.special_skill > 0 && skillData.special_unlock != null && skillData.special_unlock.Length > 0)
         {
-            int skLv = 0;
+            int skillLevel = 0;
+            foreach (int unlockLevel in skillData.special_unlock) if (level >= unlockLevel) skillLevel++;
+            string skillName = UILocalization.Get("SkillName." + skillData.special_skill);
             SpSkillIcon.gameObject.SetActive(true);
-            int key = skillData.special_skill;
-            //int[] Value = skill.Value;
-            int nextLevel = KOBConstant.MAX_LEVEL;
-            int activateLevel = skillData.special_unlock[0];
-            for (int i = 0; i < skillData.special_unlock.Length; i++)
-            {
-                if (level <= skillData.special_unlock[i] && skillData.special_unlock[i] > 0)
-                {
-                    nextLevel = skillData.special_unlock[i];
-                    break;
-                }
-                skLv++;
-            }
-
-            if (level < activateLevel) //비활성화
-            {
-                SpSkillTxt[0].text = "Skill" + key;   //이름 임시
-                SpSkillTxt[0].color = Color.gray;
-                SpSkillTxt[1].gameObject.SetActive(false);
-                SpSkillTxt[2].gameObject.SetActive(true);
-                SpSkillTxt[2].text = string.Format("AVAILABLE AT\n<size=30>POWER{0}</size>", activateLevel);
-            }
-            else //활성화
-            {
-                SpSkillTxt[0].text = "Skill" + key + " LV " + skLv;   //이름 임시
-                SpSkillTxt[0].color = Color.white;
-                if (level == nextLevel) //업글 가능
-                {
-
-                }
-                else //업글은 불가능
-                {
-                    SpSkillTxt[2].gameObject.SetActive(true);
-                    SpSkillTxt[2].text = string.Format("UPGRADE AT\n<size=30>POWER{0}</size>", nextLevel);
-                }
-            }
-            //"AVAILABLE AT\nPOWER{0}"
-            //"AVAILABLE AT\nPOWER{0}"
-            //"UPGRADE AT\nPOWER{0}"
+            SpSkillIcon.sprite = KOBManager.Atlas.GetSprite(AtlasManager.MyAtlas.UISkill, "s" + skillData.special_skill);
+            SpSkillTxt[0].text = skillLevel > 0 ? UILocalization.Format("skill.equip.name", skillName, skillLevel) : skillName;
+            SpSkillTxt[0].color = skillLevel > 0 ? Color.white : Color.gray;
+            SpSkillTxt[1].gameObject.SetActive(false);
+            SpSkillTxt[2].gameObject.SetActive(skillLevel < skillData.special_unlock.Length);
+            if (skillLevel < skillData.special_unlock.Length)
+                UILocalization.Set(SpSkillTxt[2], skillLevel == 0 ? "ui.2b5ac696eb68" : "ui.491be28e1fdc", skillData.special_unlock[skillLevel]);
         }
         else
         {
-            SpSkillTxt[0].text = "No special skill";
+            UILocalization.Set(SpSkillTxt[0], "ui.eedf5151e400");
             SpSkillTxt[0].color = Color.gray;
             SpSkillIcon.gameObject.SetActive(false);
             SpSkillTxt[1].gameObject.SetActive(false);
             SpSkillTxt[2].gameObject.SetActive(false);
         }
 
-
         if (bUp == true && level < KOBConstant.MAX_LEVEL)
         {
             HittingTxt[1].gameObject.SetActive(true);
             PhisicalTxt[1].gameObject.SetActive(true);
-            SpSkillTxt[1].gameObject.SetActive(true);
+            SpSkillTxt[1].gameObject.SetActive(false);
 
             int nexthittinigValue = (nextLevelData.power + nextLevelData.contact + nextLevelData.vision) - hittinigValue;
             HittingTxt[1].text = "+" + nexthittinigValue;

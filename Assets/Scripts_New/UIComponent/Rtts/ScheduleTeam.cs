@@ -16,26 +16,26 @@ public class ScheduleTeam : MonoBehaviour
 
     public void Init(int idx, int gab)
     {
-        RttsTeam teamInfo = KOBManager.Rtts.GetTeam(idx); //ÀÌ°É·Î ¸®±× Á¤º¸¿Í ÇÔ²² ½ÇÁ¦ ÆÀÀÎµ¦½º·Î(10º¸´Ù Å¬¼ö ÀÖÀ½) ÆÀÁ¤º¸ ¾ò¾î¿À³ª,
+        RttsTeam teamInfo = KOBManager.Rtts.GetTeam(idx); //ï¿½Ì°É·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô²ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½(10ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,
         Dictionary<int, TeamRecord> LeagueTeamRecord = KOBManager.MyInfo.GameData.RttsInfo.LeagueTeamRecord;
         Sprite spr = null;
 
-        if (idx == 0) //³»ÆÀ Á¤º¸
+        if (idx == 0) //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         {
-            //³»ÆÀÀÎ °æ¿ì
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
             isMyTeam = true;
             spr = KOBManager.Resource.LoadMyTeamLogoSprite();
             teamTxt.text = KOBTextUtil.GetMyTeamName();
         }
         else
         {
-            //»ó´ëÆÀÀÎ °æ¿ì
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
             isMyTeam = false;
             spr = KOBManager.Resource.LoadTeamLogo(teamInfo.Logo);            
             teamTxt.text = teamInfo.Name;
         }
 
-        //·Î°í ¼¼ÆÃ
+        //ï¿½Î°ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (spr != null)
         {
             for (int i = 0; i < logo.Length; i++)
@@ -45,17 +45,17 @@ public class ScheduleTeam : MonoBehaviour
             }
         }
 
-        //ÆÀ±â·Ï °ü·Ã ¼¼ÆÃ
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (LeagueTeamRecord.ContainsKey(idx))
         {
-            recordTxt.text = string.Format("W{0} D{1} L{2}", LeagueTeamRecord[idx].Win, LeagueTeamRecord[idx].Draw, LeagueTeamRecord[idx].Lose);
+            UILocalization.Set(recordTxt, "ui.d39bd5be8014", LeagueTeamRecord[idx].Win, LeagueTeamRecord[idx].Draw, LeagueTeamRecord[idx].Lose);
             int rank = KOBManager.Rtts.CurrentRank[idx];
             rankTxt.text = KOBTextUtil.SetRankText(rank);
         }
         else
         {
-            //±â·ÏÀÌ ¾ø´Â °æ¿ì
-            recordTxt.text = "W0 D0 L0";
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+            UILocalization.Set(recordTxt, "ui.c865b555105a");
             rankTxt.text = KOBTextUtil.SetRankText(0);
         }
     }

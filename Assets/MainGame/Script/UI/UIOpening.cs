@@ -34,6 +34,50 @@ namespace BaseBall.BallPlay
         public GameObject[] light;
 
         
+        private UI2DSprite rttsLeagueLogo;
+
+        private void BindRttsOpening()
+        {
+            var league = KOBManager.Rtts;
+            league.InitStandingInfo();
+            // Panels are my team / opponent, independently of home or away.
+            for (int side = 0; side < SeasonRace.Length && side < 2; side++)
+            {
+                int team = side == 0 ? RttsManager.MY_TEAM : Mode.rttsOpponentTeamIndex;
+                int rank = BeachLeagueRules.Rank(league.StadingInfo, team);
+                int[] record = league.CurrentWinDrawLose(team);
+                var panel = SeasonRace[side].transform;
+                panel.Find("rank").GetComponent<UILabel>().text = rank.ToString();
+                panel.Find("wdl").GetComponent<UILabel>().text = string.Format("W{0} D{1} L{2}", record[0], record[1], record[2]);
+                panel.Find("team").GetComponent<UILabel>().text = side == 0 ? Mode.rttsMyTeamName : Mode.rttsOpponentTeamName;
+            }
+
+            if (leagueLogo == null) return;
+            var sprite = Resources.Load<Sprite>("Sprite/LeagueLogo/LeagueLogo" + league.League);
+            if (sprite == null)
+            {
+                leagueLogo.enabled = false;
+                Debug.LogWarning("Missing opening league logo: " + league.League);
+                return;
+            }
+            if (rttsLeagueLogo == null)
+            {
+                var obj = new GameObject("RttsLeagueLogo");
+                obj.layer = leagueLogo.gameObject.layer;
+                obj.transform.SetParent(leagueLogo.transform, false);
+                rttsLeagueLogo = obj.AddComponent<UI2DSprite>();
+            }
+            rttsLeagueLogo.sprite2D = sprite;
+            rttsLeagueLogo.pivot = leagueLogo.pivot;
+            rttsLeagueLogo.depth = leagueLogo.depth;
+            rttsLeagueLogo.color = Color.white;
+            // Fit within the authored 174 x 128 area; never use native texture size.
+            float fit = Mathf.Min(leagueLogo.width / sprite.rect.width, leagueLogo.height / sprite.rect.height);
+            rttsLeagueLogo.SetDimensions(Mathf.Max(1, Mathf.RoundToInt(sprite.rect.width * fit)),
+                Mathf.Max(1, Mathf.RoundToInt(sprite.rect.height * fit)));
+            leagueLogo.enabled = false;
+        }
+
         public void init(BallPlayManager _manager)
         {
             cosecutive.gameObject.SetActive(false);
@@ -219,6 +263,7 @@ namespace BaseBall.BallPlay
                 }
 #endif
             }
+            if (Mode.bRttsMode) BindRttsOpening();
             FieldCrowdManager.SetCrowdActiveAll(false);
 
             StartCoroutine(deActive(_manager));

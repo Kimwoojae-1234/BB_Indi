@@ -98,27 +98,28 @@ public class Popup_ChangeName : UIPopup
     {
         Debug.Log("Success");
         KOBManager.MyInfo.InitUserInfo();
+        KOBManager.Backend.TrophyRanking.Sync();
         buttonAvailable();
         Close();
-        KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init("Name Change Success");
+        KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init(UILocalization.Get("ui.074a8a32c8fc"));
     }
 
     private void Fail()
     {
-        Debug.Log("Fail");
-        KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init("Fail", buttonAvailable);
+        Debug.Log(UILocalization.Get("ui.2758e3273dd1"));
+        KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init(UILocalization.Get("ui.2758e3273dd1"), buttonAvailable);
     }
 
     private void DuplicateName()
     {
-        Debug.Log("DuplicateName");
-        KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init("DuplicateName", buttonAvailable);
+        Debug.Log(UILocalization.Get("ui.f13b11f995dd"));
+        KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init(UILocalization.Get("ui.f13b11f995dd"), buttonAvailable);
     }
 
     private void NumberOfCharacters()
     {
-        Debug.Log("NumberOfCharacters");
-        KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init("NumberOfCharacters", buttonAvailable);
+        Debug.Log(UILocalization.Get("ui.fe26ff995858"));
+        KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init(UILocalization.Get("ui.fe26ff995858"), buttonAvailable);
     }
 
 

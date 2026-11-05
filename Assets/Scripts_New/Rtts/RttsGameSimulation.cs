@@ -8,15 +8,15 @@ using System.Linq;
 /// </summary>
 public static class RttsHardcodedRewardConfig
 {
-    public const int TrophyRoadPoint = 10;
-    public const int BallerReputationPoint = 10;
-    public const int RttsRewardPoint = 1;
+    public static int TrophyRoadPoint => BeachLeagueRewards.Config.TrophyRoadPoint;
+    public static int BallerReputationPoint => BeachLeagueRewards.Config.BallerReputationPoint;
+    public static int RttsRewardPoint => BeachLeagueRewards.Config.RttsRewardPoint;
 
-    public const int CardAmount = 1;
-    public const int GoldMin = 100;
-    public const int GoldMaxExclusive = 301;
-    public const int FreeGemMin = 5;
-    public const int FreeGemMaxExclusive = 16;
+    public static int CardAmount => BeachLeagueRewards.Config.CardAmount;
+    public static int GoldMin => BeachLeagueRewards.Config.GoldMin;
+    public static int GoldMaxExclusive => BeachLeagueRewards.Config.GoldMaxExclusive;
+    public static int FreeGemMin => BeachLeagueRewards.Config.FreeGemMin;
+    public static int FreeGemMaxExclusive => BeachLeagueRewards.Config.FreeGemMaxExclusive;
 }
 
 /// <summary>
@@ -642,24 +642,8 @@ public sealed class RttsGameSimulation
 
     private SimPlayer BuildPlayer(int playerIndex, int level, int order, int position, bool isPitcher)
     {
-        int contact = DefaultAbility;
-        int power = DefaultAbility;
-        int vision = DefaultAbility;
-        int speed = DefaultAbility;
-        int overall = DefaultAbility;
-
-        if (!isPitcher)
-        {
-            HitterLevelData ability = KOBManager.Backend.Chart.HitterLevelData.GetData(playerIndex, level);
-            if (ability != null)
-            {
-                contact = ability.contact;
-                power = ability.power;
-                vision = ability.vision;
-                speed = ability.speed;
-                overall = (ability.contact + ability.power + ability.vision + ability.fielding + ability.throwing + ability.speed) / 6;
-            }
-        }
+        int contact = RttsLiveRoster.Ability100(_league, playerIndex == KOBManager.MyInfo.GameData.ManageInfo.SelectBaller);
+        int power = contact, vision = contact, speed = contact, overall = contact;
 
         return new SimPlayer
         {
@@ -684,15 +668,13 @@ public sealed class RttsGameSimulation
     {
         CharacterData character = KOBManager.Backend.Chart.CharacterData.GetData(playerIndex);
         if (character == null) return "PLAYER " + playerIndex;
-        string localized = KOBManager.Localization.GetUILocalizedValue2(character.name_id);
+        string localized = UILocalization.Get(character.name_id);
         return string.IsNullOrEmpty(localized) ? character.name_id : localized;
     }
 
-    private static int GetPitchingAbility(int pitcherIndex, int level)
+    private int GetPitchingAbility(int pitcherIndex, int level)
     {
-        PitcherLevelData ability = KOBManager.Backend.Chart.PitcherLevelData.GetData(pitcherIndex, level);
-        if (ability == null) return DefaultAbility;
-        return (ability.control + ability.fastball + ability.curve + ability.slider + ability.sinker + ability.changeup) / 6;
+        return RttsLiveRoster.Ability100(_league, pitcherIndex == KOBManager.MyInfo.GameData.ManageInfo.SelectBaller);
     }
 
     private static int GetPitcherLevel(RttsTeam team)

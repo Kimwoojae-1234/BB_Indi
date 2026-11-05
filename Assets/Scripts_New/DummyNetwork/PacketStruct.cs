@@ -31,6 +31,13 @@ public enum DummyURL
 
     RandomTest,
     RandomTest2,
+    RecruitBaller,
+    EquipBallerSkill,
+    UpgradeBallerSkill,
+    EquipBallerGear,
+    UpgradeBallerGear,
+    ShopPurchase,
+    PassClaim,
 }
 
 
@@ -119,6 +126,16 @@ public class TResultBallerTrophyRoadReward : TResponseBase
 }
 
 
+
+public class TRequestRecruitBaller : TRequestBase
+{
+    public override DummyURL getURL() => DummyURL.RecruitBaller;
+    public int CardIdx { get; set; }
+}
+public class TResultRecruitBaller : TResponseBase
+{
+    public int CardIdx;
+}
 
 public class TRequestUpgradeCard : TRequestBase
 {
@@ -279,4 +296,24 @@ public class TRequestRandomTest2 : TRequestBase
 public class TResultRandomTest2 : TResponseBase
 {
 
+}
+
+public class TRequestEquipBallerSkill : TRequestBase
+{
+ public override DummyURL getURL() => DummyURL.EquipBallerSkill;
+ public int BallerIdx, Slot, SkillIdx;
+}
+public class TResultEquipBallerSkill : TResponseBase { }
+
+public class TRequestUpgradeBallerSkill : TRequestBase
+{
+ public override DummyURL getURL() => DummyURL.UpgradeBallerSkill;
+ public int BallerIdx, SkillIdx;
+}
+
+public class TRequestBallerGear : TRequestBase
+{
+ public bool Upgrade;
+ public int BallerIdx, Slot, GearIdx;
+ public override DummyURL getURL() => Upgrade ? DummyURL.UpgradeBallerGear : DummyURL.EquipBallerGear;
 }

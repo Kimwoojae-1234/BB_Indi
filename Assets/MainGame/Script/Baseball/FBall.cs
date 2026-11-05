@@ -225,6 +225,7 @@ namespace BaseBall.BallPlay
 
         public void initInstance(BallPlayManager main)
         {
+            BallVisibilityOutline.Attach(ballObj3);
             //bLaserThrowFlag = false;
 
             spr = gameObject.GetComponent<tk2dSprite>();

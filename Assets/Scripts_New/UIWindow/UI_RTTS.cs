@@ -34,6 +34,8 @@ public class UI_RTTS : UIWindow
     [SerializeField] private StandingComponent [] StandingComp;
     [SerializeField] private RectTransform StandingContent;
 
+    public StandingComponent GetStandingRow(int teamIndex) => StandingComp[teamIndex];
+
     [Header("[Schedule]")]
     [SerializeField] private ScheduleComponent ScheduleComp;
 
@@ -50,6 +52,7 @@ public class UI_RTTS : UIWindow
     [SerializeField] private GameObject RttsTrophy;
 
     private int lastTab = 0;
+    private BeachLeagueChanges leagueChanges;
     RttsUIStae State;
 
 
@@ -114,7 +117,10 @@ public class UI_RTTS : UIWindow
         InitLeaderTab();
         InitDailyTop50Tab();
 
-        InitScheduleTab(); //스케쥴 텝으로 초기화
+        InitScheduleTab();
+        leagueChanges = GetComponent<BeachLeagueChanges>() ?? gameObject.AddComponent<BeachLeagueChanges>();
+        leagueChanges.Present(this, TabText[0], TabText, LeaderSideTabTxt);
+        //스케쥴 텝으로 초기화
 
 
         //OnClickTab(1);
@@ -208,7 +214,7 @@ public class UI_RTTS : UIWindow
                     lastdraw = LeagueTeamRecord[lastIdx].Draw;
                 }
                 int Gab = ((lastwin - win) - (lastlose - lose));
-                bSameGab = (Gab == 0 ? true : false);
+                bSameGab = KOBManager.Rtts.StadingInfo[lastIdx] == standing.Value;
             }
             lastRank = StandingComp[idx].SetRank(rank, _wld, _firstwld, lastRank, bSameGab);
 
@@ -310,7 +316,7 @@ public class UI_RTTS : UIWindow
         {
             if (count < 10)
             {
-                if (LeaderComp[count].InitComp(record.Key, record.Value, count, arg) == true)
+                if (LeaderComp[count].InitComp(record.Key, record.Value, BeachLeagueChanges.Rank(Leaders, record.Key) - 1, arg) == true)
                 {
                     myPlayerCount = count;
                 }
@@ -327,7 +333,7 @@ public class UI_RTTS : UIWindow
                     bool isMySelectBaller = KOBManager.Rtts.isSelectBaller(record.Key);
                     if (isMySelectBaller == true)
                     {
-                        LeaderComp[9].InitComp(record.Key, record.Value, count, arg);
+                        LeaderComp[9].InitComp(record.Key, record.Value, BeachLeagueChanges.Rank(Leaders, record.Key) - 1, arg);
                         myPlayerCount = 9;
                         break;
                     }
@@ -424,6 +430,7 @@ public class UI_RTTS : UIWindow
         }
 
         lastTab = arg;
+        leagueChanges?.Visit(arg);
     }
 
     public void OnClickSideTab(int arg)
@@ -436,6 +443,7 @@ public class UI_RTTS : UIWindow
         }
 
         updateLeader(arg);
+        leagueChanges?.Visit(2, arg);
     }
 
 

@@ -5,6 +5,8 @@ namespace BaseBall.BallPlay
 {
     public class QuickPlayerInfo : MonoBehaviour
     {
+        private CPlayer displayedPlayer;
+        private bool displayedPitcher;
         public GameObject batter, pitcher;
         public UILabel[] batterLabel;
         public UILabel[] pitcherLabel;
@@ -30,20 +32,10 @@ namespace BaseBall.BallPlay
 
             batterPos.spriteName = "info_" + (player.getOrder() + 1);
             batterPos.MakePixelPerfect();
+            displayedPlayer = player; displayedPitcher = false;
+            QuickSimLabelArt.Apply(batterPos, "order_" + (player.getOrder() + 1), 58, 22);
 
-            int curHitNum = player.getStat(Param.ST_H);
-            int curABNum = player.getStat(Param.ST_AB);            
-            batterLabel[1].text = curHitNum + "/" + curABNum;  //안타
-            batterLabel[2].text = player.getStat(Param.ST_HR).ToString();   //홈런
-            batterLabel[3].text = player.getStat(Param.ST_RBI).ToString();   //타점
-            batterLabel[4].text = player.getStat(Param.ST_SBS).ToString();   //도루
-
-#if _Test_Local
-            batterLabel[0].text = "0.333";
-#else
-            batterLabel[0].text = Util.GetCurAvg(player.getBatterRecord(), curHitNum, curABNum);
-            playerCard.SetCardInfo(new CardData(player.getCard()));
-#endif
+            RefreshMatchRecords();
             setSlot(player);
 
             if (transform.parent.gameObject.activeSelf)
@@ -64,23 +56,39 @@ namespace BaseBall.BallPlay
 
             pitcherPos.spriteName = Util.getPitcherposSprite(player);
             pitcherPos.MakePixelPerfect();
+            displayedPlayer = player; displayedPitcher = true;
+            QuickSimLabelArt.Apply(pitcherPos, player.getPitcherPosition() == 0 ? "starter" : player.getPitcherPosition() == 4 ? "closer" : "relief", 58, 22);
 
-            //pitcherLabel[0].text = Util.RandomErr();   //방어
-            int per = player.getStat(Param.ST_PR);
-            int poc = player.getStat(Param.ST_IP);
-            pitcherLabel[1].text = per.ToString();  //자책
-            pitcherLabel[2].text = player.getStat(Param.ST_PH).ToString();   //피안
-            pitcherLabel[3].text = player.getStat(Param.ST_PSO).ToString();   //삼진
-
-#if _Test_Local
-            pitcherLabel[0].text = "1.57";
-
-#else
-            pitcherLabel[0].text = Util.GetCurErr(player.getPitcherRecord(), per, poc);
-            playerCard.SetCardInfo(new CardData(player.getCard()));
-#endif
+            RefreshMatchRecords();
             setSlot(player);
             //pitcherStatmina(player);
+        }
+
+        // Refresh mutable match records even when the player reference stays unchanged.
+        private void LateUpdate() => RefreshMatchRecords();
+
+        private void RefreshMatchRecords()
+        {
+            if (displayedPlayer == null) return;
+            var p = displayedPlayer;
+            if (displayedPitcher)
+            {
+                int earned = p.getStat(Param.ST_PER), outs = p.getStat(Param.ST_IP);
+                pitcherLabel[0].text = outs > 0 ? (earned * 27f / outs).ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) : "0.00";
+                pitcherLabel[1].text = earned.ToString();
+                pitcherLabel[2].text = p.getStat(Param.ST_PH).ToString();
+                pitcherLabel[3].text = p.getStat(Param.ST_PSO).ToString();
+                pitcherStatmina(p);
+            }
+            else
+            {
+                int hits = p.getStat(Param.ST_H), atBats = p.getStat(Param.ST_AB);
+                batterLabel[0].text = atBats > 0 ? (hits / (float)atBats).ToString("0.000", System.Globalization.CultureInfo.InvariantCulture) : "0.000";
+                batterLabel[1].text = hits + "/" + atBats;
+                batterLabel[2].text = p.getStat(Param.ST_HR).ToString();
+                batterLabel[3].text = p.getStat(Param.ST_RBI).ToString();
+                batterLabel[4].text = p.getStat(Param.ST_SBS).ToString();
+            }
         }
 
         private readonly int maxGauge = 79;
@@ -258,5 +266,39 @@ namespace BaseBall.BallPlay
             SetLight(0);
         }
 
+    }
+}
+namespace BaseBall.BallPlay
+{
+    internal static class QuickSimLabelArt
+    {
+        private static readonly Dictionary<string, Texture2D> cache = new Dictionary<string, Texture2D>();
+        public static void Apply(UIWidget original, string key, int width, int height, float offsetX = 0)
+        {
+            string path = "Localization/QuickSim/" + UILocalization.Language + "/" + key;
+            if (!cache.TryGetValue(path, out var texture))
+            {
+                texture = Resources.Load<Texture2D>(path);
+                cache[path] = texture;
+            }
+            if (texture == null) return;
+            var child = original.transform.Find("LocalizedLabelArt");
+            UITexture graphic;
+            if (child == null)
+            {
+                var obj = new GameObject("LocalizedLabelArt");
+                obj.layer = original.gameObject.layer;
+                obj.transform.SetParent(original.transform, false);
+                graphic = obj.AddComponent<UITexture>();
+            }
+            else graphic = child.GetComponent<UITexture>();
+            graphic.mainTexture = texture;
+            graphic.pivot = original.pivot;
+            graphic.depth = original.depth;
+            graphic.color = original.color;
+            graphic.SetDimensions(width, height);
+            graphic.transform.localPosition = new Vector3(offsetX, 0, 0);
+            original.enabled = false;
+        }
     }
 }

@@ -8,6 +8,18 @@ using Unity.VisualScripting;
 
 public class AchievementChart : Chart
 {
+    public void LoadForPrototype(AfterBackendLoadFunc completed)
+    {
+        var local = Resources.Load<TextAsset>("Prototype/BallerAchievements");
+        if (local == null) { BackendChartAndSave(completed); return; }
+        try { LoadChartDataTemplate(JsonMapper.ToObject(local.text)); }
+        catch (System.Exception error)
+        {
+            completed(false, nameof(AchievementChart), nameof(LoadForPrototype), error.ToString());
+            return;
+        }
+        completed(true, nameof(AchievementChart), nameof(LoadForPrototype), "");
+    }
     private readonly Dictionary<int, AchievementData> _dictionary = new();
 
     // 다른 클래스에서 Add, Delete등 수정이 불가능하도록 읽기 전용 Dictionary
@@ -25,6 +37,7 @@ public class AchievementChart : Chart
     // 차트 정보 불러오는 함수는 BackendData.Base.Chart의 BackendChartDataLoad를 참고해주세요
     protected override void LoadChartDataTemplate(JsonData json)
     {
+        _dictionary.Clear();
         foreach (JsonData eachItem in json)
         {
             AchievementData info = new AchievementData(eachItem);

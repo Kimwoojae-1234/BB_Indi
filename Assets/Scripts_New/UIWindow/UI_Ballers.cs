@@ -34,6 +34,7 @@ public class UI_Ballers : UIWindow
     [Header("[버튼]")]
     [SerializeField] private GameObject SelectBtn;
     [SerializeField] private GameObject PracticeBtn;
+    [SerializeField] private GameObject CareerBtn;
 
     [Header("[업그레이드 관련]")]
     [SerializeField] private SkeletonGraphic UpgradeEffect;
@@ -49,11 +50,13 @@ public class UI_Ballers : UIWindow
         base.Initialize();
         //Property.InitProperty(typeof(UI_Ballers));
         SelectIdx = -1;
+        if (PracticeBtn != null) PracticeBtn.SetActive(false);
     }
 
     public override void OpenWindow()
     {
         base.OpenWindow();
+        if (PracticeBtn != null) PracticeBtn.SetActive(false);
         Property.InitProperty(typeof(UI_Ballers));
         State = BallerUIStae.Normal;
         DeActiveBallerTrophy();
@@ -86,6 +89,7 @@ public class UI_Ballers : UIWindow
         KOBManager.MyInfo.SetUISelectedBaller(idx); //볼러 UI진입시 UISelected 바꿔줌
 
         CardState = state;
+        UpdateInfo(idx);
         if (SelectIdx != idx)
         {
             SelectIdx = idx;
@@ -105,7 +109,7 @@ public class UI_Ballers : UIWindow
             //캐릭터 로딩
             ballerObj = KOBManager.Resource.LoadGameObject("Ballers", "baller" + idx, origin.transform);
 
-            UpdateInfo(idx);
+
         }
         else
         {
@@ -129,6 +133,8 @@ public class UI_Ballers : UIWindow
 
     public void UpdateInfo(int _idx)
     {
+        CardState = KOBManager.MyInfo.GameData.PlayerInfo.BallerList.ContainsKey(_idx) ? CardBaller.CardBallerState.Collection : CardBaller.CardBallerState.Locked;
+        if (CareerBtn != null) CareerBtn.SetActive(State == BallerUIStae.Normal && CardState == CardBaller.CardBallerState.Collection);
         CharacterData ballerData = KOBManager.Backend.Chart.CharacterData.GetData(_idx); //고정정보 - 선수고유정보
         if (ballerData == null)
         {
@@ -174,6 +180,7 @@ public class UI_Ballers : UIWindow
 
     public void OnClickSelect()
     {
+        if (CardState != CardBaller.CardBallerState.Collection) return;
         if(State == BallerUIStae.Normal)
         {
             int requestedBallerIdx = SelectIdx;
@@ -238,6 +245,7 @@ public class UI_Ballers : UIWindow
 
     private void BackToUI()
     {
+        UpdateInfo(SelectIdx);
         ballerObj.transform.parent = origin.transform;
         ballerObj.transform.localScale = Vector3.one;
         ballerObj.transform.localPosition = Vector3.zero;
@@ -257,6 +265,7 @@ public class UI_Ballers : UIWindow
 
     private void ActiveBallerTrophy()
     {
+        if (CareerBtn != null) CareerBtn.SetActive(false);
         BallerTrophy.gameObject.SetActive(true);
         for (int i = 0; i < Buttons.Length; i++) Buttons[i].gameObject.SetActive(false);
     }
@@ -265,6 +274,8 @@ public class UI_Ballers : UIWindow
     {
         BallerTrophy.gameObject.SetActive(false);
         for (int i = 0; i < Buttons.Length; i++) Buttons[i].gameObject.SetActive(true);
+        if (PracticeBtn != null) PracticeBtn.SetActive(false);
+        if (CareerBtn != null) CareerBtn.SetActive(CardState == CardBaller.CardBallerState.Collection);
     }
 
 

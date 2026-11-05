@@ -50,6 +50,7 @@ namespace BaseBall.BallPlay
         void Awake()
         {
             showCount = 0;
+            if (Mode.bRttsMode) HideStartingPresentation();
             //lightIndex = 0;
         }
 
@@ -90,11 +91,33 @@ namespace BaseBall.BallPlay
         }
 
 
+        private void HideStartingPresentation()
+        {
+            if (_text_active != null) _text_active.SetActive(false);
+            if (_active != null) _active.SetActive(false);
+        }
+
+        private IEnumerator StartRttsAfterFieldPreview()
+        {
+            Debug_UI.SetNetwork(false);
+            yield return new WaitForSeconds(0.5f);
+            manager.playState = PlayState.PLAY_START_INNING;
+            manager.setInningChangeSkip();
+        }
+
         public void init(BallPlayManager _manager)
         {
             bQuit = false;
             manager = _manager;
             manager.playState = PlayState.NONE;
+            if (Mode.bRttsMode)
+            {
+                StopAllCoroutines();
+                bQuit = true;
+                HideStartingPresentation();
+                StartCoroutine(StartRttsAfterFieldPreview());
+                return;
+            }
             teamIndex = (manager.bTopInning ? SimulPlayerManager.awayTeamIndex : SimulPlayerManager.homeTeamIndex);
             bHome = manager.bTopInning;
 

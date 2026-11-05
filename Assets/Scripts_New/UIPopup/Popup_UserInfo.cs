@@ -25,7 +25,7 @@ public class Popup_UserInfo : UIPopup
     [SerializeField] private GameObject[] AlarmObj = null;
 
 
-    private string[] __title = new string[] { "RTTS STATS", "TOURNAMENT STATS", "LEAGUE STATS" };
+    private readonly string[] __title = { "ui.ede9be65dafb", "ui.8c849f7c6d2d", "ui.2e7988dfed98" };
 
     private enum UserInfoMode
     {
@@ -42,8 +42,7 @@ public class Popup_UserInfo : UIPopup
         base.Open();
         for (int i = 0; i < AlarmObj.Length; i++) AlarmObj[i].gameObject.SetActive(false); //추후 알람 세팅
         
-        UserInfo info = KOBManager.MyInfo.BackkendUserInfo;
-        UserName.text = info.nickname;
+        RefreshIdentity();
         
         /*
         KOBUserInfo LobbyInfo = KOBManager.MyInfo.UserInfo;
@@ -79,9 +78,39 @@ public class Popup_UserInfo : UIPopup
     private void OnEnable()
     {
         Debug.Log("OnEnable");
-        UserInfo info = KOBManager.MyInfo.BackkendUserInfo;
-        UserName.text = info.nickname;
+        RefreshIdentity();
         
+    }
+
+    private void RefreshIdentity()
+    {
+        var info = KOBManager.MyInfo.BackkendUserInfo;
+        var identity = KOBManager.Backend.GameData.KOBPublicData;
+        UserName.richText = false;
+        UserName.text = info?.nickname ?? "Rookie";
+        UserProfile.sprite = UserIdentity.Portrait(identity.ProfileId);
+        UserProfile.preserveAspect = true;
+        var tag = transform.Find("Popup/Group_Top/Text_Tag").GetComponent<TextMeshProUGUI>();
+        tag.text = identity.CountryCode;
+        var flag = tag.transform.Find("CountryFlag");
+        if (flag == null)
+        {
+            var obj = new GameObject("CountryFlag", typeof(RectTransform), typeof(Image));
+            obj.transform.SetParent(tag.transform, false);
+            flag = obj.transform;
+            var rect = (RectTransform)flag;
+            rect.anchorMin = rect.anchorMax = new Vector2(0, 0.5f);
+            rect.anchoredPosition = new Vector2(-24, 0);
+            rect.sizeDelta = new Vector2(30, 24);
+        }
+        var icon = flag.GetComponent<Image>();
+        icon.sprite = UserIdentity.Flag(identity.CountryCode);
+        icon.enabled = icon.sprite != null;
+        icon.preserveAspect = true;
+        icon.raycastTarget = false;
+        var growth = KOBManager.MyInfo.GameData.GrowthInfo;
+        if (RTTS_Info.Length > 0) RTTS_Info[0].text = growth.Trophy.ToString("N0");
+        if (RTTS_Info.Length > 1) RTTS_Info[1].text = UILocalization.Get("ui.aed30cb285e7") + growth.League;
     }
 
     private void SetMode(UserInfoMode _mode)
@@ -91,7 +120,7 @@ public class Popup_UserInfo : UIPopup
         {
             Mode[i].gameObject.SetActive(i == (int)CurrentMode ? true : false);
         }
-        ModeTitile.text = __title[(int)_mode];
+        UILocalization.Set(ModeTitile, __title[(int)_mode]);
     }
 
 

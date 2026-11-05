@@ -30,9 +30,7 @@ public static class KOBPointCalUtil
 
     public static int CaculateAddXP(TRequestBattleEnd req)
     {
-        //미션과 동시에 세팅해야 할듯
-
-        return 0;
+        return PassCatalog.Current.xpPerGame;
     }
 
 

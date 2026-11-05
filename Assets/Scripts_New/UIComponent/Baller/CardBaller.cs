@@ -59,7 +59,7 @@ public class CardBaller : MonoBehaviour
         KOBBaller info = KOBManager.MyInfo.GameData.PlayerInfo.BallerList[idx]; //선수 성장정보
         UpgradeChart UpgradeData = KOBManager.Backend.Chart.UpgradeData;            //업글 정보
 
-        CurrentState[0].gameObject.SetActive(true);
+        for (int state = 0; state < CurrentState.Length; state++) CurrentState[state].SetActive(state == 0);
         for (int i = 0; i < Glow.Length; i++) Glow[i].gameObject.SetActive(true);
         baseInfo(data);
 
@@ -74,7 +74,8 @@ public class CardBaller : MonoBehaviour
         UpgradeSlider.value = (float)curCard / (float)CardNeed;
 
         //레벨
-        LevelFrame.sprite = KOBManager.Atlas.GetSprite(AtlasManager.MyAtlas.UICompo, "LevelFrame_" + data.rarity.ToString());
+        LevelFrame.sprite = KOBManager.Atlas.GetSprite(AtlasManager.MyAtlas.UICompo, "LevelFrame_" + data.rarity)
+            ?? KOBManager.Atlas.GetSprite(AtlasManager.MyAtlas.UICompo, "LevelFrame_COMMON");
         LevelTxt.text = info.level.ToString();
     }
 
@@ -84,14 +85,14 @@ public class CardBaller : MonoBehaviour
         State = CardBallerState.Unlocking;
         CharacterData data = KOBManager.Backend.Chart.CharacterData.GetData(idx);
         
-        CurrentState[1].gameObject.SetActive(true);
+        for (int state = 0; state < CurrentState.Length; state++) CurrentState[state].SetActive(state == 1);
         for (int i = 0; i < Glow.Length; i++) Glow[i].gameObject.SetActive(true);
         baseInfo(data);
 
-        BallerName.color = KOBUtil.ConvertColor(0x919191);
+
 
         //가격 - 1레벨
-        UnlockingGem.text = KOBManager.Backend.Chart.UpgradeData.UnlockCost(1)[data.rarity].ToString(); 
+        UnlockingGem.text = PrototypeBallers.UnlockCost(data, KOBManager.MyInfo.GameData.GrowthInfo.League).ToString("N0"); 
     }
 
     public void SetLocked(int idx)
@@ -100,32 +101,51 @@ public class CardBaller : MonoBehaviour
         State = CardBallerState.Locked;
         CharacterData data = KOBManager.Backend.Chart.CharacterData.GetData(idx);
 
-        CurrentState[2].gameObject.SetActive(true);
-        for (int i = 0; i < Glow.Length; i++) Glow[i].gameObject.SetActive(false);
+        for (int state = 0; state < CurrentState.Length; state++) CurrentState[state].SetActive(state == 2);
+        for (int i = 0; i < Glow.Length; i++) Glow[i].gameObject.SetActive(true);
         baseInfo(data);
 
-        Color lockColor = KOBUtil.ConvertColor(0x919191);
-        CardImg.color = lockColor;
-        BallerImg.color = lockColor;
-        BallerName.color = lockColor;
+
 
         //가격 - 2레벨
-        UnlockGem.text = KOBManager.Backend.Chart.UpgradeData.UnlockCost(2)[data.rarity].ToString();
+        UnlockGem.text = PrototypeBallers.UnlockCost(data, KOBManager.MyInfo.GameData.GrowthInfo.League).ToString("N0");
 
         //언락 리그
         int league = data.league;
-        UnlockTxt.text = string.Format("Available on the\nRTTS{0} League", league);
+        UILocalization.Set(UnlockTxt, "ui.99fa24f147d4", league);
     }
 
     private void baseInfo(CharacterData data)
     {
-        CardImg.sprite = KOBManager.Atlas.GetSprite(AtlasManager.MyAtlas.UICompo, "Frame_CardFrame_" + data.rarity.ToString());
+        var frame = KOBManager.Atlas.GetSprite(AtlasManager.MyAtlas.UICompo, "Frame_CardFrame_" + data.rarity);
+        CardImg.sprite = frame != null ? frame : KOBManager.Atlas.GetSprite(AtlasManager.MyAtlas.UICompo, "Frame_CardFrame00_Base");
         KOBManager.Resource.LoadBallerPortrait(BallerImg, data.char_idx);
-        BallerName.text = KOBManager.Localization.GetUILocalizedValue2(data.name_id);
+        UILocalization.Set(BallerName, data.name_id);
 
-        CardImg.color = Color.white;
+        CardImg.color = frame != null ? Color.white : KOBUtil.GetRarityColor(data.rarity);
+        // Frame sprites have their own palette (different from the rarity text colors).
+        Color glowColor = frame != null ? GetCardBackgroundColor(data.rarity) : CardImg.color;
+        var bottomGlow = transform.Find("Mask/Glow")?.GetComponent<Image>();
+        if (bottomGlow != null)
+        {
+            glowColor.a = bottomGlow.color.a;
+            bottomGlow.color = glowColor;
+        }
         BallerImg.color = Color.white;
         BallerName.color = Color.white;
+    }
+
+    public static Color GetCardBackgroundColor(KOBRarity rarity)
+    {
+        // Base colors sampled from Frame_CardFrame_* artwork.
+        switch (rarity)
+        {
+            case KOBRarity.COMMON: return new Color32(42, 170, 253, 255);
+            case KOBRarity.RARE: return new Color32(83, 216, 4, 255);
+            case KOBRarity.EPIC: return new Color32(217, 85, 255, 255);
+            case KOBRarity.LEGENDARY: return new Color32(255, 155, 25, 255);
+            default: return KOBUtil.GetRarityColor(rarity);
+        }
     }
 
 }

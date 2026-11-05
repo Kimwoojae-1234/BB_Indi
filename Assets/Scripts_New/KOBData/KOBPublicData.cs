@@ -7,6 +7,33 @@ using Newtonsoft.Json;
 [Serializable]
 public class KOBPublicData : BackendData.Base.GameData
 {
+    [JsonProperty] public int ProfileId { get; private set; }
+    [JsonProperty] public string CountryCode { get; private set; }
+    private bool identityChanged;
+
+    public bool EnsureIdentity()
+    {
+        if (ProfileId <= 0)
+        {
+            ProfileId = UnityEngine.Random.Range(1, 9);
+            identityChanged = true;
+        }
+        if (string.IsNullOrWhiteSpace(CountryCode))
+        {
+            CountryCode = UserIdentity.ResolveCountry(KOBManager.MyInfo.BackkendUserInfo?.countryCode);
+            identityChanged = true;
+        }
+        if (identityChanged) IsChangedData = true;
+        return identityChanged;
+    }
+
+    public Param GetRankingParam(int trophy)
+    {
+        Param param = new Param();
+        param.Add("Trophy", trophy);
+        param.Add("RankProfile", ProfileId + "|" + CountryCode);
+        return param;
+    }
     [JsonProperty] public int Trophy { get; private set; }
     [JsonProperty] public int League { get; private set; }
     [JsonProperty] public int SelectBaller { get; private set; } //선택된 선수
@@ -31,6 +58,7 @@ public class KOBPublicData : BackendData.Base.GameData
         SelectBaller = 1;
         LineupList.Clear();
         rttsInfo.InitLeague();
+        EnsureIdentity();
         InitAddChecker(true);
     }
 
@@ -47,6 +75,9 @@ public class KOBPublicData : BackendData.Base.GameData
     // 서버에서 데이터를 불러오늖 함수는 BackendData.Base.GameData의 BackendGameDataLoad() 함수를 참고해주세요
     protected override void SetServerDataToLocal(JsonData gameDataJson)
     {
+        ProfileId = gameDataJson.ContainsKey("ProfileId") ? int.Parse(gameDataJson["ProfileId"].ToString()) : 0;
+        CountryCode = gameDataJson.ContainsKey("CountryCode") ? gameDataJson["CountryCode"].ToString() : null;
+        identityChanged = false;
         if (gameDataJson.ContainsKey("Trophy"))
         {
             Trophy = int.Parse(gameDataJson["Trophy"].ToString());
@@ -85,6 +116,12 @@ public class KOBPublicData : BackendData.Base.GameData
     public override Param GetParam()
     {
         Param param = new Param();
+        if (identityChanged)
+        {
+            param.Add("ProfileId", ProfileId);
+            param.Add("CountryCode", CountryCode);
+            param.Add("RankProfile", ProfileId + "|" + CountryCode);
+        }
         //param.Add(GetColumnName(), this);
         if (isTrophyAdd == true)
         {
@@ -113,6 +150,7 @@ public class KOBPublicData : BackendData.Base.GameData
 
     public override void LocalDataUpdate()
     {
+        identityChanged = false;
         InitAddChecker(false);
     }
 
@@ -125,7 +163,7 @@ public class KOBPublicData : BackendData.Base.GameData
 
     public void UpdateTrophy()
     {
-        Trophy+=10;
+        Trophy = KOBManager.Backend.GameData.KOBGameData.GrowthInfo.Trophy;
         isTrophyAdd = true;
 
         IsChangedData = true;

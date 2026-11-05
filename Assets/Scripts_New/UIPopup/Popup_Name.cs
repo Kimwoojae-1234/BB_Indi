@@ -149,7 +149,7 @@ public class Popup_Name : UIPopup
         {
             Debug.Log("닉네임 생성 실패 " + bro3.ToString());
             ButtonCreate.interactable = true;
-            KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init("Nickname creation failed: " + bro3.GetErrorCode());
+            KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init(UILocalization.Get("ui.73b52b43ae91") + bro3.GetErrorCode());
         }
     }
 

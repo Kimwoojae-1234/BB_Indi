@@ -53,8 +53,8 @@ public class BallerSkillComponent : MonoBehaviour
                     }
                     else //스킬 있음
                     {
-                        int SkillLV = ballerInfo.SkillList[skillIndex].level; //스킬 레벨
-                        slot.Value.SetSkill(key, type, skillIndex, SkillLV);
+                        int SkillLV = ballerInfo.SkillList.TryGetValue(skillIndex, out var learned) && learned != null ? Mathf.Max(1, learned.level) : 1; //스킬 레벨
+                        slot.Value.SetSkill(skillIndex, key, type, SkillLV);
                     }
                 }
                 count++;
