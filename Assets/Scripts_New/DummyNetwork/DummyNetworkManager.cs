@@ -11,19 +11,25 @@ using BackEnd.Tcp;
 
 public class DummyNetworkManager : MonoBehaviour
 {
-#if UNITY_EDITOR
     private int pendingGemCheats;
     private bool gemCheatSaving;
+    public void GrantCheatGems()
+    {
+        if (KOBManager.MyInfo?.GameData?.CurrencyInfo != null) pendingGemCheats++;
+    }
+
     private void Update()
     {
         if (KOBManager.MyInfo?.GameData?.CurrencyInfo == null) return;
+#if UNITY_EDITOR
         var selected = UnityEngine.EventSystems.EventSystem.current?.currentSelectedGameObject;
         bool typing = selected != null && (selected.GetComponent<TMPro.TMP_InputField>()?.isFocused == true || selected.GetComponent<UnityEngine.UI.InputField>()?.isFocused == true);
         if (!typing && (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1)))
         {
-            pendingGemCheats++;
+            GrantCheatGems();
             Debug.Log("[Editor Gem Cheat] 1 key received: queued +100 gems.");
         }
+#endif
         if (pendingGemCheats == 0 || gemCheatSaving) return;
         var loading = KOBManager.FrontUI.GetPopup<FrontUI_NetworkLoading>();
         if (loading != null && loading.gameObject.activeInHierarchy) return;
@@ -37,12 +43,11 @@ public class DummyNetworkManager : MonoBehaviour
             {
                 foreach (var property in FindObjectsByType<LobbyPropertyComponent>(FindObjectsSortMode.None))
                     property.InitProperty(KOBManager.UI.GetCurrentUIType());
-                KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init("[Editor] +100 Gems");
+                KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init(UILocalization.Get("cheat.gems.success"));
             }
-            else KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init("[Editor] Gem save failed");
+            else KOBManager.FrontUI.OpenPopup<FrontUI_ToastPopup>().Init(UILocalization.Get("cheat.gems.failed"));
         });
     }
-#endif
 
     public void SendPacket(TRequestBase packetBody, BackendManager.AfterUpdateFunc onResult)
     {

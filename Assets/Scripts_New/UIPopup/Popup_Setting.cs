@@ -63,6 +63,15 @@ public class Popup_Setting : UIPopup
             if (button.name == "Button_Delete (1)") { button.gameObject.SetActive(false); continue; }
             button.onClick = new Button.ButtonClickedEvent();
             if (button.name == "Button_Language") button.onClick.AddListener(OnClickLanguageSetting);
+            else if (button.name == "Button_Support")
+            {
+                button.enabled = true;
+                button.interactable = true;
+                var group = button.GetComponent<CanvasGroup>();
+                if (group != null) { group.alpha = 1; group.interactable = true; group.blocksRaycasts = true; }
+                UILocalization.Set(button.GetComponentInChildren<TMP_Text>(true), "settings.getCheat");
+                button.onClick.AddListener(() => KOBManager.DummyNetwork.GrantCheatGems());
+            }
             else
             {
                 button.onClick.AddListener(UILocalization.Unavailable);
