@@ -252,6 +252,20 @@ namespace BaseBall.BallPlay
         }
 
 
+        private void ApplyBallerSkin(CPlayer player)
+        {
+            if (!Mode.bRttsMode || anim == null || anim.skeleton == null) return;
+            var character = KOBManager.Backend.Chart.CharacterData.GetData(player.RttsPlayerId);
+            int id = character == null ? 1001 : character.char_idx;
+            // 1001 -> ch01, 1049 -> ch02 ... 1056/1057 -> ch09.
+            int number = id >= 1049 ? Mathf.Clamp(id - 1047, 2, 9) : 1;
+            var skin = anim.skeleton.Data.FindSkin("ch" + number.ToString("00"));
+            if (skin == null) return;
+            anim.skeleton.SetSkin(skin);
+            anim.skeleton.SetSlotsToSetupPose();
+            anim.state.Apply(anim.skeleton);
+        }
+
         private readonly string batterDefault = "MainGame/spineData/battingview/batter/anim";
 
         private IEnumerator loadBatter(CPlayer player)
@@ -332,7 +346,7 @@ namespace BaseBall.BallPlay
                     }
 
 #if GIRL_PLAY
-
+                    ApplyBallerSkin(player);
 #else
                     
                     //타자뷰

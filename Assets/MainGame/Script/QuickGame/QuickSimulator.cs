@@ -69,6 +69,7 @@ namespace BaseBall.BallPlay
         //이닝전환
         public GameObject inningChange;
         public GameObject playerObj;
+        [SerializeField] private UITexture stadiumTexture;
         public UITexture myLogo;
         public UITexture cpuLogo;
 
@@ -148,11 +149,13 @@ namespace BaseBall.BallPlay
 
         private bool bPausePopup = false;
 
-        [Header("Hold Fast Forward")]
+        [Header("Button Fast Forward")]
         [SerializeField] private float holdFastForwardScale = 10.0f;
 
+        private static bool fastForwardSelected;
+        private bool fastForwardSuspended;
+        private bool applicationPaused;
         private bool bHoldFastForward;
-        private bool bBlockFastForwardUntilRelease;
         private float timeScaleBeforeFastForward = 1.0f;
         private float appliedFastForwardTimeScale = 1.0f;
         private readonly int[] fastRunnerPosition = new int[4];
@@ -203,7 +206,11 @@ namespace BaseBall.BallPlay
 
         }
 
-        private void OnEnable() { FrontAudio.PlaySimulation(); }
+        private void OnEnable()
+        {
+            FrontAudio.PlaySimulation();
+            if (topUI != null) topUI.SetActive(true);
+        }
 
         private void OnDisable()
         {
@@ -218,48 +225,37 @@ namespace BaseBall.BallPlay
 
         private void OnApplicationPause(bool pause)
         {
+            applicationPaused = pause;
             if (pause) setHoldFastForward(false, false);
+        }
+
+        private bool CanFastForward()
+        {
+            return isActiveAndEnabled && !fastForwardSuspended && !applicationPaused &&
+                   manager != null && !Mode.bPvpMode &&
+                   (!Mode.bOnlyChanceMode || Mode.bRttsMode) &&
+                   !bPausePopup && !bGoToGameFlag && Time.timeScale > 0.0f &&
+                   curState != SimulState.gameover &&
+                   (chancePopup == null || !chancePopup.activeSelf) &&
+                   (waitPopup == null || !waitPopup.activeSelf) &&
+                   (reconnectPopup == null || !reconnectPopup.activeSelf);
+        }
+
+        public void ToggleFastForward()
+        {
+            fastForwardSelected = !fastForwardSelected;
+            updateHoldFastForward();
         }
 
         private void updateHoldFastForward()
         {
-            bool pressing = isScreenPressed();
-            if (!pressing)
-            {
-                bBlockFastForwardUntilRelease = false;
-            }
-
-            bool canFastForward = manager != null &&
-                                  Mode.bPvpMode == false &&
-                                  Mode.bOnlyChanceMode == false &&
-                                  bPausePopup == false &&
-                                  bGoToGameFlag == false &&
-                                  Time.timeScale > 0.0f &&
-                                  curState != SimulState.gameover &&
-                                  (chancePopup == null || !chancePopup.activeSelf) &&
-                                  (waitPopup == null || !waitPopup.activeSelf) &&
-                                  (reconnectPopup == null || !reconnectPopup.activeSelf);
-
-            setHoldFastForward(pressing && !bBlockFastForwardUntilRelease && canFastForward);
-        }
-
-        private static bool isScreenPressed()
-        {
-            if (Input.touchCount > 0)
-            {
-                for (int i = 0; i < Input.touchCount; i++)
-                {
-                    TouchPhase phase = Input.GetTouch(i).phase;
-                    if (phase != TouchPhase.Ended && phase != TouchPhase.Canceled) return true;
-                }
-                return false;
-            }
-
-            return Input.GetMouseButton(0);
+            if (topUI != null && !topUI.activeSelf) topUI.SetActive(true);
+            setHoldFastForward(fastForwardSelected && CanFastForward());
         }
 
         private void setHoldFastForward(bool active, bool restorePresentation = true)
         {
+            if (wait != null) wait.SetActive(active);
             if (bHoldFastForward == active) return;
 
             bHoldFastForward = active;
@@ -286,7 +282,7 @@ namespace BaseBall.BallPlay
 
         private void stopFastForwardForChance()
         {
-            bBlockFastForwardUntilRelease = true;
+            fastForwardSuspended = true;
             setHoldFastForward(false);
         }
 
@@ -324,10 +320,20 @@ namespace BaseBall.BallPlay
 
         private bool bPitchingChanceOnce;
 
+        private void RefreshStadiumTexture()
+        {
+            if (stadiumTexture == null) return;
+            int stadium = Mathf.Clamp(Mode.stadiumNum, 1, 4);
+            string name = stadium == 1 ? "siuml_stadium" : "filed" + stadium.ToString("000") + "_siuml_stadium";
+            Texture2D texture = Resources.Load<Texture2D>("MainGame/Texture/uiTexture/simul/" + name);
+            if (texture != null) stadiumTexture.mainTexture = texture;
+            else Debug.LogWarning("Missing simulation stadium texture: " + name);
+        }
+
         public void init(BallPlayManager _manager)
         {
+            RefreshStadiumTexture();
             setHoldFastForward(false, false);
-            bBlockFastForwardUntilRelease = false;
             bFastRunnerStateValid = false;
 
             string[] _skinName = new string[] { "Morning", "Afternoon", "Night" };
@@ -406,7 +412,7 @@ namespace BaseBall.BallPlay
                 Max_Wait_Time = 15;
                 bHost = bMyHome ? false : true; //원정일경우 호스트 -> 우선은 이걸 기본으로
                 //bHost = bMyHome ? true : false; // 홈인경우 호스트
-                topUI.SetActive(false);
+                topUI.SetActive(true);
 
                 bPvpChanceFlag = new bool[2] { false, false };
                 bOffenseChanceFlag = new bool[2] { false, false };
@@ -417,7 +423,7 @@ namespace BaseBall.BallPlay
             }
             else
             {
-                topUI.SetActive(false); //topUI.SetActive(true);
+                topUI.SetActive(true);
                 chattingUI.gameObject.SetActive(false);
             }
 
@@ -769,7 +775,6 @@ namespace BaseBall.BallPlay
 
         private void setWait(bool bActive)
         {
-            wait.gameObject.SetActive(bActive);
             manual.GetComponent<Collider>().enabled = !bActive;
         }
 
@@ -962,6 +967,8 @@ namespace BaseBall.BallPlay
 
         private IEnumerator updater()//float delay)
         {
+            fastForwardSuspended = false;
+            updateHoldFastForward();
             if (manager.bPlayBallEvent == false)
             {
                 if (!bHoldFastForward)

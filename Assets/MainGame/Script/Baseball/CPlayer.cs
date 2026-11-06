@@ -352,6 +352,12 @@ namespace BaseBall.BallPlay
                 }
             }
 
+            // Keep league roster handedness instead of the legacy slot-based test override.
+            if (Mode.bRttsMode)
+            {
+                this.tHand = throwHand;
+                this.bHand = hitHand;
+            }
             velocityValue = 100;
 
         }

@@ -49,7 +49,30 @@ public static class StadiumSpriteChecks
                 if (renderer.sprite.pixelsPerUnit != 0.5f || obj.localScale != new Vector3(0.8f, 1.2f, 1)) throw new Exception("Incorrect side field size: " + side);
                 if (obj.GetComponent<tk2dSprite>() != null) throw new Exception("Unexpected side tk2d component");
             }
-            File.WriteAllText("Logs/stadium-sprites-check.log", "PASS: left/right field sprites validated; Unity imported both sprites; backL/backR/home have valid Sprite references, 1 PPU, correct mirroring, no tk2d component.");
+            int checkedPrefabs = 0;
+            for (int n = 1; n <= 4; n++)
+            {
+                string number = n.ToString("000");
+                foreach (var key in new[] { "BattingViewPrefab/bg/centerBGPrefab", "BattingViewPrefab/bg_side/leftBGPrefab", "BattingViewPrefab/bg_side/rightBGPrefab", "FieldViewPrefab/stadium/stadiumPrefab" })
+                {
+                    string assetPath = "Assets/Resources/MainGame/prefabs/" + key + n + ".prefab";
+                    AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceSynchronousImport | ImportAssetOptions.ForceUpdate);
+                    var asset = AssetDatabase.LoadAssetAtPath<GameObject>(assetPath);
+                    if (asset == null) throw new Exception("Missing stadium prefab: " + assetPath);
+                    string expected = key.Contains("centerBG") ? "batterview2_" + number : key.Contains("bg_side") ? "bg1_side_" + number : "filed" + number + "_1";
+                    string expectedBack = n == 1 ? "back" : "filed" + number + "_back";
+                    bool found = false, foundBack = key.Contains("stadiumPrefab");
+                    foreach (var renderer in asset.GetComponentsInChildren<SpriteRenderer>(true))
+                    {
+                        if (renderer.sprite == null) throw new Exception("Missing Sprite in " + assetPath + "/" + renderer.name);
+                        if ((renderer.sprite.name == expected || renderer.sprite.name == expected + "_0")) found = true;
+                        if ((renderer.sprite.name == expectedBack || renderer.sprite.name == expectedBack + "_0")) foundBack = true;
+                    }
+                    if (!found || !foundBack) throw new Exception("Incorrect numbered texture in " + assetPath);
+                    checkedPrefabs++;
+                }
+            }
+            File.WriteAllText("Logs/stadium-sprites-check.log", "PASS: " + checkedPrefabs + " prefabs across 4 stadiums; numbered field/front/side/background textures match, all SpriteRenderer references resolve.");
         }
         catch (Exception e) { File.WriteAllText("Logs/stadium-sprites-check.log", "FAIL: " + e); Debug.LogException(e); }
     }

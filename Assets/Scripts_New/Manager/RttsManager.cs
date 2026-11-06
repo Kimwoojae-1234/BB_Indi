@@ -377,6 +377,8 @@ public class RttsManager : MonoBehaviour
             _pendingMyResult = simulation.CreateResultTemplate(game[0], game[1], todayIsHome);
             RttsLiveRoster.Begin(_pendingMyResult, League, KOBManager.MyInfo.GameData.ManageInfo.SelectBaller);
 
+            // PlayGame counts completed games: games 1, 2, 3, 4, 5 use stadiums 1, 2, 3, 4, 1.
+            Mode.stadiumNum = Mathf.Max(0, PlayGame) % 4 + 1;
             tempSelectPage.ConfigureDongneYagu();
             Mode.BeginRttsGame(
                 todayIsHome,

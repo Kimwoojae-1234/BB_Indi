@@ -436,7 +436,9 @@ namespace BaseBall.BallPlay
             //Mode.finalInning = 1; //지워지워
             //Mode.maxInning = 1; //지워지워
 
-            Mode.stadiumNum = Mathf.Clamp(TEST_STADIUM_NUM, 1, 6);
+            // League entry already selected the stadium from the current game number.
+            if (!Mode.bRttsMode)
+                Mode.stadiumNum = Mathf.Clamp(TEST_STADIUM_NUM, 1, 4);
             setStadiumStyle(Mode.stadiumNum);
 
             //SimulPlayerManager.InitSeasonResult();
@@ -473,7 +475,7 @@ namespace BaseBall.BallPlay
             //Debug.Log("sindex_1 = " + pvpmanager.Get().stadiumIndex[1]);
             //Debug.Log("stadium num = " + sindex);
             Mode.stadiumNum = sindex;
-            Mode.stadiumNum = Mathf.Clamp(sindex, 1, 6);
+            Mode.stadiumNum = Mathf.Clamp(sindex, 1, 4);
             
             Mode.stadiumType = (Mode.StadiumType)(Mode.stadiumNum); //setStadiumStyle(Mode.stadiumNum);
 
@@ -498,7 +500,7 @@ namespace BaseBall.BallPlay
             Mode.finalInning = 9;
             Mode.maxInning = 12;
 
-            Mode.stadiumNum = Mathf.Clamp(TEST_STADIUM_NUM, 1, 6); 
+            Mode.stadiumNum = Mathf.Clamp(TEST_STADIUM_NUM, 1, 4); 
             setStadiumStyle(Mode.stadiumNum);
 
             Mode.PlayTypeFlag = Mode.ModeFlag.Auto;
@@ -514,7 +516,7 @@ namespace BaseBall.BallPlay
             Mode.finalInning = 9;
             Mode.maxInning = 12;
 
-            Mode.stadiumNum = Mathf.Clamp(TEST_STADIUM_NUM,1,6);
+            Mode.stadiumNum = Mathf.Clamp(TEST_STADIUM_NUM,1,4);
             setStadiumStyle(Mode.stadiumNum);
 
             Mode.PlayTypeFlag = Mode.ModeFlag.Manual;

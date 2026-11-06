@@ -15,12 +15,55 @@ public class LobbyPropertyComponent : MonoBehaviour
             if (parent == null || (parent.name != "Stats_Gold" && parent.name != "Stats_Gem" && parent.name != "Stats_Energe" && parent.name != "Stats_Energy")) continue;
             button.enabled = true;
             button.interactable = true;
+            BindCurrencyHitArea(button);
             button.onClick = new UnityEngine.UI.Button.ButtonClickedEvent();
             button.onClick.AddListener(() =>
             {
                 if (window is UI_Shop || KOBManager.Popup.CheckPopupOpen()) return;
                 KOBManager.UI.OpenWindow<UI_Shop>().LastWindow = window.GetType();
             });
+        }
+    }
+
+    // Match the full currency bar, including its value, without changing the visible plus.
+    private static void BindCurrencyHitArea(UnityEngine.UI.Button source)
+    {
+        const string areaName = "Button_Add_HitArea";
+        var parent = source.transform.parent;
+        var area = parent.Find(areaName) as RectTransform;
+        if (area == null)
+        {
+            var obj = new GameObject(areaName, typeof(RectTransform), typeof(UnityEngine.UI.Image),
+                typeof(UnityEngine.UI.Button), typeof(UnityEngine.UI.LayoutElement));
+            obj.layer = source.gameObject.layer;
+            area = (RectTransform)obj.transform;
+            area.SetParent(parent, false);
+            obj.GetComponent<UnityEngine.UI.LayoutElement>().ignoreLayout = true;
+        }
+        area.anchorMin = Vector2.zero;
+        area.anchorMax = Vector2.one;
+        area.offsetMin = Vector2.zero;
+        area.offsetMax = Vector2.zero;
+        area.SetAsLastSibling();
+        var image = area.GetComponent<UnityEngine.UI.Image>();
+        image.color = Color.clear;
+        image.raycastTarget = true;
+        var target = area.GetComponent<UnityEngine.UI.Button>();
+        target.targetGraphic = image;
+        target.transition = UnityEngine.UI.Selectable.Transition.None;
+        target.navigation = new UnityEngine.UI.Navigation { mode = UnityEngine.UI.Navigation.Mode.None };
+        target.onClick = new UnityEngine.UI.Button.ButtonClickedEvent();
+        target.onClick.AddListener(() =>
+        {
+            if (source.isActiveAndEnabled && source.IsInteractable()) source.onClick.Invoke();
+        });
+        var audio = area.GetComponent<UIButtonAudio>() ?? area.gameObject.AddComponent<UIButtonAudio>();
+        var originalAudio = source.GetComponent<UIButtonAudio>();
+        if (originalAudio != null)
+        {
+            audio.soundEnabled = originalAudio.soundEnabled;
+            audio.sound = originalAudio.sound;
+            audio.enabled = originalAudio.enabled;
         }
     }
 
