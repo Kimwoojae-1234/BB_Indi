@@ -25,6 +25,11 @@ public class ResultTeam : MonoBehaviour
     {
         if (resultInfo == null) return;
 
+        // Resolve both names and logos using the same league chart as StandingComponent.
+        BindTeam(resultInfo.FirstTeamIndex, MyLogo, MyTeamName, out var firstName);
+        BindTeam(resultInfo.SecondTeamIndex, OppLogo, OppTeamName, out var secondName);
+        resultInfo.FirstTeamName = firstName;
+        resultInfo.SecondTeamName = secondName;
         board?.BoardUpdate(resultInfo);
 
         int myScore = resultInfo.Stat.Score[0];
@@ -44,6 +49,19 @@ public class ResultTeam : MonoBehaviour
         SetStatItem(2, resultInfo.Stat.Steal, UILocalization.Get("ui.33cdb7043f59"), 5);
         SetStatItem(3, resultInfo.Stat.StrikeOut, "SO", 20);
         SetStatItem(4, resultInfo.Stat.Error, "ERROR", 5);
+    }
+
+    private static void BindTeam(int teamIndex, Image logo, TMP_Text label, out string name)
+    {
+        int team = teamIndex % KOBConstant.TEAM_RECORD_UNIT;
+        var chart = KOBManager.Backend.Chart.RttsTeam.GetRttsTeam(
+            RttsLiveRoster.League * KOBConstant.TEAM_RECORD_UNIT + team);
+        name = team == 0 ? KOBTextUtil.GetMyTeamName() : chart != null ? chart.Name : UILocalization.Get("beach.team." + team);
+        if (label != null) label.text = name;
+        if (logo == null) return;
+        logo.sprite = team == 0 ? TeamLogoCatalog.MyTeam : TeamLogoCatalog.Opponent(chart != null ? chart.Logo : team + 1);
+        logo.enabled = logo.sprite != null;
+        logo.preserveAspect = true;
     }
 
     private void SetStatItem(int index, int[] values, string title, int max)

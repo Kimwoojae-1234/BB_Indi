@@ -93,6 +93,7 @@ public class UILocalize : MonoBehaviour
 
 	void OnLocalize ()
 	{
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "BallPlay" || UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "BallPlayRealTime") return; // Preserve authored NGUI text and font.
 		// If no localization key has been specified, use the label's text as the key
 		if (string.IsNullOrEmpty(key))
 		{

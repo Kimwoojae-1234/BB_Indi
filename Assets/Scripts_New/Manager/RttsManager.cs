@@ -383,8 +383,8 @@ public class RttsManager : MonoBehaviour
             Mode.BeginRttsGame(
                 todayIsHome,
                 game[1],
-                _pendingMyResult.FirstTeamName,
-                _pendingMyResult.SecondTeamName);
+                UILocalization.GetEnglish("beach.team.0"),
+                UILocalization.GetEnglish("beach.team." + game[1]));
         }
         catch (Exception exception)
         {

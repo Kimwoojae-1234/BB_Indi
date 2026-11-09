@@ -275,7 +275,7 @@ namespace BaseBall.BallPlay
         private static readonly Dictionary<string, Texture2D> cache = new Dictionary<string, Texture2D>();
         public static void Apply(UIWidget original, string key, int width, int height, float offsetX = 0)
         {
-            string path = "Localization/QuickSim/" + UILocalization.Language + "/" + key;
+            string path = "Localization/QuickSim/en/" + key;
             if (!cache.TryGetValue(path, out var texture))
             {
                 texture = Resources.Load<Texture2D>(path);

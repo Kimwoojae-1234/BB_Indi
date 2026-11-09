@@ -27,8 +27,23 @@ public static class UILocalization
         PlayerPrefs.Save();
         Changed?.Invoke();
     }
+    public static bool IsIngameScene
+    {
+        get
+        {
+            string scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+            return scene == "BallPlay" || scene == "BallPlayRealTime" || scene == "MainLoading";
+        }
+    }
+    public static string GetEnglish(string key)
+    {
+        if (string.IsNullOrEmpty(key)) return key ?? "";
+        EnsureLoaded();
+        return entries.TryGetValue(key, out var item) ? item.en : key;
+    }
     public static string Get(string key)
     {
+        if (IsIngameScene) return GetEnglish(key);
         if (string.IsNullOrEmpty(key)) return key ?? "";
         EnsureLoaded();
         if (!entries.TryGetValue(key, out var item)) return key;

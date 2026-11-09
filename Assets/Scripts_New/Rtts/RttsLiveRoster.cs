@@ -39,10 +39,12 @@ public static class RttsLiveRoster
         var character = KOBManager.Backend.Chart.CharacterData.GetData(record.PlayerIndex);
         int hitHand = character == null ? CPlayer._RIGHTHAND : (int)character.hand;
         int position = Mathf.Clamp(record.Position - 1, 0, 9);
-        player.setIdentity(record.Name, pitcher ? 0 : position, pitcher ? player.getPitcherPosition() : record.BattingOrder - 1,
+        player.setIdentity(character != null && UILocalization.Contains(character.name_id) ? UILocalization.GetEnglish(character.name_id) : record.Name, pitcher ? 0 : position, pitcher ? player.getPitcherPosition() : record.BattingOrder - 1,
             CPlayer._RIGHTHAND, hitHand, 0, 0, pitcher ? 0 : position == 0 ? CPlayer._DH : position, slot);
         int ability = Ability100(League, IsSelected(player)) * 10;
-        player.setBatterAbility(ability, ability, ability, ability, ability, ability, ability);
+        bool outfielder = !pitcher && position >= CPlayer._LEFTFIELDER && position <= CPlayer._RIGHTFIELDER;
+        int fieldingAbility = ability + (outfielder ? 300 : 0);
+        player.setBatterAbility(ability, ability, ability, ability, fieldingAbility, fieldingAbility, ability);
         if (pitcher) player.setPitcherAbility(ability, ability, ability, ability, ability, side, slot);
     }
 #endif
